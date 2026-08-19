@@ -1,26 +1,62 @@
+using Unity.Cinemachine;
+using System.IO;
 using UnityEngine;
 
 /// <summary>
-/// Manages game save and load functionality.
-/// This controller is responsible for persisting game state such as player position and inventory.
+/// Handles saving and loading the player's game data.
+/// Stores the player's position and the current map boundary in a JSON file.
 /// </summary>
 public class SaveController : MonoBehaviour
 {
     /// <summary>
-    /// Initializes the save controller.
+    /// The file path where the game's save data is stored.
+    /// </summary>
+    private string saveLocation;
+
+    /// <summary>
+    /// Initializes the save location and loads previously saved game data.
     /// Called once before the first Update call.
     /// </summary>
     void Start()
     {
+        //Define save location
+        saveLocation = Path.Combine(Application.persistentDataPath, "saveData.json");
 
+        LoadGame();
     }
 
     /// <summary>
-    /// Called once per frame.
-    /// Currently empty but can be used for auto-save functionality.
+    /// Saves the player's current position and the active map boundary
+    /// to a JSON save file.
     /// </summary>
-    void Update()
+    public void SaveGame()
     {
+        SaveData saveData = new SaveData
+        {
+            playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position,
+            mapBoundary = FindObjectOfType<CinemachineConfiner2D>().BoundingShape2D.gameObject.name
+        };
 
+        File.WriteAllText(saveLocation, JsonUtility.ToJson(saveData));
+    }
+
+    /// <summary>
+    /// Loads the saved game data if a save file exists.
+    /// Restores the player's position and map boundary from the save file.
+    /// If no save file exists, a new save file is created using the current game state.
+    /// </summary>
+    public void LoadGame()
+    {
+        if (File.Exists(saveLocation))
+        {
+            SaveData saveData = JsonUtility.FromJson<SaveData>(File.ReadAllText(saveLocation));
+            GameObject.FindGameObjectWithTag("Player").transform.position = saveData.playerPosition;
+
+            FindObjectOfType<CinemachineConfiner2D>().BoundingShape2D = GameObject.Find(saveData.mapBoundary).GetComponent<PolygonCollider2D>();
+        }
+        else
+        {
+            SaveGame();
+        }
     }
 }

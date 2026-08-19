@@ -11,7 +11,6 @@ public class MenuController : MonoBehaviour
     /// This is toggled on and off based on user input.
     /// </summary>
     public GameObject menuCanvas;
-
     /// <summary>
     /// Initializes the menu by hiding it at startup.
     /// Called once before the first Update call.
