@@ -1,16 +1,26 @@
 using UnityEngine;
 
+/// <summary>
+/// Manages game save and load functionality.
+/// This controller is responsible for persisting game state such as player position and inventory.
+/// </summary>
 public class SaveController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    /// <summary>
+    /// Initializes the save controller.
+    /// Called once before the first Update call.
+    /// </summary>
     void Start()
     {
-        
+
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Called once per frame.
+    /// Currently empty but can be used for auto-save functionality.
+    /// </summary>
     void Update()
     {
-        
+
     }
 }

@@ -1,37 +1,79 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Handles player movement including walking and sprinting mechanics.
+/// Manages sprint duration, cooldown, and updates animator parameters for character animation.
+/// </summary>
 public class PlayerMovement : MonoBehaviour
 {
+    /// <summary>
+    /// Base movement speed for the player.
+    /// </summary>
     [SerializeField] private float moveSpeed = 5f;
+
+    /// <summary>
+    /// Multiplier applied to movement speed when sprinting.
+    /// </summary>
     [SerializeField] private float sprintMultiplier = 2f;
+
+    /// <summary>
+    /// Maximum duration of a sprint in seconds.
+    /// </summary>
     [SerializeField] private float sprintDuration = 3f;
+
+    /// <summary>
+    /// Cooldown period in seconds before sprint can be used again.
+    /// </summary>
     [SerializeField] private float sprintCooldown = 5f;
 
+    /// <summary>
+    /// Remaining time for the current sprint.
+    /// </summary>
     private float sprintTimer;
+
+    /// <summary>
+    /// Remaining time before sprint can be used again.
+    /// </summary>
     private float cooldownTimer;
 
+    /// <summary>
+    /// Rigidbody2D component for physics-based movement.
+    /// </summary>
     private Rigidbody2D rb;
+
+    /// <summary>
+    /// Current movement input vector from the player.
+    /// </summary>
     private Vector2 moveInput;
+
+    /// <summary>
+    /// Animator component for controlling character animations.
+    /// </summary>
     private Animator animator;
 
+    /// <summary>
+    /// Initializes player movement components and sets initial sprint state.
+    /// Called before the first frame update.
+    /// </summary>
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
-        // Start with a full sprint
         sprintTimer = sprintDuration;
     }
 
+    /// <summary>
+    /// Updates sprint timers and applies movement based on input and sprint state.
+    /// Called once per frame.
+    /// </summary>
     void Update()
     {
-        // Cooldown timer
         if (cooldownTimer > 0)
         {
             cooldownTimer -= Time.deltaTime;
 
-            // Cooldown finished
             if (cooldownTimer <= 0)
             {
                 cooldownTimer = 0;
@@ -41,7 +83,6 @@ public class PlayerMovement : MonoBehaviour
 
         float currentSpeed = moveSpeed;
 
-        // Sprint
         if (Input.GetKey(KeyCode.LeftShift) &&
             sprintTimer > 0 &&
             cooldownTimer <= 0)
@@ -50,7 +91,6 @@ public class PlayerMovement : MonoBehaviour
 
             sprintTimer -= Time.deltaTime;
 
-            // Sprint finished
             if (sprintTimer <= 0)
             {
                 sprintTimer = 0;
@@ -61,6 +101,11 @@ public class PlayerMovement : MonoBehaviour
         rb.linearVelocity = moveInput * currentSpeed;
     }
 
+    /// <summary>
+    /// Input System callback for movement input.
+    /// Updates animator parameters based on movement direction and state.
+    /// </summary>
+    /// <param name="context">Callback context containing input data.</param>
     public void OnMove(InputAction.CallbackContext context)
     {
         animator.SetBool("isWalking", true);
