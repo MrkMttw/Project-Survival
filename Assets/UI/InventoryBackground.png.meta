@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 706c2ac3785a85944a53bfd50dce74e3
+guid: 32b39aa43a9b19f4dac1685ac0421cd0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3547523828866080421
-    second: Hotbar_0
+      213: -4917625390145700553
+    second: InventoryBackground_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -48,10 +48,10 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 20
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Hotbar_0
+      name: InventoryBackground_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 160
+        height: 90
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5aedbc370265b3130800000000000000
-      internalID: 3547523828866080421
+      spriteID: 73d7ce923c511cbb0800000000000000
+      internalID: -4917625390145700553
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Hotbar_0: 3547523828866080421
+      InventoryBackground_0: -4917625390145700553
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

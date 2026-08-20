@@ -630288,7 +630288,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2026181932198881712, guid: 7e6ef76552c36654bbb6d6c8aef680aa, type: 3}
+  m_Sprite: {fileID: -4917625390145700553, guid: 32b39aa43a9b19f4dac1685ac0421cd0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -630720,7 +630720,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -8646036093092266157, guid: 160d29b985ba7b642b4db951b510bd56, type: 3}
+  m_Sprite: {fileID: -4084990643401607137, guid: 78d9ec9d96684cb4bb2f52c81040cdfa, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -631158,7 +631158,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2026181932198881712, guid: 7e6ef76552c36654bbb6d6c8aef680aa, type: 3}
+  m_Sprite: {fileID: -4917625390145700553, guid: 32b39aa43a9b19f4dac1685ac0421cd0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -631191,13 +631191,13 @@ MonoBehaviour:
   m_Padding:
     m_Left: 100
     m_Right: 100
-    m_Top: 100
-    m_Bottom: 100
-  m_ChildAlignment: 0
+    m_Top: 90
+    m_Bottom: 90
+  m_ChildAlignment: 1
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 100, y: 100}
-  m_Spacing: {x: 100, y: 100}
+  m_Spacing: {x: 1, y: 1}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!1 &1043425640
@@ -632255,7 +632255,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -8646036093092266157, guid: 160d29b985ba7b642b4db951b510bd56, type: 3}
+  m_Sprite: {fileID: -4084990643401607137, guid: 78d9ec9d96684cb4bb2f52c81040cdfa, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -632475,7 +632475,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventoryController
   inventoryPanel: {fileID: 1042050038}
   slotPrefab: {fileID: 6515747414498963311, guid: 210f0530f643e3a4593385edcc599de7, type: 3}
-  slotCount: 24
+  slotCount: 90
   itemPrefabs:
   - {fileID: 3126208721761723117, guid: 9c8f2b2710d40b64b892b31cf44ec45e, type: 3}
 --- !u!114 &1549747556
@@ -650706,7 +650706,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2026181932198881712, guid: 7e6ef76552c36654bbb6d6c8aef680aa, type: 3}
+  m_Sprite: {fileID: -4917625390145700553, guid: 32b39aa43a9b19f4dac1685ac0421cd0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -650979,7 +650979,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2026181932198881712, guid: 7e6ef76552c36654bbb6d6c8aef680aa, type: 3}
+  m_Sprite: {fileID: -4917625390145700553, guid: 32b39aa43a9b19f4dac1685ac0421cd0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -651470,7 +651470,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -8646036093092266157, guid: 160d29b985ba7b642b4db951b510bd56, type: 3}
+  m_Sprite: {fileID: -4084990643401607137, guid: 78d9ec9d96684cb4bb2f52c81040cdfa, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -651894,7 +651894,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -8646036093092266157, guid: 160d29b985ba7b642b4db951b510bd56, type: 3}
+  m_Sprite: {fileID: -4084990643401607137, guid: 78d9ec9d96684cb4bb2f52c81040cdfa, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
