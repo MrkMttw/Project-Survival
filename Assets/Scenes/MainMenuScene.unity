@@ -1327,9 +1327,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'ONLY FOR FANS
-
-    JACKYLINE EDITION'
+  m_text: 'PROJECT SURVIVAL'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d49b51e895389c443b0527dfb2c85817, type: 2}
   m_sharedMaterial: {fileID: 4364237928822358504, guid: d49b51e895389c443b0527dfb2c85817, type: 2}
