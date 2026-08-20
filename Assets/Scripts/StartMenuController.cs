@@ -5,10 +5,12 @@ public class StartMenuController : MonoBehaviour
 {
     public GameObject MainMenu;
     public GameObject PlayScreen;
+    public GameObject CreateWorld;
     void Start()
     {
         MainMenu.SetActive(true);
         PlayScreen.SetActive(false);
+        CreateWorld.SetActive(false);
     }
 
     void Update()
@@ -17,18 +19,28 @@ public class StartMenuController : MonoBehaviour
         {
             MainMenu.SetActive(true);
             PlayScreen.SetActive(false);
+            CreateWorld.SetActive(false);
         }
     }
     public void OnClickPlay()
     {
         PlayScreen.SetActive(true);
-        MainMenu.SetActive(!MainMenu.activeSelf);
+        MainMenu.SetActive(false);
+        CreateWorld.SetActive(false);
     }
 
     public void OnClickBack()
     {
         MainMenu.SetActive(true);
-        PlayScreen.SetActive(!PlayScreen.activeSelf);
+        PlayScreen.SetActive(false);
+        CreateWorld.SetActive(false);
+    }
+    
+    public void OnClickCreateWorldBack()
+    {
+        MainMenu.SetActive(false);
+        PlayScreen.SetActive(true);
+        CreateWorld.SetActive(false);
     }
 
     public void OnExitClick()
@@ -42,5 +54,12 @@ public class StartMenuController : MonoBehaviour
     public void OnClickLoadScene()
     {
         SceneManager.LoadScene("GameScene");
+    }
+
+    public void OnClickCreateWorld()
+    {
+        CreateWorld.SetActive(true);
+        MainMenu.SetActive(false);
+        PlayScreen.SetActive(false);
     }
 }

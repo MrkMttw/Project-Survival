@@ -1,7 +1,7 @@
 using Unity.Cinemachine;
 using System.IO;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 /// <summary>
 /// Handles saving and loading the player's game data.
 /// Stores the player's position and the current map boundary in a JSON file.
@@ -38,6 +38,12 @@ public class SaveController : MonoBehaviour
         };
 
         File.WriteAllText(saveLocation, JsonUtility.ToJson(saveData));
+    }
+
+    public void SaveAndExit()
+    {
+        SaveGame();
+        SceneManager.LoadScene("MainMenuScene");
     }
 
     /// <summary>
