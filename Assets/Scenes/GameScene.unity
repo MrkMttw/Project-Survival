@@ -632141,7 +632141,19 @@ MonoBehaviour:
   slotPrefab: {fileID: 6515747414498963311, guid: 210f0530f643e3a4593385edcc599de7, type: 3}
   slotCount: 75
   itemPrefabs:
-  - {fileID: 3126208721761723117, guid: 9c8f2b2710d40b64b892b31cf44ec45e, type: 3}
+  - {fileID: 4638651799559154721, guid: bd68c9dceb264bd4ebe36aec34a516ec, type: 3}
+  - {fileID: 6742977444696809722, guid: ab0beadc99169f14eb776c9aed1cde22, type: 3}
+  - {fileID: 308315888896616339, guid: b24561118955bb94f98932c2100401dc, type: 3}
+  - {fileID: 7226197781942018359, guid: c22cf314580183b41870da580765e8a2, type: 3}
+  - {fileID: 7072060226194702109, guid: 065f661630b0f2246be1784f57f38f75, type: 3}
+  - {fileID: 7180081687642331939, guid: fdfd0beeeab62f244a41d3ded9c90af6, type: 3}
+  - {fileID: 374272831287415983, guid: e69adf2a06a4b0d4ebfce2066ffc139a, type: 3}
+  - {fileID: 4923101020488502018, guid: 2a1d0be7b6bfe504a83ea85813ca37d8, type: 3}
+  - {fileID: 5001584277194459235, guid: cd25f608056037f44bdd25f5ecc9f755, type: 3}
+  - {fileID: 2872761893434356846, guid: adcb7987d80ca4449b52285bcf59c222, type: 3}
+  - {fileID: 6582476427255371741, guid: 77e42266e07005048a28aa15442302d8, type: 3}
+  - {fileID: 3029842574064926930, guid: ccb3afcfec3008e4eb58519316f0c185, type: 3}
+  - {fileID: 1378384889247254847, guid: e01f728a92170414eb8743ba017fe0fb, type: 3}
 --- !u!114 &1549747556
 MonoBehaviour:
   m_ObjectHideFlags: 0
