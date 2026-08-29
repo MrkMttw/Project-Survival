@@ -34,15 +34,26 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         canvasGroup.alpha = 1f;
 
         Slot dropSlot = eventData.pointerEnter?.GetComponent<Slot>();
+
         if (dropSlot == null)
         {
             GameObject dropItem = eventData.pointerEnter;
+
             if (dropItem != null)
             {
                 dropSlot = dropItem.GetComponentInParent<Slot>();
             }
         }
+
         Slot originalSlot = originalParent.GetComponent<Slot>();
+
+        // FIX: If dropped back onto the same slot, return to its original position
+        if (dropSlot == originalSlot)
+        {
+            transform.SetParent(originalParent);
+            GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+            return;
+        }
 
         if (dropSlot != null)
         {
@@ -105,18 +116,23 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private void SplitStack()
     {
         Item item = GetComponent<Item>();
-        if (item == null || item.quantity <= 1) return;
+
+        if (item == null || item.quantity <= 1)
+            return;
 
         int splitAmount = item.quantity / 2;
+
         item.RemoveFromStack(splitAmount);
 
         GameObject newItem = item.CloneItem(splitAmount);
 
-        if (inventoryController == null || newItem == null) return;
+        if (inventoryController == null || newItem == null)
+            return;
 
         foreach (Transform slotTransform in inventoryController.inventoryPanel.transform)
         {
             Slot slot = slotTransform.GetComponent<Slot>();
+
             if (slot != null && slot.currentItem == null)
             {
                 slot.currentItem = newItem;
@@ -134,7 +150,11 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private bool IsWithinInventory(Vector2 mousePosition)
     {
         RectTransform inventoryRect = originalParent.parent.GetComponent<RectTransform>();
-        return RectTransformUtility.RectangleContainsScreenPoint(inventoryRect, mousePosition);
+
+        return RectTransformUtility.RectangleContainsScreenPoint(
+            inventoryRect,
+            mousePosition
+        );
     }
 
     private void DropItem(Slot originalSlot)
@@ -145,6 +165,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if (quantity > 1)
         {
             item.RemoveFromStack(1);
+
             transform.SetParent(originalParent);
             GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
         }
@@ -166,6 +187,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         GameObject dropItem = Instantiate(gameObject, dropPosition, Quaternion.identity);
 
         Item droppedItemComponent = dropItem.GetComponent<Item>();
+
         if (droppedItemComponent != null)
         {
             droppedItemComponent.quantity = 1;
