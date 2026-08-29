@@ -3,12 +3,24 @@ using UnityEngine;
 
 public class InventoryController : MonoBehaviour
 {
+    public static InventoryController instance { get; private set; }
+
     private ItemDictionary itemDictionary;
 
     public GameObject inventoryPanel;
     public GameObject slotPrefab;
     public int slotCount;
     public GameObject[] itemPrefabs;
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+    }
 
     void Start()
     {
@@ -17,7 +29,26 @@ public class InventoryController : MonoBehaviour
     
     public bool AddItem(GameObject itemPrefab)
     {
-        // Loop through every slot inside the inventory panel
+        Item itemToAdd = itemPrefab.GetComponent<Item>();
+        if (itemToAdd == null) return false;
+
+        // Loop through slots to check if we can stack with an existing item of the same type
+        foreach (Transform slotTransform in inventoryPanel.transform)
+        {
+            Slot slot = slotTransform.GetComponent<Slot>();
+
+            if (slot != null && slot.currentItem != null)
+            {
+                Item slotItem = slot.currentItem.GetComponent<Item>();
+                if (slotItem != null && slotItem.ID == itemToAdd.ID)
+                {
+                    slotItem.AddToStack();
+                    return true;
+                }
+            }
+        }
+
+        // Loop through every slot inside the inventory panel to find an empty slot
         foreach (Transform slotTransform in inventoryPanel.transform)
         {
             Slot slot = slotTransform.GetComponent<Slot>();
@@ -58,7 +89,8 @@ public class InventoryController : MonoBehaviour
                 invData.Add(new InventorySaveData
                 {
                     itemID = item.ID,
-                    slotIndex = slotTransform.GetSiblingIndex()
+                    slotIndex = slotTransform.GetSiblingIndex(),
+                    quantity = item.quantity
                 });
             }
         }
@@ -89,6 +121,14 @@ public class InventoryController : MonoBehaviour
                 {
                     GameObject item = Instantiate(itemPrefab, slot.transform);
                     item.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+
+                    Item itemComponent = item.GetComponent<Item>();
+                    if (itemComponent != null && data.quantity > 1)
+                    {
+                        itemComponent.quantity = data.quantity;
+                        itemComponent.UpdateQuantityDisplay();
+                    }
+
                     slot.currentItem = item;
                 }
             }
