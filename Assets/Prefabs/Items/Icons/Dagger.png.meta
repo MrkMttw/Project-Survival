@@ -113,7 +113,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Machete_Icon_0
+      name: Dagger_0
       rect:
         serializedVersion: 2
         x: 0
@@ -126,10 +126,10 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 5d799e008a06debb0800000000000000
-      internalID: -4905158144450521131
+      spriteID: 01072b7c29a720942a8ac4e0de45cc65
+      internalID: -603378571
       vertices: []
       indices: 
       edges: []
@@ -150,7 +150,7 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":500.0,"y":500.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Machete_Icon_0: -4905158144450521131
+      Dagger_0: -603378571
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

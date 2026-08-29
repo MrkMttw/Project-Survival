@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &8598262007447838960
+--- !u!1001 &6932800150563529338
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: 2982858587533249513, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -829483803868662349, guid: 31d22bc3e3da6d041a9de7a594937f3f, type: 3}
+      objectReference: {fileID: -7709438738557996456, guid: ae0d852774d64d240a636ad77710df48, type: 3}
     - target: {fileID: 3102399019312198980, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -95,10 +95,10 @@ PrefabInstance:
     - target: {fileID: 4400888847680878981, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -829483803868662349, guid: 31d22bc3e3da6d041a9de7a594937f3f, type: 3}
+      objectReference: {fileID: -7709438738557996456, guid: ae0d852774d64d240a636ad77710df48, type: 3}
     - target: {fileID: 6789592075229631350, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
       propertyPath: m_Name
-      value: Bandage Variant
+      value: Concrete Wall Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
