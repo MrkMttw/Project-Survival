@@ -4,6 +4,9 @@ public class PlayerItemCollector : MonoBehaviour
 {
     private InventoryController inventoryController;
 
+    // ⭐ CHANGED: Added HotbarController reference
+    private HotbarController hotbarController;
+
     public GameObject pickUp;
 
     private GameObject nearbyItem;
@@ -11,6 +14,9 @@ public class PlayerItemCollector : MonoBehaviour
     private void Start()
     {
         inventoryController = FindObjectOfType<InventoryController>();
+
+        // ⭐ CHANGED: Find the HotbarController
+        hotbarController = FindObjectOfType<HotbarController>();
 
         pickUp.SetActive(false);
     }
@@ -24,7 +30,14 @@ public class PlayerItemCollector : MonoBehaviour
 
             if (item != null)
             {
-                bool itemAdded = inventoryController.AddItem(nearbyItem);
+                // CHANGED: Try adding the item to the hotbar FIRST
+                bool itemAdded = hotbarController.AddItem(nearbyItem);
+
+                // CHANGED: If hotbar is full, try the inventory instead
+                if (!itemAdded)
+                {
+                    itemAdded = inventoryController.AddItem(nearbyItem);
+                }
 
                 if (itemAdded)
                 {

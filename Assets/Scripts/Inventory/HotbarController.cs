@@ -44,6 +44,28 @@ public class HotbarController : MonoBehaviour
         }
     }
 
+    // CHANGED: Added this method so pickups can be added to the hotbar first
+    public bool AddItem(GameObject itemPrefab)
+    {
+        foreach (Transform slotTransform in hotbarPanel.transform)
+        {
+            Slot slot = slotTransform.GetComponent<Slot>();
+
+            if (slot != null && slot.currentItem == null)
+            {
+                GameObject newItem = Instantiate(itemPrefab, slotTransform);
+
+                newItem.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+
+                slot.currentItem = newItem;
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public List<InventorySaveData> GetHotbarItems()
     {
         List<InventorySaveData> hotbarData = new List<InventorySaveData>();
