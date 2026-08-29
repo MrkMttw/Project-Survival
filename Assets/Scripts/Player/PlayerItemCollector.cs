@@ -4,7 +4,7 @@ public class PlayerItemCollector : MonoBehaviour
 {
     private InventoryController inventoryController;
 
-    // ⭐ CHANGED: Added HotbarController reference
+    // CHANGED: Added HotbarController reference
     private HotbarController hotbarController;
 
     public GameObject pickUp;
@@ -15,7 +15,7 @@ public class PlayerItemCollector : MonoBehaviour
     {
         inventoryController = FindObjectOfType<InventoryController>();
 
-        // ⭐ CHANGED: Find the HotbarController
+        // CHANGED: Find the HotbarController
         hotbarController = FindObjectOfType<HotbarController>();
 
         pickUp.SetActive(false);
