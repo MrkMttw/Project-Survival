@@ -1,13 +1,18 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class Item : MonoBehaviour
 {
     public int ID;
+
+    public Image itemImage;
+
     public virtual void UseItem()
     {
         Debug.Log("Using item: " + name);
     }
+
     public int quantity = 1;
 
     private TMP_Text quantityText;

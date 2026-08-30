@@ -8,6 +8,10 @@ public class HotbarController : MonoBehaviour
     public GameObject slotPrefab;
     public int slotCount = 7;
 
+    public PlayerHeldItem playerHeldItem;
+
+    private int selectedSlot = 0;
+
     private ItemDictionary itemDictionary;
     private Key[] hotbarKeys;
 
@@ -35,12 +39,26 @@ public class HotbarController : MonoBehaviour
 
     private void UseItemInSlot(int index)
     {
+        selectedSlot = index;
+
         Slot slot = hotbarPanel.transform.GetChild(index).GetComponent<Slot>();
 
         if (slot.currentItem != null)
         {
             Item item = slot.currentItem.GetComponent<Item>();
+
+            SpriteRenderer itemSprite = item.GetComponentInChildren<SpriteRenderer>();
+
+            if (itemSprite != null)
+            {
+                playerHeldItem.SetHeldItem(itemSprite.sprite);
+            }
+
             item.UseItem();
+        }
+        else
+        {
+            playerHeldItem.ClearHeldItem();
         }
     }
 
