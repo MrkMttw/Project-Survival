@@ -11,10 +11,10 @@ PrefabInstance:
     - target: {fileID: 4810641478785856946, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 4134985361545656292, guid: c9b476b7faf40194d93b0efeb76913af, type: 3}
+      objectReference: {fileID: -4890764911649256556, guid: c9b476b7faf40194d93b0efeb76913af, type: 3}
     - target: {fileID: 4963369266823173890, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
       propertyPath: m_Name
-      value: Tree7 Variant
+      value: Tree7
       objectReference: {fileID: 0}
     - target: {fileID: 5480698058156823127, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
       propertyPath: m_LocalPosition.x
