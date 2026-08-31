@@ -9,12 +9,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4810641478785856946, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_Size.x
+      value: 0.94
+      objectReference: {fileID: 0}
+    - target: {fileID: 4810641478785856946, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_Size.y
+      value: 1.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 4810641478785856946, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -7301469273254094464, guid: c9b476b7faf40194d93b0efeb76913af, type: 3}
+      objectReference: {fileID: -1862281997, guid: 798e8267a76cd9a46964d3224cc3f87f, type: 3}
+    - target: {fileID: 4810641478785856946, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4963369266823173890, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
       propertyPath: m_Name
-      value: Tree3 Variant
+      value: Tree3
       objectReference: {fileID: 0}
     - target: {fileID: 5480698058156823127, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
       propertyPath: m_LocalPosition.x

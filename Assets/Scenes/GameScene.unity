@@ -627545,7 +627545,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -543861589
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 6133340304394382675, guid: fe2944080e4130f4f92bd83b3f9c0cfa, type: 3}
@@ -628195,6 +628195,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 609573252}
   m_CullTransparentMesh: 1
+--- !u!1 &616492240
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 616492241}
+  m_Layer: 0
+  m_Name: Bushes
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &616492241
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 616492240}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1249827463}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -628236,7 +628267,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 00000000ab5495dfc5fafca8
+  m_ApplyToSortingLayers: 00000000ab5495dfc5fafca8250f27c3
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -628390,6 +628421,8 @@ GameObject:
   - component: {fileID: 714045849}
   - component: {fileID: 714045850}
   - component: {fileID: 714045851}
+  - component: {fileID: 714045852}
+  - component: {fileID: 714045853}
   m_Layer: 5
   m_Name: EnvironmentGenerator
   m_TagString: Untagged
@@ -628438,7 +628471,7 @@ MonoBehaviour:
   endX: 125
   startY: -125
   endY: 125
-  treeAmount: 1000
+  treeAmount: 2000
   spawnProtectionAreas:
   - startX: -10
     endX: 10
@@ -628476,6 +628509,64 @@ MonoBehaviour:
     endX: 10
     startY: -5
     endY: 5
+--- !u!114 &714045852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 714045848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29db5f5e56a7d9e4395b62ba60b8890e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DecorSpawner
+  decorPrefabs:
+  - {fileID: 2408940243294043811, guid: e81585dcedd324b4896af742236cebb1, type: 3}
+  - {fileID: 5234565578975546571, guid: ba05025e68e3b004db13c21f02b87e3b, type: 3}
+  - {fileID: 6875638334217550951, guid: 2f3ca3a0065625c49b7514dc2f369d95, type: 3}
+  - {fileID: 4438083932483645771, guid: 8f50389986b67d44a8d28478bb408cc4, type: 3}
+  - {fileID: 6883324406859078413, guid: 4ce06a2ee49f5394a82eb2e3e575f12c, type: 3}
+  - {fileID: 712107217754112378, guid: e22c1f26c342ab8418814cbb89e8c8e1, type: 3}
+  - {fileID: 223306807112522742, guid: 9a09760d1df8db541b2a531d89e7680f, type: 3}
+  - {fileID: 4533217131884569049, guid: 1b5f23ecf4d98ce4dbef62a1674a882e, type: 3}
+  - {fileID: 5294096631662451677, guid: e548f351d7ce3b7428b2e79c1ade39e3, type: 3}
+  - {fileID: 7859745418650819195, guid: 75caca683fcee994cbdc94f128fb3194, type: 3}
+  - {fileID: 2180215355397181723, guid: 09313a460629f094187e3fb3b7405bd4, type: 3}
+  - {fileID: 1909286204865548266, guid: 9d5680615747fdc458c124ed6d2c3efe, type: 3}
+  decorsParent: {fileID: 1135740616}
+  startX: -125
+  endX: 125
+  startY: -125
+  endY: 125
+  decorAmount: 10000
+  spawnProtectionAreas: []
+--- !u!114 &714045853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 714045848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcc5b234eb9cad144868b34414720a56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BushSpawner
+  bushPrefabs:
+  - {fileID: 7133436450058219875, guid: d5f6eb6a43dc1a94dacf217ebb3bc0d3, type: 3}
+  - {fileID: 1346469856341609104, guid: 26873ec5e33acd744849608e0ffb4b85, type: 3}
+  - {fileID: 7907824930393764984, guid: ab6cb31115f50df4cbcdbbd80f7fb89a, type: 3}
+  - {fileID: 2292039182718447485, guid: 12e715e3398e57c49aa9a02aa80e97eb, type: 3}
+  - {fileID: 2449695216402089595, guid: 4206228d396e48f4ba0e769df2ae46c6, type: 3}
+  - {fileID: 3996145846761490267, guid: d2b6d1aa85e11754c939babc93f9eb60, type: 3}
+  bushesParent: {fileID: 616492240}
+  startX: -125
+  endX: 125
+  startY: -125
+  endY: 125
+  bushAmount: 1000
+  spawnProtectionAreas: []
 --- !u!1 &716325461
 GameObject:
   m_ObjectHideFlags: 0
@@ -630336,6 +630427,37 @@ MonoBehaviour:
   m_InstancedGameObject: {fileID: 0}
   m_Flags: 3
   m_ColliderType: 1
+--- !u!1 &1135740616
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1135740617}
+  m_Layer: 0
+  m_Name: Decors
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1135740617
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135740616}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.41565, y: 2.26923, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1249827463}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1138554930
 GameObject:
   m_ObjectHideFlags: 0
@@ -630650,6 +630772,8 @@ Transform:
   m_Children:
   - {fileID: 1708835017}
   - {fileID: 262330798}
+  - {fileID: 1135740617}
+  - {fileID: 616492241}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1253724146
@@ -631476,6 +631600,7 @@ MonoBehaviour:
   slotCount: 75
   itemPrefabs:
   - {fileID: 639431159251122371, guid: 81cf7ce12e4cc9043b89e7044e3026de, type: 3}
+  - {fileID: 8015077330933273380, guid: d18703f61319d5749b616447c8450cff, type: 3}
   - {fileID: 2984289754879947654, guid: 5713305252094c348b05c1366e0b0ae4, type: 3}
   - {fileID: 8610189998618823739, guid: 3bd2245e5d3025b4d928e0e332c05ed0, type: 3}
   - {fileID: 4471857845058646284, guid: a3a24dd4f416079489a6cdd1ab05f990, type: 3}
@@ -631486,6 +631611,7 @@ MonoBehaviour:
   - {fileID: 7504088410438135924, guid: ff5ee2f9eadc63749956ff2c64299ba2, type: 3}
   - {fileID: 2844262709296048117, guid: 9135dba6cb29cd74dbeac901e7e84505, type: 3}
   - {fileID: 7451513184980286633, guid: b6389fe99f865d148bcf8589c07f11bd, type: 3}
+  - {fileID: 171062600929970038, guid: 31f75d5d76aaec44da89d49852173ac9, type: 3}
   - {fileID: 6202511715510500406, guid: f3beac0f631d5ba4c98ebc3d6e11fca3, type: 3}
   - {fileID: 2942265990488903818, guid: 15296261cc8e9984690502858b4bd556, type: 3}
   - {fileID: 5891589036876466325, guid: 301dc8160e0fc4a4d81eba9289a27a5f, type: 3}
@@ -631718,6 +631844,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemDictionary
   itemPrefabs:
   - {fileID: 6458138967339414553, guid: 81cf7ce12e4cc9043b89e7044e3026de, type: 3}
+  - {fileID: 4502221050623647742, guid: d18703f61319d5749b616447c8450cff, type: 3}
   - {fileID: 8658750639084535644, guid: 5713305252094c348b05c1366e0b0ae4, type: 3}
   - {fileID: 2755594133215035617, guid: 3bd2245e5d3025b4d928e0e332c05ed0, type: 3}
   - {fileID: 8020743160292883926, guid: a3a24dd4f416079489a6cdd1ab05f990, type: 3}
@@ -631728,6 +631855,7 @@ MonoBehaviour:
   - {fileID: 4135356459975146670, guid: ff5ee2f9eadc63749956ff2c64299ba2, type: 3}
   - {fileID: 8518705693117524783, guid: 9135dba6cb29cd74dbeac901e7e84505, type: 3}
   - {fileID: 3902733771359039603, guid: b6389fe99f865d148bcf8589c07f11bd, type: 3}
+  - {fileID: 5989753331661933484, guid: 31f75d5d76aaec44da89d49852173ac9, type: 3}
   - {fileID: 528016158534054124, guid: f3beac0f631d5ba4c98ebc3d6e11fca3, type: 3}
   - {fileID: 8761008949129960528, guid: 15296261cc8e9984690502858b4bd556, type: 3}
   - {fileID: 37011139434808399, guid: 301dc8160e0fc4a4d81eba9289a27a5f, type: 3}
@@ -654242,7 +654370,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -543861589
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 0}

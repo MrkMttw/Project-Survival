@@ -41,6 +41,8 @@ public class HotbarController : MonoBehaviour
     {
         selectedSlot = index;
 
+        HighlightSlot(selectedSlot);
+
         Slot slot = hotbarPanel.transform.GetChild(index).GetComponent<Slot>();
 
         if (slot.currentItem != null)
@@ -59,6 +61,20 @@ public class HotbarController : MonoBehaviour
         else
         {
             playerHeldItem.ClearHeldItem();
+        }
+    }
+
+    private void HighlightSlot(int index)
+    {
+        for (int i = 0; i < hotbarPanel.transform.childCount; i++)
+        {
+            Transform slot = hotbarPanel.transform.GetChild(i);
+            Transform highlight = slot.Find("Highlight");
+
+            if (highlight != null)
+            {
+                highlight.gameObject.SetActive(i == index);
+            }
         }
     }
 
