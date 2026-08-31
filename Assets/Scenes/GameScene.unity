@@ -602,7 +602,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 262330798}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Stones
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -627492,6 +627492,7 @@ GameObject:
   - component: {fileID: 543478641}
   - component: {fileID: 543478643}
   - component: {fileID: 543478644}
+  - component: {fileID: 543478645}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -627885,6 +627886,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHeldItem
   heldItemRenderer: {fileID: 2096488641}
+  heldItem: {fileID: 0}
+--- !u!114 &543478645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543478630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bca1c296ce0627a42bf929764395ecfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BreakSystem
+  player: {fileID: 543478632}
+  breakRange: 2.5
+  toolPresets:
+  - {fileID: 11400000, guid: d444295364d87c241b76b240b11f81a5, type: 2}
+  - {fileID: 11400000, guid: db8482998835a2c408291be8bc822c93, type: 2}
+  breakableLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &557255013
 GameObject:
   m_ObjectHideFlags: 0
@@ -628471,7 +628493,7 @@ MonoBehaviour:
   endX: 125
   startY: -125
   endY: 125
-  treeAmount: 2000
+  treeAmount: 500
   spawnProtectionAreas:
   - startX: -10
     endX: 10
@@ -628503,7 +628525,7 @@ MonoBehaviour:
   endX: 125
   startY: -125
   endY: 125
-  stoneAmount: 1000
+  stoneAmount: 500
   spawnProtectionAreas:
   - startX: -10
     endX: 10
@@ -628539,7 +628561,7 @@ MonoBehaviour:
   endX: 125
   startY: -125
   endY: 125
-  decorAmount: 10000
+  decorAmount: 5000
   spawnProtectionAreas: []
 --- !u!114 &714045853
 MonoBehaviour:
@@ -628565,7 +628587,7 @@ MonoBehaviour:
   endX: 125
   startY: -125
   endY: 125
-  bushAmount: 1000
+  bushAmount: 500
   spawnProtectionAreas: []
 --- !u!1 &716325461
 GameObject:
@@ -631110,6 +631132,7 @@ Transform:
   m_Children:
   - {fileID: 368837015}
   - {fileID: 1625448278}
+  - {fileID: 1897386327}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1372098410
@@ -652769,7 +652792,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1708835017}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Trees
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -653358,7 +653381,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1897386326}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.14356, y: -1.05553, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -653366,7 +653389,7 @@ Transform:
   - {fileID: 1900967201}
   - {fileID: 322251815}
   - {fileID: 1165975146}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1368665208}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1900838433
 GameObject:
@@ -654600,6 +654623,5 @@ SceneRoots:
   - {fileID: 379042723}
   - {fileID: 1549747559}
   - {fileID: 1368665208}
-  - {fileID: 1897386327}
   - {fileID: 422850234}
   - {fileID: 1249827463}

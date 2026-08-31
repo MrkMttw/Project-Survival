@@ -49,20 +49,19 @@ public class HotbarController : MonoBehaviour
         {
             Item item = slot.currentItem.GetComponent<Item>();
 
-            SpriteRenderer itemSprite = item.GetComponentInChildren<SpriteRenderer>();
-
-            if (itemSprite != null)
+            if (item != null)
             {
-                playerHeldItem.SetHeldItem(itemSprite.sprite);
-            }
+                playerHeldItem.SetHeldItem(item);
 
-            item.UseItem();
+                item.UseItem();
+            }
         }
         else
         {
             playerHeldItem.ClearHeldItem();
         }
     }
+
 
     private void HighlightSlot(int index)
     {
