@@ -85,24 +85,31 @@ public class HotbarController : MonoBehaviour
         if (itemToAdd == null)
             return false;
 
-        // FIRST: Check if the item already exists in the hotbar
-        foreach (Transform slotTransform in hotbarPanel.transform)
+        // FIRST: Try to stack with an existing item
+        // Only works if BOTH items are stackable
+        if (itemToAdd.stackable)
         {
-            Slot slot = slotTransform.GetComponent<Slot>();
-
-            if (slot != null && slot.currentItem != null)
+            foreach (Transform slotTransform in hotbarPanel.transform)
             {
-                Item slotItem = slot.currentItem.GetComponent<Item>();
+                Slot slot = slotTransform.GetComponent<Slot>();
 
-                if (slotItem != null && slotItem.ID == itemToAdd.ID)
+                if (slot != null && slot.currentItem != null)
                 {
-                    slotItem.AddToStack(itemToAdd.quantity);
-                    return true;
+                    Item slotItem = slot.currentItem.GetComponent<Item>();
+
+                    if (slotItem != null &&
+                        slotItem.ID == itemToAdd.ID &&
+                        slotItem.stackable)
+                    {
+                        slotItem.AddToStack(itemToAdd.quantity);
+                        return true;
+                    }
                 }
             }
         }
 
         // SECOND: Find an empty hotbar slot
+        // This is also used for non-stackable items
         foreach (Transform slotTransform in hotbarPanel.transform)
         {
             Slot slot = slotTransform.GetComponent<Slot>();

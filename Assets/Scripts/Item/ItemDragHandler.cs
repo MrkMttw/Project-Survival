@@ -18,7 +18,9 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public void OnBeginDrag(PointerEventData eventData)
     {
         originalParent = transform.parent;
+
         transform.SetParent(transform.root);
+
         canvasGroup.blocksRaycasts = false;
         canvasGroup.alpha = 0.6f;
     }
@@ -47,7 +49,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         Slot originalSlot = originalParent.GetComponent<Slot>();
 
-        // FIX: If dropped back onto the same slot, return to its original position
+        // Dropped back onto the same slot
         if (dropSlot == originalSlot)
         {
             transform.SetParent(originalParent);
@@ -62,31 +64,46 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 Item draggedItem = GetComponent<Item>();
                 Item targetItem = dropSlot.currentItem.GetComponent<Item>();
 
-                // Check if target slot has same item type to stack them together
-                if (draggedItem != null && targetItem != null && draggedItem.ID == targetItem.ID)
+                // STACK ONLY IF BOTH ITEMS ARE STACKABLE
+                if (draggedItem != null &&
+                    targetItem != null &&
+                    draggedItem.ID == targetItem.ID &&
+                    draggedItem.stackable &&
+                    targetItem.stackable)
                 {
                     targetItem.AddToStack(draggedItem.quantity);
+
                     originalSlot.currentItem = null;
+
                     Destroy(gameObject);
                 }
                 else
                 {
-                    // Swap items
-                    dropSlot.currentItem.transform.SetParent(originalSlot.transform);
-                    originalSlot.currentItem = dropSlot.currentItem;
-                    dropSlot.currentItem.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+                    // NOT STACKABLE → SWAP
+                    GameObject targetObject = dropSlot.currentItem;
+
+                    targetObject.transform.SetParent(originalSlot.transform);
+
+                    originalSlot.currentItem = targetObject;
+
+                    targetObject.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
 
                     transform.SetParent(dropSlot.transform);
+
                     dropSlot.currentItem = gameObject;
+
                     GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
                 }
             }
             else
             {
-                // Place in empty slot
+                // Empty slot
                 originalSlot.currentItem = null;
+
                 transform.SetParent(dropSlot.transform);
+
                 dropSlot.currentItem = gameObject;
+
                 GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
             }
         }
@@ -100,6 +117,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             {
                 // Snap back to original slot
                 transform.SetParent(originalParent);
+
                 GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
             }
         }
@@ -117,7 +135,8 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         Item item = GetComponent<Item>();
 
-        if (item == null || item.quantity <= 1)
+        // Non-stackable items cannot be split
+        if (item == null || !item.stackable || item.quantity <= 1)
             return;
 
         int splitAmount = item.quantity / 2;
@@ -136,14 +155,18 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             if (slot != null && slot.currentItem == null)
             {
                 slot.currentItem = newItem;
+
                 newItem.transform.SetParent(slot.transform);
+
                 newItem.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+
                 return;
             }
         }
 
-        // If no empty slot found, return the split items back to original stack
+        // No empty slot → restore original stack
         item.AddToStack(splitAmount);
+
         Destroy(newItem);
     }
 
@@ -160,6 +183,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private void DropItem(Slot originalSlot)
     {
         Item item = GetComponent<Item>();
+
         int quantity = item != null ? item.quantity : 1;
 
         if (quantity > 1)
@@ -167,6 +191,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             item.RemoveFromStack(1);
 
             transform.SetParent(originalParent);
+
             GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
         }
         else
@@ -184,13 +209,18 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         Vector2 dropPosition = (Vector2)playerTransform.position;
 
-        GameObject dropItem = Instantiate(gameObject, dropPosition, Quaternion.identity);
+        GameObject dropItem = Instantiate(
+            gameObject,
+            dropPosition,
+            Quaternion.identity
+        );
 
         Item droppedItemComponent = dropItem.GetComponent<Item>();
 
         if (droppedItemComponent != null)
         {
             droppedItemComponent.quantity = 1;
+            droppedItemComponent.UpdateQuantityDisplay();
         }
 
         if (quantity <= 1)

@@ -30,46 +30,52 @@ public class InventoryController : MonoBehaviour
     public bool AddItem(GameObject itemPrefab)
     {
         Item itemToAdd = itemPrefab.GetComponent<Item>();
-        if (itemToAdd == null) return false;
 
-        // Loop through slots to check if we can stack with an existing item of the same type
-        foreach (Transform slotTransform in inventoryPanel.transform)
+        if (itemToAdd == null)
+            return false;
+
+        // FIRST: Try to stack with an existing item
+        // Only works if BOTH items are stackable
+        if (itemToAdd.stackable)
         {
-            Slot slot = slotTransform.GetComponent<Slot>();
-
-            if (slot != null && slot.currentItem != null)
+            foreach (Transform slotTransform in inventoryPanel.transform)
             {
-                Item slotItem = slot.currentItem.GetComponent<Item>();
-                if (slotItem != null && slotItem.ID == itemToAdd.ID)
+                Slot slot = slotTransform.GetComponent<Slot>();
+
+                if (slot != null && slot.currentItem != null)
                 {
-                    slotItem.AddToStack();
-                    return true;
+                    Item slotItem = slot.currentItem.GetComponent<Item>();
+
+                    if (slotItem != null &&
+                        slotItem.ID == itemToAdd.ID &&
+                        slotItem.stackable)
+                    {
+                        slotItem.AddToStack(itemToAdd.quantity);
+                        return true;
+                    }
                 }
             }
         }
 
-        // Loop through every slot inside the inventory panel to find an empty slot
+        // SECOND: Find an empty inventory slot
+        // Non-stackable items will always reach this section
         foreach (Transform slotTransform in inventoryPanel.transform)
         {
             Slot slot = slotTransform.GetComponent<Slot>();
 
-            // Check if the slot exists and is currently empty
             if (slot != null && slot.currentItem == null)
             {
-                // Instantiate the item prefab as a child of the empty slot
                 GameObject newItem = Instantiate(itemPrefab, slotTransform);
 
-                // Center the item inside the UI slot
                 newItem.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
 
-                // Track the item in the slot
                 slot.currentItem = newItem;
 
-                return true; // Item successfully added
+                return true;
             }
         }
 
-        // If no empty slot was found
+        // No empty slot available
         Debug.Log("Inventory is full");
         return false;
     }
