@@ -4,10 +4,10 @@ This system allows the player to **break/mining materials using specific tools**
 
 For example:
 
-* 🪓 Axe → can break Trees
-* ⛏️ Pickaxe → can break Stone
-* 🌳 Tree → can drop Wood, Apples, Seeds, etc.
-* 🪨 Stone → can drop Stone, Coal, etc.
+* Axe → can break Trees
+* Pickaxe → can break Stone
+* Tree → can drop Wood, Apples, Seeds, etc.
+* Stone → can drop Stone, Coal, etc.
 * Different tools can deal different amounts of damage.
 * Different tools can have different breaking speeds.
 * Different materials can have different HP.
@@ -307,13 +307,13 @@ Element 0 = Tree
 This means:
 
 ```text
-Axe → Tree ✅
+Axe → Tree (valid)
 ```
 
 but:
 
 ```text
-Axe → Stone ❌
+Axe → Stone (invalid)
 ```
 
 A single preset can also contain multiple materials:
@@ -942,10 +942,10 @@ Element 2 = CoalOre
 Then:
 
 ```text
-Pickaxe → Stone ✅
-Pickaxe → IronOre ✅
-Pickaxe → CoalOre ✅
-Pickaxe → Tree ❌
+Pickaxe → Stone (valid)
+Pickaxe → IronOre (valid)
+Pickaxe → CoalOre (valid)
+Pickaxe → Tree (invalid)
 ```
 
 You do **not** need a separate `BreakSystem` for every material.

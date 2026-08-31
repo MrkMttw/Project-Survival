@@ -627814,6 +627814,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66d2148f45a1b624a80dcb66c8c90df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerItemCollector
+  pickupRadius: 1
   pickUp: {fileID: 1985675193}
 --- !u!61 &543478642
 BoxCollider2D:
