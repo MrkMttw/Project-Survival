@@ -11,6 +11,10 @@ public class Item : MonoBehaviour
     [Header("Stack Settings")]
     public bool stackable = true;
 
+    [Tooltip("Maximum number of this item that can exist in one stack.")]
+    public int maxStackSize = 99;
+
+    [Header("Quantity")]
     public int quantity = 1;
 
     private TMP_Text quantityText;
@@ -18,6 +22,18 @@ public class Item : MonoBehaviour
     private void Awake()
     {
         quantityText = GetComponentInChildren<TMP_Text>();
+
+        // Non-stackable items can only have a quantity of 1
+        if (!stackable)
+        {
+            quantity = 1;
+        }
+        else
+        {
+            // Prevent the starting quantity from exceeding the stack limit
+            quantity = Mathf.Clamp(quantity, 1, maxStackSize);
+        }
+
         UpdateQuantityDisplay();
     }
 
@@ -34,25 +50,52 @@ public class Item : MonoBehaviour
         }
     }
 
-    public void AddToStack(int amount = 1)
+    // Adds as many items as possible without exceeding maxStackSize.
+    // Returns the number of items that were actually added.
+    public int AddToStack(int amount = 1)
     {
-        if (!stackable)
-            return;
+        if (!stackable || amount <= 0)
+            return 0;
 
-        quantity += amount;
+        int availableSpace = maxStackSize - quantity;
+
+        int amountAdded = Mathf.Min(amount, availableSpace);
+
+        quantity += amountAdded;
+
         UpdateQuantityDisplay();
+
+        return amountAdded;
     }
 
     public int RemoveFromStack(int amount = 1)
     {
-        if (!stackable)
+        if (!stackable || amount <= 0)
             return 0;
 
         int removed = Mathf.Min(amount, quantity);
+
         quantity -= removed;
+
         UpdateQuantityDisplay();
 
         return removed;
+    }
+
+    public bool IsStackFull()
+    {
+        if (!stackable)
+            return true;
+
+        return quantity >= maxStackSize;
+    }
+
+    public int GetRemainingStackSpace()
+    {
+        if (!stackable)
+            return 0;
+
+        return maxStackSize - quantity;
     }
 
     public GameObject CloneItem(int newQuantity)
@@ -61,8 +104,17 @@ public class Item : MonoBehaviour
 
         Item cloneItem = clone.GetComponent<Item>();
 
-        cloneItem.quantity = newQuantity;
         cloneItem.stackable = stackable;
+        cloneItem.maxStackSize = maxStackSize;
+
+        if (stackable)
+        {
+            cloneItem.quantity = Mathf.Clamp(newQuantity, 1, maxStackSize);
+        }
+        else
+        {
+            cloneItem.quantity = 1;
+        }
 
         cloneItem.UpdateQuantityDisplay();
 

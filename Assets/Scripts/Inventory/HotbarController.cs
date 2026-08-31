@@ -20,9 +20,12 @@ public class HotbarController : MonoBehaviour
         itemDictionary = FindObjectOfType<ItemDictionary>();
 
         hotbarKeys = new Key[slotCount];
+
         for (int i = 0; i < slotCount; i++)
         {
-            hotbarKeys[i] = i < 9 ? (Key)((int)Key.Digit1 + i) : Key.Digit0;
+            hotbarKeys[i] = i < 9
+                ? (Key)((int)Key.Digit1 + i)
+                : Key.Digit0;
         }
     }
 
@@ -43,7 +46,9 @@ public class HotbarController : MonoBehaviour
 
         HighlightSlot(selectedSlot);
 
-        Slot slot = hotbarPanel.transform.GetChild(index).GetComponent<Slot>();
+        Slot slot = hotbarPanel.transform
+            .GetChild(index)
+            .GetComponent<Slot>();
 
         if (slot.currentItem != null)
         {
@@ -52,7 +57,6 @@ public class HotbarController : MonoBehaviour
             if (item != null)
             {
                 playerHeldItem.SetHeldItem(item);
-
                 item.UseItem();
             }
         }
@@ -61,7 +65,6 @@ public class HotbarController : MonoBehaviour
             playerHeldItem.ClearHeldItem();
         }
     }
-
 
     private void HighlightSlot(int index)
     {
@@ -77,7 +80,8 @@ public class HotbarController : MonoBehaviour
         }
     }
 
-    // CHANGED: Added this method so pickups can be added to the hotbar first
+    // ADD ITEM
+
     public bool AddItem(GameObject itemPrefab)
     {
         Item itemToAdd = itemPrefab.GetComponent<Item>();
@@ -85,54 +89,133 @@ public class HotbarController : MonoBehaviour
         if (itemToAdd == null)
             return false;
 
-        // FIRST: Try to stack with an existing item
-        // Only works if BOTH items are stackable
-        if (itemToAdd.stackable)
+        int originalQuantity = itemToAdd.quantity;
+
+        // NON-STACKABLE ITEM
+
+        if (!itemToAdd.stackable)
         {
             foreach (Transform slotTransform in hotbarPanel.transform)
             {
                 Slot slot = slotTransform.GetComponent<Slot>();
 
-                if (slot != null && slot.currentItem != null)
+                if (slot != null && slot.currentItem == null)
                 {
-                    Item slotItem = slot.currentItem.GetComponent<Item>();
+                    GameObject newItem = Instantiate(
+                        itemPrefab,
+                        slotTransform
+                    );
 
-                    if (slotItem != null &&
-                        slotItem.ID == itemToAdd.ID &&
-                        slotItem.stackable)
+                    newItem.GetComponent<RectTransform>()
+                        .anchoredPosition = Vector2.zero;
+
+                    Item newItemComponent =
+                        newItem.GetComponent<Item>();
+
+                    if (newItemComponent != null)
                     {
-                        slotItem.AddToStack(itemToAdd.quantity);
-                        return true;
+                        newItemComponent.quantity = 1;
+                        newItemComponent.UpdateQuantityDisplay();
                     }
+
+                    slot.currentItem = newItem;
+
+                    // One non-stackable item was taken
+                    itemToAdd.quantity -= 1;
+
+                    return true;
                 }
             }
+
+            return false;
         }
 
-        // SECOND: Find an empty hotbar slot
-        // This is also used for non-stackable items
+        // STACKABLE ITEM
+
+        int remainingQuantity = itemToAdd.quantity;
+
+        // FIRST: Fill existing stacks
+
         foreach (Transform slotTransform in hotbarPanel.transform)
         {
+            if (remainingQuantity <= 0)
+                break;
+
             Slot slot = slotTransform.GetComponent<Slot>();
 
-            if (slot != null && slot.currentItem == null)
+            if (slot == null || slot.currentItem == null)
+                continue;
+
+            Item slotItem = slot.currentItem.GetComponent<Item>();
+
+            if (slotItem == null)
+                continue;
+
+            // Same item and stackable
+            if (slotItem.ID == itemToAdd.ID &&
+                slotItem.stackable)
             {
-                GameObject newItem = Instantiate(itemPrefab, slotTransform);
+                int addedAmount =
+                    slotItem.AddToStack(remainingQuantity);
 
-                newItem.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-
-                slot.currentItem = newItem;
-
-                return true;
+                remainingQuantity -= addedAmount;
             }
         }
 
-        // Hotbar is full
-        return false;
+        // SECOND: Create new stacks
+
+        foreach (Transform slotTransform in hotbarPanel.transform)
+        {
+            if (remainingQuantity <= 0)
+                break;
+
+            Slot slot = slotTransform.GetComponent<Slot>();
+
+            if (slot == null || slot.currentItem != null)
+                continue;
+
+            GameObject newItem = Instantiate(
+                itemPrefab,
+                slotTransform
+            );
+
+            Item newItemComponent =
+                newItem.GetComponent<Item>();
+
+            if (newItemComponent != null)
+            {
+                int amountForThisStack = Mathf.Min(
+                    remainingQuantity,
+                    newItemComponent.maxStackSize
+                );
+
+                newItemComponent.quantity = amountForThisStack;
+                newItemComponent.UpdateQuantityDisplay();
+
+                remainingQuantity -= amountForThisStack;
+            }
+
+            newItem.GetComponent<RectTransform>()
+                .anchoredPosition = Vector2.zero;
+
+            slot.currentItem = newItem;
+        }
+
+        // UPDATE WORLD ITEM
+
+        itemToAdd.quantity = remainingQuantity;
+        itemToAdd.UpdateQuantityDisplay();
+
+        // Something was successfully added
+        return remainingQuantity < originalQuantity;
     }
+
+    // SAVE
 
     public List<InventorySaveData> GetHotbarItems()
     {
-        List<InventorySaveData> hotbarData = new List<InventorySaveData>();
+        List<InventorySaveData> hotbarData =
+            new List<InventorySaveData>();
 
         foreach (Transform slotTransform in hotbarPanel.transform)
         {
@@ -140,12 +223,14 @@ public class HotbarController : MonoBehaviour
 
             if (slot.currentItem != null)
             {
-                Item item = slot.currentItem.GetComponent<Item>();
+                Item item =
+                    slot.currentItem.GetComponent<Item>();
 
                 hotbarData.Add(new InventorySaveData
                 {
                     itemID = item.ID,
-                    slotIndex = slotTransform.GetSiblingIndex()
+                    slotIndex =
+                        slotTransform.GetSiblingIndex()
                 });
             }
         }
@@ -153,7 +238,10 @@ public class HotbarController : MonoBehaviour
         return hotbarData;
     }
 
-    public void SetHotbarItems(List<InventorySaveData> hotbarSaveData)
+    // LOAD
+
+    public void SetHotbarItems(
+        List<InventorySaveData> hotbarSaveData)
     {
         foreach (Transform child in hotbarPanel.transform)
         {
@@ -162,20 +250,35 @@ public class HotbarController : MonoBehaviour
 
         for (int i = 0; i < slotCount; i++)
         {
-            Instantiate(slotPrefab, hotbarPanel.transform);
+            Instantiate(
+                slotPrefab,
+                hotbarPanel.transform
+            );
         }
 
         foreach (InventorySaveData data in hotbarSaveData)
         {
             if (data.slotIndex < slotCount)
             {
-                Slot slot = hotbarPanel.transform.GetChild(data.slotIndex).GetComponent<Slot>();
-                GameObject itemPrefab = itemDictionary.GetItemPrefab(data.itemID);
+                Slot slot =
+                    hotbarPanel.transform
+                    .GetChild(data.slotIndex)
+                    .GetComponent<Slot>();
+
+                GameObject itemPrefab =
+                    itemDictionary.GetItemPrefab(data.itemID);
 
                 if (itemPrefab != null)
                 {
-                    GameObject item = Instantiate(itemPrefab, slot.transform);
-                    item.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+                    GameObject item =
+                        Instantiate(
+                            itemPrefab,
+                            slot.transform
+                        );
+
+                    item.GetComponent<RectTransform>()
+                        .anchoredPosition = Vector2.zero;
+
                     slot.currentItem = item;
                 }
             }

@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: quantity
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: maxStackSize
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 2165503726700639067, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
       propertyPath: m_Name
       value: IronObject

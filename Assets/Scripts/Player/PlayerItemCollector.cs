@@ -77,22 +77,37 @@ public class PlayerItemCollector : MonoBehaviour
         if (item == null)
             return;
 
+        int quantityBeforePickup = item.quantity;
+
         bool itemAdded = false;
 
-        // Try Hotbar first
+        // TRY HOTBAR FIRST
+
         if (hotbarController != null)
         {
             itemAdded = hotbarController.AddItem(nearbyItem);
         }
 
-        // Try Inventory if Hotbar is full
+        // TRY INVENTORY IF HOTBAR COULDN'T TAKE IT
+
         if (!itemAdded && inventoryController != null)
         {
             itemAdded = inventoryController.AddItem(nearbyItem);
         }
 
-        // Only destroy if successfully collected
-        if (itemAdded)
+        // CHECK HOW MUCH WAS ACTUALLY COLLECTED
+
+        int quantityAfterPickup = item.quantity;
+
+        // Nothing was collected
+        if (!itemAdded)
+        {
+            return;
+        }
+
+        // ALL ITEMS WERE COLLECTED
+
+        if (quantityAfterPickup <= 0)
         {
             Destroy(nearbyItem);
 
@@ -100,11 +115,29 @@ public class PlayerItemCollector : MonoBehaviour
 
             if (pickUp != null)
                 pickUp.SetActive(false);
+
+            return;
         }
+
+        // ONLY PART OF THE STACK WAS COLLECTED
+
+        // The world item remains with its remaining quantity.
+        item.UpdateQuantityDisplay();
+
+        Debug.Log(
+            "Picked up " +
+            (quantityBeforePickup - quantityAfterPickup) +
+            " item(s). " +
+            quantityAfterPickup +
+            " remaining."
+        );
     }
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireSphere(transform.position, pickupRadius);
+        Gizmos.DrawWireSphere(
+            transform.position,
+            pickupRadius
+        );
     }
 }

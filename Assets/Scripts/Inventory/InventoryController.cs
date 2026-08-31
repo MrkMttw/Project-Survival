@@ -34,50 +34,112 @@ public class InventoryController : MonoBehaviour
         if (itemToAdd == null)
             return false;
 
-        // FIRST: Try to stack with an existing item
-        // Only works if BOTH items are stackable
-        if (itemToAdd.stackable)
+        // NON-STACKABLE ITEM
+
+        if (!itemToAdd.stackable)
         {
             foreach (Transform slotTransform in inventoryPanel.transform)
             {
                 Slot slot = slotTransform.GetComponent<Slot>();
 
-                if (slot != null && slot.currentItem != null)
+                if (slot != null && slot.currentItem == null)
                 {
-                    Item slotItem = slot.currentItem.GetComponent<Item>();
+                    GameObject newItem = Instantiate(itemPrefab, slotTransform);
 
-                    if (slotItem != null &&
-                        slotItem.ID == itemToAdd.ID &&
-                        slotItem.stackable)
+                    newItem.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+
+                    Item newItemComponent = newItem.GetComponent<Item>();
+
+                    if (newItemComponent != null)
                     {
-                        slotItem.AddToStack(itemToAdd.quantity);
-                        return true;
+                        newItemComponent.quantity = 1;
+                        newItemComponent.UpdateQuantityDisplay();
                     }
+
+                    slot.currentItem = newItem;
+
+                    return true;
                 }
             }
+
+            Debug.Log("Inventory is full");
+            return false;
         }
 
-        // SECOND: Find an empty inventory slot
-        // Non-stackable items will always reach this section
+        // STACKABLE ITEM
+
+        int remainingQuantity = itemToAdd.quantity;
+        int originalQuantity = itemToAdd.quantity;
+
+        // FIRST: Fill existing stacks
+
         foreach (Transform slotTransform in inventoryPanel.transform)
         {
+            if (remainingQuantity <= 0)
+                break;
+
             Slot slot = slotTransform.GetComponent<Slot>();
 
-            if (slot != null && slot.currentItem == null)
+            if (slot == null || slot.currentItem == null)
+                continue;
+
+            Item slotItem = slot.currentItem.GetComponent<Item>();
+
+            if (slotItem == null)
+                continue;
+
+            // Same item + both stackable
+            if (slotItem.ID == itemToAdd.ID && slotItem.stackable)
             {
-                GameObject newItem = Instantiate(itemPrefab, slotTransform);
+                int addedAmount = slotItem.AddToStack(remainingQuantity);
 
-                newItem.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-
-                slot.currentItem = newItem;
-
-                return true;
+                remainingQuantity -= addedAmount;
             }
         }
 
-        // No empty slot available
-        Debug.Log("Inventory is full");
-        return false;
+        // SECOND: Create new stacks in empty slots
+
+        foreach (Transform slotTransform in inventoryPanel.transform)
+        {
+            if (remainingQuantity <= 0)
+                break;
+
+            Slot slot = slotTransform.GetComponent<Slot>();
+
+            if (slot == null || slot.currentItem != null)
+                continue;
+
+            GameObject newItem = Instantiate(itemPrefab, slotTransform);
+
+            Item newItemComponent = newItem.GetComponent<Item>();
+
+            if (newItemComponent != null)
+            {
+                int amountForThisStack = Mathf.Min(
+                    remainingQuantity,
+                    newItemComponent.maxStackSize
+                );
+
+                newItemComponent.quantity = amountForThisStack;
+                newItemComponent.UpdateQuantityDisplay();
+
+                remainingQuantity -= amountForThisStack;
+            }
+
+            newItem.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+
+            slot.currentItem = newItem;
+        }
+
+        // -----------------------------------------------------
+        // UPDATE REMAINING WORLD ITEM
+        // -----------------------------------------------------
+
+        itemToAdd.quantity = remainingQuantity;
+        itemToAdd.UpdateQuantityDisplay();
+
+        // Successfully added something
+        return remainingQuantity < originalQuantity;
     }
 
     public List<InventorySaveData> GetInventoryItems()
