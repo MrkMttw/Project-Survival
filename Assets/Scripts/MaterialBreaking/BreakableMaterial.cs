@@ -6,17 +6,29 @@ public class BreakableMaterial : MonoBehaviour
     public string materialType;
 
     [Header("Health")]
+    [Min(1)]
     public int maxHealth = 3;
 
     private int currentHealth;
 
-    private void Start()
+    private void Awake()
     {
         currentHealth = maxHealth;
     }
 
     public bool TakeDamage(int damage)
     {
+        if (damage <= 0)
+        {
+            Debug.LogWarning(
+                gameObject.name +
+                " received invalid damage: " +
+                damage
+            );
+
+            return false;
+        }
+
         currentHealth -= damage;
         currentHealth = Mathf.Max(currentHealth, 0);
 

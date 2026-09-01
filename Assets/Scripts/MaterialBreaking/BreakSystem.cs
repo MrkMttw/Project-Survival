@@ -29,6 +29,13 @@ public class BreakSystem : MonoBehaviour
                 "BreakSystem: PlayerHeldItem was not found on Player!"
             );
         }
+
+        if (player == null)
+        {
+            Debug.LogError(
+                "BreakSystem: Player Transform is not assigned!"
+            );
+        }
     }
 
     private void Update()
@@ -40,7 +47,6 @@ public class BreakSystem : MonoBehaviour
         {
             TryBreak();
         }
-
     }
 
     private void TryBreak()
@@ -48,19 +54,49 @@ public class BreakSystem : MonoBehaviour
         if (playerHeldItem == null)
             return;
 
+        if (player == null)
+            return;
+
+        // Get currently equipped item.
+        // This can legitimately be null because the player
+        // may be using their bare hands.
         Item equippedItem = playerHeldItem.GetHeldItem();
 
         if (equippedItem == null)
         {
-            Debug.Log("No item equipped.");
+            Debug.Log("Breaking with bare hands.");
+        }
+        else
+        {
+            Debug.Log(
+                "Breaking with equipped item: " +
+                equippedItem.name
+            );
+        }
+
+        // Check cooldown before doing anything else.
+        if (Time.time < nextBreakTime)
+        {
             return;
         }
 
+        // Make sure camera exists.
+        if (Camera.main == null)
+        {
+            Debug.LogError(
+                "BreakSystem: No Main Camera found!"
+            );
+
+            return;
+        }
+
+        // Get mouse position in world space.
         Vector2 mousePosition =
             Camera.main.ScreenToWorldPoint(
                 Mouse.current.position.ReadValue()
             );
 
+        // Find breakable object under mouse.
         Collider2D hit =
             Physics2D.OverlapPoint(
                 mousePosition,
@@ -73,15 +109,20 @@ public class BreakSystem : MonoBehaviour
             return;
         }
 
+        // Get BreakableMaterial from clicked object.
         BreakableMaterial material =
             hit.GetComponent<BreakableMaterial>();
 
         if (material == null)
         {
-            Debug.Log("Clicked object is not breakable.");
+            Debug.Log(
+                "Clicked object does not have BreakableMaterial."
+            );
+
             return;
         }
 
+        // Check distance.
         float distance =
             Vector2.Distance(
                 player.position,
@@ -90,42 +131,64 @@ public class BreakSystem : MonoBehaviour
 
         if (distance > breakRange)
         {
-            Debug.Log("Material is too far away.");
+            Debug.Log(
+                "Material is too far away. Distance: " +
+                distance.ToString("F2")
+            );
+
             return;
         }
 
+        // Find a preset that allows this item/material combination.
         ToolBreakPreset preset =
-    FindPreset(
-        equippedItem,
-        material.materialType
-    );
+            FindPreset(
+                equippedItem,
+                material.materialType
+            );
 
-    if (preset == null)
-    {
+        if (preset == null)
+        {
+            if (equippedItem == null)
+            {
+                Debug.Log(
+                    "Bare hands cannot break " +
+                    material.materialType
+                );
+            }
+            else
+            {
+                Debug.Log(
+                    equippedItem.name +
+                    " cannot break " +
+                    material.materialType
+                );
+            }
+
+            return;
+        }
+
+        // Apply cooldown.
+        nextBreakTime =
+            Time.time + preset.breakCooldown;
+
         Debug.Log(
-            equippedItem.name +
-            " cannot break " +
-            material.materialType
+            "Breaking " +
+            material.gameObject.name +
+            " using preset: " +
+            preset.name
         );
 
-        return;
-    }
+        // Deal damage.
+        bool broken =
+            material.TakeDamage(preset.damage);
 
-    if (Time.time < nextBreakTime)
-    {
-        return;
-    }
-
-    nextBreakTime =
-        Time.time + preset.breakCooldown;
-
-        // Damage material
-        bool broken = material.TakeDamage(preset.damage);
-
-        // If material reaches zero HP
+        // Drop items only when completely broken.
         if (broken)
         {
-            DropItem(preset, material.transform.position);
+            DropItem(
+                preset,
+                material.transform.position
+            );
         }
     }
 
@@ -134,10 +197,13 @@ public class BreakSystem : MonoBehaviour
         Vector3 position
     )
     {
-        if (preset.drops == null || preset.drops.Length == 0)
+        if (preset.drops == null ||
+            preset.drops.Length == 0)
         {
             Debug.LogWarning(
-                "ToolBreakPreset has no Drop Items assigned!"
+                "ToolBreakPreset '" +
+                preset.name +
+                "' has no Drop Items assigned!"
             );
 
             return;
@@ -145,19 +211,31 @@ public class BreakSystem : MonoBehaviour
 
         foreach (DropItemData drop in preset.drops)
         {
+            if (drop == null)
+                continue;
+
             if (drop.item == null)
             {
                 Debug.LogWarning(
-                    "A Drop Item is missing in ToolBreakPreset!"
+                    "A Drop Item is missing in ToolBreakPreset '" +
+                    preset.name +
+                    "'!"
                 );
 
                 continue;
             }
 
-            int amount = Random.Range(
-                drop.minAmount,
-                drop.maxAmount + 1
-            );
+            int minAmount =
+                Mathf.Max(1, drop.minAmount);
+
+            int maxAmount =
+                Mathf.Max(minAmount, drop.maxAmount);
+
+            int amount =
+                Random.Range(
+                    minAmount,
+                    maxAmount + 1
+                );
 
             GameObject droppedItem =
                 drop.item.CloneItem(amount);
@@ -188,20 +266,78 @@ public class BreakSystem : MonoBehaviour
         string materialType
     )
     {
+        if (toolPresets == null ||
+            toolPresets.Length == 0)
+        {
+            Debug.LogWarning(
+                "BreakSystem: No ToolBreakPresets assigned!"
+            );
+
+            return null;
+        }
+
         foreach (ToolBreakPreset preset in toolPresets)
         {
-            if (preset.requiredTool == null)
+            if (preset == null)
                 continue;
 
-            if (preset.requiredTool.ID != tool.ID)
+            if (preset.breakableMaterials == null)
                 continue;
+
+            // Check if this preset supports the material.
+            bool materialMatches = false;
 
             foreach (string material in preset.breakableMaterials)
             {
+                if (string.IsNullOrEmpty(material))
+                    continue;
+
                 if (material == materialType)
                 {
-                    return preset;
+                    materialMatches = true;
+                    break;
                 }
+            }
+
+            if (!materialMatches)
+                continue;
+
+            // ==========================================
+            // BARE HANDS
+            // ==========================================
+
+            if (!preset.requiresTool)
+            {
+                // This preset does not require a tool,
+                // so it can be used with bare hands.
+                return preset;
+            }
+
+            // ==========================================
+            // TOOL REQUIRED
+            // ==========================================
+
+            // A tool is required, but player has empty hands.
+            if (tool == null)
+                continue;
+
+            // Preset says a tool is required but no
+            // required tool has been assigned.
+            if (preset.requiredTool == null)
+            {
+                Debug.LogWarning(
+                    "Preset '" +
+                    preset.name +
+                    "' requires a tool but has no Required Tool assigned!"
+                );
+
+                continue;
+            }
+
+            // Check if equipped tool matches required tool.
+            if (preset.requiredTool.ID == tool.ID)
+            {
+                return preset;
             }
         }
 
