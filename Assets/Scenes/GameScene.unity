@@ -627702,6 +627702,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 26c79939-3e72-46d1-8656-94fc1486fe55
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8b10f9cd-cce8-4375-9069-0d203876bca3
+    m_ActionName: 'Player/Sprint[/Keyboard/leftShift]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -627720,8 +627724,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   moveSpeed: 5
-  sprintMultiplier: 2
-  sprintDuration: 3
+  sprintMultiplier: 1.5
+  sprintDuration: 2
   sprintCooldown: 5
 --- !u!50 &543478636
 Rigidbody2D:
@@ -627946,6 +627950,7 @@ MonoBehaviour:
   breakableLayer:
     serializedVersion: 2
     m_Bits: 64
+  hotbarPanel: {fileID: 0}
 --- !u!1 &557255013
 GameObject:
   m_ObjectHideFlags: 0
@@ -652953,8 +652958,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HotbarController
   hotbarPanel: {fileID: 1693767225}
-  slotPrefab: {fileID: 6515747414498963311, guid: 210f0530f643e3a4593385edcc599de7, type: 3}
+  slotPrefab: {fileID: 6515747414498963311, guid: d872237434789c84da55cb7eddb30248, type: 3}
   slotCount: 8
+  player: {fileID: 543478632}
   playerHeldItem: {fileID: 543478644}
 --- !u!1 &1697998399
 GameObject:

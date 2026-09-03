@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 public class BreakSystem : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class BreakSystem : MonoBehaviour
     private float nextBreakTime;
 
     private PlayerHeldItem playerHeldItem;
+
+    public GameObject hotbarPanel;
 
     private void Start()
     {
@@ -45,8 +48,38 @@ public class BreakSystem : MonoBehaviour
 
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
+            if (IsPointerOverHotbar())
+                return;
+
             TryBreak();
         }
+    }
+
+    private bool IsPointerOverHotbar()
+    {
+        if (hotbarPanel == null)
+            return false;
+
+        PointerEventData pointerData =
+            new PointerEventData(EventSystem.current);
+
+        pointerData.position =
+            Mouse.current.position.ReadValue();
+
+        var results = new System.Collections.Generic.List<RaycastResult>();
+
+        EventSystem.current.RaycastAll(pointerData, results);
+
+        foreach (RaycastResult result in results)
+        {
+            if (result.gameObject.transform.IsChildOf(
+                hotbarPanel.transform))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void TryBreak()

@@ -8,6 +8,9 @@ public class HotbarController : MonoBehaviour
     public GameObject slotPrefab;
     public int slotCount = 7;
 
+    [Header("Player")]
+    public Transform player;
+
     public PlayerHeldItem playerHeldItem;
 
     private int selectedSlot = 0;
@@ -38,6 +41,114 @@ public class HotbarController : MonoBehaviour
                 UseItemInSlot(i);
             }
         }
+        // Drop selected hotbar item
+        if (Keyboard.current.gKey.wasPressedThisFrame)
+        {
+            if (Keyboard.current.leftShiftKey.isPressed ||
+                Keyboard.current.rightShiftKey.isPressed)
+            {
+                DropSelectedStack();
+            }
+            else
+            {
+                DropSelectedItem();
+            }
+        }
+    }
+
+    private void DropSelectedItem()
+    {
+        if (hotbarPanel == null)
+            return;
+
+        if (selectedSlot < 0 ||
+            selectedSlot >= hotbarPanel.transform.childCount)
+            return;
+
+        Slot slot = hotbarPanel.transform
+            .GetChild(selectedSlot)
+            .GetComponent<Slot>();
+
+        if (slot == null || slot.currentItem == null)
+            return;
+
+        Item item = slot.currentItem.GetComponent<Item>();
+
+        if (item == null)
+            return;
+
+        // Drop ONE item
+        GameObject droppedItem = item.CloneItem(1);
+
+        if (droppedItem == null)
+            return;
+
+        droppedItem.transform.position = player.position;
+
+        // Remove one from the hotbar
+        item.quantity--;
+
+        if (item.quantity <= 0)
+        {
+            Destroy(slot.currentItem);
+            slot.currentItem = null;
+
+            playerHeldItem.ClearHeldItem();
+        }
+        else
+        {
+            item.UpdateQuantityDisplay();
+
+            // Still holding the same item, just with less quantity
+            playerHeldItem.SetHeldItem(item);
+        }
+    }
+
+    private void DropSelectedStack()
+    {
+        if (hotbarPanel == null)
+            return;
+
+        if (selectedSlot < 0 ||
+            selectedSlot >= hotbarPanel.transform.childCount)
+            return;
+
+        Slot slot = hotbarPanel.transform
+            .GetChild(selectedSlot)
+            .GetComponent<Slot>();
+
+        if (slot == null || slot.currentItem == null)
+            return;
+
+        Item item = slot.currentItem.GetComponent<Item>();
+
+        if (item == null)
+            return;
+
+        int amountToDrop = item.quantity;
+
+        // Drop entire stack
+        GameObject droppedItem =
+            item.CloneItem(amountToDrop);
+
+        if (droppedItem == null)
+            return;
+
+        droppedItem.transform.position = player.position;
+
+        // Empty hotbar slot
+        Destroy(slot.currentItem);
+        slot.currentItem = null;
+
+        // Nothing left to hold
+        playerHeldItem.ClearHeldItem();
+
+        HighlightSlot(selectedSlot);
+    }
+
+    public void SelectSlot(int index)
+    {
+        UseItemInSlot(index);
     }
 
     private void UseItemInSlot(int index)

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MenuController : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class MenuController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Keyboard.current.bKey.wasPressedThisFrame)
         {
             menuCanvas.SetActive(!menuCanvas.activeSelf);
         }
@@ -41,6 +42,7 @@ public class MenuController : MonoBehaviour
         else
         {
             // Menu closed → restore Hotbar
+            Hotbar.SetActive(true);
             panelRect.anchoredPosition = originalPosition;
         }
     }
