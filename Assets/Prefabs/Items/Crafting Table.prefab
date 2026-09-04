@@ -128,6 +128,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 7536810191865729410, guid: aacdbcec071e48d4188bc1cd89faee33, type: 3}
+    - target: {fileID: 6272788661186699199, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6789592075229631350, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
       propertyPath: m_Name
       value: Crafting Table

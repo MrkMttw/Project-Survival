@@ -73,12 +73,18 @@ public class Item : MonoBehaviour
 
     public int RemoveFromStack(int amount = 1)
     {
-        if (!stackable || amount <= 0)
+        if (amount <= 0)
             return 0;
 
         int removed = Mathf.Min(amount, quantity);
 
         quantity -= removed;
+
+        if (quantity <= 0)
+        {
+            Destroy(gameObject);
+            return removed;
+        }
 
         UpdateQuantityDisplay();
 

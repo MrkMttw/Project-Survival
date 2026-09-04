@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -2951338905365301062}
   - component: {fileID: 3825897970270888543}
   - component: {fileID: 2121072631156973253}
+  - component: {fileID: -5516934526342305762}
   m_Layer: 8
   m_Name: Building
   m_TagString: Untagged
@@ -190,3 +191,16 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 1}
   m_Direction: 0
+--- !u!114 &-5516934526342305762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3315979588400478878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ce106adb0e969b41b3f513d9758b074, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingObject
+  itemPrefab: {fileID: 6789592075229631350, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
