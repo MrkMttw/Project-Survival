@@ -251,6 +251,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BreakableMaterial
   materialType: Stone
+  drops:
+  - item: {fileID: 2923022384050544194, guid: 23dafadcc9d2aec4f8cc1b9103fab46f, type: 3}
+    minAmount: 2
+    maxAmount: 5
+  - item: {fileID: 1272274967760314634, guid: d1f3a988e5618ee419c7d4d73c56067e, type: 3}
+    minAmount: 1
+    maxAmount: 2
   maxHealth: 5
 --- !u!61 &8069661852818514870
 BoxCollider2D:

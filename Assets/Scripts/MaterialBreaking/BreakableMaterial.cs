@@ -5,6 +5,9 @@ public class BreakableMaterial : MonoBehaviour
     [Header("Material")]
     public string materialType;
 
+    [Header("Drops")]
+    public DropItemData[] drops;
+
     [Header("Health")]
     [Min(1)]
     public int maxHealth = 3;

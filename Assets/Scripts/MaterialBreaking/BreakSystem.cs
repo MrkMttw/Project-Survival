@@ -222,33 +222,34 @@ public class BreakSystem : MonoBehaviour
         // Drop items only when completely broken.
         if (broken)
         {
-            DropItem(
-                preset,
+             DropItem(
+                material,
                 material.transform.position
             );
-
+            
             currentBreakable = null;
         }
     }
 
     private void DropItem(
-        ToolBreakPreset preset,
+        BreakableMaterial material,
         Vector3 position
-    )
+        )
+
     {
-        if (preset.drops == null ||
-            preset.drops.Length == 0)
+        if (material.drops == null ||
+            material.drops.Length == 0)
         {
             Debug.LogWarning(
-                "ToolBreakPreset '" +
-                preset.name +
+                "BreakableMaterial '" +
+                material.name +
                 "' has no Drop Items assigned!"
             );
 
             return;
         }
 
-        foreach (DropItemData drop in preset.drops)
+        foreach (DropItemData drop in material.drops)
         {
             if (drop == null)
                 continue;
@@ -256,8 +257,8 @@ public class BreakSystem : MonoBehaviour
             if (drop.item == null)
             {
                 Debug.LogWarning(
-                    "A Drop Item is missing in ToolBreakPreset '" +
-                    preset.name +
+                    "A Drop Item is missing in BreakableMaterial '" +
+                    material.name +
                     "'!"
                 );
 

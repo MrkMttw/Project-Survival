@@ -13,9 +13,6 @@ public class ToolBreakPreset : ScriptableObject
     [Header("Materials This Tool Can Break")]
     public string[] breakableMaterials;
 
-    [Header("Drops")]
-    public DropItemData[] drops;
-
     [Header("Damage")]
     [Min(1)]
     public int damage = 1;
