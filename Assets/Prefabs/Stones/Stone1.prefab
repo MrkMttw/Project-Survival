@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 6589045354479237517}
   - component: {fileID: 8232313210978461234}
   - component: {fileID: 8069661852818514870}
+  - component: {fileID: 1575786328100422163}
   m_Layer: 6
   m_Name: Stone1
   m_TagString: Untagged
@@ -305,3 +306,17 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.3125, y: 1.6875}
   m_EdgeRadius: 0
+--- !u!114 &1575786328100422163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6929925488835184841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc3a941ef3ed1c147bacece80bbadfe8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitShake
+  shakeDuration: 0.1
+  shakeAngle: 10

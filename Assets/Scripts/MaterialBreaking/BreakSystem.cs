@@ -215,6 +215,15 @@ public class BreakSystem : MonoBehaviour
             preset.name
         );
 
+        // Shake the material when hit.
+        HitShake hitShake =
+            material.GetComponent<HitShake>();
+
+        if (hitShake != null)
+        {
+            hitShake.Shake();
+        }
+
         // Deal damage.
         bool broken =
             material.TakeDamage(preset.damage);

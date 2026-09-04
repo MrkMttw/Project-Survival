@@ -8,6 +8,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 607666288281772854, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1378662250, guid: 798e8267a76cd9a46964d3224cc3f87f, type: 3}
+    - target: {fileID: 2922160632067221521, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.94
+      objectReference: {fileID: 0}
+    - target: {fileID: 2922160632067221521, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1.82
+      objectReference: {fileID: 0}
     - target: {fileID: 4810641478785856946, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
       propertyPath: m_Size.x
       value: 0.94
@@ -23,6 +35,10 @@ PrefabInstance:
     - target: {fileID: 4810641478785856946, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4921601196896893609, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_Offset.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4963369266823173890, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
       propertyPath: m_Name
@@ -67,6 +83,10 @@ PrefabInstance:
     - target: {fileID: 5480698058156823127, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6616453993543241747, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: shakeAngle
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
