@@ -17,6 +17,9 @@ public class Item : MonoBehaviour
     [Header("Quantity")]
     public int quantity = 1;
 
+    [Header("Building")]
+    public bool isBuildable;
+    public GameObject buildingPrefab;
     private TMP_Text quantityText;
 
     private void Awake()

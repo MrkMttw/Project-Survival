@@ -13,6 +13,9 @@ public class HotbarController : MonoBehaviour
 
     public PlayerHeldItem playerHeldItem;
 
+    [Header("Building")]
+    public PlacementController placementController;
+
     private int selectedSlot = 0;
 
     private ItemDictionary itemDictionary;
@@ -168,7 +171,15 @@ public class HotbarController : MonoBehaviour
             if (item != null)
             {
                 playerHeldItem.SetHeldItem(item);
-                item.UseItem();
+
+                if (item.isBuildable)
+                {
+                    placementController.StartPlacement(item);
+                }
+                else
+                {
+                    item.UseItem();
+                }
             }
         }
         else
