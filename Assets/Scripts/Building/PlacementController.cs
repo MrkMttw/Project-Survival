@@ -16,8 +16,11 @@ public class PlacementController : MonoBehaviour
     [Header("Placement")]
     public LayerMask blockingLayers;
 
+    private GameObject currentBuildingPrefab;
     public Color validColor = Color.green;
     public Color invalidColor = Color.red;
+
+    private bool canPlace;
 
     private Camera mainCamera;
 
@@ -33,6 +36,11 @@ public class PlacementController : MonoBehaviour
 
         FollowMouse();
         CheckPlacement();
+
+        if (Mouse.current.leftButton.wasPressedThisFrame && canPlace)
+        {
+            PlaceBuilding();
+        }
     }
 
     public void StartPlacement(Item item)
@@ -42,6 +50,8 @@ public class PlacementController : MonoBehaviour
         if (item == null)
             return;
 
+        Debug.Log("START PLACEMENT: " + item.name);
+        
         if (!item.isBuildable)
         {
             Debug.Log("ITEM IS NOT BUILDABLE");
@@ -57,7 +67,9 @@ public class PlacementController : MonoBehaviour
         if (ghostObject != null)
             Destroy(ghostObject);
 
-        ghostObject = Instantiate(item.buildingPrefab);
+        currentBuildingPrefab = item.buildingPrefab;
+
+        ghostObject = Instantiate(currentBuildingPrefab);
 
         ghostObject.name = item.name + "_Ghost";
 
@@ -109,6 +121,7 @@ public class PlacementController : MonoBehaviour
 
         if (ghostCollider == null)
         {
+            canPlace = true;
             SetGhostColor(validColor);
             return;
         }
@@ -131,10 +144,34 @@ public class PlacementController : MonoBehaviour
             break;
         }
 
-        if (blocked)
-            SetGhostColor(invalidColor);
-        else
+        canPlace = !blocked;
+
+        if (canPlace)
             SetGhostColor(validColor);
+        else
+            SetGhostColor(invalidColor);
+    }
+
+    private void PlaceBuilding()
+    {
+        GameObject placedBuilding = Instantiate(
+            currentBuildingPrefab,
+            ghostObject.transform.position,
+            ghostObject.transform.rotation
+        );
+
+        SpriteRenderer[] renderers =
+            placedBuilding.GetComponentsInChildren<SpriteRenderer>();
+
+        foreach (SpriteRenderer renderer in renderers)
+        {
+            renderer.color = Color.white;
+        }
+
+        Destroy(ghostObject);
+
+        ghostObject = null;
+        currentBuildingPrefab = null;
     }
 
     private void SetGhostColor(Color color)

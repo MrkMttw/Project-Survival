@@ -628615,7 +628615,7 @@ MonoBehaviour:
   endX: 125
   startY: -125
   endY: 125
-  stoneAmount: 500
+  stoneAmount: 0
   spawnProtectionAreas:
   - startX: -10
     endX: 10
@@ -628651,7 +628651,7 @@ MonoBehaviour:
   endX: 125
   startY: -125
   endY: 125
-  decorAmount: 5000
+  decorAmount: 0
   spawnProtectionAreas: []
 --- !u!114 &714045853
 MonoBehaviour:
@@ -628677,7 +628677,7 @@ MonoBehaviour:
   endX: 125
   startY: -125
   endY: 125
-  bushAmount: 500
+  bushAmount: 0
   spawnProtectionAreas: []
 --- !u!1 &716325461
 GameObject:
@@ -632090,7 +632090,7 @@ MonoBehaviour:
   ghostAlpha: 0.5
   blockingLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 320
   validColor: {r: 0, g: 1, b: 0, a: 1}
   invalidColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &1562635744

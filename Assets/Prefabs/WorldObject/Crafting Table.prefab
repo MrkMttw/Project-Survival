@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &7406845653780941144
+--- !u!1001 &3880041490641535731
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -14,11 +14,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2951338905365301062, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
       propertyPath: m_Size.y
-      value: 0.65
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -2951338905365301062, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
       propertyPath: m_Offset.y
-      value: 0.3
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: -2951338905365301062, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.y
@@ -26,23 +26,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2951338905365301062, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 0.56
+      value: 0.55
       objectReference: {fileID: 0}
     - target: {fileID: -2951338905365301062, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 0.62
+      value: 0.48
       objectReference: {fileID: 0}
     - target: {fileID: 2121072631156973253, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
       propertyPath: m_Size.x
-      value: 0.2
+      value: 0.48
       objectReference: {fileID: 0}
     - target: {fileID: 2121072631156973253, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
       propertyPath: m_Size.y
-      value: 0.04
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2121072631156973253, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.04
       objectReference: {fileID: 0}
     - target: {fileID: 2121072631156973253, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
       propertyPath: m_Offset.y
-      value: 0.12
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 2121072631156973253, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
       propertyPath: m_Direction
@@ -50,19 +54,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3315979588400478878, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
       propertyPath: m_Name
-      value: Campfire
+      value: Building Variant
       objectReference: {fileID: 0}
-    - target: {fileID: 3315979588400478878, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
-      propertyPath: m_Layer
-      value: 8
+    - target: {fileID: 5876583144128633288, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5876583144128633288, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5876583144128633288, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 5876583144128633288, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.4488702
+      value: -0.30383003
       objectReference: {fileID: 0}
     - target: {fileID: 5876583144128633288, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.36307
+      value: 3.46696
       objectReference: {fileID: 0}
     - target: {fileID: 5876583144128633288, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -99,7 +111,7 @@ PrefabInstance:
     - target: {fileID: 7319580430885454648, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -3591475534189650280, guid: 68d58a66a68ecfc4180ea15f6340f2dc, type: 3}
+      objectReference: {fileID: 7536810191865729410, guid: aacdbcec071e48d4188bc1cd89faee33, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
