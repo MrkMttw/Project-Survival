@@ -654649,7 +654649,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BreakableMaterial
   materialType: Box
-  drops: []
+  drops:
+  - item: {fileID: 4502221050623647742, guid: d18703f61319d5749b616447c8450cff, type: 3}
+    minAmount: 1
+    maxAmount: 1
+  - item: {fileID: 5989753331661933484, guid: 31f75d5d76aaec44da89d49852173ac9, type: 3}
+    minAmount: 1
+    maxAmount: 1
+  - item: {fileID: 9082993305366007999, guid: 363beafe0e756de4d9e56d5d4496ea07, type: 3}
+    minAmount: 1
+    maxAmount: 1
+  - item: {fileID: 190791295683999192, guid: 6259c4cb29489094dbb30d154948a50c, type: 3}
+    minAmount: 1
+    maxAmount: 1
   maxHealth: 1
 --- !u!61 &2055226452
 BoxCollider2D:
