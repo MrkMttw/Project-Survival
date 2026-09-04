@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 public class BreakSystem : MonoBehaviour
 {
@@ -18,6 +19,11 @@ public class BreakSystem : MonoBehaviour
     private float nextBreakTime;
 
     private PlayerHeldItem playerHeldItem;
+
+    public GameObject hotbarPanel;
+
+    // Current object inside the player's break hitbox
+    private Collider2D currentBreakable;
 
     private void Start()
     {
@@ -45,7 +51,53 @@ public class BreakSystem : MonoBehaviour
 
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
+            if (IsPointerOverHotbar())
+                return;
+
             TryBreak();
+        }
+    }
+
+    private bool IsPointerOverHotbar()
+    {
+        if (hotbarPanel == null)
+            return false;
+
+        PointerEventData pointerData =
+            new PointerEventData(EventSystem.current);
+
+        pointerData.position =
+            Mouse.current.position.ReadValue();
+
+        var results =
+            new System.Collections.Generic.List<RaycastResult>();
+
+        EventSystem.current.RaycastAll(pointerData, results);
+
+        foreach (RaycastResult result in results)
+        {
+            if (result.gameObject.transform.IsChildOf(
+                hotbarPanel.transform))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    // Called by BreakHitbox
+    public void SetTarget(Collider2D target)
+    {
+        currentBreakable = target;
+    }
+
+    // Called by BreakHitbox
+    public void RemoveTarget(Collider2D target)
+    {
+        if (currentBreakable == target)
+        {
+            currentBreakable = null;
         }
     }
 
@@ -58,9 +110,9 @@ public class BreakSystem : MonoBehaviour
             return;
 
         // Get currently equipped item.
-        // This can legitimately be null because the player
-        // may be using their bare hands.
-        Item equippedItem = playerHeldItem.GetHeldItem();
+        // Null means bare hands.
+        Item equippedItem =
+            playerHeldItem.GetHeldItem();
 
         if (equippedItem == null)
         {
@@ -74,49 +126,34 @@ public class BreakSystem : MonoBehaviour
             );
         }
 
-        // Check cooldown before doing anything else.
+        // Check cooldown.
         if (Time.time < nextBreakTime)
-        {
             return;
-        }
 
-        // Make sure camera exists.
-        if (Camera.main == null)
+        // No breakable inside player's hitbox.
+        if (currentBreakable == null)
         {
-            Debug.LogError(
-                "BreakSystem: No Main Camera found!"
+            Debug.Log(
+                "No breakable object aligned with player."
             );
 
             return;
         }
 
-        // Get mouse position in world space.
-        Vector2 mousePosition =
-            Camera.main.ScreenToWorldPoint(
-                Mouse.current.position.ReadValue()
-            );
-
-        // Find breakable object under mouse.
-        Collider2D hit =
-            Physics2D.OverlapPoint(
-                mousePosition,
-                breakableLayer
-            );
-
-        if (hit == null)
+        // Make sure the target is on the breakable layer.
+        if (((1 << currentBreakable.gameObject.layer) &
+            breakableLayer) == 0)
         {
-            Debug.Log("Nothing breakable clicked.");
             return;
         }
 
-        // Get BreakableMaterial from clicked object.
+        // Get BreakableMaterial.
         BreakableMaterial material =
-            hit.GetComponent<BreakableMaterial>();
-
+            currentBreakable.GetComponentInParent<BreakableMaterial>();
         if (material == null)
         {
             Debug.Log(
-                "Clicked object does not have BreakableMaterial."
+                "Target does not have BreakableMaterial."
             );
 
             return;
@@ -126,7 +163,7 @@ public class BreakSystem : MonoBehaviour
         float distance =
             Vector2.Distance(
                 player.position,
-                hit.transform.position
+                currentBreakable.transform.position
             );
 
         if (distance > breakRange)
@@ -139,7 +176,7 @@ public class BreakSystem : MonoBehaviour
             return;
         }
 
-        // Find a preset that allows this item/material combination.
+        // Find preset.
         ToolBreakPreset preset =
             FindPreset(
                 equippedItem,
@@ -189,6 +226,8 @@ public class BreakSystem : MonoBehaviour
                 preset,
                 material.transform.position
             );
+
+            currentBreakable = null;
         }
     }
 
@@ -284,7 +323,6 @@ public class BreakSystem : MonoBehaviour
             if (preset.breakableMaterials == null)
                 continue;
 
-            // Check if this preset supports the material.
             bool materialMatches = false;
 
             foreach (string material in preset.breakableMaterials)
@@ -302,27 +340,16 @@ public class BreakSystem : MonoBehaviour
             if (!materialMatches)
                 continue;
 
-            // ==========================================
             // BARE HANDS
-            // ==========================================
-
             if (!preset.requiresTool)
             {
-                // This preset does not require a tool,
-                // so it can be used with bare hands.
                 return preset;
             }
 
-            // ==========================================
             // TOOL REQUIRED
-            // ==========================================
-
-            // A tool is required, but player has empty hands.
             if (tool == null)
                 continue;
 
-            // Preset says a tool is required but no
-            // required tool has been assigned.
             if (preset.requiredTool == null)
             {
                 Debug.LogWarning(
@@ -334,7 +361,6 @@ public class BreakSystem : MonoBehaviour
                 continue;
             }
 
-            // Check if equipped tool matches required tool.
             if (preset.requiredTool.ID == tool.ID)
             {
                 return preset;
