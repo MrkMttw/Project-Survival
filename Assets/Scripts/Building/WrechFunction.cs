@@ -3,28 +3,60 @@ using UnityEngine.InputSystem;
 
 public class WrenchFunction : MonoBehaviour
 {
+    [Header("Item Function")]
+    public int itemID;
+
+    [SerializeField] private GameObject instructionUI;
+
     private PlacementController placementController;
 
     private void Awake()
     {
         placementController = FindObjectOfType<PlacementController>();
+
+        if (instructionUI != null)
+            instructionUI.SetActive(false);
+    }
+
+    public void UseTool()
+    {
+        Debug.Log("Wrench function activated!");
     }
 
     private void Update()
     {
-        if (Keyboard.current.eKey.wasPressedThisFrame)
-        {
-            TryRelocateBuilding();
-        }
+        if (Keyboard.current == null)
+            return;
 
-        if (Keyboard.current.fKey.wasPressedThisFrame)
+        BuildingObject building = GetBuilding();
+
+        if (building != null)
         {
-            TryRetrieveBuilding();
+            if (instructionUI != null)
+                instructionUI.SetActive(true);
+
+            if (Keyboard.current.eKey.wasPressedThisFrame)
+            {
+                TryRelocateBuilding();
+            }
+
+            if (Keyboard.current.fKey.wasPressedThisFrame)
+            {
+                TryRetrieveBuilding();
+            }
+        }
+        else
+        {
+            if (instructionUI != null)
+                instructionUI.SetActive(false);
         }
     }
-
+    
     private Collider2D GetBuildingHit()
     {
+        if (Mouse.current == null || Camera.main == null)
+            return null;
+
         Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(
             Mouse.current.position.ReadValue()
         );
@@ -53,6 +85,12 @@ public class WrenchFunction : MonoBehaviour
 
         Debug.Log("Relocating building: " + building.gameObject.name);
 
+        if (placementController == null)
+        {
+            Debug.LogError("PlacementController not found.");
+            return;
+        }
+
         placementController.StartRelocation(building);
     }
 
@@ -65,11 +103,16 @@ public class WrenchFunction : MonoBehaviour
 
         if (building.itemID <= 0)
         {
-            Debug.LogWarning("Building has no Item ID: " + building.gameObject.name);
+            Debug.LogWarning(
+                "Building has no Item ID: " +
+                building.gameObject.name
+            );
+
             return;
         }
 
-        ItemDictionary itemDictionary = FindObjectOfType<ItemDictionary>();
+        ItemDictionary itemDictionary =
+            FindObjectOfType<ItemDictionary>();
 
         if (itemDictionary == null)
         {
@@ -83,8 +126,10 @@ public class WrenchFunction : MonoBehaviour
         if (itemPrefab == null)
         {
             Debug.LogError(
-                "No item prefab found for Item ID: " + building.itemID
+                "No item prefab found for Item ID: " +
+                building.itemID
             );
+
             return;
         }
 
@@ -110,22 +155,19 @@ public class WrenchFunction : MonoBehaviour
 
         if (!added)
         {
-            Debug.Log("Cannot retrieve building. Hotbar and inventory are full.");
+            Debug.Log(
+                "Cannot retrieve building. " +
+                "Hotbar and inventory are full."
+            );
+
             return;
         }
 
         Destroy(building.gameObject);
 
-        Debug.Log("Building retrieved: " + itemPrefab.name);
-    }
-
-    public virtual void UseTool()
-    {
-        Item item = GetComponentInParent<Item>();
-
         Debug.Log(
-            "Tool used: " +
-            (item != null ? item.name : gameObject.name)
+            "Building retrieved: " +
+            itemPrefab.name
         );
     }
 }
