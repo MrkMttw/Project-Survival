@@ -77,9 +77,7 @@ public class ItemDragHandler : MonoBehaviour,
             return;
         }
 
-        // ==========================================
         // DROPPED OUTSIDE INVENTORY
-        // ==========================================
 
         if (!IsWithinInventory(eventData.position))
         {
@@ -93,9 +91,7 @@ public class ItemDragHandler : MonoBehaviour,
 
     private void HandleSlotDrop(Slot dropSlot, Slot originalSlot)
     {
-        // ==========================================
         // EMPTY SLOT
-        // ==========================================
 
         if (dropSlot.currentItem == null)
         {
@@ -110,16 +106,12 @@ public class ItemDragHandler : MonoBehaviour,
             return;
         }
 
-        // ==========================================
         // SLOT HAS AN ITEM
-        // ==========================================
 
         Item draggedItem = GetComponent<Item>();
         Item targetItem = dropSlot.currentItem.GetComponent<Item>();
 
-        // ==========================================
         // TRY STACKING
-        // ==========================================
 
         if (CanStack(draggedItem, targetItem))
         {
@@ -140,9 +132,7 @@ public class ItemDragHandler : MonoBehaviour,
 
             draggedItem.RemoveFromStack(amountAdded);
 
-            // ==========================================
             // ENTIRE DRAGGED STACK WAS MOVED
-            // ==========================================
 
             if (draggedItem.quantity <= 0)
             {
@@ -152,9 +142,7 @@ public class ItemDragHandler : MonoBehaviour,
             }
             else
             {
-                // ==========================================
                 // ONLY PART OF THE STACK WAS MOVED
-                // ==========================================
 
                 transform.SetParent(originalSlot.transform);
 
@@ -164,9 +152,7 @@ public class ItemDragHandler : MonoBehaviour,
             return;
         }
 
-        // ==========================================
         // NOT STACKABLE → SWAP
-        // ==========================================
 
         GameObject targetObject = dropSlot.currentItem;
 
@@ -198,12 +184,31 @@ public class ItemDragHandler : MonoBehaviour,
             targetItem.stackable;
     }
 
-    // ==========================================
     // RIGHT CLICK → SPLIT STACK
-    // ==========================================
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        // LEFT CLICK → SELECT THE SLOT
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            Slot slot = GetComponentInParent<Slot>();
+
+            if (slot != null)
+            {
+                HotbarController hotbar =
+                    slot.GetComponentInParent<HotbarController>();
+
+                if (hotbar != null)
+                {
+                    int slotIndex =
+                        slot.transform.GetSiblingIndex();
+
+                    hotbar.SelectSlot(slotIndex);
+                }
+            }
+        }
+
+        // RIGHT CLICK → SPLIT STACK
         if (eventData.button == PointerEventData.InputButton.Right)
         {
             SplitStack();
@@ -307,27 +312,15 @@ public class ItemDragHandler : MonoBehaviour,
         if (item == null)
             return;
 
-        // DROP ONE ITEM FROM A STACK
+        int amountToDrop = item.quantity;
 
-        if (item.quantity > 1)
-        {
-            item.RemoveFromStack(1);
+        // Drop the ENTIRE stack
+        CreateWorldItem(amountToDrop);
 
-            CreateWorldItem(1);
-
-            transform.SetParent(originalSlot.transform);
-
-            ResetToSlotPosition();
-
-            return;
-        }
-
-        // DROP THE ENTIRE ITEM
-
+        // Empty the original slot
         originalSlot.currentItem = null;
 
-        CreateWorldItem(1);
-
+        // Remove the UI item
         Destroy(gameObject);
     }
 

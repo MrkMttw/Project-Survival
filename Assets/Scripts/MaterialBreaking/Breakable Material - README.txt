@@ -1,24 +1,27 @@
 # Breakable Material System — README
 
-This system allows the player to **break/mining materials using specific tools**.
+This system allows the player to **break/mining materials using tools or bare hands**, depending on the configured `ToolBreakPreset`.
 
 For example:
 
 * Axe → can break Trees
 * Pickaxe → can break Stone
+* Bare hands → can break specific materials if configured
 * Tree → can drop Wood, Apples, Seeds, etc.
 * Stone → can drop Stone, Coal, etc.
 * Different tools can deal different amounts of damage.
 * Different tools can have different breaking speeds.
 * Different materials can have different HP.
 * Multiple items can be dropped from one material.
-* Drop amounts can be randomized.
+* Drop amounts are randomized.
+* Materials are detected through a **player break hitbox**.
+* Clicking the hotbar does not trigger breaking.
 
 ---
 
 # 1. Required Scripts
 
-The system uses these three scripts:
+The system currently uses these four scripts:
 
 ### `BreakableMaterial.cs`
 
@@ -30,7 +33,28 @@ Handles:
 * Material HP
 * Taking damage
 * Preventing HP from going below 0
-* Destroying the object when HP reaches 0
+* Detecting when the material reaches 0 HP
+* Destroying the material when it breaks
+
+---
+
+### `BreakHitbox.cs`
+
+Attached to the player's break hitbox.
+
+Handles:
+
+* Detecting breakable materials inside the player's hitbox
+* Setting the current break target
+* Removing the target when it leaves the hitbox
+
+The hitbox uses:
+
+```csharp
+GetComponentInParent<BreakableMaterial>()
+```
+
+This means the `BreakableMaterial` component can be on the parent of the collider.
 
 ---
 
@@ -41,27 +65,50 @@ Attached to the **Player**.
 Handles:
 
 * Detecting the player's equipped item
-* Detecting what the player clicks
+* Supporting bare hands
+* Checking whether the player has a breakable target
+* Checking the breakable layer
 * Checking break distance
+* Finding the correct `ToolBreakPreset`
 * Checking whether the equipped tool can break the material
 * Applying damage
 * Applying the tool's breaking cooldown
 * Creating dropped items
+* Preventing breaking when clicking the hotbar
+
+The player clicks the left mouse button to attempt a break.
+
+However, the system does **not** use the mouse position to directly find the material.
+
+Instead, `BreakHitbox` determines what breakable object is currently aligned with the player.
 
 ---
 
 ### `ToolBreakPreset.cs`
 
-Creates a **ScriptableObject preset** that defines how a specific tool behaves.
+Creates a ScriptableObject preset that defines how a tool or bare hands behave.
 
 Handles:
 
+* Whether a tool is required
 * Required tool
-* Materials the tool can break
+* Materials that can be broken
 * Multiple drop items
-* Minimum/maximum drop amount for each item
+* Minimum/maximum drop amounts
 * Damage dealt
 * Breaking cooldown
+
+---
+
+### `DropItemData.cs`
+
+Defines an individual item drop inside a `ToolBreakPreset`.
+
+Handles:
+
+* Item to drop
+* Minimum amount
+* Maximum amount
 
 ---
 
@@ -75,9 +122,9 @@ Before setting up this system, make sure your project already has:
 * Item prefabs
 * Unity Input System
 
-`BreakSystem` specifically looks for `PlayerHeldItem` on the same GameObject as `BreakSystem`.
+`BreakSystem` looks for `PlayerHeldItem` on the same GameObject.
 
-Your player should therefore look something like:
+Your player should look something like:
 
 ```text
 Player
@@ -85,18 +132,101 @@ Player
 ├── PlayerMovement
 ├── PlayerHeldItem
 ├── BreakSystem
+├── BreakHitbox
 └── ...
+```
+
+The `BreakHitbox` should have a `Collider2D` configured as a trigger.
+
+Example:
+
+```text
+Player
+├── BreakSystem
+└── BreakHitbox
+    └── Collider2D
 ```
 
 ---
 
-# 3. Setting Up Breakable Materials
+# 3. Setting Up the Break Hitbox
+
+The system uses a **break hitbox** instead of checking the mouse position for breakable objects.
+
+Create a child GameObject under the Player:
+
+```text
+Player
+└── BreakHitbox
+    └── Collider2D
+```
+
+Add:
+
+```text
+BreakHitbox.cs
+```
+
+to the `BreakHitbox` object.
+
+Then assign the Player's `BreakSystem` to:
+
+```text
+BreakHitbox
+└── Break System
+```
+
+The collider should be configured as:
+
+```text
+Is Trigger = true
+```
+
+The size and position of the hitbox determine which breakable objects can be targeted.
+
+---
+
+# 4. How the Break Hitbox Works
+
+When a breakable object enters the hitbox:
+
+```text
+Breakable Object
+      ↓
+BreakHitbox detects Collider2D
+      ↓
+GetComponentInParent<BreakableMaterial>()
+      ↓
+BreakSystem.SetTarget()
+      ↓
+Object becomes current break target
+```
+
+When the object leaves:
+
+```text
+Breakable Object leaves hitbox
+      ↓
+BreakHitbox detects OnTriggerExit2D
+      ↓
+BreakSystem.RemoveTarget()
+      ↓
+Target is cleared
+```
+
+The system therefore only attempts to break the object currently detected by the player's break hitbox.
+
+---
+
+# 5. Setting Up Breakable Materials
 
 To make an object breakable:
 
 1. Select the object in the Unity Hierarchy.
-2. Add the `BreakableMaterial` component.
-3. Set its values in the Inspector.
+2. Add `BreakableMaterial`.
+3. Add a `Collider2D`.
+4. Set the object to the `Breakable` layer.
+5. Configure the material type and health.
 
 Example:
 
@@ -107,11 +237,13 @@ Tree
 └── BreakableMaterial
 ```
 
-## BreakableMaterial Inspector
+---
 
-### Material Type
+# 6. BreakableMaterial Inspector
 
-Set this to the name of the material.
+## Material Type
+
+Set this to the material's identifier.
 
 Example:
 
@@ -119,21 +251,21 @@ Example:
 Tree
 ```
 
-For a stone:
+Stone:
 
 ```text
 Stone
 ```
 
-For another material:
+Iron Ore:
 
 ```text
 IronOre
 ```
 
-The name must match the material name used in the `ToolBreakPreset`.
+The value must match the material name configured in the `ToolBreakPreset`.
 
-For example:
+Example:
 
 ```text
 BreakableMaterial
@@ -148,13 +280,13 @@ Breakable Materials
 Element 0 = Stone
 ```
 
-The spelling and capitalization should match.
+The comparison is case-sensitive.
 
 ---
 
-### Max Health
+## Max Health
 
-Determines how much HP the material has.
+Determines how much damage the material can take.
 
 Example:
 
@@ -162,7 +294,7 @@ Example:
 Max Health = 3
 ```
 
-If an axe deals 1 damage:
+If the tool deals 1 damage:
 
 ```text
 Hit 1 → 2 HP
@@ -170,19 +302,23 @@ Hit 2 → 1 HP
 Hit 3 → 0 HP → BREAK
 ```
 
-If a stronger tool deals 3 damage:
+If the tool deals 3 damage:
 
 ```text
 Hit 1 → 0 HP → BREAK
 ```
 
-HP will never go below 0.
+The system prevents health from going below:
+
+```text
+0
+```
 
 ---
 
-# 4. Setting Up the Breakable Layer
+# 7. Setting Up the Breakable Layer
 
-`BreakSystem` uses a LayerMask to determine which objects can be detected.
+`BreakSystem` uses a `LayerMask` to verify that the target is breakable.
 
 Create a layer called:
 
@@ -190,7 +326,7 @@ Create a layer called:
 Breakable
 ```
 
-Then assign that layer to every object that should be breakable.
+Assign it to every object that should be breakable.
 
 For example:
 
@@ -201,11 +337,18 @@ IronOre → Breakable
 CoalOre → Breakable
 ```
 
-Objects without this layer will not be detected by `BreakSystem`.
+Then assign the same layer to:
+
+```text
+BreakSystem
+└── Breakable Layer
+```
+
+Objects that are not on this layer will not be broken.
 
 ---
 
-# 5. Important: Collider2D
+# 8. Collider2D Requirements
 
 Every breakable object needs a `Collider2D`.
 
@@ -227,23 +370,28 @@ Stone
 └── BreakableMaterial
 ```
 
-The collider allows:
+The collider allows `BreakHitbox` to detect the material.
 
-```csharp
-Physics2D.OverlapPoint()
-```
+The collider does not need to be on the same GameObject as `BreakableMaterial`.
 
-to detect the object when the player clicks it.
-
-Without a collider, the system will report:
+For example, this is also supported:
 
 ```text
-Nothing breakable clicked.
+Tree
+├── BreakableMaterial
+└── TreeCollider
+    └── BoxCollider2D
+```
+
+because `BreakHitbox` uses:
+
+```csharp
+GetComponentInParent<BreakableMaterial>()
 ```
 
 ---
 
-# 6. Creating a Tool Break Preset
+# 9. Creating a Tool Break Preset
 
 `ToolBreakPreset` is a ScriptableObject.
 
@@ -258,22 +406,81 @@ Create
 → Tool Break Preset
 ```
 
-You can create one preset for each tool.
+Create one preset for each type of breaking behavior.
+
+Example:
+
+```text
+BreakPresets
+├── Axe_BreakPreset
+├── Pickaxe_BreakPreset
+└── BareHands_BreakPreset
+```
+
+---
+
+# 10. Tool Requirement
+
+The preset now has:
+
+```text
+Requires Tool
+```
+
+This determines whether the preset requires an equipped item.
+
+### Tool Required
+
+```text
+Requires Tool = true
+```
+
+The preset will only work if the player has the correct tool equipped.
 
 For example:
 
 ```text
-ToolBreakPresets
-├── Axe_BreakPreset
-├── Pickaxe_BreakPreset
-└── ...
+Required Tool = Axe
 ```
-
-Each preset controls the behavior of one tool.
 
 ---
 
-# 7. Example: Axe Preset
+### Bare Hands
+
+A preset can also work without a tool:
+
+```text
+Requires Tool = false
+```
+
+In this case:
+
+```text
+Required Tool
+```
+
+does not need to be assigned.
+
+The player can have:
+
+```text
+Held Item = null
+```
+
+and the preset can still be used.
+
+This allows you to create behavior such as:
+
+```text
+Bare Hands → Bush
+Bare Hands → SmallRock
+```
+
+while still preventing bare hands from breaking materials that require tools.
+
+---
+
+# 11. Example Axe Preset
 
 Create:
 
@@ -281,44 +488,41 @@ Create:
 Axe_BreakPreset
 ```
 
-Set the Inspector values like this.
-
-## Required Tool
-
-Drag your **Axe Item** into:
-
-```text
-Required Tool
-```
-
-This must be the same `Item` used by the player's inventory/hotbar.
-
----
-
-## Materials This Tool Can Break
-
 Set:
 
 ```text
+Requires Tool = true
+Required Tool = Axe
+```
+
+Materials:
+
+```text
+Breakable Materials
 Size = 1
+
 Element 0 = Tree
 ```
 
 This means:
 
 ```text
-Axe → Tree (valid)
+Axe → Tree = Valid
+Axe → Stone = Invalid
 ```
 
-but:
+---
+
+# 12. Setting Up Multiple Materials
+
+A single preset can support multiple materials.
+
+For example:
 
 ```text
-Axe → Stone (invalid)
-```
+Axe_BreakPreset
 
-A single preset can also contain multiple materials:
-
-```text
+Breakable Materials
 Size = 3
 
 Element 0 = Tree
@@ -326,26 +530,36 @@ Element 1 = Bush
 Element 2 = WoodenCrate
 ```
 
----
-
-# 8. Setting Up Multiple Drops
-
-The `ToolBreakPreset` supports **multiple drop items**.
-
-Instead of having one Drop Item, the preset now has:
+The preset can then break:
 
 ```text
-Drops
+Tree
+Bush
+WoodenCrate
 ```
 
-For example:
+but not:
+
+```text
+Stone
+IronOre
+CoalOre
+```
+
+---
+
+# 13. Setting Up Multiple Drops
+
+A `ToolBreakPreset` can contain multiple `DropItemData` entries.
+
+Example:
 
 ```text
 Drops
 Size = 3
 ```
 
-### Element 0
+Element 0:
 
 ```text
 Item = Wood
@@ -353,57 +567,97 @@ Min Amount = 2
 Max Amount = 5
 ```
 
-### Element 1
+Element 1:
 
 ```text
 Item = Apple
-Min Amount = 0
+Min Amount = 1
 Max Amount = 2
 ```
 
-### Element 2
+Element 2:
 
 ```text
 Item = Seed
-Min Amount = 0
+Min Amount = 1
 Max Amount = 3
 ```
 
-When the tree breaks, the system processes each drop separately.
+When the material breaks, every configured drop is processed independently.
 
-For example:
+Example:
 
 ```text
 Tree breaks
     ↓
-2–5 Wood
+Wood → random amount
     ↓
-0–2 Apples
+Apple → random amount
     ↓
-0–3 Seeds
+Seed → random amount
 ```
-
-The amount for each item is randomly generated.
 
 ---
 
-# 9. Drop Item Setup
+# 14. Drop Amounts
 
-Each drop must reference your **Item prefab**.
-
-Do not assign only the SpriteRenderer or `ItemObject`.
-
-Your existing Item prefab structure is:
+Each `DropItemData` contains:
 
 ```text
-Wood
-├── Item
-├── ItemObject
-│   └── SpriteRenderer
-└── QtyText
+Min Amount
+Max Amount
 ```
 
-The `Item` field in the Drop entry should reference the object containing the `Item` component.
+The system generates a random amount between the two values.
+
+For example:
+
+```text
+Min Amount = 2
+Max Amount = 5
+```
+
+can produce:
+
+```text
+2
+3
+4
+5
+```
+
+The code uses:
+
+```csharp
+Random.Range(
+    minAmount,
+    maxAmount + 1
+);
+```
+
+The current implementation also ensures the minimum amount is at least `1`.
+
+Therefore, a configured value of:
+
+```text
+Min Amount = 0
+```
+
+will be treated as:
+
+```text
+Min Amount = 1
+```
+
+This means the current system **does not support zero-quantity drops**.
+
+---
+
+# 15. Drop Item Setup
+
+Each drop must reference an `Item` prefab.
+
+The `Item` field should reference the object containing the `Item` component.
 
 For example:
 
@@ -416,65 +670,28 @@ Element 0
 └── Max Amount → 5
 ```
 
----
+The item is then cloned using:
 
-# 10. Example Tree Drops
-
-A tree could have:
-
-```text
-Drops
-Size = 3
+```csharp
+CloneItem(amount)
 ```
 
-### Wood
-
-```text
-Item = Wood
-Min Amount = 2
-Max Amount = 5
-```
-
-### Apple
-
-```text
-Item = Apple
-Min Amount = 0
-Max Amount = 2
-```
-
-### Seed
-
-```text
-Item = Seed
-Min Amount = 0
-Max Amount = 1
-```
-
-A possible result:
-
-```text
-Dropped 4x Wood
-Dropped 1x Apple
-Dropped 0x Seed
-```
-
-If an item's generated amount is `0`, no useful quantity of that item is dropped.
+The cloned item is placed at the position of the broken material.
 
 ---
 
-# 11. Damage
+# 16. Damage
 
-Set the damage dealt by the tool:
+Set the damage dealt by the preset:
 
 ```text
 Damage = 1
 ```
 
-For example:
+Example:
 
 ```text
-Axe
+Wooden Axe
 Damage = 1
 ```
 
@@ -485,15 +702,19 @@ Iron Axe
 Damage = 2
 ```
 
-The damage is applied every time the player successfully hits the material.
+Damage is applied every time the player successfully hits the material.
+
+The preset requires a minimum damage of:
+
+```text
+1
+```
 
 ---
 
-# 12. Breaking Cooldown
+# 17. Breaking Cooldown
 
-The breaking cooldown is controlled by the **ToolBreakPreset**.
-
-This means different tools can have different breaking speeds.
+The breaking cooldown is controlled by the `ToolBreakPreset`.
 
 Example:
 
@@ -504,28 +725,15 @@ Damage = 1
 Break Cooldown = 0.4
 ```
 
-and:
-
-```text
-IronAxe_BreakPreset
-
-Damage = 2
-Break Cooldown = 0.25
-```
-
 The cooldown is measured in seconds.
-
-For example:
 
 ```text
 Break Cooldown = 0.4
 ```
 
-means the tool can break/hit again after 0.4 seconds.
+means the player must wait approximately 0.4 seconds before another successful hit can occur.
 
----
-
-## Example Tool Speeds
+Example:
 
 ```text
 Wooden Axe
@@ -545,13 +753,273 @@ Damage = 2
 Cooldown = 0.3
 ```
 
-Lower cooldown = faster breaking.
+Lower cooldown means faster breaking.
 
-Higher cooldown = slower breaking.
+Higher cooldown means slower breaking.
 
 ---
 
-# 13. Example: Pickaxe Preset
+# 18. Setting Up BreakSystem
+
+Add:
+
+```text
+BreakSystem.cs
+```
+
+to the Player.
+
+Example:
+
+```text
+Player
+├── PlayerHeldItem
+├── BreakSystem
+├── BreakHitbox
+└── ...
+```
+
+Configure the Inspector.
+
+---
+
+## Player
+
+Drag the player's Transform into:
+
+```text
+Player
+```
+
+This is used to calculate the distance between the player and the current break target.
+
+---
+
+## Break Range
+
+Example:
+
+```text
+Break Range = 2.5
+```
+
+The player can only break the target if it is within this distance.
+
+If the target is too far away:
+
+```text
+Material is too far away.
+```
+
+The break attempt is cancelled.
+
+---
+
+## Tool Presets
+
+Add all of your `ToolBreakPreset` assets.
+
+Example:
+
+```text
+Tool Presets
+Size = 2
+
+Element 0 → Axe_BreakPreset
+Element 1 → Pickaxe_BreakPreset
+```
+
+You can add more:
+
+```text
+Element 2 → Shovel_BreakPreset
+Element 3 → Hammer_BreakPreset
+Element 4 → BareHands_BreakPreset
+```
+
+---
+
+## Breakable Layer
+
+Set:
+
+```text
+Breakable Layer = Breakable
+```
+
+This must match the layer assigned to your breakable objects.
+
+---
+
+## Hotbar Panel
+
+Assign the player's hotbar:
+
+```text
+Hotbar Panel → HotbarPanel
+```
+
+This is used to prevent breaking when the player clicks UI elements inside the hotbar.
+
+If the player clicks a hotbar slot:
+
+```text
+Left Click
+    ↓
+Is pointer over hotbar?
+    ↓
+YES
+    ↓
+Do not attempt to break
+```
+
+---
+
+# 19. How the Player Breaks Objects
+
+The current system works like this:
+
+```text
+Player moves near material
+        ↓
+BreakHitbox detects material
+        ↓
+BreakSystem stores target
+        ↓
+Player left-clicks
+        ↓
+Check if click is over hotbar
+        ↓
+NO
+        ↓
+Get equipped Item
+        ↓
+Check cooldown
+        ↓
+Check current break target
+        ↓
+Check Breakable layer
+        ↓
+Get BreakableMaterial
+        ↓
+Check break distance
+        ↓
+Find matching ToolBreakPreset
+        ↓
+Apply damage
+        ↓
+Start cooldown
+        ↓
+Material reaches 0 HP?
+        ↓
+YES
+        ↓
+Destroy material
+        ↓
+Clone configured drops
+```
+
+---
+
+# 20. Equipped Item Detection
+
+`BreakSystem` gets the currently held item through:
+
+```csharp
+playerHeldItem.GetHeldItem();
+```
+
+There are two possible states.
+
+### Tool Equipped
+
+Example:
+
+```text
+Held Item = Axe
+```
+
+The system searches for a preset that matches:
+
+```text
+Axe ID
++
+Material Type
+```
+
+---
+
+### Bare Hands
+
+If:
+
+```text
+Held Item = null
+```
+
+the system treats the player as using bare hands.
+
+The system can then find a preset where:
+
+```text
+Requires Tool = false
+```
+
+and the material matches.
+
+If no such preset exists:
+
+```text
+Bare hands cannot break Tree
+```
+
+---
+
+# 21. How Preset Matching Works
+
+`FindPreset()` checks the configured presets.
+
+First, the material must match:
+
+```text
+preset.breakableMaterials
+```
+
+Then one of two conditions must be satisfied.
+
+### Preset Does Not Require a Tool
+
+```text
+Requires Tool = false
+```
+
+The preset can be used with bare hands.
+
+---
+
+### Preset Requires a Tool
+
+```text
+Requires Tool = true
+```
+
+The equipped item must have the same ID as:
+
+```text
+Required Tool
+```
+
+The system compares:
+
+```csharp
+preset.requiredTool.ID == tool.ID
+```
+
+This means the actual Item ID is used to identify the tool.
+
+---
+
+# 22. Example Pickaxe Preset
 
 Create:
 
@@ -562,12 +1030,15 @@ Pickaxe_BreakPreset
 Set:
 
 ```text
+Requires Tool = true
 Required Tool = Pickaxe
 ```
 
 Materials:
 
 ```text
+Breakable Materials
+
 Size = 1
 Element 0 = Stone
 ```
@@ -590,7 +1061,7 @@ Element 1:
 
 ```text
 Item = Coal
-Min Amount = 0
+Min Amount = 1
 Max Amount = 2
 ```
 
@@ -600,128 +1071,124 @@ Damage:
 Damage = 1
 ```
 
-Breaking speed:
+Cooldown:
 
 ```text
 Break Cooldown = 0.5
 ```
 
-Now the system understands:
+The system then works like:
 
 ```text
-Pickaxe
-   ↓
-Stone
-   ↓
+Equip Pickaxe
+      ↓
+Move close to Stone
+      ↓
+BreakHitbox detects Stone
+      ↓
+Left Click
+      ↓
+Find Pickaxe preset
+      ↓
 Deal 1 damage
-   ↓
+      ↓
 Wait 0.5 seconds
-   ↓
-Can hit again
-   ↓
+      ↓
+Hit again
+      ↓
 Stone reaches 0 HP
-   ↓
-Drop 1–3 Stone
-   ↓
-Drop 0–2 Coal
+      ↓
+Stone breaks
+      ↓
+Drop Stone
+      ↓
+Drop Coal
 ```
 
 ---
 
-# 14. Setting Up BreakSystem
+# 23. Example Bare Hands Preset
 
-Add `BreakSystem` to the **Player**.
-
-Example:
+Create:
 
 ```text
-Player
-├── PlayerMovement
-├── PlayerHeldItem
-├── BreakSystem
-└── ...
+BareHands_BreakPreset
 ```
-
-Then configure the Inspector.
-
----
-
-## Player
-
-Drag the player's Transform into:
-
-```text
-Player
-```
-
-This is used to calculate the distance between the player and the material.
-
----
-
-## Break Range
-
-Example:
-
-```text
-Break Range = 2.5
-```
-
-This means the player can only break objects within approximately 2.5 Unity units.
-
-If the object is too far away:
-
-```text
-Material is too far away.
-```
-
----
-
-## Tool Presets
-
-Increase the array size and add every `ToolBreakPreset` you created.
-
-Example:
-
-```text
-Tool Presets
-Size = 2
-
-Element 0 → Axe_BreakPreset
-Element 1 → Pickaxe_BreakPreset
-```
-
-You can add more later:
-
-```text
-Element 2 → Shovel_BreakPreset
-Element 3 → Hammer_BreakPreset
-Element 4 → SpecialTool_BreakPreset
-```
-
----
-
-## Breakable Layer
 
 Set:
 
 ```text
-Breakable Layer = Breakable
+Requires Tool = false
 ```
 
-This must match the layer assigned to your breakable objects.
+Required Tool:
+
+```text
+None
+```
+
+Materials:
+
+```text
+Breakable Materials
+
+Size = 1
+Element 0 = Bush
+```
+
+Drops:
+
+```text
+Size = 1
+
+Element 0
+Item = Fiber
+Min Amount = 1
+Max Amount = 3
+```
+
+Damage:
+
+```text
+Damage = 1
+```
+
+Cooldown:
+
+```text
+Break Cooldown = 0.5
+```
+
+Now:
+
+```text
+No item equipped
+      ↓
+Move near Bush
+      ↓
+BreakHitbox detects Bush
+      ↓
+Left Click
+      ↓
+BareHands preset found
+      ↓
+Bush takes damage
+```
 
 ---
 
-# 15. Complete Example Setup
+# 24. Complete Example Setup
 
-Your Project might look like:
+A simple project setup might look like:
 
 ```text
 Assets
 ├── Scripts
 │   ├── BreakableMaterial.cs
+│   ├── BreakHitbox.cs
 │   ├── BreakSystem.cs
 │   ├── ToolBreakPreset.cs
+│   ├── DropItemData.cs
 │   ├── Item.cs
 │   ├── PlayerHeldItem.cs
 │   └── ...
@@ -731,12 +1198,13 @@ Assets
 │   ├── Pickaxe
 │   ├── Wood
 │   ├── Stone
-│   ├── Apple
-│   └── Seed
+│   ├── Coal
+│   └── ...
 │
 ├── BreakPresets
 │   ├── Axe_BreakPreset
-│   └── Pickaxe_BreakPreset
+│   ├── Pickaxe_BreakPreset
+│   └── BareHands_BreakPreset
 │
 └── Prefabs
     ├── Tree
@@ -745,9 +1213,9 @@ Assets
 
 ---
 
-# 16. Tree Setup
+# 25. Tree Setup
 
-The Tree GameObject should have:
+The Tree GameObject:
 
 ```text
 Tree
@@ -771,11 +1239,13 @@ Layer:
 Breakable
 ```
 
+The tree's collider must be detectable by the player's `BreakHitbox`.
+
 ---
 
-# 17. Stone Setup
+# 26. Stone Setup
 
-The Stone GameObject should have:
+The Stone GameObject:
 
 ```text
 Stone
@@ -801,68 +1271,14 @@ Breakable
 
 ---
 
-# 18. How the System Works
+# 27. Example Gameplay
 
-When the player presses the left mouse button:
+Suppose the player has an Axe equipped.
 
-```text
-Left Click
-    ↓
-BreakSystem
-    ↓
-Get currently held Item
-    ↓
-Detect object under mouse
-    ↓
-Is it on the Breakable layer?
-    ↓
-Does it have BreakableMaterial?
-    ↓
-Is it within break range?
-    ↓
-Find matching ToolBreakPreset
-    ↓
-Can this tool break this material?
-    ↓
-Check cooldown
-    ↓
-Apply damage
-    ↓
-Start tool cooldown
-    ↓
-Material HP reaches 0?
-    ↓
-YES
-    ↓
-Destroy material
-    ↓
-Create all configured dropped Items
-```
-
-The important part is that the **cooldown comes from the preset of the equipped tool**.
-
----
-
-# 19. Example Gameplay
-
-Suppose:
+The Axe preset contains:
 
 ```text
-Player has Axe equipped
-```
-
-The player clicks a tree.
-
-The tree has:
-
-```text
-Material Type = Tree
-Health = 3
-```
-
-The Axe preset says:
-
-```text
+Requires Tool = true
 Required Tool = Axe
 Breakable Materials = Tree
 
@@ -870,69 +1286,48 @@ Damage = 1
 Break Cooldown = 0.4
 ```
 
-Drops:
+The Tree contains:
 
 ```text
-Wood → 2–5
-Apple → 0–2
-Seed → 0–1
+Material Type = Tree
+Max Health = 3
 ```
 
-The first hit:
+The player moves close enough for the `BreakHitbox` to detect it.
+
+First click:
 
 ```text
 Tree HP: 2/3
 ```
 
-The player must wait:
-
-```text
-0.4 seconds
-```
-
-before the next hit.
-
-Second hit:
+Second click after cooldown:
 
 ```text
 Tree HP: 1/3
 ```
 
-Wait:
-
-```text
-0.4 seconds
-```
-
-Third hit:
+Third click:
 
 ```text
 Tree HP: 0/3
 Tree BROKE!
 ```
 
-The system then generates the drops independently.
+The tree is destroyed and its configured drops are cloned at the tree's position.
+
+---
+
+# 28. Multiple Materials Per Tool
+
+A single tool preset can support multiple materials.
 
 Example:
 
 ```text
-Dropped 4x Wood
-Dropped 1x Apple
-Dropped 0x Seed
-```
+Pickaxe_BreakPreset
 
----
-
-# 20. Multiple Materials Per Tool
-
-A tool can break multiple materials.
-
-For example, an advanced pickaxe preset could have:
-
-```text
 Breakable Materials
-
-Size = 3
 
 Element 0 = Stone
 Element 1 = IronOre
@@ -942,19 +1337,19 @@ Element 2 = CoalOre
 Then:
 
 ```text
-Pickaxe → Stone (valid)
-Pickaxe → IronOre (valid)
-Pickaxe → CoalOre (valid)
-Pickaxe → Tree (invalid)
+Pickaxe → Stone = Valid
+Pickaxe → IronOre = Valid
+Pickaxe → CoalOre = Valid
+Pickaxe → Tree = Invalid
 ```
 
-You do **not** need a separate `BreakSystem` for every material.
+You do not need a separate `BreakSystem` for every material.
 
 ---
 
-# 21. Multiple Tools
+# 29. Multiple Tools
 
-You can create separate presets for each tool.
+Create separate presets for different tools.
 
 Example:
 
@@ -964,7 +1359,17 @@ Pickaxe_BreakPreset
 Shovel_BreakPreset
 ```
 
-The `BreakSystem` searches through the presets and finds the one matching:
+Each preset can define:
+
+```text
+Required Tool
+Breakable Materials
+Drops
+Damage
+Break Cooldown
+```
+
+`BreakSystem` searches the presets and finds the one matching:
 
 ```text
 Equipped Tool ID
@@ -972,36 +1377,49 @@ Equipped Tool ID
 Material Type
 ```
 
-This means you can expand the system without changing `BreakSystem.cs`.
+This allows new tools and materials to be added without hardcoding every combination inside `BreakSystem.cs`.
 
 ---
 
-# 22. Common Problems
+# 30. Common Problems
 
-## "Nothing breakable clicked."
+## "No breakable object aligned with player."
+
+This means `BreakSystem` currently has no target from `BreakHitbox`.
 
 Check:
 
-* The object has a `Collider2D`.
-* The object's layer is set to `Breakable`.
-* `Breakable Layer` in `BreakSystem` includes the `Breakable` layer.
-* The mouse is actually clicking the object's collider.
+* `BreakHitbox` is attached to the player.
+* `BreakHitbox` has a `Collider2D`.
+* The collider is set to `Is Trigger`.
+* The breakable object has a `Collider2D`.
+* The breakable object has `BreakableMaterial`.
+* The breakable object's collider can enter the hitbox.
+* The `BreakHitbox` has the correct `BreakSystem` assigned.
 
 ---
 
-## "Clicked object is not breakable."
+## "Target does not have BreakableMaterial."
 
-The clicked object was detected, but it doesn't have:
+The hitbox detected a collider, but:
+
+```text
+GetComponentInParent<BreakableMaterial>()
+```
+
+returned `null`.
+
+Make sure the collider belongs to an object whose parent hierarchy contains:
 
 ```text
 BreakableMaterial
 ```
 
-Add the component to the object.
-
 ---
 
 ## "Material is too far away."
+
+The target was detected by the hitbox, but the distance check failed.
 
 Increase:
 
@@ -1015,10 +1433,26 @@ or move the player closer.
 
 ## "Axe cannot break Tree."
 
-Check the Axe preset:
+Check:
 
 ```text
-Required Tool = Axe
+Axe_BreakPreset
+├── Requires Tool = true
+├── Required Tool = Axe
+└── Breakable Materials
+    └── Tree
+```
+
+Also make sure the Axe Item ID matches the required Axe Item ID.
+
+---
+
+## "Bare hands cannot break Tree."
+
+Check whether a preset exists with:
+
+```text
+Requires Tool = false
 ```
 
 and:
@@ -1028,17 +1462,21 @@ Breakable Materials
     Tree
 ```
 
-Also make sure the Axe `Item.ID` matches the `Item.ID` used by the equipped Axe.
+If the preset requires a tool, bare hands will not work.
 
 ---
 
-## "Drop Item is missing."
+## "A Drop Item is missing."
 
 Open the relevant `ToolBreakPreset`.
 
-Check the `Drops` array.
+Check:
 
-For each element, make sure:
+```text
+Drops
+```
+
+For every element, make sure:
 
 ```text
 Item
@@ -1046,48 +1484,43 @@ Item
 
 is assigned.
 
-Make sure you're assigning the actual **Item prefab**, not just the SpriteRenderer.
-
-Your Item prefab should contain:
-
-```text
-Item
-├── ItemObject
-│   └── SpriteRenderer
-└── QtyText
-```
-
 ---
 
 ## "CloneItem returned null!"
 
-Check your `Item.CloneItem(int newQuantity)` implementation.
+Check your:
 
-Also make sure every item assigned to a `DropItemData` entry is a valid Item prefab.
+```csharp
+Item.CloneItem(int newQuantity)
+```
+
+implementation.
+
+Also make sure every drop references a valid Item prefab.
 
 ---
 
-## The material gives negative HP
+## "The material gives negative HP."
 
-`BreakableMaterial` already prevents this:
+`BreakableMaterial` prevents this using:
 
 ```csharp
 currentHealth = Mathf.Max(currentHealth, 0);
 ```
 
-So HP should stop at:
+Health should therefore never go below:
 
 ```text
 0
 ```
 
-If you're still seeing negative HP, check whether another script is also modifying the material's health.
+If negative HP still appears, check whether another script is modifying the material's health.
 
 ---
 
-## The tool breaks too quickly/slowly
+## "The tool breaks too quickly/slowly."
 
-Open the tool's `ToolBreakPreset`.
+Open the relevant `ToolBreakPreset`.
 
 Adjust:
 
@@ -1098,24 +1531,32 @@ Break Cooldown
 Remember:
 
 ```text
-Lower number = faster
-Higher number = slower
-```
-
-Example:
-
-```text
 0.2 → Fast
 0.4 → Moderate
 0.6 → Slow
-1.0 → Very slow
+1.0 → Very Slow
 ```
 
 ---
 
-# 23. Recommended Naming
+## "Clicking the hotbar also tries to break."
 
-To avoid confusion, use consistent names.
+Make sure:
+
+```text
+BreakSystem
+└── Hotbar Panel
+```
+
+has the correct hotbar GameObject assigned.
+
+`BreakSystem` checks the UI using Unity's `EventSystem`.
+
+If the pointer is over a child of the assigned hotbar panel, the break attempt is cancelled.
+
+---
+
+# 31. Recommended Naming
 
 ### Materials
 
@@ -1140,6 +1581,7 @@ Shovel
 Axe_BreakPreset
 Pickaxe_BreakPreset
 Shovel_BreakPreset
+BareHands_BreakPreset
 ```
 
 ### Drops
@@ -1151,9 +1593,10 @@ IronOre
 Coal
 Apple
 Seed
+Fiber
 ```
 
-Keep the `materialType` string and `breakableMaterials` values exactly the same.
+Keep the material names consistent.
 
 For example:
 
@@ -1162,7 +1605,7 @@ BreakableMaterial:
 materialType = "Stone"
 ```
 
-and:
+must match:
 
 ```text
 ToolBreakPreset:
@@ -1171,74 +1614,87 @@ breakableMaterials[0] = "Stone"
 
 ---
 
-# 24. Quick Setup Checklist
+# 32. Quick Setup Checklist
 
-Before testing, make sure:
+## Player
 
-### Player
+* [ ] `PlayerHeldItem` is attached.
+* [ ] `BreakSystem` is attached.
+* [ ] `Player` Transform is assigned.
+* [ ] `Break Range` is reasonable.
+* [ ] Tool presets are assigned.
+* [ ] `Breakable Layer` is assigned.
+* [ ] `Hotbar Panel` is assigned.
+* [ ] `BreakHitbox` exists.
+* [ ] `BreakHitbox` has a `Collider2D`.
+* [ ] Break hitbox collider is set to `Is Trigger`.
+* [ ] `BreakHitbox.breakSystem` references the player's `BreakSystem`.
 
-* [ ] `PlayerHeldItem` is attached
-* [ ] `BreakSystem` is attached
-* [ ] Player Transform is assigned
-* [ ] Break Range is reasonable
-* [ ] Tool presets are assigned
-* [ ] Breakable Layer is assigned
+## Breakable Object
 
-### Breakable Object
+* [ ] `Collider2D` is attached.
+* [ ] `BreakableMaterial` is attached.
+* [ ] `Material Type` is set.
+* [ ] `Max Health` is set.
+* [ ] Object is on the `Breakable` layer.
 
-* [ ] `Collider2D` is attached
-* [ ] `BreakableMaterial` is attached
-* [ ] Material Type is set
-* [ ] Max Health is set
-* [ ] Object is on the Breakable layer
+## Tool Break Preset
 
-### Tool Preset
+* [ ] `Requires Tool` is configured.
+* [ ] `Required Tool` is assigned if a tool is required.
+* [ ] `Breakable Materials` are listed.
+* [ ] `Drops` are configured.
+* [ ] Every Drop Item is assigned.
+* [ ] Minimum drop amounts are set.
+* [ ] Maximum drop amounts are set.
+* [ ] Damage is set.
+* [ ] Break Cooldown is set.
 
-* [ ] Required Tool is assigned
-* [ ] Breakable Materials are listed
-* [ ] Drops array is configured
-* [ ] Every Drop Item is assigned
-* [ ] Minimum drop amounts are set
-* [ ] Maximum drop amounts are set
-* [ ] Damage is set
-* [ ] Break Cooldown is set
+## Drop Items
 
-### Drop Items
-
-* [ ] Drop prefab has an `Item` component
-* [ ] Item prefab has its sprite
-* [ ] Item prefab has `QtyText`
-* [ ] `CloneItem()` works correctly
+* [ ] Drop prefab has an `Item` component.
+* [ ] Item prefab has its sprite.
+* [ ] Item prefab has `QtyText`.
+* [ ] `CloneItem()` works correctly.
 
 ---
 
-# 25. Basic Setup Example
+# 33. Basic Setup Example
 
-The simplest working configuration is:
+The simplest tool-based configuration:
 
 ```text
 PLAYER
 │
 ├── PlayerHeldItem
-└── BreakSystem
-       │
-       ├── Player → Player Transform
-       ├── Break Range → 2.5
-       ├── Tool Presets
-       │      └── Axe_BreakPreset
-       └── Breakable Layer → Breakable
+│
+├── BreakSystem
+│      │
+│      ├── Player → Player Transform
+│      ├── Break Range → 2.5
+│      ├── Tool Presets
+│      │      └── Axe_BreakPreset
+│      ├── Breakable Layer → Breakable
+│      └── Hotbar Panel → HotbarPanel
+│
+└── BreakHitbox
+       ├── Break System → Player's BreakSystem
+       └── Collider2D
+              └── Is Trigger → True
 
 
 AXE PRESET
 │
+├── Requires Tool → True
 ├── Required Tool → Axe
-├── Breakable Materials → Tree
+├── Breakable Materials
+│      └── Tree
 │
 ├── Drops
-│   └── Element 0
-│       ├── Item → Wood
-│       ├── Min Amount → 2
-│       └── Max Amount → 5
+│      └── Element 0
+│             ├── Item → Wood
+│             ├── Min Amount → 2
+│             └── Max Amount → 5
 │
 ├── Damage → 1
 └── Break Cooldown → 0.4
@@ -1258,7 +1714,11 @@ With this setup:
 ```text
 Equip Axe
     ↓
-Click Tree
+Move near Tree
+    ↓
+BreakHitbox detects Tree
+    ↓
+Left Click
     ↓
 Tree takes 1 damage
     ↓
@@ -1275,14 +1735,14 @@ Tree is destroyed
 
 ---
 
-# 26. Adding New Materials Later
+# 34. Adding New Materials Later
 
-To add a new material, you generally **don't need to modify the three scripts**.
+To add a new material, you generally do not need to modify the breaking scripts.
 
 For example, to add Iron Ore:
 
 1. Create an Iron Ore prefab.
-2. Add `Collider2D`.
+2. Add a `Collider2D`.
 3. Add `BreakableMaterial`.
 4. Set:
 
@@ -1292,27 +1752,128 @@ Max Health = 10
 ```
 
 5. Put it on the `Breakable` layer.
-6. Add `IronOre` to the appropriate `ToolBreakPreset`.
-7. Create/configure the Iron Ore Item.
-8. Add it to the preset's `Drops` array.
-
-That's it.
+6. Make sure the collider can be detected by the player's `BreakHitbox`.
+7. Add `IronOre` to the appropriate `ToolBreakPreset`.
+8. Create/configure the Iron Ore Item.
+9. Add it to the preset's `Drops` array.
 
 ---
 
-# 27. Adding New Tools Later
+# 35. Adding New Tools Later
 
 To add a new tool:
 
 1. Create the tool Item.
 2. Create a new `ToolBreakPreset`.
-3. Assign the tool to `Required Tool`.
-4. Add the materials it can break.
-5. Configure the `Drops` array.
+3. Set:
+
+```text
+Requires Tool = true
+```
+
+4. Assign the tool to:
+
+```text
+Required Tool
+```
+
+5. Add the materials it can break.
+6. Configure the `Drops` array.
+7. Set damage.
+8. Set the breaking cooldown.
+9. Add the preset to the player's `BreakSystem`.
+
+No changes to `BreakSystem.cs` are normally required.
+
+---
+
+# 36. Adding Bare-Hand Breaking Later
+
+To allow the player to break something without a tool:
+
+1. Create a `ToolBreakPreset`.
+2. Set:
+
+```text
+Requires Tool = false
+```
+
+3. Leave:
+
+```text
+Required Tool = None
+```
+
+4. Add the desired materials.
+5. Configure drops.
 6. Set damage.
-7. Set the breaking cooldown.
-8. Add the preset to the player's `BreakSystem`.
+7. Set cooldown.
+8. Add the preset to `BreakSystem`.
 
-The main advantage of this system is that **tool behavior is controlled through presets instead of hardcoding every tool/material combination inside `BreakSystem.cs`**.
+Example:
 
-This makes it easy to add new tools, materials, drops, damage values, and breaking speeds as the game grows.
+```text
+BareHands_BreakPreset
+
+Requires Tool = false
+
+Breakable Materials
+    Bush
+
+Drops
+    Fiber → 1–3
+
+Damage = 1
+Break Cooldown = 0.5
+```
+
+---
+
+# 37. Current System Architecture
+
+The current breaking system is separated into specialized components:
+
+```text
+                    PLAYER
+                       │
+          ┌────────────┴────────────┐
+          │                         │
+   PlayerHeldItem              BreakSystem
+          │                         │
+          │                 Finds preset
+          │                 Applies damage
+          │                 Handles drops
+          │                         │
+          │                    BreakHitbox
+          │                         │
+          │                  Detects target
+          │                         │
+          └────────────┬────────────┘
+                       │
+                BreakableMaterial
+                       │
+                 Stores HP
+                 Takes damage
+                 Breaks object
+```
+
+The main advantage of this structure is that each script has a specific responsibility:
+
+```text
+BreakHitbox
+    → Finds what the player is targeting
+
+BreakSystem
+    → Decides whether/how the target can be broken
+
+ToolBreakPreset
+    → Defines tool/bare-hand behavior
+
+BreakableMaterial
+    → Stores material health and handles breaking
+
+DropItemData
+    → Defines individual item drops
+```
+
+This makes the system easier to expand as more tools, materials, and drop types are added.
