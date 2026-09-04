@@ -628615,7 +628615,7 @@ MonoBehaviour:
   endX: 125
   startY: -125
   endY: 125
-  stoneAmount: 0
+  stoneAmount: 500
   spawnProtectionAreas:
   - startX: -10
     endX: 10
@@ -653016,7 +653016,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2325f540ab2e70459d2f815beb8a151, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WrenchFunction
-  itemID: 23
+  wrenchItemPrefab: {fileID: 6091912421739958188, guid: d318aa85f6b580a4bb612c71a6a847b7, type: 3}
   instructionUI: {fileID: 1067868519}
 --- !u!114 &1689425137
 MonoBehaviour:
