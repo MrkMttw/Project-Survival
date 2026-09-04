@@ -168,6 +168,12 @@ public class HotbarController : MonoBehaviour
         {
             Item item = slot.currentItem.GetComponent<Item>();
 
+            // Tell PlayerHeldItem what is currently equipped
+            if (playerHeldItem != null)
+            {
+                playerHeldItem.SetHeldItem(item);
+            }
+
             if (item.isBuildable)
             {
                 placementController.StartPlacement(item);
@@ -176,7 +182,8 @@ public class HotbarController : MonoBehaviour
             {
                 placementController.CancelPlacement();
 
-                WrenchFunction tool = item.GetComponentInChildren<WrenchFunction>();
+                WrenchFunction tool =
+                    item.GetComponentInChildren<WrenchFunction>();
 
                 if (tool != null)
                 {
@@ -190,7 +197,10 @@ public class HotbarController : MonoBehaviour
         }
         else
         {
-            playerHeldItem.ClearHeldItem();
+            if (playerHeldItem != null)
+            {
+                playerHeldItem.ClearHeldItem();
+            }
         }
     }
 

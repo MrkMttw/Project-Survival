@@ -4,15 +4,17 @@ using UnityEngine.InputSystem;
 public class WrenchFunction : MonoBehaviour
 {
     [Header("Item Function")]
-    public int itemID;
+    [SerializeField] private Item wrenchItemPrefab;
 
     [SerializeField] private GameObject instructionUI;
 
     private PlacementController placementController;
+    private PlayerHeldItem playerHeldItem;
 
     private void Awake()
     {
         placementController = FindObjectOfType<PlacementController>();
+        playerHeldItem = FindObjectOfType<PlayerHeldItem>();
 
         if (instructionUI != null)
             instructionUI.SetActive(false);
@@ -27,6 +29,42 @@ public class WrenchFunction : MonoBehaviour
     {
         if (Keyboard.current == null)
             return;
+
+        if (playerHeldItem == null)
+            return;
+
+        Item heldItem = playerHeldItem.GetHeldItem();
+
+        // No item equipped
+        if (heldItem == null)
+        {
+            if (instructionUI != null)
+                instructionUI.SetActive(false);
+
+            return;
+        }
+
+        // No wrench prefab assigned
+        if (wrenchItemPrefab == null)
+        {
+            Debug.LogWarning(
+                "WrenchFunction: Wrench Item Prefab is not assigned!"
+            );
+
+            if (instructionUI != null)
+                instructionUI.SetActive(false);
+
+            return;
+        }
+
+        // Check if the equipped item is the wrench
+        if (heldItem.ID != wrenchItemPrefab.ID)
+        {
+            if (instructionUI != null)
+                instructionUI.SetActive(false);
+
+            return;
+        }
 
         BuildingObject building = GetBuilding();
 
@@ -51,7 +89,7 @@ public class WrenchFunction : MonoBehaviour
                 instructionUI.SetActive(false);
         }
     }
-    
+
     private Collider2D GetBuildingHit()
     {
         if (Mouse.current == null || Camera.main == null)
@@ -83,11 +121,17 @@ public class WrenchFunction : MonoBehaviour
         if (building == null)
             return;
 
-        Debug.Log("Relocating building: " + building.gameObject.name);
+        Debug.Log(
+            "Relocating building: " +
+            building.gameObject.name
+        );
 
         if (placementController == null)
         {
-            Debug.LogError("PlacementController not found.");
+            Debug.LogError(
+                "PlacementController not found."
+            );
+
             return;
         }
 
@@ -116,7 +160,10 @@ public class WrenchFunction : MonoBehaviour
 
         if (itemDictionary == null)
         {
-            Debug.LogError("ItemDictionary not found.");
+            Debug.LogError(
+                "ItemDictionary not found."
+            );
+
             return;
         }
 
