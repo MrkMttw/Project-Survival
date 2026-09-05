@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8e0b63cdd8d0b2409d38b777427d90f, type: 3}
+  m_Name: Apple
+  m_EditorClassIdentifier: Assembly-CSharp::FoodPreset
+  itemPrefab: {fileID: 3629540562387564284, guid: 2dc0d9bab18845143bb205a70e233836, type: 3}
+  hungerRestore: 3
+  eatingDelay: 2

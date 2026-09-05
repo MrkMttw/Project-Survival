@@ -8,6 +8,10 @@ public class HungerController : MonoBehaviour
     public float maxHunger = 100f;
     public float currentHunger = 100f;
 
+    [Header("Saturation")]
+    public float maxSaturation = 100f;
+    public float currentSaturation = 0f;
+
     [Header("Hunger Drain")]
     public float hungerDrainRate = 1f;
     public float drainInterval = 5f;
@@ -33,7 +37,8 @@ public class HungerController : MonoBehaviour
         hungerBarImage = hungerBar.GetComponent<Image>();
         hungerTextComponent = hungerText.GetComponent<TMP_Text>();
 
-        hungerTextComponent.horizontalAlignment = HorizontalAlignmentOptions.Center;
+        hungerTextComponent.horizontalAlignment =
+            HorizontalAlignmentOptions.Center;
 
         UpdateHungerUI();
     }
@@ -51,7 +56,12 @@ public class HungerController : MonoBehaviour
         if (drainTimer >= drainInterval)
         {
             currentHunger -= hungerDrainRate;
-            currentHunger = Mathf.Clamp(currentHunger, 0f, maxHunger);
+
+            currentHunger = Mathf.Clamp(
+                currentHunger,
+                0f,
+                maxHunger
+            );
 
             drainTimer = 0f;
 
@@ -67,7 +77,9 @@ public class HungerController : MonoBehaviour
 
             if (starvationTimer >= 1f)
             {
-                float damage = healthController.maxHealth * starvationDamagePercent;
+                float damage =
+                    healthController.maxHealth *
+                    starvationDamagePercent;
 
                 healthController.TakeDamage(damage);
 
@@ -80,25 +92,52 @@ public class HungerController : MonoBehaviour
         }
     }
 
+    // RESTORE HUNGER
     public void RestoreHunger(float amount)
     {
         currentHunger += amount;
-        currentHunger = Mathf.Clamp(currentHunger, 0f, maxHunger);
+
+        currentHunger = Mathf.Clamp(
+            currentHunger,
+            0f,
+            maxHunger
+        );
 
         UpdateHungerUI();
+    }
+
+    // ADD SATURATION
+    public void AddSaturation(float amount)
+    {
+        currentSaturation += amount;
+
+        currentSaturation = Mathf.Clamp(
+            currentSaturation,
+            0f,
+            maxSaturation
+        );
+
+        Debug.Log(
+            "Saturation increased by " +
+            amount +
+            ". Current saturation: " +
+            currentSaturation
+        );
     }
 
     private void UpdateHungerUI()
     {
         if (hungerBarImage != null)
         {
-            hungerBarImage.fillAmount = currentHunger / maxHunger;
+            hungerBarImage.fillAmount =
+                currentHunger / maxHunger;
         }
 
         if (hungerTextComponent != null)
         {
             hungerTextComponent.text =
-                Mathf.CeilToInt(currentHunger) + " / " +
+                Mathf.CeilToInt(currentHunger) +
+                " / " +
                 Mathf.CeilToInt(maxHunger);
         }
     }
