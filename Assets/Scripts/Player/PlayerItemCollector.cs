@@ -82,31 +82,41 @@ public class PlayerItemCollector : MonoBehaviour
         bool itemAdded = false;
 
         // TRY HOTBAR FIRST
-
         if (hotbarController != null)
         {
             itemAdded = hotbarController.AddItem(nearbyItem);
         }
 
         // TRY INVENTORY IF HOTBAR COULDN'T TAKE IT
-
         if (!itemAdded && inventoryController != null)
         {
             itemAdded = inventoryController.AddItem(nearbyItem);
         }
 
-        // CHECK HOW MUCH WAS ACTUALLY COLLECTED
-
-        int quantityAfterPickup = item.quantity;
-
-        // Nothing was collected
+        // NOTHING WAS COLLECTED
         if (!itemAdded)
         {
             return;
         }
 
-        // ALL ITEMS WERE COLLECTED
+        // NON-STACKABLE ITEMS
+        // If successfully added, the ground item is completely picked up.
+        if (!item.stackable)
+        {
+            Destroy(nearbyItem);
 
+            nearbyItem = null;
+
+            if (pickUp != null)
+                pickUp.SetActive(false);
+
+            return;
+        }
+
+        // STACKABLE ITEMS
+        int quantityAfterPickup = item.quantity;
+
+        // ALL STACKABLE ITEMS WERE COLLECTED
         if (quantityAfterPickup <= 0)
         {
             Destroy(nearbyItem);
@@ -120,8 +130,6 @@ public class PlayerItemCollector : MonoBehaviour
         }
 
         // ONLY PART OF THE STACK WAS COLLECTED
-
-        // The world item remains with its remaining quantity.
         item.UpdateQuantityDisplay();
 
         Debug.Log(
