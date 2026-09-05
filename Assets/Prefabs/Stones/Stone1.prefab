@@ -318,5 +318,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc3a941ef3ed1c147bacece80bbadfe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HitShake
+  shadow: {fileID: 1745125672415544495}
   shakeDuration: 0.1
   shakeAngle: 10

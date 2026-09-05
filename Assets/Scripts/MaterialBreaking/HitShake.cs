@@ -3,16 +3,26 @@ using System.Collections;
 
 public class HitShake : MonoBehaviour
 {
+    [Header("Shadow")]
+    public Transform shadow;
+
     [Header("Shake Settings")]
     public float shakeDuration = 0.18f;
     public float shakeAngle = 8f;
 
     private Quaternion originalRotation;
+    private Quaternion shadowOriginalRotation;
+
     private Coroutine shakeCoroutine;
 
     private void Awake()
     {
         originalRotation = transform.localRotation;
+
+        if (shadow != null)
+        {
+            shadowOriginalRotation = shadow.localRotation;
+        }
     }
 
     public void Shake()
@@ -32,19 +42,25 @@ public class HitShake : MonoBehaviour
         while (elapsed < shakeDuration)
         {
             float progress = elapsed / shakeDuration;
-
-            // Smoothly go back toward the original rotation
             float falloff = 1f - progress;
 
-            // Sine wave creates a swaying motion
             float angle =
                 Mathf.Sin(progress * Mathf.PI * 3f)
                 * shakeAngle
                 * falloff;
 
+            // Shake the Tree / Stone
             transform.localRotation =
                 originalRotation *
                 Quaternion.Euler(0f, 0f, angle);
+
+            // Counter-rotate the shadow
+            if (shadow != null)
+            {
+                shadow.localRotation =
+                    shadowOriginalRotation *
+                    Quaternion.Euler(0f, 0f, -angle);
+            }
 
             elapsed += Time.deltaTime;
 
@@ -52,6 +68,12 @@ public class HitShake : MonoBehaviour
         }
 
         transform.localRotation = originalRotation;
+
+        if (shadow != null)
+        {
+            shadow.localRotation = shadowOriginalRotation;
+        }
+
         shakeCoroutine = null;
     }
 }

@@ -628651,7 +628651,7 @@ MonoBehaviour:
   endX: 125
   startY: -125
   endY: 125
-  decorAmount: 0
+  decorAmount: 5000
   spawnProtectionAreas: []
 --- !u!114 &714045853
 MonoBehaviour:
@@ -628677,7 +628677,7 @@ MonoBehaviour:
   endX: 125
   startY: -125
   endY: 125
-  bushAmount: 0
+  bushAmount: 500
   spawnProtectionAreas: []
 --- !u!1 &716325461
 GameObject:
