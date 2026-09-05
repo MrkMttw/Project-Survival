@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &1151332738696289251
+--- !u!1001 &12447725499363874
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -9,17 +9,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: ID
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
       propertyPath: stackable
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2165503726700639067, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
-      propertyPath: m_Name
-      value: ShelterObject
       objectReference: {fileID: 0}
     - target: {fileID: 2982858587533249513, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -5293274003819160386, guid: c50ce896dbc0623428fb81a432282bb0, type: 3}
+      objectReference: {fileID: 5580808760293252755, guid: db55b51356d98414dbdcac3c1b3776aa, type: 3}
     - target: {fileID: 3102399019312198980, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -82,11 +82,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3102399019312198980, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 87.99789
+      value: -1.76802
       objectReference: {fileID: 0}
     - target: {fileID: 3102399019312198980, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -71.74251
+      value: 3.18909
       objectReference: {fileID: 0}
     - target: {fileID: 3102399019312198980, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -100,13 +100,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4150008691375629824, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4150008691375629824, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4150008691375629824, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.0833335
+      objectReference: {fileID: 0}
     - target: {fileID: 4400888847680878981, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -5293274003819160386, guid: c50ce896dbc0623428fb81a432282bb0, type: 3}
+      objectReference: {fileID: 5580808760293252755, guid: db55b51356d98414dbdcac3c1b3776aa, type: 3}
     - target: {fileID: 6789592075229631350, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
       propertyPath: m_Name
-      value: Shelter
+      value: Key3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
