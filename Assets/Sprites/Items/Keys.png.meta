@@ -125,12 +125,12 @@ TextureImporter:
       name: Keys_0
       rect:
         serializedVersion: 2
-        x: 63
-        y: 327
-        width: 201
-        height: 105
+        x: 58
+        y: 322
+        width: 211
+        height: 115
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -147,12 +147,12 @@ TextureImporter:
       name: Keys_1
       rect:
         serializedVersion: 2
-        x: 299
-        y: 312
-        width: 189
-        height: 127
+        x: 294
+        y: 302
+        width: 199
+        height: 147
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -169,12 +169,12 @@ TextureImporter:
       name: Keys_2
       rect:
         serializedVersion: 2
-        x: 523
-        y: 319
-        width: 189
-        height: 113
+        x: 516
+        y: 314
+        width: 199
+        height: 123
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -191,12 +191,12 @@ TextureImporter:
       name: Keys_3
       rect:
         serializedVersion: 2
-        x: 747
-        y: 319
-        width: 189
-        height: 113
+        x: 743
+        y: 315
+        width: 199
+        height: 123
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -213,7 +213,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 72d953193b01d38428c2972bcc5bd2a2
     internalID: 0
     vertices: []
     indices: 

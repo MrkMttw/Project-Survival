@@ -32,21 +32,39 @@ public class EnemySpawner : MonoBehaviour
     [Header("Enemy Parent")]
     public Transform enemyParent;
 
-    [Header("Random Spawn Area")]
-    public float startX = -20f;
-    public float endX = 20f;
-    public float startY = -20f;
-    public float endY = 20f;
+    [Header("Player Spawn Area")]
+    [Tooltip("Maximum distance from the player where enemies can spawn.")]
+    public float spawnRadius = 15f;
+
+    [Tooltip("Enemies cannot spawn within this distance of the player.")]
+    public float spawnProtectionRadius = 5f;
 
     [Header("Spawn Settings")]
     public float spawnInterval = 5f;
     public int maxEnemies = 10;
 
+    private Transform player;
     private float spawnTimer;
+
+    private void Start()
+    {
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+
+        if (playerObject != null)
+        {
+            player = playerObject.transform;
+        }
+        else
+        {
+            Debug.LogError(
+                "EnemySpawner: Player with tag 'Player' not found!"
+            );
+        }
+    }
 
     private void Update()
     {
-        if (gameClock == null)
+        if (gameClock == null || player == null)
             return;
 
         spawnTimer += Time.deltaTime;
@@ -124,13 +142,11 @@ public class EnemySpawner : MonoBehaviour
 
     private bool CanEnemySpawn(EnemySpawnData enemy)
     {
-        // Check day
         int currentDay = gameClock.GetDay();
 
         if (currentDay < enemy.spawnFromDay)
             return false;
 
-        // Check time
         return IsWithinSpawnTime(
             enemy.spawnStartTime,
             enemy.spawnEndTime
@@ -143,7 +159,7 @@ public class EnemySpawner : MonoBehaviour
             gameClock.GetHour() +
             (gameClock.GetMinute() / 60f);
 
-        // Normal range
+        // Normal time range
         // Example: 08:00 -> 17:00
         if (startTime < endTime)
         {
@@ -173,28 +189,42 @@ public class EnemySpawner : MonoBehaviour
 
     private Vector3 GetRandomSpawnPosition()
     {
-        float randomX = Random.Range(startX, endX);
-        float randomY = Random.Range(startY, endY);
+        Vector2 randomDirection =
+            Random.insideUnitCircle.normalized;
 
-        return new Vector3(randomX, randomY, 0f);
+        float randomDistance = Random.Range(
+            spawnProtectionRadius,
+            spawnRadius
+        );
+
+        Vector3 spawnPosition =
+            player.position +
+            new Vector3(
+                randomDirection.x,
+                randomDirection.y,
+                0f
+            ) * randomDistance;
+
+        return spawnPosition;
     }
 
     private void OnDrawGizmosSelected()
     {
+        if (player == null)
+            return;
+
+        // Spawn radius
         Gizmos.color = Color.red;
-
-        Vector3 center = new Vector3(
-            (startX + endX) / 2f,
-            (startY + endY) / 2f,
-            0f
+        Gizmos.DrawWireSphere(
+            player.position,
+            spawnRadius
         );
 
-        Vector3 size = new Vector3(
-            Mathf.Abs(endX - startX),
-            Mathf.Abs(endY - startY),
-            0f
+        // Protection radius
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(
+            player.position,
+            spawnProtectionRadius
         );
-
-        Gizmos.DrawWireCube(center, size);
     }
 }

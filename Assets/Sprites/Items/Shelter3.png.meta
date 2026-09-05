@@ -113,23 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ShelterIcon_0
+      name: Shelter3_0
       rect:
         serializedVersion: 2
-        x: 32
-        y: 82
-        width: 436
-        height: 337
+        x: 0
+        y: 0
+        width: 500
+        height: 500
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: ebc9c87a6538a86b0800000000000000
-      internalID: -5293274003819160386
+      spriteID: a72e1e08b77fa6b48a0217caf192808b
+      internalID: 939030886
       vertices: []
       indices: 
       edges: []
@@ -150,7 +150,7 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":500.0,"y":500.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      ShelterIcon_0: -5293274003819160386
+      Shelter3_0: 939030886
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

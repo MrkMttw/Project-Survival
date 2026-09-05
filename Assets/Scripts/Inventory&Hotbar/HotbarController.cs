@@ -16,7 +16,7 @@ public class HotbarController : MonoBehaviour
     [Header("Building")]
     public PlacementController placementController;
 
-    private int selectedSlot = 0;
+    private int selectedSlot = -1;
 
     private ItemDictionary itemDictionary;
     private Key[] hotbarKeys;
@@ -156,6 +156,32 @@ public class HotbarController : MonoBehaviour
 
     private void UseItemInSlot(int index)
     {
+        if (hotbarPanel == null)
+            return;
+
+        if (index < 0 || index >= hotbarPanel.transform.childCount)
+            return;
+
+        // 🔄 CLICK/PRESS THE CURRENTLY EQUIPPED SLOT AGAIN = UNEQUIP
+        if (selectedSlot == index && playerHeldItem != null)
+        {
+            playerHeldItem.ClearHeldItem();
+
+            if (placementController != null)
+            {
+                placementController.CancelPlacement();
+            }
+
+            // Remove highlight
+            HighlightSlot(-1);
+
+            // -1 means nothing is equipped
+            selectedSlot = -1;
+
+            return;
+        }
+
+        // Select new slot
         selectedSlot = index;
 
         HighlightSlot(selectedSlot);
@@ -164,42 +190,61 @@ public class HotbarController : MonoBehaviour
             .GetChild(index)
             .GetComponent<Slot>();
 
-        if (slot.currentItem != null)
-        {
-            Item item = slot.currentItem.GetComponent<Item>();
+        if (slot == null)
+            return;
 
-            // Tell PlayerHeldItem what is currently equipped
-            if (playerHeldItem != null)
-            {
-                playerHeldItem.SetHeldItem(item);
-            }
-
-            if (item.isBuildable)
-            {
-                placementController.StartPlacement(item);
-            }
-            else
-            {
-                placementController.CancelPlacement();
-
-                WrenchFunction tool =
-                    item.GetComponentInChildren<WrenchFunction>();
-
-                if (tool != null)
-                {
-                    tool.UseTool();
-                }
-                else
-                {
-                    item.UseItem();
-                }
-            }
-        }
-        else
+        // Empty slot
+        if (slot.currentItem == null)
         {
             if (playerHeldItem != null)
             {
                 playerHeldItem.ClearHeldItem();
+            }
+
+            if (placementController != null)
+            {
+                placementController.CancelPlacement();
+            }
+
+            return;
+        }
+
+        Item item = slot.currentItem.GetComponent<Item>();
+
+        if (item == null)
+            return;
+
+        // Equip item
+        if (playerHeldItem != null)
+        {
+            playerHeldItem.SetHeldItem(item);
+        }
+
+        // Building
+        if (item.isBuildable)
+        {
+            if (placementController != null)
+            {
+                placementController.StartPlacement(item);
+            }
+        }
+        else
+        {
+            if (placementController != null)
+            {
+                placementController.CancelPlacement();
+            }
+
+            WrenchFunction tool =
+                item.GetComponentInChildren<WrenchFunction>();
+
+            if (tool != null)
+            {
+                tool.UseTool();
+            }
+            else
+            {
+                item.UseItem();
             }
         }
     }
