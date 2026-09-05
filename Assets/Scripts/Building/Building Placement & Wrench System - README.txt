@@ -289,18 +289,18 @@ WrenchFunction
 
 Assign:
 
-### Wrench Item Prefab
+### Wrench Item ID
 
-Drag your **Wrench Item prefab** into:
+Enter your wrench ID to:
 
 ```text
-Wrench Item Prefab
+Wrench Item ID
 ```
 
 Example:
 
 ```text
-Wrench Item Prefab → Wrench
+Wrench Item ID = 24 → Wrench
 ```
 
 ### Instruction UI

@@ -256,7 +256,7 @@ MonoBehaviour:
   - item: {fileID: 984649365012574228, guid: 188260af6ee17e643bdd387747284ad9, type: 3}
     minAmount: 2
     maxAmount: 5
-  maxHealth: 3
+  maxHealth: 4
 --- !u!61 &257053879351143101
 BoxCollider2D:
   m_ObjectHideFlags: 0

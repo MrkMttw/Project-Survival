@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class WrenchFunction : MonoBehaviour
 {
     [Header("Item Function")]
-    [SerializeField] private Item wrenchItemPrefab;
+    [SerializeField] private int wrenchItemID = 1;
 
     [SerializeField] private GameObject instructionUI;
 
@@ -44,21 +44,8 @@ public class WrenchFunction : MonoBehaviour
             return;
         }
 
-        // No wrench prefab assigned
-        if (wrenchItemPrefab == null)
-        {
-            Debug.LogWarning(
-                "WrenchFunction: Wrench Item Prefab is not assigned!"
-            );
-
-            if (instructionUI != null)
-                instructionUI.SetActive(false);
-
-            return;
-        }
-
         // Check if the equipped item is the wrench
-        if (heldItem.ID != wrenchItemPrefab.ID)
+        if (heldItem.ID != wrenchItemID)
         {
             if (instructionUI != null)
                 instructionUI.SetActive(false);
