@@ -12,12 +12,17 @@ public class FoodController : MonoBehaviour
     [Header("Food Presets")]
     public FoodPreset[] foodPresets;
 
+    [Header("Food UI")]
+    public GameObject eatPrompt;
+
     private bool isEating = false;
 
     private void Update()
     {
         if (Keyboard.current == null)
             return;
+
+        UpdateEatPrompt();
 
         // Press E to eat
         if (Keyboard.current.eKey.wasPressedThisFrame)
@@ -26,6 +31,32 @@ public class FoodController : MonoBehaviour
         }
     }
 
+    private void UpdateEatPrompt()
+    {
+        if (eatPrompt == null || playerHeldItem == null)
+            return;
+
+        Item heldItem = playerHeldItem.GetHeldItem();
+
+        // Nothing held = hide prompt
+        if (heldItem == null)
+        {
+            eatPrompt.SetActive(false);
+            return;
+        }
+
+        // Check if held item is food
+        FoodPreset food = GetFoodPreset(heldItem);
+
+        if (food != null)
+        {
+            eatPrompt.SetActive(true);
+        }
+        else
+        {
+            eatPrompt.SetActive(false);
+        }
+    }
     private void TryEat()
     {
         // Already eating
@@ -104,6 +135,12 @@ public class FoodController : MonoBehaviour
             "... (" + food.eatingDelay + " seconds)"
         );
 
+        // Hide eat prompt while eating
+        if (eatPrompt != null)
+        {
+            eatPrompt.SetActive(false);
+        }
+
         // Wait for eating delay
         yield return new WaitForSeconds(food.eatingDelay);
 
@@ -122,13 +159,14 @@ public class FoodController : MonoBehaviour
         // Remove ONE food
         item.RemoveFromStack(1);
 
-        // If the item still exists, update the held item
-        if (item != null)
+        // If there is still food left, keep holding it
+        if (item != null && item.quantity > 0)
         {
             playerHeldItem.SetHeldItem(item);
         }
         else
         {
+            // No food left, clear the held item visual
             playerHeldItem.ClearHeldItem();
         }
 

@@ -664,6 +664,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: aa5a367a745a2f543a1b93033b2ce91d, type: 2}
   - {fileID: 11400000, guid: 9df793abbbb908843b2a9d4e0e09a0cb, type: 2}
   - {fileID: 11400000, guid: 10db7be097e4d8741b3b396f1ff9453d, type: 2}
+  eatPrompt: {fileID: 1145651014}
 --- !u!1 &171965693
 GameObject:
   m_ObjectHideFlags: 0
