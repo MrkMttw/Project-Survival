@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
@@ -11,6 +12,10 @@ public class EnemyController : MonoBehaviour
 
     public float movementSpeed = 2f;
     public float defense = 0f;
+
+    [Header("Health Bar")]
+    [Tooltip("UI Image set to Filled that represents the enemy's HP.")]
+    public Image hpBar;
 
     [Header("Detection")]
     public float detectionRange = 6f;
@@ -60,8 +65,13 @@ public class EnemyController : MonoBehaviour
 
     private void Start()
     {
+        // Initialize HP
         currentHP = maxHP;
 
+        // Initialize HP bar
+        UpdateHealthBar();
+
+        // Find player
         GameObject playerObject =
             GameObject.FindGameObjectWithTag("Player");
 
@@ -134,6 +144,23 @@ public class EnemyController : MonoBehaviour
         isAttacking = false;
 
         ChasePlayer();
+    }
+
+    // HEALTH BAR
+
+    private void UpdateHealthBar()
+    {
+        if (hpBar == null)
+            return;
+
+        if (maxHP <= 0f)
+        {
+            hpBar.fillAmount = 0f;
+            return;
+        }
+
+        hpBar.fillAmount =
+            Mathf.Clamp01(currentHP / maxHP);
     }
 
     // CHASE
@@ -232,12 +259,19 @@ public class EnemyController : MonoBehaviour
 
         currentHP -= actualDamage;
 
+        // Prevent HP from going below zero
+        currentHP =
+            Mathf.Max(currentHP, 0f);
+
+        // Update HP bar
+        UpdateHealthBar();
+
         Debug.Log(
             gameObject.name +
             " took " +
             actualDamage.ToString("F1") +
             " damage. HP: " +
-            Mathf.Max(currentHP, 0f).ToString("F1")
+            currentHP.ToString("F1")
         );
 
         // Apply controlled knockback
@@ -246,6 +280,7 @@ public class EnemyController : MonoBehaviour
             knockbackStrength
         );
 
+        // Check death
         if (currentHP <= 0f)
         {
             Die();
