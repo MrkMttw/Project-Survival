@@ -18,7 +18,8 @@ public class PlayerHeldItem : MonoBehaviour
             return;
         }
 
-        SpriteRenderer itemSprite = item.GetComponentInChildren<SpriteRenderer>();
+        SpriteRenderer itemSprite =
+            item.GetComponentInChildren<SpriteRenderer>();
 
         if (itemSprite != null)
         {
@@ -27,7 +28,10 @@ public class PlayerHeldItem : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("PlayerHeldItem: No SpriteRenderer found on " + item.name);
+            Debug.LogWarning(
+                "PlayerHeldItem: No SpriteRenderer found on " + item.name
+            );
+
             ClearHeldItem();
         }
     }
@@ -36,8 +40,11 @@ public class PlayerHeldItem : MonoBehaviour
     {
         heldItem = null;
 
-        heldItemRenderer.sprite = null;
-        heldItemRenderer.enabled = false;
+        if (heldItemRenderer != null)
+        {
+            heldItemRenderer.sprite = null;
+            heldItemRenderer.enabled = false;
+        }
     }
 
     public Item GetHeldItem()

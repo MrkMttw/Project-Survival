@@ -20,21 +20,25 @@ public class Item : MonoBehaviour
     [Header("Building")]
     public bool isBuildable;
     public GameObject buildingPrefab;
+
     private TMP_Text quantityText;
 
     private void Awake()
     {
         quantityText = GetComponentInChildren<TMP_Text>();
 
-        // Non-stackable items can only have a quantity of 1
         if (!stackable)
         {
             quantity = 1;
         }
         else
         {
-            // Prevent the starting quantity from exceeding the stack limit
-            quantity = Mathf.Clamp(quantity, 1, maxStackSize);
+            quantity =
+                Mathf.Clamp(
+                    quantity,
+                    1,
+                    maxStackSize
+                );
         }
 
         UpdateQuantityDisplay();
@@ -42,27 +46,37 @@ public class Item : MonoBehaviour
 
     public virtual void UseItem()
     {
-        Debug.Log("Using item: " + name);
+        Debug.Log(
+            "Using item: " +
+            name
+        );
     }
 
     public void UpdateQuantityDisplay()
     {
         if (quantityText != null)
         {
-            quantityText.text = quantity > 1 ? quantity.ToString() : "";
+            quantityText.text =
+                quantity > 1
+                    ? quantity.ToString()
+                    : "";
         }
     }
 
-    // Adds as many items as possible without exceeding maxStackSize.
-    // Returns the number of items that were actually added.
     public int AddToStack(int amount = 1)
     {
-        if (!stackable || amount <= 0)
+        if (!stackable ||
+            amount <= 0)
             return 0;
 
-        int availableSpace = maxStackSize - quantity;
+        int availableSpace =
+            maxStackSize - quantity;
 
-        int amountAdded = Mathf.Min(amount, availableSpace);
+        int amountAdded =
+            Mathf.Min(
+                amount,
+                availableSpace
+            );
 
         quantity += amountAdded;
 
@@ -76,13 +90,18 @@ public class Item : MonoBehaviour
         if (amount <= 0)
             return 0;
 
-        int removed = Mathf.Min(amount, quantity);
+        int removed =
+            Mathf.Min(
+                amount,
+                quantity
+            );
 
         quantity -= removed;
 
         if (quantity <= 0)
         {
             Destroy(gameObject);
+
             return removed;
         }
 
@@ -109,16 +128,26 @@ public class Item : MonoBehaviour
 
     public GameObject CloneItem(int newQuantity)
     {
-        GameObject clone = Instantiate(gameObject);
+        GameObject clone =
+            Instantiate(gameObject);
 
-        Item cloneItem = clone.GetComponent<Item>();
+        Item cloneItem =
+            clone.GetComponent<Item>();
 
-        cloneItem.stackable = stackable;
-        cloneItem.maxStackSize = maxStackSize;
+        cloneItem.stackable =
+            stackable;
+
+        cloneItem.maxStackSize =
+            maxStackSize;
 
         if (stackable)
         {
-            cloneItem.quantity = Mathf.Clamp(newQuantity, 1, maxStackSize);
+            cloneItem.quantity =
+                Mathf.Clamp(
+                    newQuantity,
+                    1,
+                    maxStackSize
+                );
         }
         else
         {

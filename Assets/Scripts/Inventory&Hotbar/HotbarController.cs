@@ -44,6 +44,7 @@ public class HotbarController : MonoBehaviour
                 UseItemInSlot(i);
             }
         }
+
         // Drop selected hotbar item
         if (Keyboard.current.gKey.wasPressedThisFrame)
         {
@@ -97,12 +98,15 @@ public class HotbarController : MonoBehaviour
             slot.currentItem = null;
 
             playerHeldItem.ClearHeldItem();
+
+            HighlightSlot(-1);
+            selectedSlot = -1;
         }
         else
         {
             item.UpdateQuantityDisplay();
 
-            // Still holding the same item, just with less quantity
+            // Still holding the same item
             playerHeldItem.SetHeldItem(item);
         }
     }
@@ -146,7 +150,8 @@ public class HotbarController : MonoBehaviour
         // Nothing left to hold
         playerHeldItem.ClearHeldItem();
 
-        HighlightSlot(selectedSlot);
+        HighlightSlot(-1);
+        selectedSlot = -1;
     }
 
     public void SelectSlot(int index)
@@ -159,10 +164,11 @@ public class HotbarController : MonoBehaviour
         if (hotbarPanel == null)
             return;
 
-        if (index < 0 || index >= hotbarPanel.transform.childCount)
+        if (index < 0 ||
+            index >= hotbarPanel.transform.childCount)
             return;
 
-        // 🔄 CLICK/PRESS THE CURRENTLY EQUIPPED SLOT AGAIN = UNEQUIP
+        // Click/press currently equipped slot again = unequip
         if (selectedSlot == index && playerHeldItem != null)
         {
             playerHeldItem.ClearHeldItem();
@@ -172,10 +178,8 @@ public class HotbarController : MonoBehaviour
                 placementController.CancelPlacement();
             }
 
-            // Remove highlight
             HighlightSlot(-1);
 
-            // -1 means nothing is equipped
             selectedSlot = -1;
 
             return;
@@ -249,12 +253,77 @@ public class HotbarController : MonoBehaviour
         }
     }
 
+    // CONSUME SELECTED ITEM
+
+    public void ConsumeSelectedItem(int amount = 1)
+    {
+        if (hotbarPanel == null)
+            return;
+
+        if (selectedSlot < 0 ||
+            selectedSlot >= hotbarPanel.transform.childCount)
+            return;
+
+        Slot slot = hotbarPanel.transform
+            .GetChild(selectedSlot)
+            .GetComponent<Slot>();
+
+        if (slot == null || slot.currentItem == null)
+            return;
+
+        Item item = slot.currentItem.GetComponent<Item>();
+
+        if (item == null)
+            return;
+
+        // Last item in the stack
+        if (item.quantity <= amount)
+        {
+            // Clear held visual BEFORE destroying the item
+            if (playerHeldItem != null)
+            {
+                playerHeldItem.ClearHeldItem();
+            }
+
+            // Clear hotbar slot
+            slot.currentItem = null;
+
+            // Remove highlight
+            HighlightSlot(-1);
+
+            // Nothing selected anymore
+            selectedSlot = -1;
+
+            // Destroy the item
+            item.RemoveFromStack(amount);
+
+            return;
+        }
+
+        // Stack still has items remaining
+        item.RemoveFromStack(amount);
+
+        // Continue holding the item
+        if (playerHeldItem != null)
+        {
+            playerHeldItem.SetHeldItem(item);
+        }
+    }
+
     private void HighlightSlot(int index)
     {
-        for (int i = 0; i < hotbarPanel.transform.childCount; i++)
+        if (hotbarPanel == null)
+            return;
+
+        for (int i = 0;
+            i < hotbarPanel.transform.childCount;
+            i++)
         {
-            Transform slot = hotbarPanel.transform.GetChild(i);
-            Transform highlight = slot.Find("Highlight");
+            Transform slot =
+                hotbarPanel.transform.GetChild(i);
+
+            Transform highlight =
+                slot.Find("Highlight");
 
             if (highlight != null)
             {
@@ -275,19 +344,21 @@ public class HotbarController : MonoBehaviour
         int originalQuantity = itemToAdd.quantity;
 
         // NON-STACKABLE ITEM
-
         if (!itemToAdd.stackable)
         {
             foreach (Transform slotTransform in hotbarPanel.transform)
             {
-                Slot slot = slotTransform.GetComponent<Slot>();
+                Slot slot =
+                    slotTransform.GetComponent<Slot>();
 
-                if (slot != null && slot.currentItem == null)
+                if (slot != null &&
+                    slot.currentItem == null)
                 {
-                    GameObject newItem = Instantiate(
-                        itemPrefab,
-                        slotTransform
-                    );
+                    GameObject newItem =
+                        Instantiate(
+                            itemPrefab,
+                            slotTransform
+                        );
 
                     newItem.GetComponent<RectTransform>()
                         .anchoredPosition = Vector2.zero;
@@ -318,18 +389,20 @@ public class HotbarController : MonoBehaviour
         int remainingQuantity = itemToAdd.quantity;
 
         // FIRST: Fill existing stacks
-
         foreach (Transform slotTransform in hotbarPanel.transform)
         {
             if (remainingQuantity <= 0)
                 break;
 
-            Slot slot = slotTransform.GetComponent<Slot>();
+            Slot slot =
+                slotTransform.GetComponent<Slot>();
 
-            if (slot == null || slot.currentItem == null)
+            if (slot == null ||
+                slot.currentItem == null)
                 continue;
 
-            Item slotItem = slot.currentItem.GetComponent<Item>();
+            Item slotItem =
+                slot.currentItem.GetComponent<Item>();
 
             if (slotItem == null)
                 continue;
@@ -346,33 +419,38 @@ public class HotbarController : MonoBehaviour
         }
 
         // SECOND: Create new stacks
-
         foreach (Transform slotTransform in hotbarPanel.transform)
         {
             if (remainingQuantity <= 0)
                 break;
 
-            Slot slot = slotTransform.GetComponent<Slot>();
+            Slot slot =
+                slotTransform.GetComponent<Slot>();
 
-            if (slot == null || slot.currentItem != null)
+            if (slot == null ||
+                slot.currentItem != null)
                 continue;
 
-            GameObject newItem = Instantiate(
-                itemPrefab,
-                slotTransform
-            );
+            GameObject newItem =
+                Instantiate(
+                    itemPrefab,
+                    slotTransform
+                );
 
             Item newItemComponent =
                 newItem.GetComponent<Item>();
 
             if (newItemComponent != null)
             {
-                int amountForThisStack = Mathf.Min(
-                    remainingQuantity,
-                    newItemComponent.maxStackSize
-                );
+                int amountForThisStack =
+                    Mathf.Min(
+                        remainingQuantity,
+                        newItemComponent.maxStackSize
+                    );
 
-                newItemComponent.quantity = amountForThisStack;
+                newItemComponent.quantity =
+                    amountForThisStack;
+
                 newItemComponent.UpdateQuantityDisplay();
 
                 remainingQuantity -= amountForThisStack;
@@ -385,11 +463,9 @@ public class HotbarController : MonoBehaviour
         }
 
         // UPDATE WORLD ITEM
-
         itemToAdd.quantity = remainingQuantity;
         itemToAdd.UpdateQuantityDisplay();
 
-        // Something was successfully added
         return remainingQuantity < originalQuantity;
     }
 
@@ -402,7 +478,8 @@ public class HotbarController : MonoBehaviour
 
         foreach (Transform slotTransform in hotbarPanel.transform)
         {
-            Slot slot = slotTransform.GetComponent<Slot>();
+            Slot slot =
+                slotTransform.GetComponent<Slot>();
 
             if (slot.currentItem != null)
             {
@@ -449,7 +526,9 @@ public class HotbarController : MonoBehaviour
                     .GetComponent<Slot>();
 
                 GameObject itemPrefab =
-                    itemDictionary.GetItemPrefab(data.itemID);
+                    itemDictionary.GetItemPrefab(
+                        data.itemID
+                    );
 
                 if (itemPrefab != null)
                 {

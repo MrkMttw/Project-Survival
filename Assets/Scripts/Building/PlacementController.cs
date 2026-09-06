@@ -19,6 +19,9 @@ public class PlacementController : MonoBehaviour
     [Header("Building Parent")]
     public Transform buildingParent;
 
+    [Header("Hotbar")]
+    public HotbarController hotbarController;
+
     public Color validColor = Color.green;
     public Color invalidColor = Color.red;
 
@@ -44,7 +47,8 @@ public class PlacementController : MonoBehaviour
         FollowMouse();
         CheckPlacement();
 
-        if (Mouse.current.leftButton.wasPressedThisFrame && canPlace)
+        if (Mouse.current.leftButton.wasPressedThisFrame &&
+            canPlace)
         {
             if (isRelocating)
                 PlaceRelocatedBuilding();
@@ -67,8 +71,11 @@ public class PlacementController : MonoBehaviour
         if (item.buildingPrefab == null)
         {
             Debug.LogWarning(
-                "Cannot place " + item.name + ": buildingPrefab is missing."
+                "Cannot place " +
+                item.name +
+                ": buildingPrefab is missing."
             );
+
             return;
         }
 
@@ -78,12 +85,18 @@ public class PlacementController : MonoBehaviour
         currentItem = item;
         currentBuildingPrefab = item.buildingPrefab;
 
-        ghostObject = Instantiate(currentBuildingPrefab);
-        ghostObject.name = item.name + "_Ghost";
+        ghostObject =
+            Instantiate(currentBuildingPrefab);
+
+        ghostObject.name =
+            item.name + "_Ghost";
 
         SetGhostTransparency();
 
-        Debug.Log("Ghost created: " + ghostObject.name);
+        Debug.Log(
+            "Ghost created: " +
+            ghostObject.name
+        );
     }
 
     public void StartRelocation(BuildingObject building)
@@ -95,16 +108,21 @@ public class PlacementController : MonoBehaviour
 
         relocatingBuilding = building;
         isRelocating = true;
+
         ghostObject = building.gameObject;
 
         SetGhostTransparency();
 
-        Debug.Log("Relocation started: " + building.gameObject.name);
+        Debug.Log(
+            "Relocation started: " +
+            building.gameObject.name
+        );
     }
 
     public void CancelPlacement()
     {
-        if (ghostObject != null && !isRelocating)
+        if (ghostObject != null &&
+            !isRelocating)
         {
             Destroy(ghostObject);
         }
@@ -129,24 +147,32 @@ public class PlacementController : MonoBehaviour
         if (useGrid)
         {
             mouseWorldPosition.x =
-                Mathf.Round(mouseWorldPosition.x / gridSize) * gridSize;
+                Mathf.Round(
+                    mouseWorldPosition.x / gridSize
+                ) * gridSize;
 
             mouseWorldPosition.y =
-                Mathf.Round(mouseWorldPosition.y / gridSize) * gridSize;
+                Mathf.Round(
+                    mouseWorldPosition.y / gridSize
+                ) * gridSize;
         }
 
-        ghostObject.transform.position = mouseWorldPosition;
+        ghostObject.transform.position =
+            mouseWorldPosition;
     }
 
     private void SetGhostTransparency()
     {
         SpriteRenderer[] renderers =
-            ghostObject.GetComponentsInChildren<SpriteRenderer>();
+            ghostObject
+            .GetComponentsInChildren<SpriteRenderer>();
 
         foreach (SpriteRenderer renderer in renderers)
         {
             Color color = renderer.color;
+
             color.a = ghostAlpha;
+
             renderer.color = color;
         }
     }
@@ -159,16 +185,19 @@ public class PlacementController : MonoBehaviour
         if (ghostCollider == null)
         {
             canPlace = true;
+
             SetGhostColor(validColor);
+
             return;
         }
 
-        Collider2D[] hits = Physics2D.OverlapBoxAll(
-            ghostCollider.bounds.center,
-            ghostCollider.bounds.size,
-            0f,
-            blockingLayers
-        );
+        Collider2D[] hits =
+            Physics2D.OverlapBoxAll(
+                ghostCollider.bounds.center,
+                ghostCollider.bounds.size,
+                0f,
+                blockingLayers
+            );
 
         bool blocked = false;
 
@@ -184,21 +213,25 @@ public class PlacementController : MonoBehaviour
         canPlace = !blocked;
 
         SetGhostColor(
-            canPlace ? validColor : invalidColor
+            canPlace
+                ? validColor
+                : invalidColor
         );
     }
 
     private void PlaceBuilding()
     {
-        GameObject placedBuilding = Instantiate(
-            currentBuildingPrefab,
-            ghostObject.transform.position,
-            ghostObject.transform.rotation,
-            buildingParent
-        );
+        GameObject placedBuilding =
+            Instantiate(
+                currentBuildingPrefab,
+                ghostObject.transform.position,
+                ghostObject.transform.rotation,
+                buildingParent
+            );
 
         BuildingObject buildingObject =
-            placedBuilding.GetComponentInChildren<BuildingObject>();
+            placedBuilding
+            .GetComponentInChildren<BuildingObject>();
 
         if (buildingObject == null)
         {
@@ -208,20 +241,36 @@ public class PlacementController : MonoBehaviour
             );
 
             Destroy(placedBuilding);
+
             return;
         }
 
-        buildingObject.itemID = currentItem.ID;
+        buildingObject.itemID =
+            currentItem.ID;
 
         SpriteRenderer[] renderers =
-            placedBuilding.GetComponentsInChildren<SpriteRenderer>();
+            placedBuilding
+            .GetComponentsInChildren<SpriteRenderer>();
 
         foreach (SpriteRenderer renderer in renderers)
         {
             renderer.color = Color.white;
         }
 
-        currentItem.RemoveFromStack(1);
+        // Consume the building item
+        if (hotbarController != null)
+        {
+            hotbarController.ConsumeSelectedItem(1);
+        }
+        else
+        {
+            Debug.LogWarning(
+                "PlacementController: " +
+                "HotbarController is not assigned."
+            );
+
+            currentItem.RemoveFromStack(1);
+        }
 
         Debug.Log(
             "Building placed: " +
@@ -241,7 +290,8 @@ public class PlacementController : MonoBehaviour
     private void PlaceRelocatedBuilding()
     {
         SpriteRenderer[] renderers =
-            relocatingBuilding.GetComponentsInChildren<SpriteRenderer>();
+            relocatingBuilding
+            .GetComponentsInChildren<SpriteRenderer>();
 
         foreach (SpriteRenderer renderer in renderers)
         {
@@ -262,11 +312,13 @@ public class PlacementController : MonoBehaviour
     private void SetGhostColor(Color color)
     {
         SpriteRenderer[] renderers =
-            ghostObject.GetComponentsInChildren<SpriteRenderer>();
+            ghostObject
+            .GetComponentsInChildren<SpriteRenderer>();
 
         foreach (SpriteRenderer renderer in renderers)
         {
             Color newColor = color;
+
             newColor.a = ghostAlpha;
 
             renderer.color = newColor;
