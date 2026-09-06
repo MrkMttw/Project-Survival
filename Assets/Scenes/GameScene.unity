@@ -628309,7 +628309,7 @@ GameObject:
   - component: {fileID: 640079117}
   - component: {fileID: 640079118}
   m_Layer: 0
-  m_Name: ActionSystem
+  m_Name: BreakSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -628350,7 +628350,6 @@ MonoBehaviour:
   breakableLayer:
     serializedVersion: 2
     m_Bits: 64
-  hotbarPanel: {fileID: 1693767225}
 --- !u!4 &640079119
 Transform:
   m_ObjectHideFlags: 0
@@ -629943,10 +629942,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponController
   player: {fileID: 543478632}
+  playerHeldItem: {fileID: 640079117}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 512
   hotbarPanel: {fileID: 1693767225}
+  breakSystem: {fileID: 640079118}
 --- !u!1 &1040710214
 GameObject:
   m_ObjectHideFlags: 0
