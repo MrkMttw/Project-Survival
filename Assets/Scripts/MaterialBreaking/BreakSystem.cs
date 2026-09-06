@@ -1,6 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.EventSystems;
 
 public class BreakSystem : MonoBehaviour
 {
@@ -19,8 +17,6 @@ public class BreakSystem : MonoBehaviour
     private float nextBreakTime;
 
     private PlayerHeldItem playerHeldItem;
-
-    public GameObject hotbarPanel;
 
     // Current object inside the player's break hitbox
     private Collider2D currentBreakable;
@@ -44,48 +40,6 @@ public class BreakSystem : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (Mouse.current == null)
-            return;
-
-        if (Mouse.current.leftButton.wasPressedThisFrame)
-        {
-            if (IsPointerOverHotbar())
-                return;
-
-            TryBreak();
-        }
-    }
-
-    private bool IsPointerOverHotbar()
-    {
-        if (hotbarPanel == null)
-            return false;
-
-        PointerEventData pointerData =
-            new PointerEventData(EventSystem.current);
-
-        pointerData.position =
-            Mouse.current.position.ReadValue();
-
-        var results =
-            new System.Collections.Generic.List<RaycastResult>();
-
-        EventSystem.current.RaycastAll(pointerData, results);
-
-        foreach (RaycastResult result in results)
-        {
-            if (result.gameObject.transform.IsChildOf(
-                hotbarPanel.transform))
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     // Called by BreakHitbox
     public void SetTarget(Collider2D target)
     {
@@ -101,7 +55,8 @@ public class BreakSystem : MonoBehaviour
         }
     }
 
-    private void TryBreak()
+    // Called by WeaponController
+    public void TryBreak()
     {
         if (playerHeldItem == null)
             return;
@@ -150,6 +105,7 @@ public class BreakSystem : MonoBehaviour
         // Get BreakableMaterial.
         BreakableMaterial material =
             currentBreakable.GetComponentInParent<BreakableMaterial>();
+
         if (material == null)
         {
             Debug.Log(
@@ -231,11 +187,11 @@ public class BreakSystem : MonoBehaviour
         // Drop items only when completely broken.
         if (broken)
         {
-             DropItem(
+            DropItem(
                 material,
                 material.transform.position
             );
-            
+
             currentBreakable = null;
         }
     }
@@ -243,8 +199,7 @@ public class BreakSystem : MonoBehaviour
     private void DropItem(
         BreakableMaterial material,
         Vector3 position
-        )
-
+    )
     {
         if (material.drops == null ||
             material.drops.Length == 0)

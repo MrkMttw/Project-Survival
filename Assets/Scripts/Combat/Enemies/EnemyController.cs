@@ -34,6 +34,16 @@ public class EnemyController : MonoBehaviour
     [Tooltip("How far the enemy checks for obstacles.")]
     public float obstacleCheckDistance = 1f;
 
+    [Header("Knockback")]
+    [Tooltip("How much the enemy resists weapon knockback.")]
+    public float knockbackResistance = 0f;
+
+    [Tooltip("How long the enemy is affected by knockback.")]
+    public float knockbackDuration = 0.15f;
+
+    [Tooltip("How quickly the knockback movement slows down.")]
+    public float knockbackDamping = 12f;
+
     private float currentHP;
 
     private Transform player;
@@ -43,6 +53,10 @@ public class EnemyController : MonoBehaviour
     private float firstAttackTimer;
 
     private bool isAttacking;
+
+    // Knockback
+    private Vector2 knockbackVelocity;
+    private bool isKnockedBack;
 
     private void Start()
     {
@@ -78,13 +92,20 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
+        // Knockback takes priority over normal AI.
+        if (isKnockedBack)
+        {
+            HandleKnockback();
+            return;
+        }
+
         if (player == null)
             return;
 
         if (playerHealth == null)
             return;
 
-        // Reduce timers
+        // Reduce attack cooldown
         if (attackTimer > 0f)
             attackTimer -= Time.deltaTime;
 
@@ -93,8 +114,7 @@ public class EnemyController : MonoBehaviour
             player.position
         );
 
-        // DETECT
-
+        // DETECTION
         if (distance > detectionRange)
         {
             isAttacking = false;
@@ -102,7 +122,6 @@ public class EnemyController : MonoBehaviour
         }
 
         // ATTACK RANGE
-
         if (distance <= attackRange)
         {
             isAttacking = true;
@@ -112,11 +131,12 @@ public class EnemyController : MonoBehaviour
         }
 
         // CHASE
-
         isAttacking = false;
 
         ChasePlayer();
     }
+
+    // CHASE
 
     private void ChasePlayer()
     {
@@ -169,6 +189,8 @@ public class EnemyController : MonoBehaviour
             );
     }
 
+    // ATTACK PLAYER
+
     private void AttackPlayer()
     {
         if (firstAttackTimer > 0f)
@@ -180,25 +202,31 @@ public class EnemyController : MonoBehaviour
         if (attackTimer > 0f)
             return;
 
-        float damage = playerHealth.maxHealth *
-                    (attackDamagePercent / 100f);
+        float damage =
+            playerHealth.maxHealth *
+            (attackDamagePercent / 100f);
 
         playerHealth.TakeDamage(damage);
 
         Debug.Log(
             gameObject.name +
             " attacked the player for " +
-            damage +
-            " damage (" +
-            attackDamagePercent +
-            "% of max HP)"
+            damage.ToString("F1") +
+            " damage."
         );
 
         attackTimer = attackCooldown;
     }
 
-    public void TakeDamage(float damage)
+    // PLAYER WEAPON DAMAGE
+
+    public void TakeDamage(
+        float damage,
+        Vector2 knockbackDirection,
+        float knockbackStrength
+    )
     {
+        // Apply enemy defense
         float actualDamage =
             Mathf.Max(damage - defense, 1f);
 
@@ -207,9 +235,15 @@ public class EnemyController : MonoBehaviour
         Debug.Log(
             gameObject.name +
             " took " +
-            actualDamage +
+            actualDamage.ToString("F1") +
             " damage. HP: " +
-            currentHP
+            Mathf.Max(currentHP, 0f).ToString("F1")
+        );
+
+        // Apply controlled knockback
+        ApplyKnockback(
+            knockbackDirection,
+            knockbackStrength
         );
 
         if (currentHP <= 0f)
@@ -218,15 +252,70 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    // KNOCKBACK
+
+    private void ApplyKnockback(
+        Vector2 direction,
+        float strength
+    )
+    {
+        float actualKnockback =
+            Mathf.Max(
+                strength - knockbackResistance,
+                0f
+            );
+
+        if (actualKnockback <= 0f)
+            return;
+
+        if (direction.sqrMagnitude <= 0.001f)
+            return;
+
+        direction.Normalize();
+
+        knockbackVelocity =
+            direction * actualKnockback;
+
+        isKnockedBack = true;
+    }
+
+    private void HandleKnockback()
+    {
+        transform.position +=
+            (Vector3)(
+                knockbackVelocity *
+                Time.deltaTime
+            );
+
+        knockbackVelocity =
+            Vector2.MoveTowards(
+                knockbackVelocity,
+                Vector2.zero,
+                knockbackDamping *
+                Time.deltaTime
+            );
+
+        if (knockbackVelocity.sqrMagnitude <= 0.01f)
+        {
+            knockbackVelocity = Vector2.zero;
+            isKnockedBack = false;
+        }
+    }
+
+    // DEATH
+
     private void Die()
     {
         Destroy(gameObject);
     }
 
+    // GIZMOS
+
     private void OnDrawGizmosSelected()
     {
         // Detection range
         Gizmos.color = Color.yellow;
+
         Gizmos.DrawWireSphere(
             transform.position,
             detectionRange
@@ -234,6 +323,7 @@ public class EnemyController : MonoBehaviour
 
         // Attack range
         Gizmos.color = Color.red;
+
         Gizmos.DrawWireSphere(
             transform.position,
             attackRange
@@ -250,7 +340,10 @@ public class EnemyController : MonoBehaviour
             Gizmos.DrawLine(
                 transform.position,
                 transform.position +
-                (Vector3)(direction * obstacleCheckDistance)
+                (Vector3)(
+                    direction *
+                    obstacleCheckDistance
+                )
             );
         }
     }

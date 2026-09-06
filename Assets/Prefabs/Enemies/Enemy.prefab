@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3655246650299843580}
   - component: {fileID: 8631369034572204580}
   - component: {fileID: 9077506735278353028}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -232,6 +232,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 320
   obstacleCheckDistance: 1
+  knockbackResistance: 0
 --- !u!114 &9077506735278353028
 MonoBehaviour:
   m_ObjectHideFlags: 0

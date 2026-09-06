@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5f2ff24d14824e42b4d61e66d3efdcd, type: 3}
+  m_Name: Machete
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponData
+  itemPrefab: {fileID: 2844262709296048117, guid: 9135dba6cb29cd74dbeac901e7e84505, type: 3}
+  minDamage: 30
+  maxDamage: 40
+  attackSpeed: 2
+  attackRange: 1.5
+  knockbackStrength: 5
