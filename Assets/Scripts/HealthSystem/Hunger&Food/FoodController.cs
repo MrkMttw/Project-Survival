@@ -57,6 +57,7 @@ public class FoodController : MonoBehaviour
             eatPrompt.SetActive(false);
         }
     }
+
     private void TryEat()
     {
         // Already eating
@@ -66,7 +67,10 @@ public class FoodController : MonoBehaviour
         // Make sure PlayerHeldItem exists
         if (playerHeldItem == null)
         {
-            Debug.LogWarning("FoodController: Player Held Item is not assigned.");
+            Debug.LogWarning(
+                "FoodController: Player Held Item is not assigned."
+            );
+
             return;
         }
 
@@ -84,14 +88,22 @@ public class FoodController : MonoBehaviour
 
         if (food == null)
         {
-            Debug.Log("FoodController: " + heldItem.name + " is not food.");
+            Debug.Log(
+                "FoodController: " +
+                heldItem.name +
+                " is not food."
+            );
+
             return;
         }
 
         // Make sure hunger controller exists
         if (hungerController == null)
         {
-            Debug.LogWarning("FoodController: Hunger Controller is not assigned.");
+            Debug.LogWarning(
+                "FoodController: Hunger Controller is not assigned."
+            );
+
             return;
         }
 
@@ -109,7 +121,8 @@ public class FoodController : MonoBehaviour
             if (food == null || food.itemPrefab == null)
                 continue;
 
-            Item foodItem = food.itemPrefab.GetComponent<Item>();
+            Item foodItem =
+                food.itemPrefab.GetComponent<Item>();
 
             if (foodItem == null)
                 continue;
@@ -131,8 +144,11 @@ public class FoodController : MonoBehaviour
         isEating = true;
 
         Debug.Log(
-            "Eating " + item.name +
-            "... (" + food.eatingDelay + " seconds)"
+            "Eating " +
+            item.name +
+            "... (" +
+            food.eatingDelay +
+            " seconds)"
         );
 
         // Hide eat prompt while eating
@@ -147,14 +163,29 @@ public class FoodController : MonoBehaviour
         // Make sure the same item is still being held
         if (playerHeldItem.GetHeldItem() != item)
         {
-            Debug.Log("FoodController: Food was unequipped before eating finished.");
+            Debug.Log(
+                "FoodController: Food was unequipped before eating finished."
+            );
 
             isEating = false;
             yield break;
         }
 
-        // Restore hunger
-        hungerController.RestoreHunger(food.hungerRestore);
+        // ============================
+        // RESTORE HUNGER
+        // ============================
+
+        hungerController.RestoreHunger(
+            food.hungerRestore
+        );
+
+        // ============================
+        // RESTORE HEALTH
+        // ============================
+
+        hungerController.RestoreHealth(
+            food.hpRestore
+        );
 
         // Remove ONE food
         item.RemoveFromStack(1);
@@ -173,7 +204,9 @@ public class FoodController : MonoBehaviour
         Debug.Log(
             "Finished eating! +" +
             food.hungerRestore +
-            " hunger."
+            " hunger, +" +
+            food.hpRestore +
+            " HP."
         );
 
         isEating = false;

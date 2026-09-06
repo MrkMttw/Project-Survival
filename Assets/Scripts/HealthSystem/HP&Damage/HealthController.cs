@@ -20,7 +20,8 @@ public class HealthController : MonoBehaviour
         healthBarImage = healthBar.GetComponent<Image>();
         healthTextComponent = healthText.GetComponent<TMP_Text>();
 
-        healthTextComponent.horizontalAlignment = HorizontalAlignmentOptions.Center;
+        healthTextComponent.horizontalAlignment =
+            HorizontalAlignmentOptions.Center;
 
         currentHealth = maxHealth;
         UpdateHealthUI();
@@ -38,12 +39,14 @@ public class HealthController : MonoBehaviour
 
     public void Heal(float amount)
     {
+        // Don't heal if already at full health
+        if (currentHealth >= maxHealth)
+            return;
+
         currentHealth += amount;
         currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
 
         UpdateHealthUI();
-
-        Debug.Log("Health restored: " + amount);
     }
 
     private void UpdateHealthUI()

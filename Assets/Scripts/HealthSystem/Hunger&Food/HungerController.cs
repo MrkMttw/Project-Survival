@@ -106,6 +106,24 @@ public class HungerController : MonoBehaviour
         UpdateHungerUI();
     }
 
+    // RESTORE HEALTH
+    public void RestoreHealth(float amount)
+    {
+        if (amount <= 0f)
+            return;
+
+        if (healthController == null)
+        {
+            Debug.LogWarning(
+                "HungerController: HealthController is not assigned!"
+            );
+
+            return;
+        }
+
+        healthController.Heal(amount);
+    }
+
     // ADD SATURATION
     public void AddSaturation(float amount)
     {
