@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
 
-public class WeaponController : MonoBehaviour
+public class MeleeWeaponController : MonoBehaviour
 {
     [Header("Player")]
     public Transform player;
@@ -20,7 +20,6 @@ public class WeaponController : MonoBehaviour
 
     private void Start()
     {
-        // Automatically find PlayerHeldItem if not assigned.
         if (playerHeldItem == null && player != null)
         {
             playerHeldItem = player.GetComponent<PlayerHeldItem>();
@@ -29,12 +28,10 @@ public class WeaponController : MonoBehaviour
         if (playerHeldItem == null)
         {
             Debug.LogError(
-                "WeaponController: PlayerHeldItem is not assigned or found!"
+                "MeleeWeaponController: PlayerHeldItem is not assigned or found!"
             );
         }
 
-        // Automatically find BreakSystem if it's on the same object.
-        // Otherwise, assign it manually in the Inspector.
         if (breakSystem == null)
         {
             breakSystem = GetComponent<BreakSystem>();
@@ -43,21 +40,21 @@ public class WeaponController : MonoBehaviour
         if (breakSystem == null)
         {
             Debug.LogError(
-                "WeaponController: BreakSystem is not assigned!"
+                "MeleeWeaponController: BreakSystem is not assigned!"
             );
         }
 
         if (player == null)
         {
             Debug.LogError(
-                "WeaponController: Player is not assigned!"
+                "MeleeWeaponController: Player is not assigned!"
             );
         }
 
         if (enemyLayer.value == 0)
         {
             Debug.LogWarning(
-                "WeaponController: Enemy Layer is set to Nothing!"
+                "MeleeWeaponController: Enemy Layer is set to Nothing!"
             );
         }
     }
@@ -81,17 +78,17 @@ public class WeaponController : MonoBehaviour
     {
         WeaponData weapon = GetCurrentWeapon();
 
-        // No weapon equipped.
+        // No melee weapon equipped.
         if (weapon == null)
         {
             TryBreak();
             return;
         }
 
-        // Weapon is equipped.
+        // Melee weapon equipped.
         bool hitEnemy = TryAttack(weapon);
 
-        // If no enemy was hit, let the BreakSystem handle the click.
+        // If no enemy was hit, let BreakSystem handle the click.
         if (!hitEnemy)
         {
             TryBreak();
@@ -110,8 +107,8 @@ public class WeaponController : MonoBehaviour
         if (heldItem == null)
             return null;
 
-        WeaponFunction weaponFunction =
-            heldItem.GetComponent<WeaponFunction>();
+        MeleeWeaponFunction weaponFunction =
+            heldItem.GetComponent<MeleeWeaponFunction>();
 
         if (weaponFunction == null)
             return null;
@@ -119,9 +116,9 @@ public class WeaponController : MonoBehaviour
         if (weaponFunction.weaponData == null)
         {
             Debug.LogWarning(
-                "WeaponController: Held item '" +
+                "MeleeWeaponController: Held item '" +
                 heldItem.name +
-                "' has WeaponFunction but no WeaponData."
+                "' has MeleeWeaponFunction but no WeaponData."
             );
 
             return null;

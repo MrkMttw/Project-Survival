@@ -657,7 +657,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd03d884e935ee1449000f8abf7a2f05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FoodController
-  playerHeldItem: {fileID: 640079117}
+  playerHeldItem: {fileID: 2096488642}
   hungerController: {fileID: 341174964}
   foodPresets:
   - {fileID: 11400000, guid: 9ddc45fac724fd24a83824100ac0b2d2, type: 2}
@@ -628306,7 +628306,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 640079119}
-  - component: {fileID: 640079117}
   - component: {fileID: 640079118}
   m_Layer: 0
   m_Name: BreakSystem
@@ -628315,20 +628314,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &640079117
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 640079116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b05ae56827736a249b19b6d5b8d0237f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerHeldItem
-  heldItemRenderer: {fileID: 2096488641}
-  heldItem: {fileID: 0}
 --- !u!114 &640079118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -628350,6 +628335,7 @@ MonoBehaviour:
   breakableLayer:
     serializedVersion: 2
     m_Bits: 64
+  playerHeldItem: {fileID: 2096488642}
 --- !u!4 &640079119
 Transform:
   m_ObjectHideFlags: 0
@@ -629942,7 +629928,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponController
   player: {fileID: 543478632}
-  playerHeldItem: {fileID: 640079117}
+  playerHeldItem: {fileID: 2096488642}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -653634,7 +653620,7 @@ MonoBehaviour:
   slotPrefab: {fileID: 6515747414498963311, guid: d872237434789c84da55cb7eddb30248, type: 3}
   slotCount: 8
   player: {fileID: 543478632}
-  playerHeldItem: {fileID: 640079117}
+  playerHeldItem: {fileID: 2096488642}
   placementController: {fileID: 1561105130}
 --- !u!1 &1697998399
 GameObject:
@@ -655381,6 +655367,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2096488640}
   - component: {fileID: 2096488641}
+  - component: {fileID: 2096488642}
   m_Layer: 0
   m_Name: HeldItem
   m_TagString: Untagged
@@ -655463,6 +655450,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!114 &2096488642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2096488639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b05ae56827736a249b19b6d5b8d0237f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHeldItem
+  heldItemRenderer: {fileID: 2096488641}
+  heldItem: {fileID: 0}
 --- !u!1 &2130823051
 GameObject:
   m_ObjectHideFlags: 0

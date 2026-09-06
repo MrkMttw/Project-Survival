@@ -16,21 +16,14 @@ public class BreakSystem : MonoBehaviour
 
     private float nextBreakTime;
 
-    private PlayerHeldItem playerHeldItem;
+    [Header("Held Item")]
+    public PlayerHeldItem playerHeldItem;
 
     // Current object inside the player's break hitbox
     private Collider2D currentBreakable;
 
     private void Start()
     {
-        playerHeldItem = GetComponent<PlayerHeldItem>();
-
-        if (playerHeldItem == null)
-        {
-            Debug.LogError(
-                "BreakSystem: PlayerHeldItem was not found on Player!"
-            );
-        }
 
         if (player == null)
         {

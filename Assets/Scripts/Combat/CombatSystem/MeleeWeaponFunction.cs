@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class WeaponFunction : MonoBehaviour
+public class MeleeWeaponFunction : MonoBehaviour
 {
     [Header("Weapon Preset")]
     public WeaponData weaponData;
