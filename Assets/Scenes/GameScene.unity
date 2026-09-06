@@ -631468,7 +631468,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Press E to Eat
+  m_text: 'Press E to use/consume
 
 
 '
@@ -655904,6 +655904,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHeldItem
   heldItemRenderer: {fileID: 2096488641}
   heldItem: {fileID: 0}
+  placementController: {fileID: 0}
 --- !u!114 &2096488643
 MonoBehaviour:
   m_ObjectHideFlags: 0
