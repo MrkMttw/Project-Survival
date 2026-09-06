@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1694c5b7ed139f8419469fcf7ab7be89, type: 3}
-  m_Name: CampfireItem
+  m_Name: LanternItem
   m_EditorClassIdentifier: Assembly-CSharp::ItemLightPreset
-  itemPrefab: {fileID: 6045396133341968642, guid: 6259c4cb29489094dbb30d154948a50c, type: 3}
+  itemPrefab: {fileID: 426891235985906995, guid: 0c95ddbded006b64a83e7ac74e7923e5, type: 3}
   intensity: 2
   radius: 5
   enableFlicker: 1
