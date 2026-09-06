@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1694c5b7ed139f8419469fcf7ab7be89, type: 3}
+  m_Name: CampfireItem
+  m_EditorClassIdentifier: Assembly-CSharp::ItemLightPreset
+  itemPrefab: {fileID: 6045396133341968642, guid: 6259c4cb29489094dbb30d154948a50c, type: 3}
+  intensity: 2
+  radius: 5
+  enableFlicker: 1
+  flickerAmount: 0.25
+  flickerSpeed: 2
+  radiusVariation: 0.15

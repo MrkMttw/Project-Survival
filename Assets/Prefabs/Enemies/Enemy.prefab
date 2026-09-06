@@ -221,7 +221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
   maxHP: 100
-  attackDamagePercent: 5
+  attackDamagePercent: 2.5
   movementSpeed: 4
   defense: 0
   hpBar: {fileID: 837411218075763094}
