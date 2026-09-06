@@ -167,6 +167,30 @@ public class WrenchFunction : MonoBehaviour
             return;
         }
 
+        // Create a temporary runtime copy.
+        // Do NOT pass the shared ItemDictionary object
+        // directly into AddItem().
+        GameObject retrieveItem =
+            Instantiate(itemPrefab);
+
+        Item retrieveItemComponent =
+            retrieveItem.GetComponent<Item>();
+
+        if (retrieveItemComponent == null)
+        {
+            Debug.LogError(
+                "No Item component on prefab for Item ID: " +
+                building.itemID
+            );
+
+            Destroy(retrieveItem);
+            return;
+        }
+
+        // One placed building = one retrieved item.
+        retrieveItemComponent.quantity = 1;
+        retrieveItemComponent.UpdateQuantityDisplay();
+
         HotbarController hotbar =
             FindObjectOfType<HotbarController>();
 
@@ -178,14 +202,17 @@ public class WrenchFunction : MonoBehaviour
         // Hotbar first
         if (hotbar != null)
         {
-            added = hotbar.AddItem(itemPrefab);
+            added = hotbar.AddItem(retrieveItem);
         }
 
         // Inventory second
         if (!added && inventory != null)
         {
-            added = inventory.AddItem(itemPrefab);
+            added = inventory.AddItem(retrieveItem);
         }
+
+        // The temporary object is no longer needed.
+        Destroy(retrieveItem);
 
         if (!added)
         {

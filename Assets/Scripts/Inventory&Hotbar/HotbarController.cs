@@ -340,6 +340,9 @@ public class HotbarController : MonoBehaviour
 
         if (itemToAdd == null)
             return false;
+        
+        if (itemToAdd.quantity <= 0)
+            return false;
 
         int originalQuantity = itemToAdd.quantity;
 
