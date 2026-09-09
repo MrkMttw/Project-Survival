@@ -31,7 +31,7 @@ public class EnemyController : MonoBehaviour
 
     [Header("AI Movement")]
     [Tooltip("How close the enemy gets to the player before stopping.")]
-    public float stoppingDistance = 1.2f;
+    public float stoppingDistance = 1.3f;
 
     [Tooltip("Layer containing walls/obstacles.")]
     public LayerMask obstacleLayer;
@@ -48,6 +48,12 @@ public class EnemyController : MonoBehaviour
 
     [Tooltip("How quickly the knockback movement slows down.")]
     public float knockbackDamping = 12f;
+
+    private Vector2 avoidanceDirection = Vector2.zero;
+    private float avoidanceTimer = 0f;
+
+    [Tooltip("How long the enemy commits to an avoidance direction.")]
+    public float avoidanceDuration = 0.35f;
 
     // Components
     private Rigidbody2D rb;
@@ -189,19 +195,23 @@ public class EnemyController : MonoBehaviour
     }
 
 
+    // =============================
     // MOVEMENT
+    // =============================
 
     private void MoveTowardsPlayer()
     {
-        float distance =
-            Vector2.Distance(
-                rb.position,
-                player.position
-            );
+        float distance = Vector2.Distance(
+            rb.position,
+            (Vector2)player.position
+        );
 
-        // Stop when close enough to the player.
+        // Stop when close enough.
         if (distance <= stoppingDistance)
+        {
+            rb.linearVelocity = Vector2.zero;
             return;
+        }
 
         Vector2 direction =
             ((Vector2)player.position - rb.position).normalized;
@@ -219,53 +229,52 @@ public class EnemyController : MonoBehaviour
 
     private Vector2 GetMovementDirection(Vector2 direction)
     {
-        RaycastHit2D obstacle =
-            Physics2D.Raycast(
-                rb.position,
-                direction,
-                obstacleCheckDistance,
-                obstacleLayer
-            );
+        RaycastHit2D obstacle = Physics2D.Raycast(
+            rb.position,
+            direction,
+            obstacleCheckDistance,
+            obstacleLayer
+        );
 
-        // No obstacle in front.
+        // No obstacle.
         if (obstacle.collider == null)
             return direction;
 
-        // Try moving left.
-        Vector2 leftDirection =
-            new Vector2(
-                -direction.y,
-                direction.x
-            ).normalized;
+        // Try left.
+        Vector2 leftDirection = new Vector2(
+            -direction.y,
+            direction.x
+        ).normalized;
 
-        RaycastHit2D leftCheck =
-            Physics2D.Raycast(
-                rb.position,
-                leftDirection,
-                obstacleCheckDistance,
-                obstacleLayer
-            );
+        RaycastHit2D leftCheck = Physics2D.Raycast(
+            rb.position,
+            leftDirection,
+            obstacleCheckDistance,
+            obstacleLayer
+        );
 
         if (leftCheck.collider == null)
             return leftDirection;
 
-        // Try moving right.
-        Vector2 rightDirection =
-            -leftDirection;
+        // Try right.
+        Vector2 rightDirection = new Vector2(
+            direction.y,
+            -direction.x
+        ).normalized;
 
-        RaycastHit2D rightCheck =
-            Physics2D.Raycast(
-                rb.position,
-                rightDirection,
-                obstacleCheckDistance,
-                obstacleLayer
-            );
+        RaycastHit2D rightCheck = Physics2D.Raycast(
+            rb.position,
+            rightDirection,
+            obstacleCheckDistance,
+            obstacleLayer
+        );
 
         if (rightCheck.collider == null)
             return rightDirection;
 
-        // Both sides are blocked.
-        return Vector2.zero;
+        // Don't just give up completely.
+        // Continue toward the player instead.
+        return direction;
     }
 
 
