@@ -49,60 +49,96 @@ public class EnemyController : MonoBehaviour
     [Tooltip("How quickly the knockback movement slows down.")]
     public float knockbackDamping = 12f;
 
-    private float currentHP;
+    // Components
+    private Rigidbody2D rb;
 
+    // Player
     private Transform player;
     private HealthController playerHealth;
 
+    // Health
+    private float currentHP;
+
+    // Combat timers
     private float attackTimer;
     private float firstAttackTimer;
 
+    // State
     private bool isAttacking;
+    private bool isKnockedBack;
 
     // Knockback
     private Vector2 knockbackVelocity;
-    private bool isKnockedBack;
+    private float knockbackTimer;
+
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+
+        if (rb == null)
+        {
+            Debug.LogError(
+                "EnemyController: Rigidbody2D is missing!",
+                this
+            );
+        }
+    }
+
 
     private void Start()
     {
-        // Initialize HP
+        // Initialize health
         currentHP = maxHP;
-
-        // Initialize HP bar
         UpdateHealthBar();
 
         // Find player
         GameObject playerObject =
             GameObject.FindGameObjectWithTag("Player");
 
-        if (playerObject != null)
-        {
-            player = playerObject.transform;
-
-            playerHealth =
-                playerObject.GetComponentInChildren<HealthController>();
-
-            if (playerHealth == null)
-            {
-                Debug.LogWarning(
-                    "EnemyController: Could not find HealthController!"
-                );
-            }
-        }
-        else
+        if (playerObject == null)
         {
             Debug.LogWarning(
                 "EnemyController: Could not find Player!"
             );
+
+            return;
         }
 
+        player = playerObject.transform;
+
+        playerHealth =
+            playerObject.GetComponentInChildren<HealthController>();
+
+        if (playerHealth == null)
+        {
+            Debug.LogWarning(
+                "EnemyController: Could not find HealthController!"
+            );
+        }
+
+        // Initialize timers
         attackTimer = 0f;
         firstAttackTimer = firstAttackDelay;
     }
 
+
     private void Update()
     {
-        // Knockback takes priority over normal AI.
+        if (player == null || playerHealth == null)
+            return;
+
+        HandleAttackTimer();
+        HandleDetectionAndCombat();
+    }
+
+
+    private void FixedUpdate()
+    {
+        if (rb == null)
+            return;
+
+        // Knockback takes priority over normal movement.
         if (isKnockedBack)
         {
             HandleKnockback();
@@ -112,120 +148,139 @@ public class EnemyController : MonoBehaviour
         if (player == null)
             return;
 
-        if (playerHealth == null)
-            return;
+        MoveTowardsPlayer();
+    }
 
-        // Reduce attack cooldown
+
+    // AI
+
+    private void HandleAttackTimer()
+    {
         if (attackTimer > 0f)
             attackTimer -= Time.deltaTime;
+    }
 
-        float distance = Vector2.Distance(
-            transform.position,
-            player.position
-        );
 
-        // DETECTION
+    private void HandleDetectionAndCombat()
+    {
+        float distance =
+            Vector2.Distance(
+                rb.position,
+                (Vector2)player.position
+            );
+
+        // Player is outside detection range.
         if (distance > detectionRange)
         {
             isAttacking = false;
             return;
         }
 
-        // ATTACK RANGE
+        // Player is within attack range.
         if (distance <= attackRange)
         {
             isAttacking = true;
-
             AttackPlayer();
             return;
         }
 
-        // CHASE
+        // Player is detected but outside attack range.
         isAttacking = false;
-
-        ChasePlayer();
     }
 
-    // HEALTH BAR
 
-    private void UpdateHealthBar()
+    // MOVEMENT
+
+    private void MoveTowardsPlayer()
     {
-        if (hpBar == null)
+        float distance =
+            Vector2.Distance(
+                rb.position,
+                player.position
+            );
+
+        // Stop when close enough to the player.
+        if (distance <= stoppingDistance)
             return;
 
-        if (maxHP <= 0f)
-        {
-            hpBar.fillAmount = 0f;
-            return;
-        }
-
-        hpBar.fillAmount =
-            Mathf.Clamp01(currentHP / maxHP);
-    }
-
-    // CHASE
-
-    private void ChasePlayer()
-    {
         Vector2 direction =
-            (player.position - transform.position).normalized;
+            ((Vector2)player.position - rb.position).normalized;
 
-        // Check for obstacle
-        RaycastHit2D obstacle = Physics2D.Raycast(
-            transform.position,
-            direction,
-            obstacleCheckDistance,
-            obstacleLayer
-        );
+        direction = GetMovementDirection(direction);
 
-        if (obstacle.collider != null)
-        {
-            // Try to move around the obstacle
-            Vector2 perpendicular =
-                new Vector2(-direction.y, direction.x);
+        Vector2 movement =
+            direction *
+            movementSpeed *
+            Time.fixedDeltaTime;
 
-            RaycastHit2D leftCheck = Physics2D.Raycast(
-                transform.position,
-                perpendicular,
-                obstacleCheckDistance,
-                obstacleLayer
-            );
-
-            RaycastHit2D rightCheck = Physics2D.Raycast(
-                transform.position,
-                -perpendicular,
-                obstacleCheckDistance,
-                obstacleLayer
-            );
-
-            if (leftCheck.collider == null)
-            {
-                direction = perpendicular;
-            }
-            else if (rightCheck.collider == null)
-            {
-                direction = -perpendicular;
-            }
-        }
-
-        transform.position +=
-            (Vector3)(
-                direction *
-                movementSpeed *
-                Time.deltaTime
-            );
+        rb.MovePosition(rb.position + movement);
     }
 
-    // ATTACK PLAYER
+
+    private Vector2 GetMovementDirection(Vector2 direction)
+    {
+        RaycastHit2D obstacle =
+            Physics2D.Raycast(
+                rb.position,
+                direction,
+                obstacleCheckDistance,
+                obstacleLayer
+            );
+
+        // No obstacle in front.
+        if (obstacle.collider == null)
+            return direction;
+
+        // Try moving left.
+        Vector2 leftDirection =
+            new Vector2(
+                -direction.y,
+                direction.x
+            ).normalized;
+
+        RaycastHit2D leftCheck =
+            Physics2D.Raycast(
+                rb.position,
+                leftDirection,
+                obstacleCheckDistance,
+                obstacleLayer
+            );
+
+        if (leftCheck.collider == null)
+            return leftDirection;
+
+        // Try moving right.
+        Vector2 rightDirection =
+            -leftDirection;
+
+        RaycastHit2D rightCheck =
+            Physics2D.Raycast(
+                rb.position,
+                rightDirection,
+                obstacleCheckDistance,
+                obstacleLayer
+            );
+
+        if (rightCheck.collider == null)
+            return rightDirection;
+
+        // Both sides are blocked.
+        return Vector2.zero;
+    }
+
+
+    // ATTACK
 
     private void AttackPlayer()
     {
+        // First attack delay.
         if (firstAttackTimer > 0f)
         {
             firstAttackTimer -= Time.deltaTime;
             return;
         }
 
+        // Attack cooldown.
         if (attackTimer > 0f)
             return;
 
@@ -245,7 +300,26 @@ public class EnemyController : MonoBehaviour
         attackTimer = attackCooldown;
     }
 
-    // PLAYER WEAPON DAMAGE
+
+    // HEALTH
+
+    private void UpdateHealthBar()
+    {
+        if (hpBar == null)
+            return;
+
+        if (maxHP <= 0f)
+        {
+            hpBar.fillAmount = 0f;
+            return;
+        }
+
+        hpBar.fillAmount =
+            Mathf.Clamp01(
+                currentHP / maxHP
+            );
+    }
+
 
     public void TakeDamage(
         float damage,
@@ -253,17 +327,22 @@ public class EnemyController : MonoBehaviour
         float knockbackStrength
     )
     {
-        // Apply enemy defense
+        // Apply defense.
         float actualDamage =
-            Mathf.Max(damage - defense, 1f);
+            Mathf.Max(
+                damage - defense,
+                1f
+            );
 
         currentHP -= actualDamage;
 
-        // Prevent HP from going below zero
+        // Prevent negative HP.
         currentHP =
-            Mathf.Max(currentHP, 0f);
+            Mathf.Max(
+                currentHP,
+                0f
+            );
 
-        // Update HP bar
         UpdateHealthBar();
 
         Debug.Log(
@@ -274,18 +353,19 @@ public class EnemyController : MonoBehaviour
             currentHP.ToString("F1")
         );
 
-        // Apply controlled knockback
+        // Apply knockback.
         ApplyKnockback(
             knockbackDirection,
             knockbackStrength
         );
 
-        // Check death
+        // Check death.
         if (currentHP <= 0f)
         {
             Die();
         }
     }
+
 
     // KNOCKBACK
 
@@ -309,33 +389,50 @@ public class EnemyController : MonoBehaviour
         direction.Normalize();
 
         knockbackVelocity =
-            direction * actualKnockback;
+            direction *
+            actualKnockback;
+
+        knockbackTimer =
+            knockbackDuration;
 
         isKnockedBack = true;
     }
 
+
     private void HandleKnockback()
     {
-        transform.position +=
-            (Vector3)(
-                knockbackVelocity *
-                Time.deltaTime
-            );
+        if (knockbackTimer > 0f)
+        {
+            knockbackTimer -= Time.fixedDeltaTime;
+        }
+
+        rb.MovePosition(
+            rb.position +
+            knockbackVelocity *
+            Time.fixedDeltaTime
+        );
 
         knockbackVelocity =
             Vector2.MoveTowards(
                 knockbackVelocity,
                 Vector2.zero,
                 knockbackDamping *
-                Time.deltaTime
+                Time.fixedDeltaTime
             );
 
-        if (knockbackVelocity.sqrMagnitude <= 0.01f)
+        // End knockback when either the timer
+        // or velocity reaches zero.
+        if (
+            knockbackTimer <= 0f ||
+            knockbackVelocity.sqrMagnitude <= 0.01f
+        )
         {
             knockbackVelocity = Vector2.zero;
+            knockbackTimer = 0f;
             isKnockedBack = false;
         }
     }
+
 
     // DEATH
 
@@ -344,11 +441,12 @@ public class EnemyController : MonoBehaviour
         Destroy(gameObject);
     }
 
+
     // GIZMOS
 
     private void OnDrawGizmosSelected()
     {
-        // Detection range
+        // Detection range.
         Gizmos.color = Color.yellow;
 
         Gizmos.DrawWireSphere(
@@ -356,7 +454,7 @@ public class EnemyController : MonoBehaviour
             detectionRange
         );
 
-        // Attack range
+        // Attack range.
         Gizmos.color = Color.red;
 
         Gizmos.DrawWireSphere(
@@ -364,11 +462,20 @@ public class EnemyController : MonoBehaviour
             attackRange
         );
 
-        // Obstacle detection
+        // Stopping distance.
+        Gizmos.color = Color.green;
+
+        Gizmos.DrawWireSphere(
+            transform.position,
+            stoppingDistance
+        );
+
+        // Obstacle detection.
         if (player != null)
         {
             Vector2 direction =
-                (player.position - transform.position).normalized;
+                (player.position - transform.position)
+                .normalized;
 
             Gizmos.color = Color.blue;
 

@@ -233,7 +233,7 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 320
-  obstacleCheckDistance: 1
+  obstacleCheckDistance: 0.8
   knockbackResistance: 0
   knockbackDuration: 0.15
   knockbackDamping: 12

@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveInput;
     private Animator animator;
 
-    /// <sumky>
+    
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();

@@ -171,17 +171,13 @@ public class FoodController : MonoBehaviour
             yield break;
         }
 
-        // ============================
         // RESTORE HUNGER
-        // ============================
 
         hungerController.RestoreHunger(
             food.hungerRestore
         );
 
-        // ============================
         // RESTORE HEALTH
-        // ============================
 
         hungerController.RestoreHealth(
             food.hpRestore
