@@ -12,10 +12,13 @@ public class MeleeWeaponController : MonoBehaviour
     [Header("Combat")]
     public LayerMask enemyLayer;
 
+    [Header("UI")]
+    public MenuController menuController;
+
     [Header("Interaction")]
     public GameObject hotbarPanel;
     public BreakSystem breakSystem;
-
+    
     private float nextAttackTime;
 
     private void Start()
@@ -61,6 +64,10 @@ public class MeleeWeaponController : MonoBehaviour
 
     private void Update()
     {
+        // Menu open → completely ignore attack/break input.
+        if (menuController != null && menuController.menuCanvas.activeSelf)
+            return;
+
         if (Mouse.current == null)
             return;
 

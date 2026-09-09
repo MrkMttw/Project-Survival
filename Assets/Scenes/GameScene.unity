@@ -630675,6 +630675,7 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 512
+  menuController: {fileID: 1119554846}
   hotbarPanel: {fileID: 1693767225}
   breakSystem: {fileID: 640079118}
 --- !u!224 &1019521887 stripped
