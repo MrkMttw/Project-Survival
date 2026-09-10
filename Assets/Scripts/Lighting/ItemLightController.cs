@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 
 public class ItemLightController : MonoBehaviour
@@ -20,17 +21,21 @@ public class ItemLightController : MonoBehaviour
     [Tooltip("GameObject containing the PlayerHeldItem component.")]
     public GameObject playerHeldItemObject;
 
-
     private PlayerHeldItem playerHeldItem;
 
     private Light2D heldItemLight;
 
     private ItemLightPreset currentPreset;
+    
+    private ItemLightPreset retainedPreset;
 
     private GameObject currentHeldObject;
 
     private float noiseOffset;
 
+    private bool lightRetained;
+
+    private int retainedItemID = -1;
 
     private void Awake()
     {
@@ -43,10 +48,15 @@ public class ItemLightController : MonoBehaviour
         FindPlayerHeldItem();
     }
 
-
     private void Update()
     {
         UpdateHeldItemLight();
+
+        if (Keyboard.current != null &&
+            Keyboard.current.eKey.wasPressedThisFrame)
+        {
+            ToggleLight();
+        }
     }
 
 
@@ -87,7 +97,6 @@ public class ItemLightController : MonoBehaviour
             return;
         }
 
-
         // No lighting during daytime.
         if (!isNight)
         {
@@ -95,28 +104,71 @@ public class ItemLightController : MonoBehaviour
             return;
         }
 
-
         Item currentItem =
             playerHeldItem.GetHeldItem();
 
-
+        // Nothing is equipped.
+        // Keep the retained light if one exists.
         if (currentItem == null)
         {
-            DisableHeldLight();
+            if (lightRetained &&
+                retainedPreset != null)
+            {
+                if (heldItemLight == null)
+                {
+                    FindHeldItemLight();
+                }
+
+                if (heldItemLight != null)
+                {
+                    heldItemLight.enabled = true;
+
+                    ApplyPreset(
+                        heldItemLight,
+                        retainedPreset
+                    );
+                }
+            }
+            else
+            {
+                DisableHeldLight();
+            }
+
             return;
         }
-
 
         ItemLightPreset preset =
             GetPresetForItem(currentItem);
 
-
+        // Current item has no light.
+        // Keep the retained light if one exists.
         if (preset == null)
         {
-            DisableHeldLight();
+            if (lightRetained &&
+                retainedPreset != null)
+            {
+                if (heldItemLight == null)
+                {
+                    FindHeldItemLight();
+                }
+
+                if (heldItemLight != null)
+                {
+                    heldItemLight.enabled = true;
+
+                    ApplyPreset(
+                        heldItemLight,
+                        retainedPreset
+                    );
+                }
+            }
+            else
+            {
+                DisableHeldLight();
+            }
+
             return;
         }
-
 
         // If the held item changed,
         // find its Light2D again.
@@ -127,26 +179,32 @@ public class ItemLightController : MonoBehaviour
             FindHeldItemLight();
         }
 
-
         if (heldItemLight == null)
         {
             FindHeldItemLight();
         }
-
 
         if (heldItemLight == null)
         {
             return;
         }
 
+        // Turn on the retained light when
+        // the retained item is equipped.
+        if (lightRetained &&
+            retainedItemID == currentItem.ID)
+        {
+            heldItemLight.enabled = true;
 
-        heldItemLight.enabled = true;
-
-
-        ApplyPreset(
-            heldItemLight,
-            preset
-        );
+            ApplyPreset(
+                heldItemLight,
+                retainedPreset
+            );
+        }
+        else
+        {
+            DisableHeldLight();
+        }
     }
 
 
@@ -226,6 +284,48 @@ public class ItemLightController : MonoBehaviour
         heldItemLight = lights[0];
     }
 
+    // TOGGLE LIGHT
+
+    public void ToggleLight()
+    {
+        if (playerHeldItem == null)
+            return;
+
+        Item currentItem = playerHeldItem.GetHeldItem();
+
+        if (currentItem == null)
+            return;
+
+        ItemLightPreset preset = GetPresetForItem(currentItem);
+
+        if (preset == null)
+            return;
+
+        // Turn off the retained light.
+        if (lightRetained &&
+            retainedItemID == currentItem.ID)
+        {
+            lightRetained = false;
+            retainedItemID = -1;
+            retainedPreset = null;
+
+            DisableHeldLight();
+
+            return;
+        }
+
+        // Turn on and retain this item's light.
+        lightRetained = true;
+        retainedItemID = currentItem.ID;
+        retainedPreset = preset;
+
+        FindHeldItemLight();
+
+        if (heldItemLight == null)
+            return;
+
+        heldItemLight.enabled = true;
+    }
 
     // APPLY PRESET
 
