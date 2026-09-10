@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,6 +9,9 @@ public class PlacementController : MonoBehaviour
     [Header("Grid")]
     public bool useGrid = true;
     public float gridSize = 1f;
+
+    [Header("Grid Prompt")]
+    public TMP_Text gridPrompt;
 
     [Header("Ghost")]
     [Range(0f, 1f)]
@@ -43,6 +47,14 @@ public class PlacementController : MonoBehaviour
     {
         if (ghostObject == null)
             return;
+
+        // Toggle grid with Tab
+        if (Keyboard.current.tabKey.wasPressedThisFrame)
+        {
+            useGrid = !useGrid;
+
+            UpdateGridPrompt();
+        }
 
         FollowMouse();
         CheckPlacement();
@@ -91,7 +103,11 @@ public class PlacementController : MonoBehaviour
         ghostObject.name =
             item.name + "_Ghost";
 
+        SetGhostCollision(false);
+
         SetGhostTransparency();
+
+        ShowGridPrompt();
 
         Debug.Log(
             "Ghost created: " +
@@ -111,7 +127,11 @@ public class PlacementController : MonoBehaviour
 
         ghostObject = building.gameObject;
 
+        SetGhostCollision(false);
+
         SetGhostTransparency();
+
+        ShowGridPrompt();
 
         Debug.Log(
             "Relocation started: " +
@@ -126,6 +146,8 @@ public class PlacementController : MonoBehaviour
         {
             Destroy(ghostObject);
         }
+
+        HideGridPrompt();
 
         ghostObject = null;
         currentBuildingPrefab = null;
@@ -159,6 +181,17 @@ public class PlacementController : MonoBehaviour
 
         ghostObject.transform.position =
             mouseWorldPosition;
+    }
+
+    private void SetGhostCollision(bool enabled)
+    {
+        CapsuleCollider2D[] colliders =
+            ghostObject.GetComponentsInChildren<CapsuleCollider2D>();
+
+        foreach (CapsuleCollider2D collider in colliders)
+        {
+            collider.enabled = enabled;
+        }
     }
 
     private void SetGhostTransparency()
@@ -272,6 +305,8 @@ public class PlacementController : MonoBehaviour
             currentItem.RemoveFromStack(1);
         }
 
+        HideGridPrompt();
+
         Debug.Log(
             "Building placed: " +
             placedBuilding.name +
@@ -298,6 +333,10 @@ public class PlacementController : MonoBehaviour
             renderer.color = Color.white;
         }
 
+        SetGhostCollision(true);
+        
+        HideGridPrompt();
+
         Debug.Log(
             "Building relocated: " +
             relocatingBuilding.gameObject.name
@@ -323,5 +362,34 @@ public class PlacementController : MonoBehaviour
 
             renderer.color = newColor;
         }
+    }
+
+    private void ShowGridPrompt()
+    {
+        if (gridPrompt == null)
+            return;
+
+        gridPrompt.gameObject.SetActive(true);
+
+        UpdateGridPrompt();
+    }
+
+    private void HideGridPrompt()
+    {
+        if (gridPrompt == null)
+            return;
+
+        gridPrompt.gameObject.SetActive(false);
+    }
+
+    private void UpdateGridPrompt()
+    {
+        if (gridPrompt == null)
+            return;
+
+        gridPrompt.text =
+            "Press Tab to Toggle Grid  " +
+            "Grid: " +
+            (useGrid ? "ON" : "OFF");
     }
 }

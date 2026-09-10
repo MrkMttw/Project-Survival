@@ -8,28 +8,8 @@ public class PlayerHeldItem : MonoBehaviour
     [Header("Currently Held Item")]
     public Item heldItem;
 
-    [Header("Placement")]
-    public PlacementController placementController;
-
-    private void Awake()
-    {
-        // Automatically find PlacementController if not assigned.
-        if (placementController == null)
-        {
-            placementController =
-                FindFirstObjectByType<PlacementController>();
-        }
-    }
-
     public void SetHeldItem(Item item)
     {
-        // If the player is switching away from the currently held item,
-        // cancel any active building placement first.
-        if (heldItem != null && heldItem != item)
-        {
-            CancelPlacement();
-        }
-
         heldItem = item;
 
         if (item == null)
@@ -58,24 +38,12 @@ public class PlayerHeldItem : MonoBehaviour
 
     public void ClearHeldItem()
     {
-        // IMPORTANT:
-        // Cancel building placement before clearing the held item.
-        CancelPlacement();
-
         heldItem = null;
 
         if (heldItemRenderer != null)
         {
             heldItemRenderer.sprite = null;
             heldItemRenderer.enabled = false;
-        }
-    }
-
-    private void CancelPlacement()
-    {
-        if (placementController != null)
-        {
-            placementController.CancelPlacement();
         }
     }
 
