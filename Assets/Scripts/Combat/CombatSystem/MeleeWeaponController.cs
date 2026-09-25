@@ -68,14 +68,21 @@ public class MeleeWeaponController : MonoBehaviour
         if (menuController != null && menuController.menuCanvas.activeSelf)
             return;
 
-        if (Mouse.current == null)
+        bool leftClick =
+            Mouse.current != null &&
+            Mouse.current.leftButton.wasPressedThisFrame;
+
+        bool spacePressed =
+            Keyboard.current != null &&
+            Keyboard.current.spaceKey.wasPressedThisFrame;
+
+        if (!leftClick && !spacePressed)
             return;
 
-        if (!Mouse.current.leftButton.wasPressedThisFrame)
-            return;
-
-        // Ignore clicks on the hotbar.
-        if (IsPointerOverHotbar())
+        // Only check the hotbar for mouse clicks.
+        // Space should still be able to attack even if the mouse
+        // happens to be over the hotbar.
+        if (leftClick && IsPointerOverHotbar())
             return;
 
         HandleLeftClick();
