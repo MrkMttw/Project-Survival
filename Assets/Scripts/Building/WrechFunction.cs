@@ -224,6 +224,14 @@ public class WrenchFunction : MonoBehaviour
             return;
         }
 
+        WorldGenerator worldGenerator =
+            FindObjectOfType<WorldGenerator>();
+
+        if (worldGenerator != null)
+        {
+            worldGenerator.RemoveBuilding(building);
+        }
+
         Destroy(building.gameObject);
 
         Debug.Log(

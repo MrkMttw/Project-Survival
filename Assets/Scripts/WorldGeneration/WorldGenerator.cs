@@ -9,6 +9,10 @@ public class WorldGenerator : MonoBehaviour
     [Header("World Parent")]
     public Transform overWorld;
     public Transform naturalObjectsParent;
+    public Transform buildingParent;
+
+    [Header("Item Dictionary")]
+    public ItemDictionary itemDictionary;
 
     [Header("Chunk Settings")]
     public float chunkSize = 16f;
@@ -28,6 +32,9 @@ public class WorldGenerator : MonoBehaviour
     private Dictionary<Vector2Int, GameObject> loadedChunks =
         new Dictionary<Vector2Int, GameObject>();
 
+    private Dictionary<Vector2Int, GameObject> loadedBuildingChunks =
+        new Dictionary<Vector2Int, GameObject>();
+
     private Dictionary<Vector2Int, List<Vector3>> generatedPositions =
         new Dictionary<Vector2Int, List<Vector3>>();
 
@@ -36,6 +43,9 @@ public class WorldGenerator : MonoBehaviour
 
     private Dictionary<Vector2Int, Dictionary<string, GameObject>> persistentObjectPrefabs =
         new Dictionary<Vector2Int, Dictionary<string, GameObject>>();
+
+    private Dictionary<Vector2Int, Dictionary<string, BuildingSaveData>> savedBuildings =
+        new Dictionary<Vector2Int, Dictionary<string, BuildingSaveData>>();
 
     private void Start()
     {
@@ -72,7 +82,7 @@ public class WorldGenerator : MonoBehaviour
         }
     }
 
-    private Vector2Int GetChunkCoordinate(Vector3 worldPosition)
+    public Vector2Int GetChunkCoordinate(Vector3 worldPosition)
     {
         int chunkX = Mathf.FloorToInt(worldPosition.x / chunkSize);
         int chunkY = Mathf.FloorToInt(worldPosition.y / chunkSize);
@@ -99,6 +109,11 @@ public class WorldGenerator : MonoBehaviour
                 {
                     LoadChunk(chunkCoordinate);
                 }
+
+                if (!loadedBuildingChunks.ContainsKey(chunkCoordinate))
+                {
+                    LoadBuildingChunk(chunkCoordinate);
+                }
             }
         }
 
@@ -115,6 +130,7 @@ public class WorldGenerator : MonoBehaviour
         foreach (Vector2Int chunkCoordinate in chunksToUnload)
         {
             UnloadChunk(chunkCoordinate);
+            UnloadBuildingChunk(chunkCoordinate);
         }
     }
 
@@ -163,6 +179,28 @@ public class WorldGenerator : MonoBehaviour
                 chunkObject.transform
             );
         }
+    }
+
+    private void LoadBuildingChunk(
+        Vector2Int chunkCoordinate)
+    {
+        if (loadedBuildingChunks.ContainsKey(
+            chunkCoordinate))
+        {
+            return;
+        }
+
+        Transform chunkParent =
+            GetBuildingChunkParent(chunkCoordinate);
+
+        loadedBuildingChunks.Add(
+            chunkCoordinate,
+            chunkParent.gameObject
+        );
+
+        RestoreBuildingsInChunk(
+            chunkCoordinate
+        );
     }
 
     private void GenerateChunk(
@@ -410,6 +448,23 @@ public class WorldGenerator : MonoBehaviour
         generatedPositions.Remove(chunkCoordinate);
     }
 
+    private void UnloadBuildingChunk(
+        Vector2Int chunkCoordinate)
+    {
+        if (!loadedBuildingChunks.TryGetValue(
+            chunkCoordinate,
+            out GameObject chunkObject))
+        {
+            return;
+        }
+
+        Destroy(chunkObject);
+
+        loadedBuildingChunks.Remove(
+            chunkCoordinate
+        );
+    }
+
     public void MarkObjectDestroyed(WorldObjectIdentity identity)
     {
         if (identity == null)
@@ -442,6 +497,227 @@ public class WorldGenerator : MonoBehaviour
             " / " +
             objectID
         );
+    }
+
+    public void RegisterBuilding(BuildingObject building)
+    {
+        if (building == null)
+        {
+            return;
+        }
+
+        if (string.IsNullOrEmpty(building.buildingID))
+        {
+            return;
+        }
+
+        Vector2Int chunkCoordinate =
+            GetChunkCoordinate(building.transform.position);
+
+        if (!savedBuildings.TryGetValue(
+            chunkCoordinate,
+            out Dictionary<string, BuildingSaveData> buildings))
+        {
+            buildings =
+                new Dictionary<string, BuildingSaveData>();
+
+            savedBuildings.Add(
+                chunkCoordinate,
+                buildings
+            );
+        }
+
+        BuildingSaveData data =
+            new BuildingSaveData();
+
+        data.buildingID =
+            building.buildingID;
+
+        data.itemID =
+            building.itemID;
+
+        data.position =
+            building.transform.position;
+
+        data.rotation =
+            building.transform.rotation;
+
+        data.chunkCoordinate =
+            chunkCoordinate;
+
+        buildings[data.buildingID] = data;
+    }
+
+    public void UpdateBuilding(BuildingObject building)
+    {
+        if (building == null)
+        {
+            return;
+        }
+
+        if (string.IsNullOrEmpty(building.buildingID))
+        {
+            return;
+        }
+
+        Vector2Int newChunkCoordinate =
+            GetChunkCoordinate(building.transform.position);
+
+        foreach (
+            KeyValuePair<Vector2Int, Dictionary<string, BuildingSaveData>>
+            chunk in savedBuildings)
+        {
+            if (chunk.Value.Remove(building.buildingID))
+            {
+                break;
+            }
+        }
+
+        if (!savedBuildings.TryGetValue(
+            newChunkCoordinate,
+            out Dictionary<string, BuildingSaveData> buildings))
+        {
+            buildings =
+                new Dictionary<string, BuildingSaveData>();
+
+            savedBuildings.Add(
+                newChunkCoordinate,
+                buildings
+            );
+        }
+
+        BuildingSaveData data =
+            new BuildingSaveData();
+
+        data.buildingID =
+            building.buildingID;
+
+        data.itemID =
+            building.itemID;
+
+        data.position =
+            building.transform.position;
+
+        data.rotation =
+            building.transform.rotation;
+
+        data.chunkCoordinate =
+            newChunkCoordinate;
+
+        buildings[data.buildingID] = data;
+    }
+
+    public void RemoveBuilding(BuildingObject building)
+    {
+        if (building == null)
+        {
+            return;
+        }
+
+        if (string.IsNullOrEmpty(building.buildingID))
+        {
+            return;
+        }
+
+        foreach (
+            KeyValuePair<Vector2Int, Dictionary<string, BuildingSaveData>>
+            chunk in savedBuildings)
+        {
+            if (chunk.Value.Remove(building.buildingID))
+            {
+                break;
+            }
+        }
+    }
+
+    public void RestoreBuildingsInChunk(
+        Vector2Int chunkCoordinate)
+    {
+        if (!savedBuildings.TryGetValue(
+            chunkCoordinate,
+            out Dictionary<string, BuildingSaveData> buildings))
+        {
+            return;
+        }
+
+        Transform chunkParent =
+            GetBuildingChunkParent(chunkCoordinate);
+
+        foreach (
+            KeyValuePair<string, BuildingSaveData> entry
+            in buildings)
+        {
+            BuildingSaveData data =
+                entry.Value;
+
+            GameObject itemPrefab =
+                itemDictionary.GetItemPrefab(data.itemID);
+
+            if (itemPrefab == null)
+            {
+                continue;
+            }
+
+            Item item =
+                itemPrefab.GetComponent<Item>();
+
+            if (item == null)
+            {
+                continue;
+            }
+
+            if (item.buildingPrefab == null)
+            {
+                continue;
+            }
+
+            GameObject buildingObject =
+                Instantiate(
+                    item.buildingPrefab,
+                    data.position,
+                    data.rotation,
+                    chunkParent
+                );
+
+            BuildingObject building =
+                buildingObject.GetComponentInChildren<BuildingObject>();
+
+            if (building == null)
+            {
+                Destroy(buildingObject);
+                continue;
+            }
+
+            building.itemID =
+                data.itemID;
+
+            building.buildingID =
+                data.buildingID;
+        }
+    }
+
+    public Transform GetBuildingChunkParent(Vector2Int chunkCoordinate)
+    {
+        string chunkName =
+            "Chunk " +
+            chunkCoordinate.x +
+            ", " +
+            chunkCoordinate.y;
+
+        Transform existingChunk =
+            buildingParent.Find(chunkName);
+
+        if (existingChunk != null)
+        {
+            return existingChunk;
+        }
+
+        GameObject chunkObject =
+            new GameObject(chunkName);
+
+        chunkObject.transform.SetParent(buildingParent);
+
+        return chunkObject.transform;
     }
 
     private void OnDrawGizmos()

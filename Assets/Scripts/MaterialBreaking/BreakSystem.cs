@@ -109,10 +109,13 @@ public class BreakSystem : MonoBehaviour
         }
 
         // Check distance.
+        Vector2 closestPoint =
+            currentBreakable.ClosestPoint(player.position);
+
         float distance =
             Vector2.Distance(
                 player.position,
-                currentBreakable.transform.position
+                closestPoint
             );
 
         if (distance > breakRange)

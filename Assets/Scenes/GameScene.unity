@@ -630682,6 +630682,8 @@ MonoBehaviour:
   player: {fileID: 543478632}
   overWorld: {fileID: 1628186936}
   naturalObjectsParent: {fileID: 1530518700}
+  buildingParent: {fileID: 832057618}
+  itemDictionary: {fileID: 1618858647}
   chunkSize: 20
   loadDistance: 1
   worldSeed: 12345

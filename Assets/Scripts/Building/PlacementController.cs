@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -254,13 +255,31 @@ public class PlacementController : MonoBehaviour
 
     private void PlaceBuilding()
     {
-        GameObject placedBuilding =
-            Instantiate(
-                currentBuildingPrefab,
-                ghostObject.transform.position,
-                ghostObject.transform.rotation,
-                buildingParent
-            );
+        WorldGenerator worldGenerator =
+            FindObjectOfType<WorldGenerator>();
+
+        Transform buildingChunkParent =
+            buildingParent;
+
+        if (worldGenerator != null)
+        {
+            Vector2Int chunkCoordinate =
+                worldGenerator.GetChunkCoordinate(
+                    ghostObject.transform.position
+                );
+
+            buildingChunkParent =
+                worldGenerator.GetBuildingChunkParent(
+                    chunkCoordinate
+                );
+        }
+
+        GameObject placedBuilding = Instantiate(
+            currentItem.buildingPrefab,
+            ghostObject.transform.position,
+            ghostObject.transform.rotation,
+            buildingChunkParent
+        );
 
         BuildingObject buildingObject =
             placedBuilding
@@ -280,6 +299,14 @@ public class PlacementController : MonoBehaviour
 
         buildingObject.itemID =
             currentItem.ID;
+        
+        buildingObject.buildingID =
+            Guid.NewGuid().ToString();
+
+        if (worldGenerator != null)
+        {
+            worldGenerator.RegisterBuilding(buildingObject);
+        }
 
         SpriteRenderer[] renderers =
             placedBuilding
@@ -333,6 +360,31 @@ public class PlacementController : MonoBehaviour
             renderer.color = Color.white;
         }
 
+        WorldGenerator worldGenerator =
+            FindObjectOfType<WorldGenerator>();
+
+        if (worldGenerator != null)
+        {
+            Vector2Int chunkCoordinate =
+                worldGenerator.GetChunkCoordinate(
+                    relocatingBuilding.transform.position
+                );
+
+            Transform buildingChunkParent =
+                worldGenerator.GetBuildingChunkParent(
+                    chunkCoordinate
+                );
+
+            relocatingBuilding.transform.SetParent(
+                buildingChunkParent,
+                true
+            );
+
+            worldGenerator.UpdateBuilding(
+                relocatingBuilding
+            );
+        }
+        
         SetGhostCollision(true);
         
         HideGridPrompt();
