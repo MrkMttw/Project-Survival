@@ -8,6 +8,7 @@ public class WorldGenerator : MonoBehaviour
 
     [Header("World Parent")]
     public Transform overWorld;
+    public Transform naturalObjectsParent;
 
     [Header("Chunk Settings")]
     public float chunkSize = 16f;
@@ -19,6 +20,9 @@ public class WorldGenerator : MonoBehaviour
     [Header("Spawn Data")]
     public WorldSpawnData[] spawnData;
 
+    private Dictionary<Vector2Int, HashSet<string>> destroyedObjects =
+        new Dictionary<Vector2Int, HashSet<string>>();
+
     private Vector2Int currentPlayerChunk;
 
     private Dictionary<Vector2Int, GameObject> loadedChunks =
@@ -26,6 +30,12 @@ public class WorldGenerator : MonoBehaviour
 
     private Dictionary<Vector2Int, List<Vector3>> generatedPositions =
         new Dictionary<Vector2Int, List<Vector3>>();
+
+    private Dictionary<Vector2Int, Dictionary<string, Vector3>> persistentObjectPositions =
+        new Dictionary<Vector2Int, Dictionary<string, Vector3>>();
+
+    private Dictionary<Vector2Int, Dictionary<string, GameObject>> persistentObjectPrefabs =
+        new Dictionary<Vector2Int, Dictionary<string, GameObject>>();
 
     private void Start()
     {
@@ -114,16 +124,45 @@ public class WorldGenerator : MonoBehaviour
             "Chunk " + chunkCoordinate.x + ", " + chunkCoordinate.y
         );
 
-        chunkObject.transform.SetParent(overWorld);
+        chunkObject.transform.SetParent(naturalObjectsParent);
 
         loadedChunks.Add(chunkCoordinate, chunkObject);
+        
+        if (!persistentObjectPositions.ContainsKey(chunkCoordinate))
+        {
+            persistentObjectPositions.Add(
+                chunkCoordinate,
+                new Dictionary<string, Vector3>()
+            );
+        }
+
+        if (!persistentObjectPrefabs.ContainsKey(chunkCoordinate))
+        {
+            persistentObjectPrefabs.Add(
+                chunkCoordinate,
+                new Dictionary<string, GameObject>()
+            );
+        }
 
         generatedPositions.Add(
             chunkCoordinate,
             new List<Vector3>()
         );
 
-        GenerateChunk(chunkCoordinate, chunkObject.transform);
+        if (persistentObjectPositions[chunkCoordinate].Count == 0)
+        {
+            GenerateChunk(
+                chunkCoordinate,
+                chunkObject.transform
+            );
+        }
+        else
+        {
+            GenerateChunkFromSavedPositions(
+                chunkCoordinate,
+                chunkObject.transform
+            );
+        }
     }
 
     private void GenerateChunk(
@@ -188,21 +227,100 @@ public class WorldGenerator : MonoBehaviour
                     continue;
                 }
 
+                string objectID =
+                    dataIndex +
+                    "_" +
+                    i;
+
+                if (IsObjectDestroyed(
+                    chunkCoordinate,
+                    objectID))
+                {
+                    continue;
+                }
+
                 GameObject prefab = data.prefabs[
                     Random.Range(0, data.prefabs.Length)
                 ];
 
-                Instantiate(
+                GameObject spawnedObject = Instantiate(
                     prefab,
                     spawnPosition,
                     Quaternion.identity,
                     chunkParent
                 );
 
+                WorldObjectIdentity identity =
+                    spawnedObject.AddComponent<WorldObjectIdentity>();
+
+                identity.chunkCoordinate = chunkCoordinate;
+                identity.spawnDataIndex = dataIndex;
+                identity.objectIndex = i;
+
                 generatedPositions[chunkCoordinate].Add(
                     spawnPosition
                 );
+
+                persistentObjectPositions[chunkCoordinate].Add(
+                    objectID,
+                    spawnPosition
+                );
+
+                persistentObjectPrefabs[chunkCoordinate].Add(
+                    objectID,
+                    prefab
+                );
             }
+        }
+    }
+
+    private void GenerateChunkFromSavedPositions(
+        Vector2Int chunkCoordinate,
+        Transform chunkParent)
+    {
+        foreach (
+            KeyValuePair<string, Vector3> savedObject
+            in persistentObjectPositions[chunkCoordinate])
+        {
+            string objectID = savedObject.Key;
+            Vector3 spawnPosition = savedObject.Value;
+
+            if (IsObjectDestroyed(
+                chunkCoordinate,
+                objectID))
+            {
+                continue;
+            }
+
+            GameObject prefab =
+                persistentObjectPrefabs[chunkCoordinate][objectID];
+
+            GameObject spawnedObject = Instantiate(
+                prefab,
+                spawnPosition,
+                Quaternion.identity,
+                chunkParent
+            );
+
+            string[] objectIDParts =
+                objectID.Split('_');
+
+            int spawnDataIndex =
+                int.Parse(objectIDParts[0]);
+
+            int objectIndex =
+                int.Parse(objectIDParts[1]);
+
+            WorldObjectIdentity identity =
+                spawnedObject.AddComponent<WorldObjectIdentity>();
+
+            identity.chunkCoordinate = chunkCoordinate;
+            identity.spawnDataIndex = spawnDataIndex;
+            identity.objectIndex = objectIndex;
+
+            generatedPositions[chunkCoordinate].Add(
+                spawnPosition
+            );
         }
     }
 
@@ -262,6 +380,20 @@ public class WorldGenerator : MonoBehaviour
 
         return true;
     }
+    
+    private bool IsObjectDestroyed(
+        Vector2Int chunkCoordinate,
+        string objectID)
+    {
+        if (!destroyedObjects.TryGetValue(
+            chunkCoordinate,
+            out HashSet<string> destroyed))
+        {
+            return false;
+        }
+
+        return destroyed.Contains(objectID);
+    }
 
     private void UnloadChunk(Vector2Int chunkCoordinate)
     {
@@ -276,6 +408,40 @@ public class WorldGenerator : MonoBehaviour
 
         loadedChunks.Remove(chunkCoordinate);
         generatedPositions.Remove(chunkCoordinate);
+    }
+
+    public void MarkObjectDestroyed(WorldObjectIdentity identity)
+    {
+        if (identity == null)
+        {
+            return;
+        }
+
+        if (!destroyedObjects.TryGetValue(
+            identity.chunkCoordinate,
+            out HashSet<string> destroyed))
+        {
+            destroyed = new HashSet<string>();
+
+            destroyedObjects.Add(
+                identity.chunkCoordinate,
+                destroyed
+            );
+        }
+
+        string objectID =
+            identity.spawnDataIndex +
+            "_" +
+            identity.objectIndex;
+
+        destroyed.Add(objectID);
+
+        Debug.Log(
+            "Remembered destroyed object: " +
+            identity.chunkCoordinate +
+            " / " +
+            objectID
+        );
     }
 
     private void OnDrawGizmos()

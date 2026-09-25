@@ -180,6 +180,20 @@ public class BreakSystem : MonoBehaviour
         // Drop items only when completely broken.
         if (broken)
         {
+            WorldObjectIdentity identity =
+                material.GetComponentInParent<WorldObjectIdentity>();
+
+            if (identity != null)
+            {
+                WorldGenerator worldGenerator =
+                    FindFirstObjectByType<WorldGenerator>();
+
+                if (worldGenerator != null)
+                {
+                    worldGenerator.MarkObjectDestroyed(identity);
+                }
+            }
+
             DropItem(
                 material,
                 material.transform.position
