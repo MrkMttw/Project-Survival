@@ -191,7 +191,24 @@ public class PlacementController : MonoBehaviour
 
         foreach (CapsuleCollider2D collider in colliders)
         {
-            collider.enabled = enabled;
+            collider.enabled = true;
+            collider.isTrigger = !enabled;
+        }
+
+        CampfireController[] campfires =
+            ghostObject.GetComponentsInChildren<CampfireController>();
+
+        foreach (CampfireController campfire in campfires)
+        {
+            campfire.SetGhostMode(!enabled);
+        }
+
+        CampfireTrigger[] triggers =
+            ghostObject.GetComponentsInChildren<CampfireTrigger>();
+
+        foreach (CampfireTrigger trigger in triggers)
+        {
+            trigger.enabled = enabled;
         }
     }
 
@@ -213,8 +230,8 @@ public class PlacementController : MonoBehaviour
 
     private void CheckPlacement()
     {
-        Collider2D ghostCollider =
-            ghostObject.GetComponent<Collider2D>();
+        CapsuleCollider2D ghostCollider =
+            ghostObject.GetComponent<CapsuleCollider2D>();
 
         if (ghostCollider == null)
         {
@@ -225,19 +242,34 @@ public class PlacementController : MonoBehaviour
             return;
         }
 
-        Collider2D[] hits =
-            Physics2D.OverlapBoxAll(
-                ghostCollider.bounds.center,
-                ghostCollider.bounds.size,
-                0f,
-                blockingLayers
+        ContactFilter2D contactFilter =
+            new ContactFilter2D();
+
+        contactFilter.SetLayerMask(blockingLayers);
+        contactFilter.useTriggers = false;
+
+        Collider2D[] results =
+            new Collider2D[20];
+
+        int hitCount =
+            ghostCollider.Overlap(
+                contactFilter,
+                results
             );
 
         bool blocked = false;
 
-        foreach (Collider2D hit in hits)
+        for (int i = 0; i < hitCount; i++)
         {
-            if (hit.gameObject == ghostObject)
+            Collider2D hit = results[i];
+
+            if (hit == null)
+                continue;
+
+            if (hit.transform.root == ghostObject.transform.root)
+                continue;
+
+            if (hit is not CapsuleCollider2D)
                 continue;
 
             blocked = true;

@@ -9,12 +9,13 @@ public class CampfireController : MonoBehaviour
     private HealthController playerHealth;
     private bool playerInRange = false;
 
+    private bool isGhost;
+
     private void Update()
     {
-        if (!playerInRange || playerHealth == null)
+        if (isGhost || !playerInRange || playerHealth == null)
             return;
 
-        // Heal 1% of the player's MAX HP per second
         float healAmount =
             playerHealth.maxHealth *
             (healPercentPerSecond / 100f) *
@@ -45,6 +46,17 @@ public class CampfireController : MonoBehaviour
             playerInRange = false;
 
             Debug.Log("Player left campfire healing range.");
+        }
+    }
+
+    public void SetGhostMode(bool ghost)
+    {
+        isGhost = ghost;
+
+        if (ghost)
+        {
+            playerHealth = null;
+            playerInRange = false;
         }
     }
 }
