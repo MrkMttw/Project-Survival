@@ -628065,7 +628065,7 @@ MonoBehaviour:
   moveSpeed: 5
   sprintMultiplier: 1.5
   sprintDuration: 2.5
-  sprintRegeneration: 0.65
+  sprintRegeneration: 1.65
   sprintBar: {fileID: 678848206}
 --- !u!50 &543478636
 Rigidbody2D:
