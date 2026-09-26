@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84b5754bb94e9f34bb1018d26775e637, type: 3}
+  m_Name: Stones
+  m_EditorClassIdentifier: Assembly-CSharp::WorldSpawnData
+  prefabs:
+  - {fileID: 6929925488835184841, guid: d28dfb6f95485be47821a9d700461737, type: 3}
+  - {fileID: 7701199842905957816, guid: 335ed4f6e365e914089f29a43dd760e2, type: 3}
+  - {fileID: 8550814997456231559, guid: d69402340db7c124cb56d933f9799e5c, type: 3}
+  - {fileID: 2490644255499042975, guid: e2ad9edba7315654aa373b61eb7bde13, type: 3}
+  - {fileID: 463448216161782280, guid: 7416e93c846435744a1e115f63e2bf0f, type: 3}
+  - {fileID: 5721946480675225969, guid: bb64d07001958db43b3a9d6ce8d65a25, type: 3}
+  - {fileID: 8446012626933292059, guid: ab327f34f1b9ee44bac4d321008709c2, type: 3}
+  - {fileID: 2240963674255031140, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
+  minSpawnCount: 4
+  maxSpawnCount: 8
+  minSpacing: 5
+  ignoreSpacingValidation: 0

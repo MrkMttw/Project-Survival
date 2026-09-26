@@ -109,10 +109,13 @@ public class BreakSystem : MonoBehaviour
         }
 
         // Check distance.
+        Vector2 closestPoint =
+            currentBreakable.ClosestPoint(player.position);
+
         float distance =
             Vector2.Distance(
                 player.position,
-                currentBreakable.transform.position
+                closestPoint
             );
 
         if (distance > breakRange)
@@ -180,6 +183,20 @@ public class BreakSystem : MonoBehaviour
         // Drop items only when completely broken.
         if (broken)
         {
+            WorldObjectIdentity identity =
+                material.GetComponentInParent<WorldObjectIdentity>();
+
+            if (identity != null)
+            {
+                WorldGenerator worldGenerator =
+                    FindFirstObjectByType<WorldGenerator>();
+
+                if (worldGenerator != null)
+                {
+                    worldGenerator.MarkObjectDestroyed(identity);
+                }
+            }
+
             DropItem(
                 material,
                 material.transform.position
