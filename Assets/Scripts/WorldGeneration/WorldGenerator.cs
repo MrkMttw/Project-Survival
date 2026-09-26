@@ -21,6 +21,8 @@ public class WorldGenerator : MonoBehaviour
     [Header("World")]
     public int worldSeed = 12345;
 
+    public WorldSaveData worldData;
+
     [Header("Spawn Data")]
     public WorldSpawnData[] spawnData;
 
@@ -88,6 +90,35 @@ public class WorldGenerator : MonoBehaviour
         int chunkY = Mathf.FloorToInt(worldPosition.y / chunkSize);
 
         return new Vector2Int(chunkX, chunkY);
+    }
+
+    public void SetWorldSeed(int seed)
+    {
+        worldSeed = seed;
+
+        if (worldData == null)
+        {
+            worldData = new WorldSaveData();
+        }
+
+        worldData.worldSeed = seed;
+    }
+
+    public int GenerateNewWorldSeed()
+    {
+        worldSeed = Random.Range(
+            int.MinValue,
+            int.MaxValue
+        );
+
+        if (worldData == null)
+        {
+            worldData = new WorldSaveData();
+        }
+
+        worldData.worldSeed = worldSeed;
+
+        return worldSeed;
     }
 
     private void UpdateChunks()

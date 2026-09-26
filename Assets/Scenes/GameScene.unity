@@ -630687,6 +630687,8 @@ MonoBehaviour:
   chunkSize: 20
   loadDistance: 1
   worldSeed: 12345
+  worldData:
+    worldSeed: 12345
   spawnData:
   - {fileID: 11400000, guid: 0bdebdc3357ee1e4684b5bc2db61c460, type: 2}
   - {fileID: 11400000, guid: 296bf4719a81a734fba2e290db25609d, type: 2}
