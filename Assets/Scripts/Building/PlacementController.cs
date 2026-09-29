@@ -81,12 +81,12 @@ public class PlacementController : MonoBehaviour
             return;
         }
 
-        if (item.buildingPrefab == null)
+        if (item.ghostPrefab == null)
         {
             Debug.LogWarning(
                 "Cannot place " +
                 item.name +
-                ": buildingPrefab is missing."
+                ": ghostPrefab is missing."
             );
 
             return;
@@ -99,7 +99,7 @@ public class PlacementController : MonoBehaviour
         currentBuildingPrefab = item.buildingPrefab;
 
         ghostObject =
-            Instantiate(currentBuildingPrefab);
+            Instantiate(item.ghostPrefab);
 
         ghostObject.name =
             item.name + "_Ghost";
@@ -121,12 +121,77 @@ public class PlacementController : MonoBehaviour
         if (building == null)
             return;
 
+        if (isRelocating)
+            return;
+            
         CancelPlacement();
 
         relocatingBuilding = building;
         isRelocating = true;
 
-        ghostObject = building.gameObject;
+        ItemDictionary itemDictionary =
+            FindObjectOfType<ItemDictionary>();
+
+        if (itemDictionary == null)
+        {
+            Debug.LogError(
+                "ItemDictionary not found."
+            );
+
+            CancelPlacement();
+            return;
+        }
+
+        GameObject itemPrefab =
+            itemDictionary.GetItemPrefab(
+                building.itemID
+            );
+
+        if (itemPrefab == null)
+        {
+            Debug.LogError(
+                "No item prefab found for Item ID: " +
+                building.itemID
+            );
+
+            CancelPlacement();
+            return;
+        }
+
+        Item item =
+            itemPrefab.GetComponent<Item>();
+
+        if (item == null)
+        {
+            Debug.LogError(
+                "No Item component found for Item ID: " +
+                building.itemID
+            );
+
+            CancelPlacement();
+            return;
+        }
+
+        if (item.ghostPrefab == null)
+        {
+            Debug.LogError(
+                "Ghost prefab missing for Item ID: " +
+                building.itemID
+            );
+
+            CancelPlacement();
+            return;
+        }
+
+        ghostObject =
+            Instantiate(
+                item.ghostPrefab,
+                building.transform.position,
+                building.transform.rotation
+            );
+
+        ghostObject.name =
+            building.gameObject.name + "_Ghost";
 
         SetGhostCollision(false);
 
@@ -193,22 +258,6 @@ public class PlacementController : MonoBehaviour
         {
             collider.enabled = true;
             collider.isTrigger = !enabled;
-        }
-
-        CampfireController[] campfires =
-            ghostObject.GetComponentsInChildren<CampfireController>();
-
-        foreach (CampfireController campfire in campfires)
-        {
-            campfire.SetGhostMode(!enabled);
-        }
-
-        CampfireTrigger[] triggers =
-            ghostObject.GetComponentsInChildren<CampfireTrigger>();
-
-        foreach (CampfireTrigger trigger in triggers)
-        {
-            trigger.enabled = enabled;
         }
     }
 
@@ -383,6 +432,12 @@ public class PlacementController : MonoBehaviour
 
     private void PlaceRelocatedBuilding()
     {
+        relocatingBuilding.transform.position =
+            ghostObject.transform.position;
+
+        relocatingBuilding.transform.rotation =
+            ghostObject.transform.rotation;
+
         SpriteRenderer[] renderers =
             relocatingBuilding
             .GetComponentsInChildren<SpriteRenderer>();
@@ -416,9 +471,9 @@ public class PlacementController : MonoBehaviour
                 relocatingBuilding
             );
         }
-        
-        SetGhostCollision(true);
-        
+
+        Destroy(ghostObject);
+
         HideGridPrompt();
 
         Debug.Log(

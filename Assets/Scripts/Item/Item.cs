@@ -20,7 +20,8 @@ public class Item : MonoBehaviour
     [Header("Building")]
     public bool isBuildable;
     public GameObject buildingPrefab;
-
+    public GameObject ghostPrefab;
+    
     private TMP_Text quantityText;
 
     private void Awake()
