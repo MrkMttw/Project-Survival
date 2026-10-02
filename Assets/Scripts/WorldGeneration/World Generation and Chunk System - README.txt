@@ -723,5 +723,3 @@ The following data is currently runtime-only:
 * Player buildings
 * Building positions
 * Building rotations
-
-Permanent world saving can be implemented later without changing the basic chunk-generation concept.

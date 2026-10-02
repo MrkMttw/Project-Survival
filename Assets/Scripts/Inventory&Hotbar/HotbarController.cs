@@ -46,8 +46,12 @@ public class HotbarController : MonoBehaviour
         }
 
         // Drop selected hotbar item
+        // Campfire feeding / Drop selected hotbar item
         if (Keyboard.current.gKey.wasPressedThisFrame)
         {
+            if (TryFeedCampfire())
+                return;
+
             if (Keyboard.current.leftShiftKey.isPressed ||
                 Keyboard.current.rightShiftKey.isPressed)
             {
@@ -548,5 +552,49 @@ public class HotbarController : MonoBehaviour
                 }
             }
         }
+    }
+
+    private bool TryFeedCampfire()
+    {
+        if (hotbarPanel == null)
+            return false;
+
+        if (selectedSlot < 0 ||
+            selectedSlot >= hotbarPanel.transform.childCount)
+            return false;
+
+        Slot slot = hotbarPanel.transform
+            .GetChild(selectedSlot)
+            .GetComponent<Slot>();
+
+        if (slot == null || slot.currentItem == null)
+            return false;
+
+        Item item = slot.currentItem.GetComponent<Item>();
+
+        if (item == null)
+            return false;
+
+        CampfireController campfire =
+            FindFirstObjectByType<CampfireController>();
+
+        if (campfire == null)
+            return false;
+
+        if (!campfire.CanFeedWood(item))
+            return false;
+
+        bool feedWholeStack =
+            Keyboard.current.leftShiftKey.isPressed ||
+            Keyboard.current.rightShiftKey.isPressed;
+
+        int amountToFeed =
+            feedWholeStack ? item.quantity : 1;
+
+        campfire.AddWood(amountToFeed);
+
+        ConsumeSelectedItem(amountToFeed);
+
+        return true;
     }
 }

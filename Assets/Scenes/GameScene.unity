@@ -631832,6 +631832,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0c1e523ebe6aae42a7789ca0f1d92f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthController
+  baseMaxHealth: 100
   maxHealth: 100
   currentHealth: 100
   healthBar: {fileID: 950588868}
@@ -654925,7 +654926,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8339b755ad91d8547bb9e99bbcdac522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CampfireController
+  baseHealPercentPerSecond: 2
   healPercentPerSecond: 1
+  progressionWood: 0
+  campfireLevel: 0
+  currentWood: 0
+  maxWood: 100
+  woodItemID: 37
+  fuelDecayDelay: 10
+  fuelDecayInterval: 5
+  fuelDecayAmount: 1
 --- !u!114 &1689425137
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -5,6 +5,7 @@ using TMPro;
 public class HealthController : MonoBehaviour
 {
     [Header("Health")]
+    public float baseMaxHealth = 100f;
     public float maxHealth = 100f;
     public float currentHealth = 100f;
 
@@ -23,7 +24,18 @@ public class HealthController : MonoBehaviour
         healthTextComponent.horizontalAlignment =
             HorizontalAlignmentOptions.Center;
 
+        maxHealth = baseMaxHealth;
         currentHealth = maxHealth;
+
+        UpdateHealthUI();
+    }
+
+    public void UpdateMaxHealth(int campfireLevel)
+    {
+        maxHealth = baseMaxHealth + (campfireLevel * 20f);
+
+        currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
+
         UpdateHealthUI();
     }
 

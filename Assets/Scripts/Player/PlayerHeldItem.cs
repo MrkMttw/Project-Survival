@@ -7,7 +7,7 @@ public class PlayerHeldItem : MonoBehaviour
 
     [Header("Currently Held Item")]
     public Item heldItem;
-
+    
     public void SetHeldItem(Item item)
     {
         heldItem = item;
