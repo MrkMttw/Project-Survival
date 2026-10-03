@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &1373614848793013967
+--- !u!1001 &1340890314305768475
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,43 +10,43 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2121072631156973253, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
       propertyPath: m_Size.x
-      value: 1.5
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 2121072631156973253, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
       propertyPath: m_Size.y
-      value: 0.2
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 2121072631156973253, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
       propertyPath: m_Offset.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2121072631156973253, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
-      propertyPath: m_Direction
-      value: 1
+      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 3315979588400478878, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
       propertyPath: m_Name
-      value: Radar Ghost Building Variant
+      value: Sleeping Bag Ghost Building
+      objectReference: {fileID: 0}
+    - target: {fileID: 3315979588400478878, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5876583144128633288, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5876583144128633288, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5876583144128633288, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5876583144128633288, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.6947603
+      value: 1.62
       objectReference: {fileID: 0}
     - target: {fileID: 5876583144128633288, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.47777
+      value: 3.53
       objectReference: {fileID: 0}
     - target: {fileID: 5876583144128633288, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
       propertyPath: m_LocalPosition.z
@@ -83,7 +83,7 @@ PrefabInstance:
     - target: {fileID: 7319580430885454648, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 6330969168363139030, guid: b39e02d1dbb297b458113b5e79ee51a7, type: 3}
+      objectReference: {fileID: 5167690650097798016, guid: ea4bc850d8b1cbf48b184ccc9fea2524, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

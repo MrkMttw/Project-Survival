@@ -10,12 +10,24 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
       propertyPath: ID
-      value: 31
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
       propertyPath: stackable
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: ghostPrefab
+      value: 
+      objectReference: {fileID: 7204938978606629901, guid: a0f8404903757ae4a9ac12ab5ef04771, type: 3}
+    - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: isBuildable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: buildingPrefab
+      value: 
+      objectReference: {fileID: 116213529320977277, guid: e2b5200f170d13c4d89dd871b0bb7d57, type: 3}
     - target: {fileID: 2165503726700639067, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
       propertyPath: m_Name
       value: ShelterObject

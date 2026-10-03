@@ -9,9 +9,25 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: ID
+      value: 37
+      objectReference: {fileID: 0}
+    - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
       propertyPath: stackable
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: ghostPrefab
+      value: 
+      objectReference: {fileID: 4368339352363431557, guid: f556947303c190448805d8b342e4aea9, type: 3}
+    - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: isBuildable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: buildingPrefab
+      value: 
+      objectReference: {fileID: 2365077748940305677, guid: f28f5cea1560c1148917f6bbe0da9b11, type: 3}
     - target: {fileID: 2165503726700639067, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
       propertyPath: m_Name
       value: SleepingBagObject

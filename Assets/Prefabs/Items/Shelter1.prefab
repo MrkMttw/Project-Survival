@@ -9,9 +9,25 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: ID
+      value: 33
+      objectReference: {fileID: 0}
+    - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
       propertyPath: stackable
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: ghostPrefab
+      value: 
+      objectReference: {fileID: 7430809434324247441, guid: 1f9f8123a957f4a4ea31e4223ab10080, type: 3}
+    - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: isBuildable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: buildingPrefab
+      value: 
+      objectReference: {fileID: 3408589135173449942, guid: 6ecd0b81eb644e044bc8ae2f36e44a2d, type: 3}
     - target: {fileID: 2982858587533249513, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
       propertyPath: m_Sprite
       value: 
