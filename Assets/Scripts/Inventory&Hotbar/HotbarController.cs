@@ -52,6 +52,9 @@ public class HotbarController : MonoBehaviour
             if (TryFeedCampfire())
                 return;
 
+            if (TryFeedRadar())
+                return;
+
             if (Keyboard.current.leftShiftKey.isPressed ||
                 Keyboard.current.rightShiftKey.isPressed)
             {
@@ -592,6 +595,50 @@ public class HotbarController : MonoBehaviour
             feedWholeStack ? item.quantity : 1;
 
         campfire.AddWood(amountToFeed);
+
+        ConsumeSelectedItem(amountToFeed);
+
+        return true;
+    }
+
+    private bool TryFeedRadar()
+    {
+        if (hotbarPanel == null)
+            return false;
+
+        if (selectedSlot < 0 ||
+            selectedSlot >= hotbarPanel.transform.childCount)
+            return false;
+
+        Slot slot = hotbarPanel.transform
+            .GetChild(selectedSlot)
+            .GetComponent<Slot>();
+
+        if (slot == null || slot.currentItem == null)
+            return false;
+
+        Item item = slot.currentItem.GetComponent<Item>();
+
+        if (item == null)
+            return false;
+
+        RadarInteraction radar =
+            FindFirstObjectByType<RadarInteraction>();
+
+        if (radar == null)
+            return false;
+
+        if (!radar.CanFeedIron(item))
+            return false;
+
+        bool feedWholeStack =
+            Keyboard.current.leftShiftKey.isPressed ||
+            Keyboard.current.rightShiftKey.isPressed;
+
+        int amountToFeed =
+            feedWholeStack ? item.quantity : 1;
+
+        radar.AddIron(amountToFeed);
 
         ConsumeSelectedItem(amountToFeed);
 
