@@ -28,22 +28,28 @@ public class MenuController : MonoBehaviour
             menuCanvas.SetActive(!menuCanvas.activeSelf);
         }
 
-        if (menuCanvas.activeSelf && pages[1].activeSelf)
-        {
-            // Menu open → move Hotbar
-            Hotbar.SetActive(true);
-            panelRect.anchoredPosition = new Vector2(0, -315);
-        }
-        else if (menuCanvas.activeSelf)
-        {
-            // if not InventoryPage is active
-            Hotbar.SetActive(false);
-        }
-        else
+        if (!menuCanvas.activeSelf)
         {
             // Menu closed → restore Hotbar
             Hotbar.SetActive(true);
             panelRect.anchoredPosition = originalPosition;
+        }
+        else if (pages[1].activeSelf)
+        {
+            // Inventory tab
+            Hotbar.SetActive(true);
+            panelRect.anchoredPosition = new Vector2(0, -315);
+        }
+        else if (pages[2].activeSelf)
+        {
+            // Crafting tab
+            Hotbar.SetActive(true);
+            panelRect.anchoredPosition = new Vector2(0, -490);
+        }
+        else
+        {
+            // Other tabs → hide Hotbar
+            Hotbar.SetActive(false);
         }
     }
 }

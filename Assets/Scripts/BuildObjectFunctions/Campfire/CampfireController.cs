@@ -120,8 +120,14 @@ public class CampfireController : MonoBehaviour
                 currentWood += 2;
 
                 campfireLevel++;
-                
+
                 UpdateHealingRate();
+
+                CraftingController craftingController =
+                    FindFirstObjectByType<CraftingController>();
+
+                if (craftingController != null)
+                    craftingController.RefreshRecipes();
 
                 if (playerHealth != null)
                 {
