@@ -118,6 +118,8 @@ public class CraftingController : MonoBehaviour
 
     public void SelectRecipe(CraftingRecipe recipe)
     {
+        selectedRecipe = recipe;
+
         recipeDetails.SetActive(true);
 
         recipeIcon.sprite = recipe.recipeIcon;
@@ -138,24 +140,31 @@ public class CraftingController : MonoBehaviour
             HotbarController hotbar =
                 FindFirstObjectByType<HotbarController>();
 
-            bool hasEnoughInventory =
-                ingredientItem != null &&
-                inventory != null &&
-                inventory.HasItem(
-                    ingredientItem.ID,
-                    ingredient.amount
-                );
+            int inventoryAmount = 0;
+            int hotbarAmount = 0;
 
-            bool hasEnoughHotbar =
-                ingredientItem != null &&
-                hotbar != null &&
-                hotbar.HasItem(
-                    ingredientItem.ID,
-                    ingredient.amount
-                );
+            if (ingredientItem != null)
+            {
+                if (inventory != null)
+                {
+                    inventoryAmount =
+                        inventory.GetItemQuantity(
+                            ingredientItem.ID
+                        );
+                }
+
+                if (hotbar != null)
+                {
+                    hotbarAmount =
+                        hotbar.GetItemQuantity(
+                            ingredientItem.ID
+                        );
+                }
+            }
 
             bool hasEnough =
-                hasEnoughInventory || hasEnoughHotbar;
+                inventoryAmount + hotbarAmount >=
+                ingredient.amount;
 
             string color =
                 hasEnough ? "green" : "red";
@@ -166,5 +175,92 @@ public class CraftingController : MonoBehaviour
                 " x" + ingredient.amount +
                 "</color>\n";
         }
+    }
+
+    public void CraftSelectedRecipe()
+    {
+        if (selectedRecipe == null)
+            return;
+
+        InventoryController inventory =
+            InventoryController.instance;
+
+        HotbarController hotbar =
+            FindFirstObjectByType<HotbarController>();
+
+        // Check all ingredients first
+        foreach (CraftingIngredient ingredient in selectedRecipe.ingredients)
+        {
+            Item ingredientItem =
+                ingredient.itemPrefab.GetComponent<Item>();
+
+            if (ingredientItem == null)
+                return;
+
+            int inventoryAmount = 0;
+            int hotbarAmount = 0;
+
+            if (inventory != null)
+            {
+                inventoryAmount =
+                    inventory.GetItemQuantity(
+                        ingredientItem.ID
+                    );
+            }
+
+            if (hotbar != null)
+            {
+                hotbarAmount =
+                    hotbar.GetItemQuantity(
+                        ingredientItem.ID
+                    );
+            }
+
+            if (inventoryAmount + hotbarAmount < ingredient.amount)
+                return;
+        }
+
+        // Remove ingredients
+        foreach (CraftingIngredient ingredient in selectedRecipe.ingredients)
+        {
+            Item ingredientItem =
+                ingredient.itemPrefab.GetComponent<Item>();
+
+            int remainingAmount = ingredient.amount;
+
+            // HOTBAR FIRST
+            if (hotbar != null)
+            {
+                int removedFromHotbar =
+                    hotbar.RemoveItem(
+                        ingredientItem.ID,
+                        remainingAmount
+                    );
+
+                remainingAmount -= removedFromHotbar;
+            }
+
+            // INVENTORY SECOND
+            if (remainingAmount > 0 && inventory != null)
+            {
+                inventory.RemoveItem(
+                    ingredientItem.ID,
+                    remainingAmount
+                );
+            }
+        }
+
+        GameObject craftedItem =
+            Instantiate(selectedRecipe.itemPrefab);
+
+        craftedItem.GetComponent<Item>().quantity =
+            selectedRecipe.craftingQuantity;
+
+        if (hotbar != null)
+        {
+            hotbar.AddItem(craftedItem);
+        }
+
+        Destroy(craftedItem);
     }
 }

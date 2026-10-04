@@ -233,4 +233,61 @@ public class InventoryController : MonoBehaviour
 
         return false;
     }
+
+    public int GetItemQuantity(int itemID)
+    {
+        int totalAmount = 0;
+
+        foreach (Transform slotTransform in inventoryPanel.transform)
+        {
+            Slot slot = slotTransform.GetComponent<Slot>();
+
+            if (slot == null || slot.currentItem == null)
+                continue;
+
+            Item item = slot.currentItem.GetComponent<Item>();
+
+            if (item == null || item.ID != itemID)
+                continue;
+
+            totalAmount += item.quantity;
+        }
+
+        return totalAmount;
+    }
+
+    public int RemoveItem(int itemID, int amount)
+    {
+        int remainingAmount = amount;
+
+        foreach (Transform slotTransform in inventoryPanel.transform)
+        {
+            if (remainingAmount <= 0)
+                break;
+
+            Slot slot = slotTransform.GetComponent<Slot>();
+
+            if (slot == null || slot.currentItem == null)
+                continue;
+
+            Item item = slot.currentItem.GetComponent<Item>();
+
+            if (item == null || item.ID != itemID)
+                continue;
+
+            int amountToRemove =
+                Mathf.Min(item.quantity, remainingAmount);
+
+            item.RemoveFromStack(amountToRemove);
+
+            remainingAmount -= amountToRemove;
+
+            if (item.quantity <= 0)
+            {
+                slot.currentItem = null;
+            }
+        }
+
+        return amount - remainingAmount;
+    }
 }
