@@ -644,4 +644,29 @@ public class HotbarController : MonoBehaviour
 
         return true;
     }
+
+    public bool HasItem(int itemID, int requiredAmount)
+    {
+        int totalAmount = 0;
+
+        foreach (Transform slotTransform in hotbarPanel.transform)
+        {
+            Slot slot = slotTransform.GetComponent<Slot>();
+
+            if (slot == null || slot.currentItem == null)
+                continue;
+
+            Item item = slot.currentItem.GetComponent<Item>();
+
+            if (item == null || item.ID != itemID)
+                continue;
+
+            totalAmount += item.quantity;
+
+            if (totalAmount >= requiredAmount)
+                return true;
+        }
+
+        return false;
+    }
 }

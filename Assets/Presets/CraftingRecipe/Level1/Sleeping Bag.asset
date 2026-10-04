@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6b4bb10975520247931569e83baacc3, type: 3}
+  m_Name: Sleeping Bag
+  m_EditorClassIdentifier: Assembly-CSharp::CraftingRecipe
+  itemPrefab: {fileID: 6016328926222809631, guid: 7f041061e0e0e564980e52c995c95c2c, type: 3}
+  recipeIcon: {fileID: -1277470701158578412, guid: b05f1a1ef6a549e4d9713eb5f33a51cf, type: 3}
+  craftingQuantity: 1
+  ingredients:
+  - itemPrefab: {fileID: 5744197576223233701, guid: 2c32fa0907bd65d419af221b9258bf3b, type: 3}
+    amount: 3
+  - itemPrefab: {fileID: 6695288099351985358, guid: 188260af6ee17e643bdd387747284ad9, type: 3}
+    amount: 5
+  description: 
+  requiredCampfireLevel: 1

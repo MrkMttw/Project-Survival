@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6b4bb10975520247931569e83baacc3, type: 3}
+  m_Name: Furnace
+  m_EditorClassIdentifier: Assembly-CSharp::CraftingRecipe
+  itemPrefab: {fileID: 7648854037377199760, guid: e8817e7a3f0d90741bbb54d30e4464d4, type: 3}
+  recipeIcon: {fileID: 5839503353984351374, guid: b3b1c0f28336d3a479671df8f279648e, type: 3}
+  craftingQuantity: 1
+  ingredients:
+  - itemPrefab: {fileID: 8777785276978959000, guid: 23dafadcc9d2aec4f8cc1b9103fab46f, type: 3}
+    amount: 10
+  description: 
+  requiredCampfireLevel: 1
