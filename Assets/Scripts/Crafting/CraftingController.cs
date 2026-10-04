@@ -34,6 +34,25 @@ public class CraftingController : MonoBehaviour
         GenerateRecipeList();
     }
 
+    private void OnEnable()
+    {
+        if (campfireController == null)
+        {
+            campfireController =
+                FindFirstObjectByType<CampfireController>();
+        }
+
+        if (contentPanel != null)
+        {
+            RefreshRecipes();
+        }
+
+        if (selectedRecipe != null)
+        {
+            SelectRecipe(selectedRecipe);
+        }
+    }
+
     public void RefreshRecipes()
     {
         campfireController =
@@ -220,6 +239,30 @@ public class CraftingController : MonoBehaviour
                 return;
         }
 
+        // Check if crafted item has somewhere to go
+        bool canStoreItem = false;
+
+        if (hotbar != null)
+        {
+            canStoreItem =
+                hotbar.CanAddItem(
+                    selectedRecipe.itemPrefab,
+                    selectedRecipe.craftingQuantity
+                );
+        }
+
+        if (!canStoreItem && inventory != null)
+        {
+            canStoreItem =
+                inventory.CanAddItem(
+                    selectedRecipe.itemPrefab,
+                    selectedRecipe.craftingQuantity
+                );
+        }
+
+        if (!canStoreItem)
+            return;
+
         // Remove ingredients
         foreach (CraftingIngredient ingredient in selectedRecipe.ingredients)
         {
@@ -256,11 +299,21 @@ public class CraftingController : MonoBehaviour
         craftedItem.GetComponent<Item>().quantity =
             selectedRecipe.craftingQuantity;
 
+        bool addedToHotbar = false;
+
         if (hotbar != null)
         {
-            hotbar.AddItem(craftedItem);
+            addedToHotbar =
+                hotbar.AddItem(craftedItem);
+        }
+
+        if (!addedToHotbar && inventory != null)
+        {
+            inventory.AddItem(craftedItem);
         }
 
         Destroy(craftedItem);
+
+        SelectRecipe(selectedRecipe);
     }
 }

@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FoodPreset
   itemPrefab: {fileID: 3629540562387564284, guid: 2dc0d9bab18845143bb205a70e233836, type: 3}
   hungerRestore: 3
-  eatingDelay: 2
+  hpRestore: 0
+  eatingDelay: 0.5

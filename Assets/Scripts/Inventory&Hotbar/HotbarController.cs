@@ -339,6 +339,72 @@ public class HotbarController : MonoBehaviour
         }
     }
 
+    public bool CanAddItem(GameObject itemPrefab, int quantity)
+    {
+        Item itemToAdd = itemPrefab.GetComponent<Item>();
+
+        if (itemToAdd == null || quantity <= 0)
+            return false;
+
+        // NON-STACKABLE ITEM
+        if (!itemToAdd.stackable)
+        {
+            foreach (Transform slotTransform in hotbarPanel.transform)
+            {
+                Slot slot = slotTransform.GetComponent<Slot>();
+
+                if (slot != null && slot.currentItem == null)
+                    return true;
+            }
+
+            return false;
+        }
+
+        int remainingQuantity = quantity;
+
+        // FIRST: Check existing stacks
+        foreach (Transform slotTransform in hotbarPanel.transform)
+        {
+            if (remainingQuantity <= 0)
+                return true;
+
+            Slot slot = slotTransform.GetComponent<Slot>();
+
+            if (slot == null || slot.currentItem == null)
+                continue;
+
+            Item slotItem = slot.currentItem.GetComponent<Item>();
+
+            if (slotItem == null)
+                continue;
+
+            if (slotItem.ID == itemToAdd.ID &&
+                slotItem.stackable)
+            {
+                int availableSpace =
+                    slotItem.maxStackSize - slotItem.quantity;
+
+                remainingQuantity -= availableSpace;
+            }
+        }
+
+        // SECOND: Check empty slots
+        foreach (Transform slotTransform in hotbarPanel.transform)
+        {
+            if (remainingQuantity <= 0)
+                return true;
+
+            Slot slot = slotTransform.GetComponent<Slot>();
+
+            if (slot == null || slot.currentItem != null)
+                continue;
+
+            remainingQuantity -= itemToAdd.maxStackSize;
+        }
+
+        return remainingQuantity <= 0;
+    }
+
     // ADD ITEM
 
     public bool AddItem(GameObject itemPrefab)
@@ -478,7 +544,6 @@ public class HotbarController : MonoBehaviour
 
         return remainingQuantity < originalQuantity;
     }
-
     // SAVE
 
     public List<InventorySaveData> GetHotbarItems()

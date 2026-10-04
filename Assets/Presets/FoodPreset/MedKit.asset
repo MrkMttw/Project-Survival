@@ -15,4 +15,4 @@ MonoBehaviour:
   itemPrefab: {fileID: 7451513184980286633, guid: b6389fe99f865d148bcf8589c07f11bd, type: 3}
   hungerRestore: 0
   hpRestore: 40
-  eatingDelay: 5
+  eatingDelay: 3.5

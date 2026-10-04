@@ -945,7 +945,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3315979588400478878, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5876583144128633288, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -631944,7 +631944,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c30168d182f033747a4a0297409c184f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameClock
-  realSecondsPerGameHour: 30
+  realSecondsPerGameHour: 15
   startingHour: 6
   startingMinute: 0
   startingDay: 1
@@ -633609,6 +633609,7 @@ MonoBehaviour:
   - {fileID: 609573252}
   - {fileID: 1626677280}
   Hotbar: {fileID: 1693767225}
+  craftingController: {fileID: 1328775371}
 --- !u!114 &1119554847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -658530,7 +658531,7 @@ MonoBehaviour:
   baseHealPercentPerSecond: 2
   healPercentPerSecond: 1
   progressionWood: 0
-  campfireLevel: 1
+  campfireLevel: 0
   currentWood: 0
   maxWood: 100
   woodItemID: 41

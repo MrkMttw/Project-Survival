@@ -6,9 +6,11 @@ public class MenuController : MonoBehaviour
     public GameObject menuCanvas;
     public GameObject[] pages;
     public GameObject Hotbar;
-    
+    public CraftingController craftingController;
+
     private RectTransform panelRect;
     private Vector2 originalPosition;
+    private bool wasCraftingPageActive;
 
     void Start()
     {
@@ -30,26 +32,35 @@ public class MenuController : MonoBehaviour
 
         if (!menuCanvas.activeSelf)
         {
-            // Menu closed → restore Hotbar
             Hotbar.SetActive(true);
             panelRect.anchoredPosition = originalPosition;
         }
         else if (pages[1].activeSelf)
         {
-            // Inventory tab
             Hotbar.SetActive(true);
             panelRect.anchoredPosition = new Vector2(0, -315);
         }
         else if (pages[2].activeSelf)
         {
-            // Crafting tab
             Hotbar.SetActive(true);
             panelRect.anchoredPosition = new Vector2(0, -490);
         }
         else
         {
-            // Other tabs → hide Hotbar
             Hotbar.SetActive(false);
         }
+
+        bool isCraftingPageActive =
+            menuCanvas.activeSelf && pages[2].activeSelf;
+
+        if (isCraftingPageActive && !wasCraftingPageActive)
+        {
+            if (craftingController != null)
+            {
+                craftingController.RefreshRecipes();
+            }
+        }
+
+        wasCraftingPageActive = isCraftingPageActive;
     }
 }
