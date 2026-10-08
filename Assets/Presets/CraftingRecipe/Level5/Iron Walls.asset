@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6b4bb10975520247931569e83baacc3, type: 3}
+  m_Name: Iron Walls
+  m_EditorClassIdentifier: Assembly-CSharp::CraftingRecipe
+  itemPrefab: {fileID: 7504088410438135924, guid: ff5ee2f9eadc63749956ff2c64299ba2, type: 3}
+  recipeIcon: {fileID: -7780915185234460661, guid: 1ecf71483ff8fec4ca8da083500020a9, type: 3}
+  craftingQuantity: 4
+  ingredients:
+  - itemPrefab: {fileID: 4677088523442761168, guid: d1f3a988e5618ee419c7d4d73c56067e, type: 3}
+    amount: 10
+  description: 
+  requiredCampfireLevel: 5

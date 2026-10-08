@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6b4bb10975520247931569e83baacc3, type: 3}
+  m_Name: Bow
+  m_EditorClassIdentifier: Assembly-CSharp::CraftingRecipe
+  itemPrefab: {fileID: 8610189998618823739, guid: 3bd2245e5d3025b4d928e0e332c05ed0, type: 3}
+  recipeIcon: {fileID: 1926604734002074190, guid: f77b8a998ff114d4da341cd71db1477b, type: 3}
+  craftingQuantity: 1
+  ingredients:
+  - itemPrefab: {fileID: 4184596784281269975, guid: 60b858ca8cb696241848e93f81c8d533, type: 3}
+    amount: 3
+  - itemPrefab: {fileID: 2088946598723306294, guid: a33b9bf97c8cfc74e96936aa9106817f, type: 3}
+    amount: 3
+  description: 
+  requiredCampfireLevel: 3
