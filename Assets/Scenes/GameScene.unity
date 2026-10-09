@@ -631296,8 +631296,9 @@ MonoBehaviour:
   realSecondsPerGameHour: 15
   startingHour: 6
   startingMinute: 0
-  startingDay: 10
+  startingDay: 1
   use12HourFormat: 1
+  showExactMinutes: 0
   clockText: {fileID: 1912298673}
   dayText: {fileID: 1776643041}
 --- !u!114 &944766602

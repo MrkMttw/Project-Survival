@@ -22,6 +22,9 @@ public class GameClock : MonoBehaviour
     [Tooltip("ON = 12-hour format (AM/PM), OFF = 24-hour format.")]
     public bool use12HourFormat = true;
 
+    [Tooltip("ON = show actual minutes, OFF = show only :00 or :30.")]
+    public bool showExactMinutes = true;
+
     [Header("UI")]
     public TMP_Text clockText;
     public TMP_Text dayText;
@@ -60,6 +63,12 @@ public class GameClock : MonoBehaviour
     {
         int hours = Mathf.FloorToInt(gameMinutes / 60f);
         int minutes = Mathf.FloorToInt(gameMinutes % 60f);
+
+        // Round displayed minutes to :00 or :30 when exact minutes are disabled
+        if (!showExactMinutes)
+        {
+            minutes = minutes < 30 ? 0 : 30;
+        }
 
         if (clockText != null)
         {
