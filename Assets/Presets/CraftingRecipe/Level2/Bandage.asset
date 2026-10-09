@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bandage
   m_EditorClassIdentifier: Assembly-CSharp::CraftingRecipe
   itemPrefab: {fileID: 2984289754879947654, guid: 5713305252094c348b05c1366e0b0ae4, type: 3}
-  recipeIcon: {fileID: -829483803868662349, guid: 31d22bc3e3da6d041a9de7a594937f3f, type: 3}
+  recipeIcon: {fileID: 1462799768519014029, guid: 1b05a0e8cde344b4681a623b37a391e8, type: 3}
   craftingQuantity: 2
   ingredients:
   - itemPrefab: {fileID: 5744197576223233701, guid: 2c32fa0907bd65d419af221b9258bf3b, type: 3}

@@ -137,6 +137,10 @@ PrefabInstance:
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 0.93
       objectReference: {fileID: 0}
+    - target: {fileID: 2993136477580528103, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: shakeAngle
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4963369266823173890, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
       propertyPath: m_Name
       value: Tree (6)

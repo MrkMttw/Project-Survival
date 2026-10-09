@@ -206,6 +206,7 @@ public class BreakSystem : MonoBehaviour
         }
     }
 
+    
     private void DropItem(
         BreakableMaterial material,
         Vector3 position
@@ -214,63 +215,49 @@ public class BreakSystem : MonoBehaviour
         if (material.drops == null ||
             material.drops.Length == 0)
         {
-            Debug.LogWarning(
-                "BreakableMaterial '" +
-                material.name +
-                "' has no Drop Items assigned!"
-            );
-
             return;
         }
 
         foreach (DropItemData drop in material.drops)
         {
-            if (drop == null)
+            if (drop == null || drop.item == null)
                 continue;
 
-            if (drop.item == null)
-            {
-                Debug.LogWarning(
-                    "A Drop Item is missing in BreakableMaterial '" +
-                    material.name +
-                    "'!"
-                );
+            // Roll independently for each drop.
+            float chance = Mathf.Clamp(
+                drop.dropChance, 0f, 100f
+            );
 
+            if (chance <= 0f)
+                continue;
+
+            if (chance < 100f &&
+                Random.Range(0f, 100f) >= chance)
+            {
                 continue;
             }
 
-            int minAmount =
-                Mathf.Max(1, drop.minAmount);
+            // Allow zero minimum and maximum amounts.
+            int minAmount = Mathf.Max(0, drop.minAmount);
+            int maxAmount = Mathf.Max(minAmount, drop.maxAmount);
 
-            int maxAmount =
-                Mathf.Max(minAmount, drop.maxAmount);
+            int amount = Random.Range(
+                minAmount, maxAmount + 1
+            );
 
-            int amount =
-                Random.Range(
-                    minAmount,
-                    maxAmount + 1
-                );
+            // Zero quantity means no item is spawned.
+            if (amount <= 0)
+                continue;
 
-            GameObject droppedItem =
-                drop.item.CloneItem(amount);
+            GameObject droppedItem = drop.item.CloneItem(amount);
 
             if (droppedItem == null)
-            {
-                Debug.LogWarning(
-                    "CloneItem returned null for " +
-                    drop.item.name
-                );
-
                 continue;
-            }
 
             droppedItem.transform.position = position;
 
             Debug.Log(
-                "Dropped " +
-                amount +
-                "x " +
-                drop.item.name
+                "Dropped " + amount + "x " + drop.item.name
             );
         }
     }

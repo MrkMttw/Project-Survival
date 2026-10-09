@@ -6,12 +6,23 @@ public class EnemyController : MonoBehaviour
     [Header("Enemy Stats")]
     public float maxHP = 100f;
 
+    [Tooltip("Fixed damage dealt by a normal attack.")]
+    public float baseDamage = 10f;
+
     [Range(0f, 100f)]
-    [Tooltip("Percentage of the player's MAX HP dealt per attack.")]
+    [Tooltip("Bonus damage on a critical hit, as a percentage of the player's MAX HP.")]
     public float attackDamagePercent = 10f;
+
+    [Header("Critical Hits")]
+    [Range(0f, 100f)]
+    [Tooltip("Chance for an attack to deal critical damage.")]
+    public float critChance = 20f;
 
     public float movementSpeed = 2f;
     public float defense = 0f;
+
+    [Header("Mob Drops")]
+    public MobDropData mobDropPreset;
 
     [Header("Health Bar")]
     [Tooltip("UI Image set to Filled that represents the enemy's HP.")]
@@ -293,18 +304,24 @@ public class EnemyController : MonoBehaviour
         if (attackTimer > 0f)
             return;
 
-        float damage =
-            playerHealth.maxHealth *
-            (attackDamagePercent / 100f);
+        
+    float damage = baseDamage;
+    bool isCritical = Random.Range(0f, 100f) < critChance;
 
-        playerHealth.TakeDamage(damage);
+    if (isCritical)
+    {
+        damage += playerHealth.maxHealth *
+                (attackDamagePercent / 100f);
+    }
 
-        Debug.Log(
-            gameObject.name +
-            " attacked the player for " +
-            damage.ToString("F1") +
-            " damage."
-        );
+    playerHealth.TakeDamage(damage);
+
+    Debug.Log(
+        gameObject.name +
+        (isCritical ? " landed a CRITICAL HIT for " : " attacked the player for ") +
+        damage.ToString("F1") +
+        " damage."
+    );
 
         attackTimer = attackCooldown;
     }
@@ -447,9 +464,43 @@ public class EnemyController : MonoBehaviour
 
     private void Die()
     {
+        DropItems();
         Destroy(gameObject);
     }
 
+    private void DropItems()
+    {
+        if (mobDropPreset == null || mobDropPreset.drops == null)
+            return;
+
+        foreach (MobDropData.DropEntry drop in mobDropPreset.drops)
+        {
+            if (drop == null || drop.itemPrefab == null)
+                continue;
+
+            float chance = Mathf.Clamp(drop.dropChance, 0f, 100f);
+
+            if (chance <= 0f)
+                continue;
+
+            if (chance < 100f && Random.Range(0f, 100f) >= chance)
+                continue;
+
+            int minAmount = Mathf.Max(1, drop.minAmount);
+            int maxAmount = Mathf.Max(minAmount, drop.maxAmount);
+            int amount = Random.Range(minAmount, maxAmount + 1);
+
+            Item item = drop.itemPrefab.GetComponent<Item>();
+
+            if (item == null)
+                continue;
+
+            GameObject droppedItem = item.CloneItem(amount);
+
+            if (droppedItem != null)
+                droppedItem.transform.position = transform.position;
+        }
+    }
 
     // GIZMOS
 

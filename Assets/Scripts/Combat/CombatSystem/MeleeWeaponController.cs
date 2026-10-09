@@ -165,6 +165,7 @@ public class MeleeWeaponController : MonoBehaviour
         return hitEnemy;
     }
 
+    
     private bool Attack(WeaponData weapon)
     {
         if (player == null)
@@ -190,36 +191,61 @@ public class MeleeWeaponController : MonoBehaviour
                     enemyCollider.GetComponentInParent<EnemyController>();
             }
 
-            if (enemy == null)
+            if (enemy != null)
+            {
+                hitEnemy = true;
+
+                float damage = Random.Range(
+                    weapon.minDamage,
+                    weapon.maxDamage
+                );
+
+                Vector2 knockbackDirection =
+                    (
+                        enemy.transform.position -
+                        player.position
+                    ).normalized;
+
+                enemy.TakeDamage(
+                    damage,
+                    knockbackDirection,
+                    weapon.knockbackStrength
+                );
+
+                Debug.Log(
+                    "Hit " +
+                    enemy.name +
+                    " | Damage: " +
+                    damage.ToString("F1") +
+                    " | Knockback: " +
+                    weapon.knockbackStrength.ToString("F1")
+                );
+
                 continue;
+            }
 
-            hitEnemy = true;
+            PassiveMobController passiveMob =
+                enemyCollider.GetComponent<PassiveMobController>();
 
-            float damage = Random.Range(
-                weapon.minDamage,
-                weapon.maxDamage
-            );
+            if (passiveMob == null)
+            {
+                passiveMob =
+                    enemyCollider.GetComponentInParent<PassiveMobController>();
+            }
 
-            Vector2 knockbackDirection =
-                (
-                    enemy.transform.position -
-                    player.position
-                ).normalized;
+            
+            if (passiveMob != null)
+            {
+                hitEnemy = true;
 
-            enemy.TakeDamage(
-                damage,
-                knockbackDirection,
-                weapon.knockbackStrength
-            );
+                float damage = Random.Range(
+                    weapon.minDamage,
+                    weapon.maxDamage
+                );
 
-            Debug.Log(
-                "Hit " +
-                enemy.name +
-                " | Damage: " +
-                damage.ToString("F1") +
-                " | Knockback: " +
-                weapon.knockbackStrength.ToString("F1")
-            );
+                passiveMob.TakeDamage(damage);
+                passiveMob.ReactToAttack(player);
+            }
         }
 
         return hitEnemy;

@@ -2,7 +2,7 @@ using UnityEngine;
 
 [CreateAssetMenu(
     fileName = "New Tool Break Preset",
-    menuName = "Game/Tool Break Preset"
+    menuName = "Tools/Tool Break Preset"
 )]
 public class ToolBreakPreset : ScriptableObject
 {

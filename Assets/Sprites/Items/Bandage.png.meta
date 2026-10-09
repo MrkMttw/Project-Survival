@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 31d22bc3e3da6d041a9de7a594937f3f
+guid: 1b05a0e8cde344b4681a623b37a391e8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -829483803868662349
-    second: Bandage_Icon_0
+      213: 1462799768519014029
+    second: Bandage_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,7 +113,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Bandage_Icon_0
+      name: Bandage_0
       rect:
         serializedVersion: 2
         x: 0
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3b5f77b00e41d74f0800000000000000
-      internalID: -829483803868662349
+      spriteID: d867914a3a8ec4410800000000000000
+      internalID: 1462799768519014029
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: bbe928aa0bfa8e847993d2dd6c67b4a7
+    spriteID: b4350d22dd443b047a0893f90f7261d6
     internalID: 0
     vertices: []
     indices: 
@@ -150,7 +150,7 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":500.0,"y":500.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Bandage_Icon_0: -829483803868662349
+      Bandage_0: 1462799768519014029
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

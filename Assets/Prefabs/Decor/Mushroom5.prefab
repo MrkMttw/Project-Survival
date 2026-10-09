@@ -113,6 +113,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2490772810932762868, guid: d5f6eb6a43dc1a94dacf217ebb3bc0d3, type: 3}
+      propertyPath: m_Size.x
+      value: 0.45178717
+      objectReference: {fileID: 0}
+    - target: {fileID: -2490772810932762868, guid: d5f6eb6a43dc1a94dacf217ebb3bc0d3, type: 3}
+      propertyPath: m_Size.y
+      value: 0.5433665
+      objectReference: {fileID: 0}
+    - target: {fileID: -2490772810932762868, guid: d5f6eb6a43dc1a94dacf217ebb3bc0d3, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.0027397946
+      objectReference: {fileID: 0}
+    - target: {fileID: -2490772810932762868, guid: d5f6eb6a43dc1a94dacf217ebb3bc0d3, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.2665461
+      objectReference: {fileID: 0}
+    - target: {fileID: -2490772810932762868, guid: d5f6eb6a43dc1a94dacf217ebb3bc0d3, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.44
+      objectReference: {fileID: 0}
+    - target: {fileID: -2490772810932762868, guid: d5f6eb6a43dc1a94dacf217ebb3bc0d3, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.53
+      objectReference: {fileID: 0}
+    - target: {fileID: -1687468009431065349, guid: d5f6eb6a43dc1a94dacf217ebb3bc0d3, type: 3}
+      propertyPath: materialType
+      value: Mushroom
+      objectReference: {fileID: 0}
+    - target: {fileID: -1687468009431065349, guid: d5f6eb6a43dc1a94dacf217ebb3bc0d3, type: 3}
+      propertyPath: drops.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 565628899333318616, guid: d5f6eb6a43dc1a94dacf217ebb3bc0d3, type: 3}
       propertyPath: m_LocalScale.x
       value: 2.5
@@ -213,7 +245,7 @@ MonoBehaviour:
   m_Intensity: 2
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: ab5495df
+  m_ApplyToSortingLayers: 00000000c5fafca8250f27c3ab5495df
   m_LightCookieSprite: {fileID: 7821596870685278138, guid: 6b1b02d4ee6507746820fde6d32298a3, type: 3}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0

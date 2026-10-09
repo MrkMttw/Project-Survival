@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6b4bb10975520247931569e83baacc3, type: 3}
   m_Name: Medkit
   m_EditorClassIdentifier: Assembly-CSharp::CraftingRecipe
-  itemPrefab: {fileID: 0}
+  itemPrefab: {fileID: 7451513184980286633, guid: b6389fe99f865d148bcf8589c07f11bd, type: 3}
   recipeIcon: {fileID: -3131539432255055569, guid: f10de073e794e2f4ba9b7a0540a0a4b6, type: 3}
   craftingQuantity: 1
   ingredients:

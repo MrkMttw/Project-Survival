@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Cooking Pot
   m_EditorClassIdentifier: Assembly-CSharp::CraftingRecipe
   itemPrefab: {fileID: 2329159611623017340, guid: 27dead9679611974ca54bc00beea8106, type: 3}
-  recipeIcon: {fileID: -2327388892234978404, guid: 52f3761bb6c5df941b7f92c906031ea6, type: 3}
+  recipeIcon: {fileID: -5266522147031951099, guid: 6fb6f33f05ffa8a44a7574e2e3486645, type: 3}
   craftingQuantity: 1
   ingredients:
   - itemPrefab: {fileID: 4677088523442761168, guid: d1f3a988e5618ee419c7d4d73c56067e, type: 3}

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6b4bb10975520247931569e83baacc3, type: 3}
   m_Name: Wrench
   m_EditorClassIdentifier: Assembly-CSharp::CraftingRecipe
-  itemPrefab: {fileID: 0}
-  recipeIcon: {fileID: 0}
+  itemPrefab: {fileID: 417302590787453814, guid: d318aa85f6b580a4bb612c71a6a847b7, type: 3}
+  recipeIcon: {fileID: -5616944029339906173, guid: d026a50c7e9b8e74693fd5237136499b, type: 3}
   craftingQuantity: 1
   ingredients: []
   description: 

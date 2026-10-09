@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5073bb094bde2f748bd9cefc5d024e67, type: 3}
+  m_Name: Sheep
+  m_EditorClassIdentifier: Assembly-CSharp::MobDropData
+  drops:
+  - itemPrefab: {fileID: 5744197576223233701, guid: 2c32fa0907bd65d419af221b9258bf3b, type: 3}
+    minAmount: 1
+    maxAmount: 2
+    dropChance: 100
+  - itemPrefab: {fileID: 7423485667713655359, guid: 6a8aed841ae35524cb9588d0bef8d5b1, type: 3}
+    minAmount: 1
+    maxAmount: 2
+    dropChance: 100
