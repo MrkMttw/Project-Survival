@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84b5754bb94e9f34bb1018d26775e637, type: 3}
+  m_Name: BushesAndPlants
+  m_EditorClassIdentifier: Assembly-CSharp::WorldSpawnData
+  prefabs:
+  - {fileID: 7133436450058219875, guid: d5f6eb6a43dc1a94dacf217ebb3bc0d3, type: 3}
+  - {fileID: 1346469856341609104, guid: 26873ec5e33acd744849608e0ffb4b85, type: 3}
+  - {fileID: 7907824930393764984, guid: ab6cb31115f50df4cbcdbbd80f7fb89a, type: 3}
+  - {fileID: 2292039182718447485, guid: 12e715e3398e57c49aa9a02aa80e97eb, type: 3}
+  - {fileID: 2449695216402089595, guid: 4206228d396e48f4ba0e769df2ae46c6, type: 3}
+  - {fileID: 3996145846761490267, guid: d2b6d1aa85e11754c939babc93f9eb60, type: 3}
+  - {fileID: 6830797508191390339, guid: cb9b372bff9ddb24f88a48ea2069662b, type: 3}
+  - {fileID: 412144016787511188, guid: 9141c6a1933083e43a1920791eeade51, type: 3}
+  - {fileID: 1410884207145149415, guid: e05530d725ce0194fad9a72821f780b6, type: 3}
+  - {fileID: 543803470858622588, guid: a934aef484898f048b4ed9731ee9953e, type: 3}
+  - {fileID: 1457993535462732725, guid: 3310e3e2a0cbb1f42840039f07d71f71, type: 3}
+  - {fileID: 2950236657070440112, guid: 97da0d7355eeafc4e869a2ee23ee4572, type: 3}
+  - {fileID: 1232323082255701318, guid: 40bfe8141715644488a8929dd6c12e39, type: 3}
+  - {fileID: 424926263387213043, guid: f6bc49b215f62f244a1056525c1223eb, type: 3}
+  - {fileID: 5897409593383640810, guid: f2c7e5e299af6154499f24a95aafb3bd, type: 3}
+  minSpawnCount: 10
+  maxSpawnCount: 20
+  minSpacing: 5
+  ignoreSpacingValidation: 1

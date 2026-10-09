@@ -13,11 +13,24 @@ MonoBehaviour:
   m_Name: Trees
   m_EditorClassIdentifier: Assembly-CSharp::WorldSpawnData
   prefabs:
-  - {fileID: 4963369266823173890, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
-  - {fileID: 3163574538482803086, guid: 742a1cd16f703a146a3affed81b1405c, type: 3}
-  - {fileID: 2047074467266056427, guid: 600ee29d3552d7145ac79cde0697f5c9, type: 3}
-  - {fileID: 437947276570852413, guid: 9a26285dbc2d15542a5dd2dad8a28528, type: 3}
+  - {fileID: 2090924347678018194, guid: 1e7edce84040c7e408a9de8253d9e084, type: 3}
+  - {fileID: 3763865380201037374, guid: 6d03395a28c863640aa73bbe3467ad6e, type: 3}
+  - {fileID: 2829461695173833865, guid: 6f28f07bc8348c647b2ea699cf2f87d1, type: 3}
+  - {fileID: 544005250710671490, guid: c62d482d348269b4595e9154b5733fda, type: 3}
+  - {fileID: 7221752053411496970, guid: d753b1eb4234e8548844e3e223fa12a4, type: 3}
+  - {fileID: 251273953795510298, guid: 08ffd48b31f16104f8584c1ece9f3b5b, type: 3}
+  - {fileID: 5978904122800478905, guid: 35273e59a7b400b479e5adae52b9a0fc, type: 3}
+  - {fileID: 8092718703465487189, guid: d749438b3b8686544948726418f46fb9, type: 3}
+  - {fileID: 3735764121645027040, guid: 4d3af7f6ea72ed646bc69d7fe9104062, type: 3}
+  - {fileID: 6943242527514895860, guid: ed2e4e2043dc87846b2df7915f5a666a, type: 3}
+  - {fileID: 1532841345841740692, guid: 17b38769cfa7db845af0565f5395b735, type: 3}
+  - {fileID: 7425879591829932647, guid: fc7620b605a19b843838d211378f175e, type: 3}
+  - {fileID: 8606232287662878045, guid: ed753e8ed77efc1489ead985e54ad488, type: 3}
+  - {fileID: 2985485514093600736, guid: 0ead537346cc8884aada951b62d12e8e, type: 3}
+  - {fileID: 1141796770898533115, guid: 786912f906680a348af4c955ba3dfb63, type: 3}
+  - {fileID: 5466559573900008334, guid: a52db77208f7694478581354ae91160f, type: 3}
+  - {fileID: 3158802419409254804, guid: 47ef5295b7e0a90488918c09a1018e3b, type: 3}
   minSpawnCount: 4
-  maxSpawnCount: 8
+  maxSpawnCount: 6
   minSpacing: 5
   ignoreSpacingValidation: 0

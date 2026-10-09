@@ -21,7 +21,14 @@ MonoBehaviour:
   - {fileID: 5721946480675225969, guid: bb64d07001958db43b3a9d6ce8d65a25, type: 3}
   - {fileID: 8446012626933292059, guid: ab327f34f1b9ee44bac4d321008709c2, type: 3}
   - {fileID: 2240963674255031140, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
-  minSpawnCount: 4
-  maxSpawnCount: 8
+  - {fileID: 5025931766865098326, guid: 5a5154c7ef1bde846a0a9edc3c0c8825, type: 3}
+  - {fileID: 5973333193162858075, guid: e5f60ec2495d1344f9388e6ea322f5b4, type: 3}
+  - {fileID: 2471362044701166966, guid: 690b7ec9ae9731545b7c007bcfaac361, type: 3}
+  - {fileID: 896484224631370102, guid: 45c35072ae6ab0c4eb78874b2468d0ea, type: 3}
+  - {fileID: 774708183011378, guid: 90767efe1f82fec499833108f4fccc71, type: 3}
+  - {fileID: 5084094305635062334, guid: 4c81d23558f2b86438e1023f2cb37319, type: 3}
+  - {fileID: 1196502989393756038, guid: 321d2546360010a4e8aeee70311a0e44, type: 3}
+  minSpawnCount: 2
+  maxSpawnCount: 4
   minSpacing: 5
   ignoreSpacingValidation: 0

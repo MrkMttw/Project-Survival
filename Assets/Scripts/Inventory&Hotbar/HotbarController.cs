@@ -101,6 +101,11 @@ public class HotbarController : MonoBehaviour
 
         if (item.quantity <= 0)
         {
+            if (placementController != null)
+            {
+                placementController.CancelPlacement();
+            }
+
             Destroy(slot.currentItem);
             slot.currentItem = null;
 
@@ -149,6 +154,12 @@ public class HotbarController : MonoBehaviour
             return;
 
         droppedItem.transform.position = player.position;
+
+        // Cancel building ghost
+        if (placementController != null)
+        {
+            placementController.CancelPlacement();
+        }
 
         // Empty hotbar slot
         Destroy(slot.currentItem);
@@ -286,6 +297,12 @@ public class HotbarController : MonoBehaviour
         // Last item in the stack
         if (item.quantity <= amount)
         {
+            // Cancel building ghost
+            if (placementController != null)
+            {
+                placementController.CancelPlacement();
+            }
+
             // Clear held visual BEFORE destroying the item
             if (playerHeldItem != null)
             {
@@ -305,15 +322,6 @@ public class HotbarController : MonoBehaviour
             item.RemoveFromStack(amount);
 
             return;
-        }
-
-        // Stack still has items remaining
-        item.RemoveFromStack(amount);
-
-        // Continue holding the item
-        if (playerHeldItem != null)
-        {
-            playerHeldItem.SetHeldItem(item);
         }
     }
 
@@ -544,8 +552,8 @@ public class HotbarController : MonoBehaviour
 
         return remainingQuantity < originalQuantity;
     }
-    // SAVE
 
+    // SAVE
     public List<InventorySaveData> GetHotbarItems()
     {
         List<InventorySaveData> hotbarData =

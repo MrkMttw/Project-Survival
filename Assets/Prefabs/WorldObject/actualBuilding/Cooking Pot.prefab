@@ -17,12 +17,20 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -2951338905365301062, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 0.64
+      objectReference: {fileID: 0}
+    - target: {fileID: -2951338905365301062, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 0.64
+      objectReference: {fileID: 0}
+    - target: {fileID: -2951338905365301062, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 5
+      value: 0.64
       objectReference: {fileID: 0}
     - target: {fileID: -2951338905365301062, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 5
+      value: 0.64
       objectReference: {fileID: 0}
     - target: {fileID: 2121072631156973253, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
       propertyPath: m_Size.x
@@ -34,7 +42,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3315979588400478878, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
       propertyPath: m_Name
-      value: Cooking Pot Variant
+      value: Cooking Pot
       objectReference: {fileID: 0}
     - target: {fileID: 3315979588400478878, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
       propertyPath: m_IsActive
@@ -42,15 +50,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5876583144128633288, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.20000002
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5876583144128633288, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.20000002
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5876583144128633288, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.20000002
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5876583144128633288, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -93,9 +101,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7319580430885454648, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
+      propertyPath: m_Size.x
+      value: 0.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 7319580430885454648, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
+      propertyPath: m_Size.y
+      value: 0.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 7319580430885454648, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -2327388892234978404, guid: 52f3761bb6c5df941b7f92c906031ea6, type: 3}
+      objectReference: {fileID: -5266522147031951099, guid: 66e93a042c7581e429c9b08ac0b598ab, type: 3}
+    - target: {fileID: 7319580430885454648, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

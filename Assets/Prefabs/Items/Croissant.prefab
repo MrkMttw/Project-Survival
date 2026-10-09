@@ -19,7 +19,7 @@ PrefabInstance:
     - target: {fileID: 2982858587533249513, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 8689319978456130346, guid: 0f32a327c5cfa4e4e99de34ad499ea7b, type: 3}
+      objectReference: {fileID: -1660761858345613354, guid: 14cad1f62514b194a863ebad529fc545, type: 3}
     - target: {fileID: 3102399019312198980, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -103,7 +103,11 @@ PrefabInstance:
     - target: {fileID: 4400888847680878981, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 8689319978456130346, guid: 0f32a327c5cfa4e4e99de34ad499ea7b, type: 3}
+      objectReference: {fileID: -1660761858345613354, guid: 14cad1f62514b194a863ebad529fc545, type: 3}
+    - target: {fileID: 4400888847680878981, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6789592075229631350, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
       propertyPath: m_Name
       value: Croissant

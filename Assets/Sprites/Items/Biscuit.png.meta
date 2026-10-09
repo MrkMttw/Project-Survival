@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 24d5b69e17ab2e04b9186b69107f0f11
+guid: 301b60f8e7087a74cb2839ea5fd71771
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1970291717750316113
-    second: Biscuit_0
+      213: -5000136794937187354
+    second: Biscuit 1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,10 +126,10 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 15cd664d0e1e75b10800000000000000
-      internalID: 1970291717750316113
+      spriteID: fdf31435589c80b45a9e7001815701bd
+      internalID: 395140391
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 1aa8a0ae70b62e540b266da0c28a8fe6
+    spriteID: ef9b2310bf6b41749bbfd80af586101f
     internalID: 0
     vertices: []
     indices: 
@@ -150,7 +150,7 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":500.0,"y":500.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Biscuit_0: 1970291717750316113
+      Biscuit_0: 395140391
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

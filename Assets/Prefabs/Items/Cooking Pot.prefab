@@ -31,7 +31,7 @@ PrefabInstance:
     - target: {fileID: 2982858587533249513, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -2327388892234978404, guid: 52f3761bb6c5df941b7f92c906031ea6, type: 3}
+      objectReference: {fileID: -5266522147031951099, guid: 6fb6f33f05ffa8a44a7574e2e3486645, type: 3}
     - target: {fileID: 3102399019312198980, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -112,10 +112,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4150008691375629824, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4150008691375629824, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4150008691375629824, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 8.333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 4400888847680878981, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: m_Size.x
+      value: 0.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 4400888847680878981, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: m_Size.y
+      value: 0.54
+      objectReference: {fileID: 0}
     - target: {fileID: 4400888847680878981, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -2327388892234978404, guid: 52f3761bb6c5df941b7f92c906031ea6, type: 3}
+      objectReference: {fileID: -5266522147031951099, guid: 6fb6f33f05ffa8a44a7574e2e3486645, type: 3}
+    - target: {fileID: 4400888847680878981, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4400888847680878981, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6789592075229631350, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
       propertyPath: m_Name
       value: Cooking Pot

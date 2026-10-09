@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84b5754bb94e9f34bb1018d26775e637, type: 3}
+  m_Name: Grass
+  m_EditorClassIdentifier: Assembly-CSharp::WorldSpawnData
+  prefabs:
+  - {fileID: 2408940243294043811, guid: e81585dcedd324b4896af742236cebb1, type: 3}
+  - {fileID: 5234565578975546571, guid: ba05025e68e3b004db13c21f02b87e3b, type: 3}
+  - {fileID: 6875638334217550951, guid: 2f3ca3a0065625c49b7514dc2f369d95, type: 3}
+  - {fileID: 4438083932483645771, guid: 8f50389986b67d44a8d28478bb408cc4, type: 3}
+  - {fileID: 6883324406859078413, guid: 4ce06a2ee49f5394a82eb2e3e575f12c, type: 3}
+  - {fileID: 712107217754112378, guid: e22c1f26c342ab8418814cbb89e8c8e1, type: 3}
+  minSpawnCount: 10
+  maxSpawnCount: 20
+  minSpacing: 2
+  ignoreSpacingValidation: 1

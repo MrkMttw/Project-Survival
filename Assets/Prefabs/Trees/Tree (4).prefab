@@ -1,0 +1,316 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4693750427029031669
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8555035472761608548}
+  - component: {fileID: 2171873594436219230}
+  m_Layer: 6
+  m_Name: Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8555035472761608548
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4693750427029031669}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7842709717364244831}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2171873594436219230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4693750427029031669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.Light2D
+  m_ComponentVersion: 4
+  m_LightType: 3
+  m_BlendStyleIndex: 0
+  m_Light2DProvider:
+    rid: -2
+  m_SelectionSources:
+    rid: 100976062099620266
+  m_FalloffIntensity: 0.5
+  m_Color: {r: 1, g: 0.8431373, b: 0, a: 1}
+  m_Intensity: 0.5
+  m_LightVolumeIntensity: 1
+  m_LightVolumeEnabled: 0
+  m_ApplyToSortingLayers: 00000000c5fafca8250f27c3ab5495df
+  m_LightCookieSprite: {fileID: 0}
+  m_DeprecatedPointLightCookieSprite: {fileID: 0}
+  m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
+  m_OverlapOperation: 0
+  m_NormalMapDistance: 3
+  m_NormalMapQuality: 2
+  m_UseNormalMap: 0
+  m_ShadowsEnabled: 0
+  m_ShadowIntensity: 0.75
+  m_ShadowSoftness: 0.3
+  m_ShadowSoftnessFalloffIntensity: 0.5
+  m_ShadowVolumeIntensityEnabled: 0
+  m_ShadowVolumeIntensity: 0.75
+  m_LocalBounds:
+    m_Center: {x: 0, y: -0.00000011920929, z: 0}
+    m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 0
+  m_PointLightOuterRadius: 5
+  m_ShapeLightParametricSides: 5
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 1
+  m_ShapeLightFalloffSize: 0.5
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: -0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: 0.5, z: 0}
+  - {x: -0.5, y: 0.5, z: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 100976062099620266
+      type: {class: Light2DProviderSources, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
+      data:
+        m_SelectedHashCode: 3
+        m_SelectedSource:
+          rid: -2
+        m_Provider2DCache:
+          rid: 100976062099620267
+    - rid: 100976062099620267
+      type: {class: 'Provider2DCache`1[[UnityEngine.Rendering.Universal.Light2DProvider, Unity.RenderPipelines.Universal.2D.Runtime]]', ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
+      data:
+        m_Cache: []
+--- !u!1001 &2367133326157566728
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 257053879351143101, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_Size.x
+      value: 0.46373075
+      objectReference: {fileID: 0}
+    - target: {fileID: 257053879351143101, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_Size.y
+      value: 0.46033567
+      objectReference: {fileID: 0}
+    - target: {fileID: 257053879351143101, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.014570706
+      objectReference: {fileID: 0}
+    - target: {fileID: 257053879351143101, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.23016784
+      objectReference: {fileID: 0}
+    - target: {fileID: 257053879351143101, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 257053879351143101, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.83
+      objectReference: {fileID: 0}
+    - target: {fileID: 4963369266823173890, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_Name
+      value: Tree (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363836343982625406, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_Size.x
+      value: 0.14379248
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363836343982625406, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_Size.y
+      value: 0.30000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363836343982625406, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.0018962225
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363836343982625406, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.20000002
+      objectReference: {fileID: 0}
+    - target: {fileID: 5480698058156823127, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 15.69
+      objectReference: {fileID: 0}
+    - target: {fileID: 5480698058156823127, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 5480698058156823127, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5480698058156823127, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5480698058156823127, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5480698058156823127, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5480698058156823127, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5480698058156823127, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5480698058156823127, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5480698058156823127, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6565790803549741500, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -2522010624957559736, guid: dad09d542d5a78a4e8af785a45459d7e, type: 3}
+    - target: {fileID: 8310508449425177614, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8310508449425177614, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.008
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 5480698058156823127, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8555035472761608548}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4963369266823173890, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -7087008192323831479}
+  m_SourcePrefab: {fileID: 100100000, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+--- !u!1 &7221752053411496970 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4963369266823173890, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+  m_PrefabInstance: {fileID: 2367133326157566728}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-7087008192323831479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7221752053411496970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.Light2D
+  m_ComponentVersion: 4
+  m_LightType: 2
+  m_BlendStyleIndex: 0
+  m_Light2DProvider:
+    rid: -2
+  m_SelectionSources:
+    rid: 100976062099619840
+  m_FalloffIntensity: 0.5
+  m_Color: {r: 1, g: 0.8431373, b: 0, a: 1}
+  m_Intensity: 2
+  m_LightVolumeIntensity: 1
+  m_LightVolumeEnabled: 0
+  m_ApplyToSortingLayers: 00000000c5fafca8250f27c3ab5495df
+  m_LightCookieSprite: {fileID: -2522010624957559736, guid: dad09d542d5a78a4e8af785a45459d7e, type: 3}
+  m_DeprecatedPointLightCookieSprite: {fileID: 0}
+  m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
+  m_OverlapOperation: 0
+  m_NormalMapDistance: 3
+  m_NormalMapQuality: 2
+  m_UseNormalMap: 0
+  m_ShadowsEnabled: 0
+  m_ShadowIntensity: 0.75
+  m_ShadowSoftness: 0.3
+  m_ShadowSoftnessFalloffIntensity: 0.5
+  m_ShadowVolumeIntensityEnabled: 0
+  m_ShadowVolumeIntensity: 0.75
+  m_LocalBounds:
+    m_Center: {x: 0, y: 0.415, z: 0}
+    m_Extent: {x: 0.32, y: 0.415, z: 0}
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 0
+  m_PointLightOuterRadius: 3
+  m_ShapeLightParametricSides: 5
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 1
+  m_ShapeLightFalloffSize: 0.5
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: -0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: 0.5, z: 0}
+  - {x: -0.5, y: 0.5, z: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 100976062099619840
+      type: {class: Light2DProviderSources, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
+      data:
+        m_SelectedHashCode: 2
+        m_SelectedSource:
+          rid: 100976062099620177
+        m_Provider2DCache:
+          rid: 100976062099619842
+    - rid: 100976062099619842
+      type: {class: 'Provider2DCache`1[[UnityEngine.Rendering.Universal.Light2DProvider, Unity.RenderPipelines.Universal.2D.Runtime]]', ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
+      data:
+        m_Cache: []
+    - rid: 100976062099620177
+      type: {class: Light2DSource_BuiltIn, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
+      data:
+        m_HashCode: 4
+        m_SourceType: 2
+        m_MenuPriority: 0
+        m_MenuName:
+          m_Text: Sprite
+          m_Image: {fileID: 2800000, guid: 8839c54710da3374f994e12f39b6d65f, type: 3}
+          m_Tooltip: 
+          m_TextWithWhitespace: "Sprite\u200B"
+--- !u!4 &7842709717364244831 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5480698058156823127, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+  m_PrefabInstance: {fileID: 2367133326157566728}
+  m_PrefabAsset: {fileID: 0}
