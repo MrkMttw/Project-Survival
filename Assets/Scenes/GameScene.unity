@@ -628523,7 +628523,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -543861589
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 6133340304394382675, guid: fe2944080e4130f4f92bd83b3f9c0cfa, type: 3}
@@ -629107,7 +629107,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 00000000ab5495dfc5fafca8250f27c3
+  m_ApplyToSortingLayers: 00000000ab5495dfc5fafca8250f27c387f6661c
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -632031,6 +632031,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 89711af5350437447bcd046ba9233250, type: 2}
   - {fileID: 11400000, guid: 9a83dc307d6be52478ed1e3a8ca15350, type: 2}
   - {fileID: 11400000, guid: 40e45c00a23a41644a6fc1a01df8ab0e, type: 2}
+  - {fileID: 11400000, guid: 40e45c00a23a41644a6fc1a01df8ab0e, type: 2}
+  - {fileID: 11400000, guid: bb0845c479e507b40869bc5760f5bbe5, type: 2}
 --- !u!1 &1042050038
 GameObject:
   m_ObjectHideFlags: 0
@@ -659185,7 +659187,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -543861589
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 0}

@@ -48,6 +48,9 @@ TagManager:
   - name: Shadow
     uniqueID: 3274116901
     locked: 0
+  - name: FireFly
+    uniqueID: 476509831
+    locked: 0
   - name: Ground
     uniqueID: 3751105707
     locked: 0
