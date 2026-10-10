@@ -13,6 +13,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7089588653624166267}
     - target: {fileID: 749299567316942752, guid: 7757192a6a96e0341bef134382e342f2, type: 3}
+      propertyPath: fleeSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 749299567316942752, guid: 7757192a6a96e0341bef134382e342f2, type: 3}
       propertyPath: mobDropPreset
       value: 
       objectReference: {fileID: 11400000, guid: 8cd0899b2cd50104693af6dd8fefa355, type: 2}

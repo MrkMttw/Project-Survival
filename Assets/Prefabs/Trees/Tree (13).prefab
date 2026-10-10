@@ -34,7 +34,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4963369266823173890, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
       propertyPath: m_Name
-      value: Tree (13) Variant
+      value: Tree (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363836343982625406, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_Size.x
+      value: 0.31055847
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363836343982625406, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_Size.y
+      value: 0.109979406
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363836343982625406, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.038061853
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363836343982625406, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.10498873
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363836343982625406, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_Direction
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5480698058156823127, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
       propertyPath: m_LocalScale.x

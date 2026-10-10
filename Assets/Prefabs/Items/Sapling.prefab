@@ -8,6 +8,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: ID
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: ghostPrefab
+      value: 
+      objectReference: {fileID: 4312318302369483671, guid: 5d244ac421d8ed54483473fb324088a9, type: 3}
+    - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: isBuildable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: maxStackSize
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: buildingPrefab
+      value: 
+      objectReference: {fileID: 4940425446125021036, guid: efef43ce688f11f48ad3061c35f894be, type: 3}
     - target: {fileID: 2982858587533249513, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -98,7 +118,7 @@ PrefabInstance:
       objectReference: {fileID: -1606132034722814555, guid: 977d0bba06fa5d84fb42e0f5a88ca9de, type: 3}
     - target: {fileID: 6789592075229631350, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
       propertyPath: m_Name
-      value: Sapling Variant
+      value: Sapling
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

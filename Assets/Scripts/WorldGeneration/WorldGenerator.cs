@@ -579,6 +579,31 @@ public class WorldGenerator : MonoBehaviour
         buildings[data.buildingID] = data;
     }
 
+    public int CountPlacedBuildingsWithItemIDs(int[] itemIDs)
+    {
+        if (itemIDs == null || itemIDs.Length == 0)
+            return 0;
+
+        int count = 0;
+
+        foreach (var chunk in savedBuildings)
+        {
+            foreach (BuildingSaveData building in chunk.Value.Values)
+            {
+                for (int i = 0; i < itemIDs.Length; i++)
+                {
+                    if (building.itemID == itemIDs[i])
+                    {
+                        count++;
+                        break;
+                    }
+                }
+            }
+        }
+
+        return count;
+    }
+
     public void UpdateBuilding(BuildingObject building)
     {
         if (building == null)

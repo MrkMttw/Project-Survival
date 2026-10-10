@@ -10,19 +10,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2121072631156973253, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
       propertyPath: m_Size.x
-      value: 0.5
+      value: 0.5907294
       objectReference: {fileID: 0}
     - target: {fileID: 2121072631156973253, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
       propertyPath: m_Size.y
-      value: 0.1
+      value: 0.10000077
+      objectReference: {fileID: 0}
+    - target: {fileID: 2121072631156973253, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.0010549512
       objectReference: {fileID: 0}
     - target: {fileID: 2121072631156973253, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
       propertyPath: m_Offset.y
-      value: 0.2
+      value: 0.0712911
+      objectReference: {fileID: 0}
+    - target: {fileID: 2121072631156973253, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
+      propertyPath: m_Direction
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3315979588400478878, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
       propertyPath: m_Name
-      value: Iron Miner Ghost Building Variant
+      value: Iron Miner Ghost Building
       objectReference: {fileID: 0}
     - target: {fileID: 3315979588400478878, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
       propertyPath: m_IsActive

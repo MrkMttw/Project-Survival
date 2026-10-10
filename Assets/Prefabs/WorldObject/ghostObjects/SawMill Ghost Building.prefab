@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &3234630449898122004
+--- !u!1001 &5876462416116857759
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,19 +10,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2121072631156973253, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
       propertyPath: m_Size.x
-      value: 0.5429039
+      value: 0.6017342
       objectReference: {fileID: 0}
     - target: {fileID: 2121072631156973253, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
       propertyPath: m_Size.y
-      value: 0.23789182
+      value: 0.18151243
       objectReference: {fileID: 0}
     - target: {fileID: 2121072631156973253, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
       propertyPath: m_Offset.x
-      value: -0.016566772
+      value: 0.0047040028
       objectReference: {fileID: 0}
     - target: {fileID: 2121072631156973253, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
       propertyPath: m_Offset.y
-      value: -0.14358576
+      value: -0.22108603
       objectReference: {fileID: 0}
     - target: {fileID: 2121072631156973253, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
       propertyPath: m_Direction
@@ -30,7 +30,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3315979588400478878, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
       propertyPath: m_Name
-      value: Cooking Pot Ghost Building
+      value: SawMill Ghost Building
       objectReference: {fileID: 0}
     - target: {fileID: 3315979588400478878, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
       propertyPath: m_IsActive
@@ -38,23 +38,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5876583144128633288, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5876583144128633288, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5876583144128633288, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5876583144128633288, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.93
+      value: 4.1
       objectReference: {fileID: 0}
     - target: {fileID: 5876583144128633288, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.31
+      value: 2.65
       objectReference: {fileID: 0}
     - target: {fileID: 5876583144128633288, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
       propertyPath: m_LocalPosition.z
@@ -89,21 +89,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7319580430885454648, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
-      propertyPath: m_Size.x
-      value: 0.64
-      objectReference: {fileID: 0}
-    - target: {fileID: 7319580430885454648, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
-      propertyPath: m_Size.y
-      value: 0.64
-      objectReference: {fileID: 0}
-    - target: {fileID: 7319580430885454648, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -5266522147031951099, guid: 66e93a042c7581e429c9b08ac0b598ab, type: 3}
-    - target: {fileID: 7319580430885454648, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
+      objectReference: {fileID: -3118449146250574693, guid: e10ca4801fa0c0d4181361d1ca0282c1, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

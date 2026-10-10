@@ -389,6 +389,14 @@ public class PlacementController : MonoBehaviour
             worldGenerator.RegisterBuilding(buildingObject);
         }
 
+        TentController tentController =
+            FindObjectOfType<TentController>();
+
+        if (tentController != null)
+        {
+            tentController.DebugTentCount();
+        }
+
         SpriteRenderer[] renderers =
             placedBuilding
             .GetComponentsInChildren<SpriteRenderer>();

@@ -231,6 +231,14 @@ public class WrenchFunction : MonoBehaviour
         {
             worldGenerator.RemoveBuilding(building);
         }
+        
+        TentController tentController =
+            FindObjectOfType<TentController>();
+
+        if (tentController != null)
+        {
+            tentController.DebugTentCount();
+        }
 
         Destroy(building.gameObject);
 

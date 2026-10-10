@@ -51,12 +51,15 @@ public class GameClock : MonoBehaviour
         if (gameMinutes >= 1440f)
         {
             gameMinutes -= 1440f;
-            day++;
 
-            Debug.Log("New Day: " + day);
+            TentController tentController = FindObjectOfType<TentController>();
+
+            int daysToAdvance = tentController != null
+                ? tentController.DaysToAdvance
+                : 1;
+
+            AdvanceDays(daysToAdvance);
         }
-
-        UpdateUI();
     }
 
     void UpdateUI()
@@ -120,5 +123,17 @@ public class GameClock : MonoBehaviour
     public int GetDay()
     {
         return day;
+    }
+
+    
+    public void AdvanceDays(int numberOfDays)
+    {
+        if (numberOfDays <= 0)
+            return;
+
+        day += numberOfDays;
+        UpdateUI();
+
+        Debug.Log("Advanced " + numberOfDays + " days. Current Day: " + day);
     }
 }
