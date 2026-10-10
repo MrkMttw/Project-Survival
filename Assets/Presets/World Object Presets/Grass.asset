@@ -16,10 +16,13 @@ MonoBehaviour:
   - {fileID: 2408940243294043811, guid: e81585dcedd324b4896af742236cebb1, type: 3}
   - {fileID: 5234565578975546571, guid: ba05025e68e3b004db13c21f02b87e3b, type: 3}
   - {fileID: 6875638334217550951, guid: 2f3ca3a0065625c49b7514dc2f369d95, type: 3}
-  - {fileID: 4438083932483645771, guid: 8f50389986b67d44a8d28478bb408cc4, type: 3}
   - {fileID: 6883324406859078413, guid: 4ce06a2ee49f5394a82eb2e3e575f12c, type: 3}
-  - {fileID: 712107217754112378, guid: e22c1f26c342ab8418814cbb89e8c8e1, type: 3}
-  minSpawnCount: 10
-  maxSpawnCount: 20
+  - {fileID: 4718798036722257209, guid: e02cd5e151e60da4888fb32939add47a, type: 3}
+  - {fileID: 2036390594324048220, guid: 0e6a7c288da2a59489b1a3fa6f458971, type: 3}
+  - {fileID: 6967512875900643141, guid: f23cb269be5913c49810086de8ef00ca, type: 3}
+  - {fileID: 1505542770062418070, guid: f123753b653bfd040bc84035cd5552db, type: 3}
+  - {fileID: 8785114412125490844, guid: 26b0664f1b5599d4e840eb41d5e85cbd, type: 3}
+  minSpawnCount: 20
+  maxSpawnCount: 30
   minSpacing: 2
   ignoreSpacingValidation: 1

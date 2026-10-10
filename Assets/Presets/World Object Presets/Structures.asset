@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84b5754bb94e9f34bb1018d26775e637, type: 3}
+  m_Name: Structures
+  m_EditorClassIdentifier: Assembly-CSharp::WorldSpawnData
+  prefabs:
+  - {fileID: 3531262199104402368, guid: 0764abf17d011c04fa83db308974a875, type: 3}
+  - {fileID: 6831171110626687081, guid: 3ac5d7b1d6f2b634abe8865694e9e1d1, type: 3}
+  - {fileID: 63706709386737629, guid: d3b26c90cfa464540924de22ca7616ed, type: 3}
+  - {fileID: 7164419269840357178, guid: b7d1ddeee361cef418d309cce9dbad5c, type: 3}
+  - {fileID: 992150963265810676, guid: 6e314a4d1229bae43be56aa923693fd3, type: 3}
+  - {fileID: 3277804311332942509, guid: 409265db6b9878241a4e5daab941652e, type: 3}
+  minSpawnCount: 2
+  maxSpawnCount: 4
+  minSpacing: 10
+  ignoreSpacingValidation: 0

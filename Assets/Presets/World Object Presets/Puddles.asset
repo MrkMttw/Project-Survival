@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84b5754bb94e9f34bb1018d26775e637, type: 3}
+  m_Name: Puddles
+  m_EditorClassIdentifier: Assembly-CSharp::WorldSpawnData
+  prefabs:
+  - {fileID: 2020896763875753836, guid: 71fdef1fc9d247a4eb8d7db65de7adf8, type: 3}
+  - {fileID: 812633663777380500, guid: cf80a49dd7baac642b75d5d6ca7f4c3f, type: 3}
+  - {fileID: 8548664512470996307, guid: ee08fcb2a0eb81840b8a8220dd1a5e05, type: 3}
+  - {fileID: 8713380797583073541, guid: 07c33dd09c5c5a846bf016c27045305a, type: 3}
+  minSpawnCount: 2
+  maxSpawnCount: 4
+  minSpacing: 5
+  ignoreSpacingValidation: 0

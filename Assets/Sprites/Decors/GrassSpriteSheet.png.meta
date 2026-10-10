@@ -1,0 +1,352 @@
+fileFormatVersion: 2
+guid: 152658dbf1780d24181d1395e4488286
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1488122099960516832
+    second: GrassSpriteSheet_0
+  - first:
+      213: -997294390557397247
+    second: GrassSpriteSheet_1
+  - first:
+      213: -3242676821227552571
+    second: GrassSpriteSheet_2
+  - first:
+      213: 9170681672679788204
+    second: GrassSpriteSheet_3
+  - first:
+      213: 8612173583557117646
+    second: GrassSpriteSheet_4
+  - first:
+      213: 8163035981671878495
+    second: GrassSpriteSheet_5
+  - first:
+      213: -7598416604775204829
+    second: GrassSpriteSheet_6
+  - first:
+      213: -4552478992176428617
+    second: GrassSpriteSheet_7
+  - first:
+      213: -3505083899897204876
+    second: GrassSpriteSheet_8
+  - first:
+      213: -6010111766781951830
+    second: GrassSpriteSheet_9
+  - first:
+      213: 3801613221466170377
+    second: GrassSpriteSheet_10
+  - first:
+      213: -2439367883056883351
+    second: GrassSpriteSheet_11
+  - first:
+      213: -7144193791581302240
+    second: GrassSpriteSheet_12
+  - first:
+      213: 496385053368220442
+    second: GrassSpriteSheet_13
+  - first:
+      213: 6549954593965134773
+    second: GrassSpriteSheet_14
+  - first:
+      213: 7635809507817204137
+    second: GrassSpriteSheet_15
+  - first:
+      213: -7793499902349558468
+    second: GrassSpriteSheet_16
+  - first:
+      213: 3154923178766872044
+    second: GrassSpriteSheet_17
+  - first:
+      213: 394479412835213722
+    second: GrassSpriteSheet_18
+  - first:
+      213: -7927642172954977474
+    second: GrassSpriteSheet_19
+  - first:
+      213: 1582604706972166595
+    second: GrassSpriteSheet_20
+  - first:
+      213: -3126938180291884346
+    second: GrassSpriteSheet_21
+  - first:
+      213: 5493301866900731756
+    second: GrassSpriteSheet_22
+  - first:
+      213: -1284936177770474284
+    second: GrassSpriteSheet_23
+  - first:
+      213: 8470922198318584657
+    second: GrassSpriteSheet_24
+  - first:
+      213: 7260208512681950811
+    second: GrassSpriteSheet_25
+  - first:
+      213: 1442655751852333769
+    second: GrassSpriteSheet_26
+  - first:
+      213: 803350566287033122
+    second: GrassSpriteSheet_27
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: GrassSpriteSheet_0
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 76
+        width: 35
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e01e8e5a2fd6a410800000000000000
+      internalID: 1488122099960516832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrassSpriteSheet_2
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 77
+        width: 33
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c0c65d8c92bff2d0800000000000000
+      internalID: -3242676821227552571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrassSpriteSheet_4
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 73
+        width: 30
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec6cce7be36948770800000000000000
+      internalID: 8612173583557117646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrassSpriteSheet_18
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 14
+        width: 37
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a916f399fe8797500800000000000000
+      internalID: 394479412835213722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrassSpriteSheet_22
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 18
+        width: 33
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c67bb9471f02c3c40800000000000000
+      internalID: 5493301866900731756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 93e0fd41c6c6d3c43942bbe01a786878
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      GrassSpriteSheet_0: 1488122099960516832
+      GrassSpriteSheet_1: -997294390557397247
+      GrassSpriteSheet_10: 3801613221466170377
+      GrassSpriteSheet_11: -2439367883056883351
+      GrassSpriteSheet_12: -7144193791581302240
+      GrassSpriteSheet_13: 496385053368220442
+      GrassSpriteSheet_14: 6549954593965134773
+      GrassSpriteSheet_15: 7635809507817204137
+      GrassSpriteSheet_16: -7793499902349558468
+      GrassSpriteSheet_17: 3154923178766872044
+      GrassSpriteSheet_18: 394479412835213722
+      GrassSpriteSheet_19: -7927642172954977474
+      GrassSpriteSheet_2: -3242676821227552571
+      GrassSpriteSheet_20: 1582604706972166595
+      GrassSpriteSheet_21: -3126938180291884346
+      GrassSpriteSheet_22: 5493301866900731756
+      GrassSpriteSheet_23: -1284936177770474284
+      GrassSpriteSheet_24: 8470922198318584657
+      GrassSpriteSheet_25: 7260208512681950811
+      GrassSpriteSheet_26: 1442655751852333769
+      GrassSpriteSheet_27: 803350566287033122
+      GrassSpriteSheet_3: 9170681672679788204
+      GrassSpriteSheet_4: 8612173583557117646
+      GrassSpriteSheet_5: 8163035981671878495
+      GrassSpriteSheet_6: -7598416604775204829
+      GrassSpriteSheet_7: -4552478992176428617
+      GrassSpriteSheet_8: -3505083899897204876
+      GrassSpriteSheet_9: -6010111766781951830
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

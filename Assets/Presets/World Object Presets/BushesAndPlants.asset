@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: BushesAndPlants
   m_EditorClassIdentifier: Assembly-CSharp::WorldSpawnData
   prefabs:
-  - {fileID: 7133436450058219875, guid: d5f6eb6a43dc1a94dacf217ebb3bc0d3, type: 3}
   - {fileID: 1346469856341609104, guid: 26873ec5e33acd744849608e0ffb4b85, type: 3}
   - {fileID: 7907824930393764984, guid: ab6cb31115f50df4cbcdbbd80f7fb89a, type: 3}
   - {fileID: 2292039182718447485, guid: 12e715e3398e57c49aa9a02aa80e97eb, type: 3}

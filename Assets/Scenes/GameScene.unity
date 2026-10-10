@@ -1871,7 +1871,7 @@ TilemapRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -627242,7 +627242,7 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.9803922, b: 0.8039216, a: 1}
   m_Origin: {x: -169, y: -138, z: 0}
   m_Size: {x: 304, y: 273, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
@@ -629103,7 +629103,7 @@ MonoBehaviour:
   m_SelectionSources:
     rid: 2253423022491828224
   m_FalloffIntensity: 0.5
-  m_Color: {r: 0.6, g: 0.6, b: 0.6, a: 1}
+  m_Color: {r: 0.9803922, g: 0.9803922, b: 0.8235295, a: 1}
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
@@ -630210,7 +630210,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DayNightCycle
   gameClock: {fileID: 886148631}
   globalLight: {fileID: 619394801}
-  dayIntensity: 0.8
+  dayIntensity: 0.65
   nightIntensity: 0.05
   sunriseTime: 6
   sunsetTime: 21
@@ -631374,7 +631374,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameClock
   realSecondsPerGameHour: 15
-  startingHour: 21
+  startingHour: 6
   startingMinute: 0
   startingDay: 1
   use12HourFormat: 1
@@ -632028,9 +632028,10 @@ MonoBehaviour:
   spawnData:
   - {fileID: 11400000, guid: 0bdebdc3357ee1e4684b5bc2db61c460, type: 2}
   - {fileID: 11400000, guid: 296bf4719a81a734fba2e290db25609d, type: 2}
+  - {fileID: 11400000, guid: 4192d83393eb26f44ac021431d5bee88, type: 2}
+  - {fileID: 11400000, guid: 79303cd7e8cc7af4f86b07834fac5ff1, type: 2}
   - {fileID: 11400000, guid: 89711af5350437447bcd046ba9233250, type: 2}
   - {fileID: 11400000, guid: 9a83dc307d6be52478ed1e3a8ca15350, type: 2}
-  - {fileID: 11400000, guid: 40e45c00a23a41644a6fc1a01df8ab0e, type: 2}
   - {fileID: 11400000, guid: 40e45c00a23a41644a6fc1a01df8ab0e, type: 2}
   - {fileID: 11400000, guid: bb0845c479e507b40869bc5760f5bbe5, type: 2}
 --- !u!1 &1042050038
@@ -636332,9 +636333,9 @@ MonoBehaviour:
   - {fileID: 6101466265389355497, guid: 0c95ddbded006b64a83e7ac74e7923e5, type: 3}
   - {fileID: 3910769959468510949, guid: 6a8aed841ae35524cb9588d0bef8d5b1, type: 3}
   - {fileID: 3902733771359039603, guid: b6389fe99f865d148bcf8589c07f11bd, type: 3}
+  - {fileID: 528016158534054124, guid: f3beac0f631d5ba4c98ebc3d6e11fca3, type: 3}
   - {fileID: 1160978015639084839, guid: a81e71b85e8073546aacfa0c7ee13c5d, type: 3}
   - {fileID: 5989753331661933484, guid: 31f75d5d76aaec44da89d49852173ac9, type: 3}
-  - {fileID: 528016158534054124, guid: f3beac0f631d5ba4c98ebc3d6e11fca3, type: 3}
   - {fileID: 3735773623780645190, guid: 3f751af8f03d9fe4ebae716e3e1013f2, type: 3}
   - {fileID: 3146598401782859227, guid: 55a93deab0c8c62438e2207b7e163d0a, type: 3}
   - {fileID: 9217882277772110842, guid: 36c5bbd7d156c1944a0e3021e8b033ba, type: 3}
