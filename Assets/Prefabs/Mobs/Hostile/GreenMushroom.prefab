@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 66469021256868083, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: rb
+      value: 
+      objectReference: {fileID: 5790496895022895313}
+    - target: {fileID: 66469021256868083, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 4539388422470652409}
     - target: {fileID: 1331486460801449365, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Color.b
       value: 0.6039216
@@ -20,6 +28,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2067556399905786984, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: ccf9e5c6e1a83ae47a54999459095e1e, type: 2}
     - target: {fileID: 2935146238334533188, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Name
       value: GreenMushroom
@@ -30,11 +42,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3655246650299843580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.63
+      value: 1.61
       objectReference: {fileID: 0}
     - target: {fileID: 3655246650299843580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1.63
+      value: 1.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 4116513312689265495, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: m_SpriteHash
+      value: 295173676
       objectReference: {fileID: 0}
     - target: {fileID: 4126768581658979578, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Color.b
@@ -52,10 +68,14 @@ PrefabInstance:
       propertyPath: m_PointLightOuterRadius
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4375312317352634398, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: m_SpriteLibraryAsset
+      value: 
+      objectReference: {fileID: 7108339969198208228, guid: 95a05ae2301044a45a82506610672053, type: 3}
     - target: {fileID: 4417746939183367772, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 1472951027, guid: 33389417ce096a845b96ddfb0e226cb1, type: 3}
+      objectReference: {fileID: -744083558, guid: 33389417ce096a845b96ddfb0e226cb1, type: 3}
     - target: {fileID: 4440019151895969526, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Color.b
       value: 0.4980392
@@ -125,3 +145,13 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+--- !u!95 &4539388422470652409 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2067556399905786984, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+  m_PrefabInstance: {fileID: 2471994812599508369}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &5790496895022895313 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 8220670279602244928, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+  m_PrefabInstance: {fileID: 2471994812599508369}
+  m_PrefabAsset: {fileID: 0}

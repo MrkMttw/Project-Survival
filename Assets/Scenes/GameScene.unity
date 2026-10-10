@@ -631374,7 +631374,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameClock
   realSecondsPerGameHour: 15
-  startingHour: 6
+  startingHour: 21
   startingMinute: 0
   startingDay: 1
   use12HourFormat: 1
