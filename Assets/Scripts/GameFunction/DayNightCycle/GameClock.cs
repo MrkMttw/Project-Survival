@@ -39,7 +39,7 @@ public class GameClock : MonoBehaviour
 
         UpdateUI();
     }
-
+ 
     void Update()
     {
         // Convert real-time seconds into game minutes
@@ -60,6 +60,9 @@ public class GameClock : MonoBehaviour
 
             AdvanceDays(daysToAdvance);
         }
+
+        // Refresh the clock and day text continuously
+        UpdateUI();
     }
 
     void UpdateUI()
@@ -125,7 +128,6 @@ public class GameClock : MonoBehaviour
         return day;
     }
 
-    
     public void AdvanceDays(int numberOfDays)
     {
         if (numberOfDays <= 0)
@@ -135,5 +137,19 @@ public class GameClock : MonoBehaviour
         UpdateUI();
 
         Debug.Log("Advanced " + numberOfDays + " days. Current Day: " + day);
+    }
+
+    
+    public void AdvanceToMorning(int numberOfDays)
+    {
+        if (numberOfDays <= 0)
+            return;
+
+        day += numberOfDays;
+
+        // Set actual game time to 6:00 AM.
+        gameMinutes = 6f * 60f;
+
+        UpdateUI();
     }
 }

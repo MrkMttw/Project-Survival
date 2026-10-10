@@ -164,4 +164,15 @@ public class HungerController : MonoBehaviour
     {
         return currentHunger <= 0f;
     }
+
+    public void HalveCurrentHunger()
+    {
+        currentHunger = Mathf.Clamp(
+            currentHunger * 0.5f,
+            0f,
+            maxHunger
+        );
+
+        UpdateHungerUI();
+    }
 }

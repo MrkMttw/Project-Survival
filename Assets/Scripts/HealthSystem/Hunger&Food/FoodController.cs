@@ -23,12 +23,6 @@ public class FoodController : MonoBehaviour
             return;
 
         UpdateEatPrompt();
-
-        // Press E to eat
-        if (Keyboard.current.eKey.wasPressedThisFrame)
-        {
-            TryEat();
-        }
     }
 
     private void UpdateEatPrompt()
@@ -57,58 +51,24 @@ public class FoodController : MonoBehaviour
             eatPrompt.SetActive(false);
         }
     }
-
-    private void TryEat()
+    
+    public bool TryEatHeldItem()
     {
-        // Already eating
-        if (isEating)
-            return;
+        if (isEating || playerHeldItem == null)
+            return false;
 
-        // Make sure PlayerHeldItem exists
-        if (playerHeldItem == null)
-        {
-            Debug.LogWarning(
-                "FoodController: Player Held Item is not assigned."
-            );
-
-            return;
-        }
-
-        // Get currently held item
         Item heldItem = playerHeldItem.GetHeldItem();
 
         if (heldItem == null)
-        {
-            Debug.Log("FoodController: No item is currently held.");
-            return;
-        }
+            return false;
 
-        // Find matching food preset
         FoodPreset food = GetFoodPreset(heldItem);
 
-        if (food == null)
-        {
-            Debug.Log(
-                "FoodController: " +
-                heldItem.name +
-                " is not food."
-            );
+        if (food == null || hungerController == null)
+            return false;
 
-            return;
-        }
-
-        // Make sure hunger controller exists
-        if (hungerController == null)
-        {
-            Debug.LogWarning(
-                "FoodController: Hunger Controller is not assigned."
-            );
-
-            return;
-        }
-
-        // Start eating
         StartCoroutine(EatFood(heldItem, food));
+        return true;
     }
 
     private FoodPreset GetFoodPreset(Item item)

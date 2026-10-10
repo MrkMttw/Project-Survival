@@ -15,7 +15,6 @@ public class ItemLightController : MonoBehaviour
     [Tooltip("Whether item lighting is currently active.")]
     public bool isNight = true;
 
-
     [Header("Player Held Item")]
 
     [Tooltip("GameObject containing the PlayerHeldItem component.")]
@@ -42,7 +41,6 @@ public class ItemLightController : MonoBehaviour
         noiseOffset = Random.Range(0f, 1000f);
     }
 
-
     private void Start()
     {
         FindPlayerHeldItem();
@@ -51,12 +49,6 @@ public class ItemLightController : MonoBehaviour
     private void Update()
     {
         UpdateHeldItemLight();
-
-        if (Keyboard.current != null &&
-            Keyboard.current.eKey.wasPressedThisFrame)
-        {
-            ToggleLight();
-        }
     }
 
 
@@ -325,6 +317,23 @@ public class ItemLightController : MonoBehaviour
             return;
 
         heldItemLight.enabled = true;
+    }
+        
+    public bool TryToggleHeldItemLight()
+    {
+        if (playerHeldItem == null)
+            return false;
+
+        Item currentItem = playerHeldItem.GetHeldItem();
+
+        if (currentItem == null)
+            return false;
+
+        if (GetPresetForItem(currentItem) == null)
+            return false;
+
+        ToggleLight();
+        return true;
     }
 
     // APPLY PRESET
