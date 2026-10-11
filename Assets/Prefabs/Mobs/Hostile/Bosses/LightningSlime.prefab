@@ -50,19 +50,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3655246650299843580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Size.x
-      value: 0.18618833
+      value: 0.22278327
       objectReference: {fileID: 0}
     - target: {fileID: 3655246650299843580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Size.y
-      value: 0.16697519
+      value: 0.18142056
       objectReference: {fileID: 0}
     - target: {fileID: 3655246650299843580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Offset.x
-      value: -0.009754665
+      value: -0.008791629
       objectReference: {fileID: 0}
     - target: {fileID: 3655246650299843580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Offset.y
-      value: 0.07811365
+      value: 0.08533634
       objectReference: {fileID: 0}
     - target: {fileID: 3655246650299843580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.y
@@ -153,9 +153,25 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8631369034572204580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: maxHP
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 8631369034572204580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: baseDamage
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8631369034572204580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: mobDropPreset
       value: 
       objectReference: {fileID: 11400000, guid: 0a0e4d1d339a8cf4fad7d9713fbdc604, type: 2}
+    - target: {fileID: 8631369034572204580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: detectionRange
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8631369034572204580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: attackDamagePercent
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

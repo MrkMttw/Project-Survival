@@ -83,6 +83,7 @@ public class EnemyController : MonoBehaviour
     // State
     private bool isAttacking;
     private bool isKnockedBack;
+    private bool isDead;
 
     // Knockback
     private Vector2 knockbackVelocity;
@@ -353,6 +354,9 @@ public class EnemyController : MonoBehaviour
         float knockbackStrength
     )
     {
+        if (isDead)
+            return;
+
         // Apply defense.
         float actualDamage =
             Mathf.Max(
@@ -464,6 +468,11 @@ public class EnemyController : MonoBehaviour
 
     private void Die()
     {
+        if (isDead)
+            return;
+
+        isDead = true;
+
         DropItems();
         Destroy(gameObject);
     }
