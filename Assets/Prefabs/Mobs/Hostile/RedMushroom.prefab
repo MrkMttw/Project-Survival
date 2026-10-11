@@ -8,10 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -5976908289423491119, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
-      propertyPath: m_SpriteLibraryAsset
-      value: 
-      objectReference: {fileID: 7108339969198208228, guid: ea54cc288e4258f40a109a0dd784a59f, type: 3}
+    - target: {fileID: -7377677427859226636, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: m_SpriteHash
+      value: 295173676
+      objectReference: {fileID: 0}
     - target: {fileID: 1331486460801449365, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Color.b
       value: 0.2352941
@@ -24,6 +24,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.8627452
       objectReference: {fileID: 0}
+    - target: {fileID: 1379614877581253849, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: m_SpriteLibraryAsset
+      value: 
+      objectReference: {fileID: 7108339969198208228, guid: ea54cc288e4258f40a109a0dd784a59f, type: 3}
     - target: {fileID: 2935146238334533188, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Name
       value: RedMushroom
@@ -40,6 +44,10 @@ PrefabInstance:
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 1.64
       objectReference: {fileID: 0}
+    - target: {fileID: 4116513312689265495, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: m_SpriteHash
+      value: 295173676
+      objectReference: {fileID: 0}
     - target: {fileID: 4126768581658979578, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Color.b
       value: 0.1333333
@@ -52,6 +60,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.6980392
       objectReference: {fileID: 0}
+    - target: {fileID: 4375312317352634398, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: m_SpriteLibraryAsset
+      value: 
+      objectReference: {fileID: 7108339969198208228, guid: ea54cc288e4258f40a109a0dd784a59f, type: 3}
     - target: {fileID: 4417746939183367772, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -120,10 +132,6 @@ PrefabInstance:
       propertyPath: mobDropPreset
       value: 
       objectReference: {fileID: 11400000, guid: 9b6605575b7992349b7d4615baa4db26, type: 2}
-    - target: {fileID: 9016139925480047054, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
-      propertyPath: m_SpriteHash
-      value: 295173676
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

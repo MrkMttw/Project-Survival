@@ -8,12 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-<<<<<<< Updated upstream
-=======
-    - target: {fileID: -5976908289423491119, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
-      propertyPath: m_SpriteLibraryAsset
-      value: 
-      objectReference: {fileID: 7108339969198208228, guid: 95a05ae2301044a45a82506610672053, type: 3}
+    - target: {fileID: -7377677427859226636, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: m_SpriteHash
+      value: 647024314
+      objectReference: {fileID: 0}
     - target: {fileID: 66469021256868083, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: rb
       value: 
@@ -22,11 +20,6 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 66469021256868083, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
-      propertyPath: movementThreshold
-      value: 0.01
-      objectReference: {fileID: 0}
->>>>>>> Stashed changes
     - target: {fileID: 1331486460801449365, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Color.b
       value: 0.6039216
@@ -39,13 +32,14 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
-<<<<<<< Updated upstream
-=======
+    - target: {fileID: 1379614877581253849, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: m_SpriteLibraryAsset
+      value: 
+      objectReference: {fileID: 7108339969198208228, guid: b40d6de2683c7af42a1ea819c9a37dd9, type: 3}
     - target: {fileID: 2067556399905786984, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 87ae08dbe3d408649a06f8dfc9e3daf4, type: 2}
->>>>>>> Stashed changes
     - target: {fileID: 2935146238334533188, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Name
       value: GreenMushroom
@@ -61,21 +55,10 @@ PrefabInstance:
     - target: {fileID: 3655246650299843580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 1.63
-<<<<<<< Updated upstream
-=======
-      objectReference: {fileID: 0}
-    - target: {fileID: 4116513312689265495, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
-      propertyPath: m_labelHash
-      value: 1.590883e-24
       objectReference: {fileID: 0}
     - target: {fileID: 4116513312689265495, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_SpriteHash
-      value: 295173676
->>>>>>> Stashed changes
-      objectReference: {fileID: 0}
-    - target: {fileID: 4116513312689265495, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
-      propertyPath: m_CategoryHash
-      value: 0.000000020668566
+      value: 647024314
       objectReference: {fileID: 0}
     - target: {fileID: 4126768581658979578, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Color.b
@@ -93,6 +76,10 @@ PrefabInstance:
       propertyPath: m_PointLightOuterRadius
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4375312317352634398, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: m_SpriteLibraryAsset
+      value: 
+      objectReference: {fileID: 7108339969198208228, guid: b40d6de2683c7af42a1ea819c9a37dd9, type: 3}
     - target: {fileID: 4417746939183367772, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -161,20 +148,13 @@ PrefabInstance:
       propertyPath: mobDropPreset
       value: 
       objectReference: {fileID: 11400000, guid: 9b6605575b7992349b7d4615baa4db26, type: 2}
-    - target: {fileID: 9016139925480047054, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
-      propertyPath: m_SpriteHash
-      value: 647024314
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
-<<<<<<< Updated upstream
-=======
 --- !u!50 &5790496895022895313 stripped
 Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 8220670279602244928, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
   m_PrefabInstance: {fileID: 2471994812599508369}
   m_PrefabAsset: {fileID: 0}
->>>>>>> Stashed changes
