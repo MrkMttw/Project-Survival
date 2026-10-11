@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5073bb094bde2f748bd9cefc5d024e67, type: 3}
+  m_Name: Slime
+  m_EditorClassIdentifier: Assembly-CSharp::MobDropData
+  drops:
+  - itemPrefab: {fileID: 7813115029076113991, guid: 42afc9f7e760cde4ab7abf4672117e35, type: 3}
+    minAmount: 1
+    maxAmount: 1
+    dropChance: 100
+  - itemPrefab: {fileID: 5621644761903768235, guid: e1aca64e9a43ad544a9d37a3fc909dc3, type: 3}
+    minAmount: 1
+    maxAmount: 1
+    dropChance: 100

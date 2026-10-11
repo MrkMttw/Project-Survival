@@ -20,7 +20,7 @@ MonoBehaviour:
   - {fileID: 2180215355397181723, guid: 09313a460629f094187e3fb3b7405bd4, type: 3}
   - {fileID: 1909286204865548266, guid: 9d5680615747fdc458c124ed6d2c3efe, type: 3}
   - {fileID: 2408940243294043811, guid: e81585dcedd324b4896af742236cebb1, type: 3}
-  minSpawnCount: 10
-  maxSpawnCount: 20
+  minSpawnCount: 5
+  maxSpawnCount: 10
   minSpacing: 5
   ignoreSpacingValidation: 1

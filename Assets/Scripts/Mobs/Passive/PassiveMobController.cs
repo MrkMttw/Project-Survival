@@ -31,6 +31,12 @@ public class PassiveMobController : MonoBehaviour
     [Header("Obstacle Avoidance")]
     public LayerMask obstacleLayer;
     public float obstacleCheckDistance = 1f;
+    public float avoidanceDuration = 0.4f;
+
+    [Header("Stuck Recovery")]
+    public float stuckCheckInterval = 1f;
+    public float minimumProgressDistance = 0.1f;
+    public float maxStuckTime = 2f;
 
     [Header("Mob Drops")]
     public MobDropData mobDropPreset;
@@ -40,10 +46,15 @@ public class PassiveMobController : MonoBehaviour
 
     private Vector2 startingPosition;
     private Vector2 wanderTarget;
+    private Vector2 lastStuckCheckPosition;
+    private Vector2 avoidanceDirection;
 
     private float wanderWaitTimer;
     private float fleeTimer;
     private float currentHP;
+    private float avoidanceTimer;
+    private float stuckCheckTimer;
+    private float stuckTimer;
 
     private bool isFleeing;
     private bool isWaiting;
@@ -68,6 +79,7 @@ public class PassiveMobController : MonoBehaviour
             return;
 
         startingPosition = rb.position;
+        lastStuckCheckPosition = rb.position;
 
         currentHP = maxHP;
         UpdateHealthBar();
@@ -76,17 +88,23 @@ public class PassiveMobController : MonoBehaviour
             GameObject.FindGameObjectWithTag("Player");
 
         if (playerObject != null)
-        {
             player = playerObject.transform;
-        }
 
         StartWandering();
     }
 
     private void Update()
     {
-        if (rb == null)
+        if (rb == null || currentHP <= 0f)
             return;
+
+        if (isKnockedBack)
+        {
+            knockbackTimer -= Time.deltaTime;
+
+            if (knockbackTimer <= 0f)
+                isKnockedBack = false;
+        }
 
         if (isFleeing)
         {
@@ -112,13 +130,35 @@ public class PassiveMobController : MonoBehaviour
         }
 
         if (!hasWanderTarget)
+        {
             ChooseWanderTarget();
+            return;
+        }
+
+        CheckStuck();
     }
 
     private void FixedUpdate()
     {
-        if (rb == null)
+        if (rb == null || currentHP <= 0f)
             return;
+
+        // Knockback temporarily takes priority over AI movement.
+        if (isKnockedBack)
+        {
+            rb.MovePosition(
+                rb.position +
+                knockbackVelocity * Time.fixedDeltaTime
+            );
+
+            knockbackVelocity = Vector2.Lerp(
+                knockbackVelocity,
+                Vector2.zero,
+                knockbackDamping * Time.fixedDeltaTime
+            );
+
+            return;
+        }
 
         if (isFleeing && player != null)
         {
@@ -151,9 +191,7 @@ public class PassiveMobController : MonoBehaviour
         UpdateHealthBar();
 
         if (currentHP <= 0f)
-        {
             Die();
-        }
     }
 
     private void UpdateHealthBar()
@@ -170,18 +208,21 @@ public class PassiveMobController : MonoBehaviour
 
     public void ReactToAttack(Transform attacker)
     {
-        if (attacker == null)
+        if (attacker == null || currentHP <= 0f)
             return;
 
         player = attacker;
+
         isFleeing = true;
         fleeTimer = fleeDuration;
 
         isWaiting = false;
         hasWanderTarget = false;
+
+        avoidanceTimer = 0f;
+        stuckTimer = 0f;
     }
 
-    
     public void ApplyKnockback(Vector2 direction, float strength)
     {
         if (currentHP <= 0f)
@@ -195,8 +236,8 @@ public class PassiveMobController : MonoBehaviour
         isKnockedBack = true;
     }
 
-    // DEATH
-    
+    // DEATH AND DROPS
+
     private void Die()
     {
         DropItems();
@@ -231,10 +272,7 @@ public class PassiveMobController : MonoBehaviour
             int minAmount = Mathf.Max(1, drop.minAmount);
             int maxAmount = Mathf.Max(minAmount, drop.maxAmount);
 
-            int amount = Random.Range(
-                minAmount,
-                maxAmount + 1
-            );
+            int amount = Random.Range(minAmount, maxAmount + 1);
 
             Item item = drop.itemPrefab.GetComponent<Item>();
 
@@ -244,9 +282,7 @@ public class PassiveMobController : MonoBehaviour
             GameObject droppedItem = item.CloneItem(amount);
 
             if (droppedItem != null)
-            {
                 droppedItem.transform.position = transform.position;
-            }
         }
     }
 
@@ -257,14 +293,21 @@ public class PassiveMobController : MonoBehaviour
         isWaiting = true;
         hasWanderTarget = false;
 
+        stuckTimer = 0f;
+        stuckCheckTimer = 0f;
+        avoidanceTimer = 0f;
+
         wanderWaitTimer = Random.Range(
-            minWanderWait,
-            maxWanderWait
+            Mathf.Max(0f, minWanderWait),
+            Mathf.Max(minWanderWait, maxWanderWait)
         );
+
+        rb.linearVelocity = Vector2.zero;
     }
 
     private void ChooseWanderTarget()
     {
+        // Choose a target once, then keep it until arrival or recovery.
         Vector2 randomOffset =
             Random.insideUnitCircle * wanderRadius;
 
@@ -272,6 +315,11 @@ public class PassiveMobController : MonoBehaviour
 
         isWaiting = false;
         hasWanderTarget = true;
+
+        stuckTimer = 0f;
+        stuckCheckTimer = 0f;
+        lastStuckCheckPosition = rb.position;
+        avoidanceTimer = 0f;
     }
 
     private void CheckWanderArrival()
@@ -279,38 +327,62 @@ public class PassiveMobController : MonoBehaviour
         if (!hasWanderTarget)
             return;
 
-        if (Vector2.Distance(
-            rb.position,
-            wanderTarget
-        ) <= destinationThreshold)
+        if (Vector2.Distance(rb.position, wanderTarget)
+            <= destinationThreshold)
         {
             StartWandering();
         }
     }
 
+    private void CheckStuck()
+    {
+        stuckCheckTimer += Time.deltaTime;
+
+        if (stuckCheckTimer < stuckCheckInterval)
+            return;
+
+        float movedDistance = Vector2.Distance(
+            rb.position,
+            lastStuckCheckPosition
+        );
+
+        if (movedDistance < minimumProgressDistance)
+            stuckTimer += stuckCheckTimer;
+        else
+            stuckTimer = 0f;
+
+        lastStuckCheckPosition = rb.position;
+        stuckCheckTimer = 0f;
+
+        if (stuckTimer >= maxStuckTime)
+        {
+            // Abandon the unreachable target and try another.
+            ChooseWanderTarget();
+        }
+    }
+
     // FLEEING
-    
+
     private void FleeFromPlayer()
     {
         Vector2 direction =
             rb.position - (Vector2)player.position;
 
         if (direction.sqrMagnitude <= 0.001f)
-            direction = Random.insideUnitCircle.normalized;
+            direction = Vector2.right;
 
-        MoveTowards(
-            rb.position + direction.normalized * 2f,
-            fleeSpeed
-        );
+        Vector2 target = rb.position + direction.normalized * 2f;
+
+        MoveTowards(target, fleeSpeed);
     }
 
-    // MOVEMENT AND OBSTACLES
+    // MOVEMENT AND OBSTACLE AVOIDANCE
 
     private void MoveTowards(Vector2 target, float speed)
     {
-        Vector2 direction = target - rb.position;
+        Vector2 toTarget = target - rb.position;
 
-        if (direction.sqrMagnitude <=
+        if (toTarget.sqrMagnitude <=
             destinationThreshold * destinationThreshold)
         {
             rb.linearVelocity = Vector2.zero;
@@ -321,61 +393,103 @@ public class PassiveMobController : MonoBehaviour
             return;
         }
 
-        direction.Normalize();
-        direction = GetMovementDirection(direction);
+        Vector2 desiredDirection = toTarget.normalized;
+        Vector2 direction = GetMovementDirection(desiredDirection);
 
-        Vector2 movement =
-            direction * speed * Time.fixedDeltaTime;
+        if (direction.sqrMagnitude <= 0.001f)
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
 
-        rb.MovePosition(rb.position + movement);
+        rb.MovePosition(
+            rb.position + direction * speed * Time.fixedDeltaTime
+        );
 
         if (!isFleeing)
             CheckWanderArrival();
     }
 
-    private Vector2 GetMovementDirection(Vector2 direction)
+    private Vector2 GetMovementDirection(Vector2 desiredDirection)
     {
-        RaycastHit2D obstacle = Physics2D.Raycast(
-            rb.position,
-            direction,
-            obstacleCheckDistance,
-            obstacleLayer
-        );
+        // Keep the chosen avoidance direction briefly to prevent
+        // left-right switching on consecutive physics frames.
+        if (avoidanceTimer > 0f)
+        {
+            avoidanceTimer -= Time.fixedDeltaTime;
 
-        if (obstacle.collider == null)
-            return direction;
+            if (!IsPathBlocked(avoidanceDirection))
+                return desiredDirection;
+
+            return avoidanceDirection;
+        }
+
+        if (!IsPathBlocked(desiredDirection))
+            return desiredDirection;
 
         Vector2 leftDirection = new Vector2(
-            -direction.y,
-            direction.x
-        ).normalized;
-
-        RaycastHit2D leftCheck = Physics2D.Raycast(
-            rb.position,
-            leftDirection,
-            obstacleCheckDistance,
-            obstacleLayer
+            -desiredDirection.y,
+            desiredDirection.x
         );
-
-        if (leftCheck.collider == null)
-            return leftDirection;
 
         Vector2 rightDirection = new Vector2(
-            direction.y,
-            -direction.x
-        ).normalized;
+            desiredDirection.y,
+            -desiredDirection.x
+        );
 
-        RaycastHit2D rightCheck = Physics2D.Raycast(
+        bool leftBlocked = IsPathBlocked(leftDirection);
+        bool rightBlocked = IsPathBlocked(rightDirection);
+
+        if (!leftBlocked && !rightBlocked)
+        {
+            // Prefer the side that points more toward the target.
+            float leftScore = Vector2.Dot(
+                leftDirection,
+                desiredDirection
+            );
+
+            float rightScore = Vector2.Dot(
+                rightDirection,
+                desiredDirection
+            );
+
+            avoidanceDirection = leftScore >= rightScore
+                ? leftDirection
+                : rightDirection;
+        }
+        else if (!leftBlocked)
+        {
+            avoidanceDirection = leftDirection;
+        }
+        else if (!rightBlocked)
+        {
+            avoidanceDirection = rightDirection;
+        }
+        else
+        {
+            // Both sides are blocked. Stop rather than pushing
+            // into a wall; stuck recovery will select a new target.
+            return Vector2.zero;
+        }
+
+        avoidanceTimer = Mathf.Max(0f, avoidanceDuration);
+
+        return avoidanceDirection;
+    }
+
+    private bool IsPathBlocked(Vector2 direction)
+    {
+        if (direction.sqrMagnitude <= 0.001f)
+            return true;
+
+        RaycastHit2D hit = Physics2D.Raycast(
             rb.position,
-            rightDirection,
+            direction.normalized,
             obstacleCheckDistance,
             obstacleLayer
         );
 
-        if (rightCheck.collider == null)
-            return rightDirection;
-
-        return Vector2.zero;
+        return hit.collider != null;
     }
 
     // GIZMOS
@@ -390,5 +504,12 @@ public class PassiveMobController : MonoBehaviour
                 : transform.position,
             wanderRadius
         );
+
+        if (Application.isPlaying && hasWanderTarget)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawLine(transform.position, wanderTarget);
+            Gizmos.DrawWireSphere(wanderTarget, destinationThreshold);
+        }
     }
 }

@@ -50,19 +50,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1333765268971033049, guid: 0764abf17d011c04fa83db308974a875, type: 3}
       propertyPath: m_Size.x
-      value: 0.62838745
+      value: 0.5300494
       objectReference: {fileID: 0}
     - target: {fileID: 1333765268971033049, guid: 0764abf17d011c04fa83db308974a875, type: 3}
       propertyPath: m_Size.y
-      value: 0.3683526
+      value: 0.5031128
       objectReference: {fileID: 0}
     - target: {fileID: 1333765268971033049, guid: 0764abf17d011c04fa83db308974a875, type: 3}
       propertyPath: m_Offset.x
-      value: -0.0042373985
+      value: -0.002416402
       objectReference: {fileID: 0}
     - target: {fileID: 1333765268971033049, guid: 0764abf17d011c04fa83db308974a875, type: 3}
       propertyPath: m_Offset.y
-      value: 0.21984336
+      value: 0.34731907
       objectReference: {fileID: 0}
     - target: {fileID: 1333765268971033049, guid: 0764abf17d011c04fa83db308974a875, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
@@ -78,7 +78,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3531262199104402368, guid: 0764abf17d011c04fa83db308974a875, type: 3}
       propertyPath: m_Name
-      value: Structure (3) Variant
+      value: Structure (3)
       objectReference: {fileID: 0}
     - target: {fileID: 6626618192175070575, guid: 0764abf17d011c04fa83db308974a875, type: 3}
       propertyPath: m_Sprite
@@ -86,19 +86,19 @@ PrefabInstance:
       objectReference: {fileID: -6312900239589122066, guid: 5eddddde04bb6fb4eaa0f6a0b811827a, type: 3}
     - target: {fileID: 6873484558159432783, guid: 0764abf17d011c04fa83db308974a875, type: 3}
       propertyPath: m_Size.x
-      value: 0.5850653
+      value: 0.5850655
       objectReference: {fileID: 0}
     - target: {fileID: 6873484558159432783, guid: 0764abf17d011c04fa83db308974a875, type: 3}
       propertyPath: m_Size.y
-      value: 0.20123565
+      value: 0.14660339
       objectReference: {fileID: 0}
     - target: {fileID: 6873484558159432783, guid: 0764abf17d011c04fa83db308974a875, type: 3}
       propertyPath: m_Offset.x
-      value: -0.013882659
+      value: -0.013882657
       objectReference: {fileID: 0}
     - target: {fileID: 6873484558159432783, guid: 0764abf17d011c04fa83db308974a875, type: 3}
       propertyPath: m_Offset.y
-      value: 0.22095037
+      value: 0.2537299
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

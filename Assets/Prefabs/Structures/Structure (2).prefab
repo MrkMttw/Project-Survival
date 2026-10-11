@@ -50,19 +50,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1333765268971033049, guid: 0764abf17d011c04fa83db308974a875, type: 3}
       propertyPath: m_Size.x
-      value: 1.0076821
+      value: 0.90103996
       objectReference: {fileID: 0}
     - target: {fileID: 1333765268971033049, guid: 0764abf17d011c04fa83db308974a875, type: 3}
       propertyPath: m_Size.y
-      value: 0.50804657
+      value: 1.06635
       objectReference: {fileID: 0}
     - target: {fileID: 1333765268971033049, guid: 0764abf17d011c04fa83db308974a875, type: 3}
       propertyPath: m_Offset.x
-      value: -0.03440082
+      value: -0.02812761
       objectReference: {fileID: 0}
     - target: {fileID: 1333765268971033049, guid: 0764abf17d011c04fa83db308974a875, type: 3}
       propertyPath: m_Offset.y
-      value: 0.25402328
+      value: 0.56140375
       objectReference: {fileID: 0}
     - target: {fileID: 1333765268971033049, guid: 0764abf17d011c04fa83db308974a875, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
@@ -78,7 +78,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3531262199104402368, guid: 0764abf17d011c04fa83db308974a875, type: 3}
       propertyPath: m_Name
-      value: Structure (2) Variant
+      value: Structure (2)
       objectReference: {fileID: 0}
     - target: {fileID: 6626618192175070575, guid: 0764abf17d011c04fa83db308974a875, type: 3}
       propertyPath: m_Sprite
@@ -86,19 +86,19 @@ PrefabInstance:
       objectReference: {fileID: 903050403527126770, guid: 2bb316a3c54b58346a0949ddc4a74a47, type: 3}
     - target: {fileID: 6873484558159432783, guid: 0764abf17d011c04fa83db308974a875, type: 3}
       propertyPath: m_Size.x
-      value: 0.8439146
+      value: 0.72159135
       objectReference: {fileID: 0}
     - target: {fileID: 6873484558159432783, guid: 0764abf17d011c04fa83db308974a875, type: 3}
       propertyPath: m_Size.y
-      value: 0.4994628
+      value: 0.4022305
       objectReference: {fileID: 0}
     - target: {fileID: 6873484558159432783, guid: 0764abf17d011c04fa83db308974a875, type: 3}
       propertyPath: m_Offset.x
-      value: -0.021260986
+      value: 0.021082414
       objectReference: {fileID: 0}
     - target: {fileID: 6873484558159432783, guid: 0764abf17d011c04fa83db308974a875, type: 3}
       propertyPath: m_Offset.y
-      value: 0.3419895
+      value: 0.29337323
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

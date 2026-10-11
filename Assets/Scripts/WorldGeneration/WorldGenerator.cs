@@ -26,6 +26,9 @@ public class WorldGenerator : MonoBehaviour
     [Header("Spawn Data")]
     public WorldSpawnData[] spawnData;
 
+    [Header("Structure Spawning")]
+    public StructureSpawner structureSpawner;
+
     private Dictionary<Vector2Int, HashSet<string>> destroyedObjects =
         new Dictionary<Vector2Int, HashSet<string>>();
 
@@ -48,6 +51,15 @@ public class WorldGenerator : MonoBehaviour
 
     private Dictionary<Vector2Int, Dictionary<string, BuildingSaveData>> savedBuildings =
         new Dictionary<Vector2Int, Dictionary<string, BuildingSaveData>>();
+
+    private struct StructureClearArea
+    {
+        public Vector3 center;
+        public float radius;
+    }
+
+    private List<StructureClearArea> structureClearAreas =
+        new List<StructureClearArea>();
 
     private void Start()
     {
@@ -163,6 +175,11 @@ public class WorldGenerator : MonoBehaviour
             UnloadChunk(chunkCoordinate);
             UnloadBuildingChunk(chunkCoordinate);
         }
+
+        if (structureSpawner != null)
+        {
+            structureSpawner.UpdateStructureLoading(currentPlayerChunk);
+        }
     }
 
     private void LoadChunk(Vector2Int chunkCoordinate)
@@ -209,6 +226,11 @@ public class WorldGenerator : MonoBehaviour
                 chunkCoordinate,
                 chunkObject.transform
             );
+        }
+
+        if (structureSpawner != null)
+        {
+            structureSpawner.ProcessChunk(chunkCoordinate);
         }
     }
 
@@ -301,6 +323,12 @@ public class WorldGenerator : MonoBehaviour
                     "_" +
                     i;
 
+                if (IsInsideStructureClearArea(spawnPosition))
+                {
+                    MarkObjectIDDestroyed(chunkCoordinate, objectID);
+                    continue;
+                }
+
                 if (IsObjectDestroyed(
                     chunkCoordinate,
                     objectID))
@@ -353,6 +381,12 @@ public class WorldGenerator : MonoBehaviour
         {
             string objectID = savedObject.Key;
             Vector3 spawnPosition = savedObject.Value;
+
+            if (IsInsideStructureClearArea(spawnPosition))
+            {
+                MarkObjectIDDestroyed(chunkCoordinate, objectID);
+                continue;
+            }
 
             if (IsObjectDestroyed(
                 chunkCoordinate,
@@ -472,6 +506,11 @@ public class WorldGenerator : MonoBehaviour
         {
             return;
         }
+        
+        if (structureSpawner != null)
+        {
+            structureSpawner.UnloadChunk(chunkCoordinate);
+        }
 
         Destroy(chunkObject);
 
@@ -487,6 +526,13 @@ public class WorldGenerator : MonoBehaviour
             out GameObject chunkObject))
         {
             return;
+        }
+
+        // Keep NPCs alive when their building chunk unloads
+        foreach (AssistantNPCBehavior npc in
+                chunkObject.GetComponentsInChildren<AssistantNPCBehavior>())
+        {
+            npc.transform.SetParent(overWorld);
         }
 
         Destroy(chunkObject);
@@ -813,7 +859,7 @@ public class WorldGenerator : MonoBehaviour
                     chunkSizeVector
                 );
 
-#if UNITY_EDITOR
+    #if UNITY_EDITOR
                 UnityEditor.Handles.Label(
                     chunkCenter,
                     "Chunk " +
@@ -821,8 +867,88 @@ public class WorldGenerator : MonoBehaviour
                     ", " +
                     chunkCoordinate.y
                 );
-#endif
+    #endif
             }
         }
+    }
+    
+    public void RegisterStructureClearArea(Vector3 center, float radius)
+    {
+        if (radius <= 0f)
+            return;
+
+        // Avoid registering the same area more than once.
+        foreach (StructureClearArea area in structureClearAreas)
+        {
+            if (area.center == center && area.radius == radius)
+                return;
+        }
+
+        structureClearAreas.Add(new StructureClearArea
+        {
+            center = center,
+            radius = radius
+        });
+
+        // Mark previously generated natural objects in this area as destroyed.
+        foreach (var chunk in persistentObjectPositions)
+        {
+            foreach (var obj in chunk.Value)
+            {
+                if (Vector2.Distance(center, obj.Value) <= radius)
+                {
+                    MarkObjectIDDestroyed(chunk.Key, obj.Key);
+                }
+            }
+        }
+
+        // Remove affected objects that are currently loaded.
+        foreach (GameObject chunkObject in loadedChunks.Values)
+        {
+            if (chunkObject == null)
+                continue;
+
+            WorldObjectIdentity[] identities =
+                chunkObject.GetComponentsInChildren<WorldObjectIdentity>();
+
+            foreach (WorldObjectIdentity identity in identities)
+            {
+                if (identity == null)
+                    continue;
+
+                string objectID =
+                    identity.spawnDataIndex + "_" + identity.objectIndex;
+
+                if (IsObjectDestroyed(identity.chunkCoordinate, objectID))
+                {
+                    Destroy(identity.gameObject);
+                }
+            }
+        }
+    }
+
+    private void MarkObjectIDDestroyed(
+        Vector2Int chunkCoordinate,
+        string objectID)
+    {
+        if (!destroyedObjects.TryGetValue(
+            chunkCoordinate, out HashSet<string> destroyed))
+        {
+            destroyed = new HashSet<string>();
+            destroyedObjects.Add(chunkCoordinate, destroyed);
+        }
+
+        destroyed.Add(objectID);
+    }
+
+    private bool IsInsideStructureClearArea(Vector3 position)
+    {
+        foreach (StructureClearArea area in structureClearAreas)
+        {
+            if (Vector2.Distance(area.center, position) <= area.radius)
+                return true;
+        }
+
+        return false;
     }
 }
