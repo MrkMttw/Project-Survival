@@ -8,6 +8,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+<<<<<<< Updated upstream
+=======
+    - target: {fileID: -5976908289423491119, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: m_SpriteLibraryAsset
+      value: 
+      objectReference: {fileID: 7108339969198208228, guid: 272117a73aa26944fb200b08b78e43b0, type: 3}
+    - target: {fileID: 66469021256868083, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: rb
+      value: 
+      objectReference: {fileID: 100171829767763962}
+    - target: {fileID: 66469021256868083, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: movementThreshold
+      value: 0.01
+      objectReference: {fileID: 0}
+>>>>>>> Stashed changes
     - target: {fileID: 1331486460801449365, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Color.g
       value: 0.5647059
@@ -56,6 +71,13 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 310177306, guid: 383171f894f041b4aa49e3030b2c5b44, type: 3}
+<<<<<<< Updated upstream
+=======
+    - target: {fileID: 4417746939183367772, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+>>>>>>> Stashed changes
     - target: {fileID: 4440019151895969526, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Color.g
       value: 0.5647059
@@ -112,8 +134,23 @@ PrefabInstance:
       propertyPath: mobDropPreset
       value: 
       objectReference: {fileID: 11400000, guid: 9b6605575b7992349b7d4615baa4db26, type: 2}
-    m_RemovedComponents: []
+    - target: {fileID: 9016139925480047054, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: m_SpriteHash
+      value: 647024314
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 66469021256868083, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+    - {fileID: 2067556399905786984, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+    - {fileID: 4375312317352634398, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+<<<<<<< Updated upstream
+=======
+--- !u!50 &100171829767763962 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 8220670279602244928, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+  m_PrefabInstance: {fileID: 8319927177676290746}
+  m_PrefabAsset: {fileID: 0}
+>>>>>>> Stashed changes

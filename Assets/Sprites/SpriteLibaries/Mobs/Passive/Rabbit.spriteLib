@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e6fedc2472449cead18ef23b5cb30d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.2D.Animation.Runtime::UnityEngine.U2D.Animation.SpriteLibrarySourceAsset
+  m_Library:
+  - m_Name: Sprite
+    m_Hash: 850496168
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: sprite_sheet_0
+      m_Hash: 402009438
+      m_Sprite: {fileID: 1319323634, guid: a7abff69e6c2f864abfba0989b2b5902, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1319323634, guid: a7abff69e6c2f864abfba0989b2b5902, type: 3}
+    - m_Name: sprite_sheet_1
+      m_Hash: 552672712
+      m_Sprite: {fileID: -1456448212, guid: a7abff69e6c2f864abfba0989b2b5902, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1456448212, guid: a7abff69e6c2f864abfba0989b2b5902, type: 3}
+    - m_Name: sprite_sheet_2
+      m_Hash: 972573810
+      m_Sprite: {fileID: 1750029764, guid: a7abff69e6c2f864abfba0989b2b5902, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1750029764, guid: a7abff69e6c2f864abfba0989b2b5902, type: 3}
+    - m_Name: sprite_sheet_3
+      m_Hash: 251624676
+      m_Sprite: {fileID: 2135580029, guid: a7abff69e6c2f864abfba0989b2b5902, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 2135580029, guid: a7abff69e6c2f864abfba0989b2b5902, type: 3}
+    - m_Name: sprite_sheet_4
+      m_Hash: 278653255
+      m_Sprite: {fileID: -1494473879, guid: a7abff69e6c2f864abfba0989b2b5902, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1494473879, guid: a7abff69e6c2f864abfba0989b2b5902, type: 3}
+    - m_Name: sprite_sheet_5
+      m_Hash: 664590801
+      m_Sprite: {fileID: -599851471, guid: a7abff69e6c2f864abfba0989b2b5902, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -599851471, guid: a7abff69e6c2f864abfba0989b2b5902, type: 3}
+    - m_Name: sprite_sheet_6
+      m_Hash: 1049987179
+      m_Sprite: {fileID: -1508170604, guid: a7abff69e6c2f864abfba0989b2b5902, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1508170604, guid: a7abff69e6c2f864abfba0989b2b5902, type: 3}
+    - m_Name: sprite_sheet_7
+      m_Hash: 160610557
+      m_Sprite: {fileID: -884807923, guid: a7abff69e6c2f864abfba0989b2b5902, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -884807923, guid: a7abff69e6c2f864abfba0989b2b5902, type: 3}
+    - m_Name: sprite_sheet_8
+      m_Hash: 422421868
+      m_Sprite: {fileID: -948352226, guid: a7abff69e6c2f864abfba0989b2b5902, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -948352226, guid: a7abff69e6c2f864abfba0989b2b5902, type: 3}
+    - m_Name: sprite_sheet_9
+      m_Hash: 774542842
+      m_Sprite: {fileID: -1142768259, guid: a7abff69e6c2f864abfba0989b2b5902, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1142768259, guid: a7abff69e6c2f864abfba0989b2b5902, type: 3}
+    - m_Name: sprite_sheet_10
+      m_Hash: 558130366
+      m_Sprite: {fileID: 1384230707, guid: a7abff69e6c2f864abfba0989b2b5902, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1384230707, guid: a7abff69e6c2f864abfba0989b2b5902, type: 3}
+    - m_Name: sprite_sheet_11
+      m_Hash: 373511208
+      m_Sprite: {fileID: 218335570, guid: a7abff69e6c2f864abfba0989b2b5902, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 218335570, guid: a7abff69e6c2f864abfba0989b2b5902, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 12
+  m_PrimaryLibraryGUID: 
+  m_ModificationHash: 639273025471680454
+  m_Version: 1
