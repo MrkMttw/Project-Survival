@@ -11,7 +11,19 @@ PrefabInstance:
     - target: {fileID: 548735867010819175, guid: d28dfb6f95485be47821a9d700461737, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 1039436432919645745, guid: 15d12b4b53e090545bf1e3da2d92c2cc, type: 3}
+      objectReference: {fileID: 503832800215225215, guid: ec49544c21d39db459747d13b7f17d5f, type: 3}
+    - target: {fileID: 1727728557186470431, guid: d28dfb6f95485be47821a9d700461737, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1727728557186470431, guid: d28dfb6f95485be47821a9d700461737, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1727728557186470431, guid: d28dfb6f95485be47821a9d700461737, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1727728557186470431, guid: d28dfb6f95485be47821a9d700461737, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.82
@@ -52,36 +64,164 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1727728557186470431, guid: d28dfb6f95485be47821a9d700461737, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1745125672415544495, guid: d28dfb6f95485be47821a9d700461737, type: 3}
       propertyPath: m_LocalScale.x
-      value: 4
+      value: 0.516432
       objectReference: {fileID: 0}
     - target: {fileID: 1745125672415544495, guid: d28dfb6f95485be47821a9d700461737, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2
+      value: 0.22384918
+      objectReference: {fileID: 0}
+    - target: {fileID: 1745125672415544495, guid: d28dfb6f95485be47821a9d700461737, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.021
       objectReference: {fileID: 0}
     - target: {fileID: 1745125672415544495, guid: d28dfb6f95485be47821a9d700461737, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.4
+      value: -0.039
       objectReference: {fileID: 0}
     - target: {fileID: 6589045354479237517, guid: d28dfb6f95485be47821a9d700461737, type: 3}
       propertyPath: m_Size.x
-      value: 1.6
+      value: 0.1616919
       objectReference: {fileID: 0}
     - target: {fileID: 6589045354479237517, guid: d28dfb6f95485be47821a9d700461737, type: 3}
       propertyPath: m_Size.y
-      value: 0.4
+      value: 0.060946353
+      objectReference: {fileID: 0}
+    - target: {fileID: 6589045354479237517, guid: d28dfb6f95485be47821a9d700461737, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.001784816
       objectReference: {fileID: 0}
     - target: {fileID: 6589045354479237517, guid: d28dfb6f95485be47821a9d700461737, type: 3}
       propertyPath: m_Offset.y
-      value: 0.65
+      value: 0.07003587
       objectReference: {fileID: 0}
     - target: {fileID: 6929925488835184841, guid: d28dfb6f95485be47821a9d700461737, type: 3}
       propertyPath: m_Name
-      value: Stone7
+      value: Stone (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8069661852818514870, guid: d28dfb6f95485be47821a9d700461737, type: 3}
+      propertyPath: m_Size.x
+      value: 0.28424615
+      objectReference: {fileID: 0}
+    - target: {fileID: 8069661852818514870, guid: d28dfb6f95485be47821a9d700461737, type: 3}
+      propertyPath: m_Size.y
+      value: 0.27839178
+      objectReference: {fileID: 0}
+    - target: {fileID: 8069661852818514870, guid: d28dfb6f95485be47821a9d700461737, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.011032581
+      objectReference: {fileID: 0}
+    - target: {fileID: 8069661852818514870, guid: d28dfb6f95485be47821a9d700461737, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.13919589
+      objectReference: {fileID: 0}
+    - target: {fileID: 8069661852818514870, guid: d28dfb6f95485be47821a9d700461737, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 8069661852818514870, guid: d28dfb6f95485be47821a9d700461737, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.24
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6929925488835184841, guid: d28dfb6f95485be47821a9d700461737, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3376192324421085115}
   m_SourcePrefab: {fileID: 100100000, guid: d28dfb6f95485be47821a9d700461737, type: 3}
+--- !u!1 &8446012626933292059 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6929925488835184841, guid: d28dfb6f95485be47821a9d700461737, type: 3}
+  m_PrefabInstance: {fileID: 1520608329949304018}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3376192324421085115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8446012626933292059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.Light2D
+  m_ComponentVersion: 4
+  m_LightType: 2
+  m_BlendStyleIndex: 0
+  m_Light2DProvider:
+    rid: -2
+  m_SelectionSources:
+    rid: 100976099701031235
+  m_FalloffIntensity: 0.5
+  m_Color: {r: 0.854902, g: 0.4392157, b: 0.8392158, a: 1}
+  m_Intensity: 2.5
+  m_LightVolumeIntensity: 1
+  m_LightVolumeEnabled: 0
+  m_ApplyToSortingLayers: 00000000c5fafca8250f27c387f6661cab5495df
+  m_LightCookieSprite: {fileID: 503832800215225215, guid: ec49544c21d39db459747d13b7f17d5f, type: 3}
+  m_DeprecatedPointLightCookieSprite: {fileID: 0}
+  m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
+  m_OverlapOperation: 0
+  m_NormalMapDistance: 3
+  m_NormalMapQuality: 2
+  m_UseNormalMap: 0
+  m_ShadowsEnabled: 1
+  m_ShadowIntensity: 0.75
+  m_ShadowSoftness: 0.3
+  m_ShadowSoftnessFalloffIntensity: 0.5
+  m_ShadowVolumeIntensityEnabled: 0
+  m_ShadowVolumeIntensity: 0.75
+  m_LocalBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 0
+  m_PointLightOuterRadius: 1
+  m_ShapeLightParametricSides: 5
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 1
+  m_ShapeLightFalloffSize: 0.5
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: -0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: 0.5, z: 0}
+  - {x: -0.5, y: 0.5, z: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 100976099701031235
+      type: {class: Light2DProviderSources, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
+      data:
+        m_SelectedHashCode: 2
+        m_SelectedSource:
+          rid: 100976099701031239
+        m_Provider2DCache:
+          rid: 100976099701031237
+    - rid: 100976099701031237
+      type: {class: 'Provider2DCache`1[[UnityEngine.Rendering.Universal.Light2DProvider, Unity.RenderPipelines.Universal.2D.Runtime]]', ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
+      data:
+        m_Cache: []
+    - rid: 100976099701031239
+      type: {class: Light2DSource_BuiltIn, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
+      data:
+        m_HashCode: 4
+        m_SourceType: 2
+        m_MenuPriority: 0
+        m_MenuName:
+          m_Text: Sprite
+          m_Image: {fileID: 2800000, guid: 8839c54710da3374f994e12f39b6d65f, type: 3}
+          m_Tooltip: 
+          m_TextWithWhitespace: "Sprite\u200B"
