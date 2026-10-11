@@ -176,7 +176,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -543861589
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 1850290210, guid: 798e8267a76cd9a46964d3224cc3f87f, type: 3}
@@ -258,11 +258,11 @@ MonoBehaviour:
     minAmount: 2
     maxAmount: 5
   - item: {fileID: 7142405018704837158, guid: 2dc0d9bab18845143bb205a70e233836, type: 3}
-    dropChance: 35
+    dropChance: 40
     minAmount: 2
     maxAmount: 3
   - item: {fileID: 1092321477510907992, guid: f1e53d1a00a148c478d2daa651390a64, type: 3}
-    dropChance: 35
+    dropChance: 40
     minAmount: 1
     maxAmount: 2
   maxHealth: 4

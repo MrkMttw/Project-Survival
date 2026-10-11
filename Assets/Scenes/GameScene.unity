@@ -631374,7 +631374,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameClock
   realSecondsPerGameHour: 15
-  startingHour: 6
+  startingHour: 21
   startingMinute: 0
   startingDay: 1
   use12HourFormat: 1
@@ -631713,14 +631713,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -278010210157008157, guid: 3933af56d71b7f6418567f6569055cd9, type: 3}
+  m_Sprite: {fileID: -4917625390145700553, guid: 32b39aa43a9b19f4dac1685ac0421cd0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -632020,7 +632020,7 @@ MonoBehaviour:
   naturalObjectsParent: {fileID: 1530518700}
   buildingParent: {fileID: 832057618}
   itemDictionary: {fileID: 1618858647}
-  chunkSize: 20
+  chunkSize: 12
   loadDistance: 1
   worldSeed: 25
   worldData:
@@ -634226,6 +634226,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 257fc86cc5765824f8baae17a226f6c6, type: 2}
     - {fileID: 11400000, guid: be2200b0ee285d04b946cd20bbe6484e, type: 2}
     - {fileID: 11400000, guid: d8ae521a25d3a034daa5d73c32df654f, type: 2}
+    - {fileID: 11400000, guid: 6075175bc1d459a49830089374cf1759, type: 2}
+    - {fileID: 11400000, guid: e7f874ed6469dae4f9d0ae1196410ecb, type: 2}
     - {fileID: 11400000, guid: 47df74f5fb71ea2428c23f1b049cdca4, type: 2}
     - {fileID: 11400000, guid: 06e066b9fa75f4649ae6c271802f8b22, type: 2}
     - {fileID: 11400000, guid: 80646310240a5d44bb750b5fabd739a7, type: 2}

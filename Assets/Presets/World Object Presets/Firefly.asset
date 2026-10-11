@@ -15,6 +15,6 @@ MonoBehaviour:
   prefabs:
   - {fileID: 8444587440416531487, guid: 18ca512855ee0ee4381fd01074c451cd, type: 3}
   minSpawnCount: 5
-  maxSpawnCount: 10
-  minSpacing: 2
+  maxSpawnCount: 5
+  minSpacing: 3
   ignoreSpacingValidation: 1

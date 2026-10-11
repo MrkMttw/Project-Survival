@@ -30,7 +30,7 @@ MonoBehaviour:
   - {fileID: 1141796770898533115, guid: 786912f906680a348af4c955ba3dfb63, type: 3}
   - {fileID: 5466559573900008334, guid: a52db77208f7694478581354ae91160f, type: 3}
   - {fileID: 3158802419409254804, guid: 47ef5295b7e0a90488918c09a1018e3b, type: 3}
-  minSpawnCount: 4
+  minSpawnCount: 5
   maxSpawnCount: 6
   minSpacing: 5
   ignoreSpacingValidation: 0

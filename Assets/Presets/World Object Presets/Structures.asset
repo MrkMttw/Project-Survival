@@ -20,6 +20,6 @@ MonoBehaviour:
   - {fileID: 992150963265810676, guid: 6e314a4d1229bae43be56aa923693fd3, type: 3}
   - {fileID: 3277804311332942509, guid: 409265db6b9878241a4e5daab941652e, type: 3}
   minSpawnCount: 2
-  maxSpawnCount: 4
-  minSpacing: 10
+  maxSpawnCount: 3
+  minSpacing: 5
   ignoreSpacingValidation: 0
