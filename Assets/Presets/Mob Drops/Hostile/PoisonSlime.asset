@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5073bb094bde2f748bd9cefc5d024e67, type: 3}
+  m_Name: PoisonSlime
+  m_EditorClassIdentifier: Assembly-CSharp::MobDropData
+  drops:
+  - itemPrefab: {fileID: 43766035459332259, guid: 9dfe58a1e151fc14f97e968191933785, type: 3}
+    minAmount: 1
+    maxAmount: 1
+    dropChance: 100
+  - itemPrefab: {fileID: 9159497727761197806, guid: 6d729944a2fb84d4dbe77959148601e1, type: 3}
+    minAmount: 1
+    maxAmount: 1
+    dropChance: 100

@@ -489,6 +489,13 @@ public class WorldGenerator : MonoBehaviour
             return;
         }
 
+        // Keep NPCs alive when their building chunk unloads
+        foreach (AssistantNPCBehavior npc in
+                chunkObject.GetComponentsInChildren<AssistantNPCBehavior>())
+        {
+            npc.transform.SetParent(overWorld);
+        }
+
         Destroy(chunkObject);
 
         loadedBuildingChunks.Remove(
