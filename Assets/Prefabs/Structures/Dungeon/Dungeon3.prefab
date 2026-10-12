@@ -628,8 +628,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.33047265, y: -0.20706835}
-  m_Size: {x: 0.43328682, y: 0.43940362}
+  m_Offset: {x: -0.33047265, y: 0.07097602}
+  m_Size: {x: 0.43328682, y: 0.46164706}
   m_Direction: 0
 --- !u!1 &876631798890408867
 GameObject:
@@ -1919,8 +1919,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.3235873, y: -0.18031135}
-  m_Size: {x: 0.39718136, y: 0.4084213}
+  m_Offset: {x: 0.3235873, y: 0.075489394}
+  m_Size: {x: 0.39718136, y: 0.40524417}
   m_Direction: 0
 --- !u!1 &3000902834009249056
 GameObject:
@@ -4132,11 +4132,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8468087332517089029, guid: cfe27c9917336bf4092dd9ca245c4e5d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.7514492
+      value: -1.81
       objectReference: {fileID: 0}
     - target: {fileID: 8468087332517089029, guid: cfe27c9917336bf4092dd9ca245c4e5d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -9.17
+      value: -10.27
       objectReference: {fileID: 0}
     - target: {fileID: 8468087332517089029, guid: cfe27c9917336bf4092dd9ca245c4e5d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4170,7 +4170,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2830799976439428707, guid: cfe27c9917336bf4092dd9ca245c4e5d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8468087332517089029, guid: cfe27c9917336bf4092dd9ca245c4e5d, type: 3}

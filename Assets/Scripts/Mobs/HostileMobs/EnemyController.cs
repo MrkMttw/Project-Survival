@@ -238,9 +238,17 @@ public class EnemyController : MonoBehaviour
         rb.MovePosition(rb.position + movement);
     }
 
-
     private Vector2 GetMovementDirection(Vector2 direction)
     {
+        // Continue using the current avoidance direction
+        // while its timer is active.
+        if (avoidanceTimer > 0f)
+        {
+            avoidanceTimer -= Time.fixedDeltaTime;
+            return avoidanceDirection;
+        }
+
+        // Check for an obstacle in the movement direction.
         RaycastHit2D obstacle = Physics2D.Raycast(
             rb.position,
             direction,
@@ -248,14 +256,22 @@ public class EnemyController : MonoBehaviour
             obstacleLayer
         );
 
-        // No obstacle.
+        // No obstacle: move directly toward the player.
         if (obstacle.collider == null)
+        {
+            avoidanceDirection = direction;
             return direction;
+        }
 
-        // Try left.
+        // Calculate left and right directions.
         Vector2 leftDirection = new Vector2(
             -direction.y,
             direction.x
+        ).normalized;
+
+        Vector2 rightDirection = new Vector2(
+            direction.y,
+            -direction.x
         ).normalized;
 
         RaycastHit2D leftCheck = Physics2D.Raycast(
@@ -265,15 +281,6 @@ public class EnemyController : MonoBehaviour
             obstacleLayer
         );
 
-        if (leftCheck.collider == null)
-            return leftDirection;
-
-        // Try right.
-        Vector2 rightDirection = new Vector2(
-            direction.y,
-            -direction.x
-        ).normalized;
-
         RaycastHit2D rightCheck = Physics2D.Raycast(
             rb.position,
             rightDirection,
@@ -281,14 +288,38 @@ public class EnemyController : MonoBehaviour
             obstacleLayer
         );
 
-        if (rightCheck.collider == null)
-            return rightDirection;
+        // Choose an available direction and commit to it.
+        if (leftCheck.collider == null && rightCheck.collider == null)
+        {
+            // Choose the direction that points more toward the player.
+            if (Vector2.Dot(leftDirection, direction) >=
+                Vector2.Dot(rightDirection, direction))
+            {
+                avoidanceDirection = leftDirection;
+            }
+            else
+            {
+                avoidanceDirection = rightDirection;
+            }
+        }
+        else if (leftCheck.collider == null)
+        {
+            avoidanceDirection = leftDirection;
+        }
+        else if (rightCheck.collider == null)
+        {
+            avoidanceDirection = rightDirection;
+        }
+        else
+        {
+            // Both sides are blocked; keep moving toward the player.
+            avoidanceDirection = direction;
+        }
 
-        // Don't just give up completely.
-        // Continue toward the player instead.
-        return direction;
+        avoidanceTimer = avoidanceDuration;
+
+        return avoidanceDirection;
     }
-
 
     // ATTACK
 

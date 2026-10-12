@@ -169,8 +169,16 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8631369034572204580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: stoppingDistance
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8631369034572204580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: attackDamagePercent
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8631369034572204580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: obstacleCheckDistance
+      value: 1.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
