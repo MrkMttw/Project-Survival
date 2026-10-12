@@ -14,7 +14,8 @@ public class MeleeWeaponController : MonoBehaviour
 
     [Header("UI")]
     public MenuController menuController;
-
+    public GameOverController gameOverController;
+    
     [Header("Interaction")]
     public GameObject hotbarPanel;
     public BreakSystem breakSystem;
@@ -61,11 +62,17 @@ public class MeleeWeaponController : MonoBehaviour
             );
         }
     }
-
+            
     private void Update()
     {
-        // Menu open → completely ignore attack/break input.
-        if (menuController != null && menuController.menuCanvas.activeSelf)
+        // Ignore attack and break input while the normal menu is open.
+        if (menuController != null &&
+            menuController.menuCanvas.activeSelf)
+            return;
+
+        // Ignore attack and break input during Game Over.
+        if (gameOverController != null &&
+            gameOverController.IsGameOver())
             return;
 
         bool leftClick =
@@ -79,9 +86,6 @@ public class MeleeWeaponController : MonoBehaviour
         if (!leftClick && !spacePressed)
             return;
 
-        // Only check the hotbar for mouse clicks.
-        // Space should still be able to attack even if the mouse
-        // happens to be over the hotbar.
         if (leftClick && IsPointerOverHotbar())
             return;
 

@@ -271,11 +271,10 @@ public class HotbarController : MonoBehaviour
         }
     }
 
-    // CONSUME SELECTED ITEM
-
+        // CONSUME SELECTED ITEM
     public void ConsumeSelectedItem(int amount = 1)
     {
-        if (hotbarPanel == null)
+        if (hotbarPanel == null || amount <= 0)
             return;
 
         if (selectedSlot < 0 ||
@@ -294,35 +293,32 @@ public class HotbarController : MonoBehaviour
         if (item == null)
             return;
 
-        // Last item in the stack
-        if (item.quantity <= amount)
+        // Remove the requested quantity from the stack.
+        item.RemoveFromStack(amount);
+
+        // Stack is empty.
+        if (item.quantity <= 0)
         {
-            // Cancel building ghost
             if (placementController != null)
-            {
                 placementController.CancelPlacement();
-            }
 
-            // Clear held visual BEFORE destroying the item
             if (playerHeldItem != null)
-            {
                 playerHeldItem.ClearHeldItem();
-            }
 
-            // Clear hotbar slot
             slot.currentItem = null;
 
-            // Remove highlight
             HighlightSlot(-1);
-
-            // Nothing selected anymore
             selectedSlot = -1;
 
-            // Destroy the item
-            item.RemoveFromStack(amount);
-
+            Destroy(item.gameObject);
             return;
         }
+
+        // Stack still has items.
+        item.UpdateQuantityDisplay();
+
+        if (playerHeldItem != null)
+            playerHeldItem.SetHeldItem(item);
     }
 
     private void HighlightSlot(int index)
