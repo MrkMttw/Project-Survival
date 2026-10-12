@@ -35,6 +35,12 @@ public class SaveController : MonoBehaviour
         SceneManager.LoadScene("MainMenuScene");
     }
 
+    public void ExitGame()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("MainMenuScene");
+    }
+
     public void LoadGame()
     {
         if (File.Exists(saveLocation))

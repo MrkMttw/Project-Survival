@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -15,6 +16,9 @@ public class HealthController : MonoBehaviour
 
     private Image healthBarImage;
     private TMP_Text healthTextComponent;
+    private bool deathTriggered;
+
+    public event Action OnDeath;
 
     private void Awake()
     {
@@ -33,7 +37,6 @@ public class HealthController : MonoBehaviour
     public void UpdateMaxHealth(int campfireLevel)
     {
         maxHealth = baseMaxHealth + (campfireLevel * 20f);
-
         currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
 
         UpdateHealthUI();
@@ -41,18 +44,26 @@ public class HealthController : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
+        if (deathTriggered)
+            return;
+
         currentHealth -= amount;
         currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
 
         UpdateHealthUI();
 
         Debug.Log("Health: " + currentHealth);
+
+        if (currentHealth <= 0f)
+        {
+            deathTriggered = true;
+            OnDeath?.Invoke();
+        }
     }
 
     public void Heal(float amount)
     {
-        // Don't heal if already at full health
-        if (currentHealth >= maxHealth)
+        if (deathTriggered || currentHealth >= maxHealth)
             return;
 
         currentHealth += amount;
@@ -61,12 +72,18 @@ public class HealthController : MonoBehaviour
         UpdateHealthUI();
     }
 
+    public void RespawnHealth()
+    {
+        currentHealth = maxHealth;
+        deathTriggered = false;
+
+        UpdateHealthUI();
+    }
+
     private void UpdateHealthUI()
     {
         if (healthBarImage != null)
-        {
             healthBarImage.fillAmount = currentHealth / maxHealth;
-        }
 
         if (healthTextComponent != null)
         {
