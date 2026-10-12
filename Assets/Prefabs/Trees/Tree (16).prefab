@@ -125,6 +125,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 5363836343982625406, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_Size.x
+      value: 0.12983817
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363836343982625406, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_Size.y
+      value: 0.14570785
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363836343982625406, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.03300642
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363836343982625406, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.09998879
+      objectReference: {fileID: 0}
     - target: {fileID: 5480698058156823127, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
       propertyPath: m_LocalScale.x
       value: 7
