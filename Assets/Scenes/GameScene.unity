@@ -1288,7 +1288,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &171965694
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2045,8 +2045,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 4, y: 4, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1368665208}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -632014,7 +632014,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameClock
   realSecondsPerGameHour: 15
-  startingHour: 6
+  startingHour: 21
   startingMinute: 0
   startingDay: 1
   use12HourFormat: 1
@@ -632960,7 +632960,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StructureSpawner
   worldGenerator: {fileID: 1040017515}
-  player: {fileID: 543478632}
   structureParent: {fileID: 1699886511}
   structures:
   - {fileID: 11400000, guid: 774882c0dc507854f8a7db7932eef8fd, type: 2}
@@ -632968,6 +632967,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6a4d89a7e1c4bc84ebdcdbc2921f4f15, type: 2}
   - {fileID: 11400000, guid: fcd8ee2d340a17a4f97ff29f3a97517a, type: 2}
   spawnAttempts: 30
+  maxGenerationDistance: 100
   structureLoadDistance: 2
 --- !u!1001 &1072827410
 PrefabInstance:
@@ -637263,8 +637263,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 4, y: 4, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1368665208}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

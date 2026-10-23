@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StructureSpawnData
   prefab: {fileID: 975741964172432379, guid: 3d4185617f3a37247b87ef8752480a21, type: 3}
   maxWorldCount: 1
-  minPlayerDistance: 30
-  clearRadius: 8
+  minSpawnDistance: 30
+  clearRadius: 15

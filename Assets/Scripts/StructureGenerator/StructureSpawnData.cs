@@ -14,7 +14,7 @@ public class StructureSpawnData : ScriptableObject
     public int maxWorldCount = 1;
 
     [Min(0f)]
-    public float minPlayerDistance = 30f;
+    public float minSpawnDistance = 30f;
 
     [Min(0f)]
     public float clearRadius = 6f;
