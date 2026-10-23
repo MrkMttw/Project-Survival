@@ -625,6 +625,34 @@ public class WorldGenerator : MonoBehaviour
         buildings[data.buildingID] = data;
     }
 
+    public void RegisterSaplingGrowth(
+        BuildingObject building,
+        float growthDeadline)
+    {
+        if (building == null || string.IsNullOrEmpty(building.buildingID))
+            return;
+
+        Vector2Int chunkCoordinate =
+            GetChunkCoordinate(building.transform.position);
+
+        if (!savedBuildings.TryGetValue(
+            chunkCoordinate,
+            out Dictionary<string, BuildingSaveData> buildings))
+        {
+            return;
+        }
+
+        if (!buildings.TryGetValue(
+            building.buildingID,
+            out BuildingSaveData data))
+        {
+            return;
+        }
+
+        data.growthDeadline = growthDeadline;
+        data.hasGrown = false;
+    }
+
     public int CountPlacedBuildingsWithItemIDs(int[] itemIDs)
     {
         if (itemIDs == null || itemIDs.Length == 0)
@@ -731,7 +759,7 @@ public class WorldGenerator : MonoBehaviour
             }
         }
     }
-
+    
     public void RestoreBuildingsInChunk(
         Vector2Int chunkCoordinate)
     {
@@ -749,52 +777,50 @@ public class WorldGenerator : MonoBehaviour
             KeyValuePair<string, BuildingSaveData> entry
             in buildings)
         {
-            BuildingSaveData data =
-                entry.Value;
+            BuildingSaveData data = entry.Value;
 
-            GameObject itemPrefab =
-                itemDictionary.GetItemPrefab(data.itemID);
+            GameObject prefabToRestore = null;
 
-            if (itemPrefab == null)
+            if (data.hasGrown && data.grownPrefab != null)
             {
-                continue;
+                // Restore the grown tree.
+                prefabToRestore = data.grownPrefab;
+            }
+            else
+            {
+                // Restore the original planted sapling.
+                GameObject itemPrefab =
+                    itemDictionary.GetItemPrefab(data.itemID);
+
+                if (itemPrefab == null)
+                    continue;
+
+                Item item = itemPrefab.GetComponent<Item>();
+
+                if (item == null || item.buildingPrefab == null)
+                    continue;
+
+                prefabToRestore = item.buildingPrefab;
             }
 
-            Item item =
-                itemPrefab.GetComponent<Item>();
-
-            if (item == null)
-            {
-                continue;
-            }
-
-            if (item.buildingPrefab == null)
-            {
-                continue;
-            }
-
-            GameObject buildingObject =
-                Instantiate(
-                    item.buildingPrefab,
-                    data.position,
-                    data.rotation,
-                    chunkParent
-                );
+            GameObject restoredObject = Instantiate(
+                prefabToRestore,
+                data.position,
+                data.rotation,
+                chunkParent
+            );
 
             BuildingObject building =
-                buildingObject.GetComponentInChildren<BuildingObject>();
+                restoredObject.GetComponentInChildren<BuildingObject>();
 
             if (building == null)
             {
-                Destroy(buildingObject);
-                continue;
+                building =
+                    restoredObject.AddComponent<BuildingObject>();
             }
 
-            building.itemID =
-                data.itemID;
-
-            building.buildingID =
-                data.buildingID;
+            building.itemID = data.itemID;
+            building.buildingID = data.buildingID;
         }
     }
 
@@ -950,5 +976,84 @@ public class WorldGenerator : MonoBehaviour
         }
 
         return false;
+    }
+
+    public bool TryGetBuildingSaveData(
+        BuildingObject building,
+        out BuildingSaveData data)
+    {
+        data = null;
+
+        if (building == null ||
+            string.IsNullOrEmpty(building.buildingID))
+        {
+            return false;
+        }
+
+        foreach (var chunk in savedBuildings)
+        {
+            if (chunk.Value.TryGetValue(
+                building.buildingID,
+                out data))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void StartSaplingGrowth(
+        BuildingObject building,
+        float minimumTime,
+        float maximumTime,
+        GameObject treePrefab)
+    {
+        if (!TryGetBuildingSaveData(
+            building,
+            out BuildingSaveData data))
+        {
+            return;
+        }
+
+        if (data.hasGrown)
+        {
+            return;
+        }
+
+        if (data.growthDeadline <= 0f)
+        {
+            data.growthDeadline =
+                Time.realtimeSinceStartup
+                + Random.Range(minimumTime, maximumTime);
+        }
+
+        // Keep the selected tree type for this sapling.
+        if (data.grownPrefab == null)
+        {
+            data.grownPrefab = treePrefab;
+        }
+
+        RegisterSaplingGrowth(building, data.growthDeadline);
+
+        // RegisterSaplingGrowth doesn't modify grownPrefab,
+        // so the selected prefab remains stored in the save data.
+        data.grownPrefab = treePrefab;
+    }
+
+    public void MarkSaplingGrown(
+        BuildingObject building,
+        GameObject treePrefab)
+    {
+        if (!TryGetBuildingSaveData(
+            building,
+            out BuildingSaveData data))
+        {
+            return;
+        }
+
+        data.hasGrown = true;
+        data.grownPrefab = treePrefab;
+        data.growthDeadline = 0f;
     }
 }

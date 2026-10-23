@@ -19,5 +19,7 @@ MonoBehaviour:
   - Bush
   - Chanterelles
   - Mushroom
+  - Tree
+  - Stone
   damage: 1
-  breakCooldown: 0.3
+  breakCooldown: 0.5

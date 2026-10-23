@@ -8,4 +8,9 @@ public class BuildingSaveData
     public Vector3 position;
     public Quaternion rotation;
     public Vector2Int chunkCoordinate;
+
+    public GameObject grownPrefab;
+
+    public float growthDeadline;
+    public bool hasGrown;
 }
