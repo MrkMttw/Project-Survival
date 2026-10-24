@@ -8,15 +8,36 @@ public class RadarUI : MonoBehaviour
     public TMP_Text levelText;
     public TMP_Text progressText;
     public Image progressBar;
+    public TMP_Text coordinatesText;
+    public string coordinatesObjectName = "CoordinatesText";
+
+    private RadarController radarController;
 
     private void Start()
     {
-        RadarController radarController =
+        radarController =
             FindFirstObjectByType<RadarController>();
+
+        if (coordinatesText == null)
+        {
+            TMP_Text[] texts = FindObjectsByType<TMP_Text>(
+                FindObjectsSortMode.None
+            );
+
+            foreach (TMP_Text text in texts)
+            {
+                if (text.gameObject.name == coordinatesObjectName)
+                {
+                    coordinatesText = text;
+                    break;
+                }
+            }
+        }
 
         if (radarController != null)
         {
             radarController.RegisterRadarUI(this);
+            UpdateCoordinatesUI();
         }
     }
 
@@ -43,5 +64,21 @@ public class RadarUI : MonoBehaviour
         {
             progressBar.fillAmount = 1f;
         }
+
+        UpdateCoordinatesUI();
+    }
+
+    private void UpdateCoordinatesUI()
+    {
+        if (coordinatesText == null || radarController == null)
+            return;
+
+        coordinatesText.text =
+            radarController.GetUnlockedCoordinatesText();
+    }
+
+    public void RefreshCoordinatesUI()
+    {
+        UpdateCoordinatesUI();
     }
 }

@@ -387,6 +387,9 @@ public class PlacementController : MonoBehaviour
         if (worldGenerator != null)
         {
             worldGenerator.RegisterBuilding(buildingObject);
+
+            FindFirstObjectByType<RadarController>()
+                ?.RefreshCoordinateUI();
         }
 
         TentController tentController =
@@ -478,6 +481,9 @@ public class PlacementController : MonoBehaviour
             worldGenerator.UpdateBuilding(
                 relocatingBuilding
             );
+
+            FindFirstObjectByType<RadarController>()
+                ?.RefreshCoordinateUI();
         }
 
         Destroy(ghostObject);

@@ -356,4 +356,36 @@ public class StructureSpawner : MonoBehaviour
             }
         }
     }
+
+        
+    public bool TryGetStructurePosition(
+        StructureSpawnData target,
+        out Vector2Int coordinates)
+    {
+        coordinates = Vector2Int.zero;
+
+        if (target == null || worldGenerator == null)
+            return false;
+
+        if (!layoutGenerated)
+            GenerateDeterministicLayout();
+
+        if (!layoutGenerated)
+            return false;
+
+        foreach (StructureRecord record in structureRecords)
+        {
+            if (record.data != target)
+                continue;
+
+            coordinates = new Vector2Int(
+                Mathf.RoundToInt(record.position.x),
+                Mathf.RoundToInt(record.position.y)
+            );
+
+            return true;
+        }
+
+        return false;
+    }
 }

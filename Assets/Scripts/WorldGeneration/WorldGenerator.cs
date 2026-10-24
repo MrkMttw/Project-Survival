@@ -1002,7 +1002,31 @@ public class WorldGenerator : MonoBehaviour
 
         return false;
     }
+    public bool TryGetPlacedBuildingPosition(
+        int itemID,
+        out Vector2Int coordinates)
+    {
+        coordinates = Vector2Int.zero;
 
+        foreach (var chunk in savedBuildings)
+        {
+            foreach (BuildingSaveData data in chunk.Value.Values)
+            {
+                if (data.itemID != itemID)
+                    continue;
+
+                coordinates = new Vector2Int(
+                    Mathf.RoundToInt(data.position.x),
+                    Mathf.RoundToInt(data.position.y)
+                );
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+    
     public void StartSaplingGrowth(
         BuildingObject building,
         float minimumTime,

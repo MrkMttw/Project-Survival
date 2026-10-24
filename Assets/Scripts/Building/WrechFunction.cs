@@ -230,6 +230,9 @@ public class WrenchFunction : MonoBehaviour
         if (worldGenerator != null)
         {
             worldGenerator.RemoveBuilding(building);
+
+            FindFirstObjectByType<RadarController>()
+                ?.RefreshCoordinateUI();
         }
         
         TentController tentController =

@@ -12,12 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e85948df3deed3945a6e91d3e9210eb4, type: 3}
   m_Name: Axe
   m_EditorClassIdentifier: Assembly-CSharp::ToolBreakPreset
+  requiresTool: 1
   requiredTool: {fileID: 4502221050623647742, guid: d18703f61319d5749b616447c8450cff, type: 3}
   breakableMaterials:
   - Tree
-  drops:
-  - item: {fileID: 984649365012574228, guid: 188260af6ee17e643bdd387747284ad9, type: 3}
-    minAmount: 2
-    maxAmount: 5
   damage: 1
   breakCooldown: 0.5
