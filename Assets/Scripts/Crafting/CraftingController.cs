@@ -23,7 +23,8 @@ public class CraftingController : MonoBehaviour
 
     private CampfireController campfireController;
     private CraftingRecipe selectedRecipe;
-    
+    private bool nearCraftingTable;
+
     private void Start()
     {
         campfireController =
@@ -52,6 +53,11 @@ public class CraftingController : MonoBehaviour
             SelectRecipe(selectedRecipe);
         }
     }
+    public void SetCraftingTableAccess(bool hasAccess)
+    {
+        nearCraftingTable = hasAccess;
+        RefreshRecipes();
+    }
 
     public void RefreshRecipes()
     {
@@ -71,10 +77,20 @@ public class CraftingController : MonoBehaviour
             if (recipe == null)
                 continue;
 
-            bool unlocked =
-                campfireController != null &&
-                campfireController.CampfireLevel >=
-                recipe.requiredCampfireLevel;
+            bool unlocked;
+
+            if (recipe.requiredCampfireLevel <= 0)
+            {
+                unlocked = true;
+            }
+            else
+            {
+                unlocked =
+                    nearCraftingTable &&
+                    campfireController != null &&
+                    campfireController.CampfireLevel >=
+                    recipe.requiredCampfireLevel;
+            }
 
             buttonUI.SetUnlocked(unlocked);
         }
@@ -108,10 +124,20 @@ public class CraftingController : MonoBehaviour
                     contentPanel
                 );
 
-                bool unlocked =
-                    campfireController != null &&
-                    campfireController.CampfireLevel >=
-                    recipe.requiredCampfireLevel;
+                bool unlocked;
+
+                if (recipe.requiredCampfireLevel <= 0)
+                {
+                    unlocked = true;
+                }
+                else
+                {
+                    unlocked =
+                        nearCraftingTable &&
+                        campfireController != null &&
+                        campfireController.CampfireLevel >=
+                        recipe.requiredCampfireLevel;
+                }
 
                 SetupRecipeButton(
                     recipeButton,
@@ -315,5 +341,10 @@ public class CraftingController : MonoBehaviour
         Destroy(craftedItem);
 
         SelectRecipe(selectedRecipe);
+    }
+
+    public bool IsNearCraftingTable()
+    {
+        return nearCraftingTable;
     }
 }

@@ -199,6 +199,6 @@ public class SaplingBehavior : MonoBehaviour
         treeBuilding.itemID = building.itemID;
         treeBuilding.buildingID = building.buildingID;
 
-        Destroy(gameObject);
+        Destroy(building.gameObject);
     }
 }

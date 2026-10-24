@@ -8,13 +8,14 @@ public class RecipeButtonUI : MonoBehaviour
     public TextMeshProUGUI itemName;
 
     private CraftingRecipe recipe;
+    private string originalItemName;
 
     public void Setup(CraftingRecipe recipe, bool unlocked)
     {
         this.recipe = recipe;
+        originalItemName = recipe.itemPrefab.name;
 
         icon.sprite = recipe.recipeIcon;
-        itemName.text = recipe.itemPrefab.name;
 
         SetUnlocked(unlocked);
 
@@ -29,6 +30,21 @@ public class RecipeButtonUI : MonoBehaviour
     public void SetUnlocked(bool unlocked)
     {
         GetComponent<Button>().interactable = unlocked;
+
+        if (recipe == null || itemName == null)
+            return;
+
+        if (recipe.requiredCampfireLevel > 0 &&
+            !unlocked &&
+            !FindFirstObjectByType<CraftingController>()
+                .IsNearCraftingTable())
+        {
+            itemName.text = "Requires Crafting Table";
+        }
+        else
+        {
+            itemName.text = originalItemName;
+        }
     }
 
     public void SelectRecipe()

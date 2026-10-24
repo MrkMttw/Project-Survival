@@ -21,4 +21,4 @@ MonoBehaviour:
   - itemPrefab: {fileID: 6695288099351985358, guid: 188260af6ee17e643bdd387747284ad9, type: 3}
     amount: 3
   description: 
-  requiredCampfireLevel: 1
+  requiredCampfireLevel: 0
