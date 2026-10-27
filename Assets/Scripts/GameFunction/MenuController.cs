@@ -7,6 +7,7 @@ public class MenuController : MonoBehaviour
     public GameObject[] pages;
     public GameObject Hotbar;
     public CraftingController craftingController;
+    public FurnaceController furnaceController;
 
     private RectTransform panelRect;
     private Vector2 originalPosition;
@@ -27,7 +28,15 @@ public class MenuController : MonoBehaviour
     {
         if (Keyboard.current.bKey.wasPressedThisFrame)
         {
-            menuCanvas.SetActive(!menuCanvas.activeSelf);
+            if (furnaceController != null && furnaceController.IsOpen)
+            {
+                furnaceController.CloseForMenu();
+                menuCanvas.SetActive(true);
+            }
+            else
+            {
+                menuCanvas.SetActive(!menuCanvas.activeSelf);
+            }
         }
 
         if (!menuCanvas.activeSelf)

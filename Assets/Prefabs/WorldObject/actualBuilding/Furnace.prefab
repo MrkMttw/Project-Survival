@@ -110,11 +110,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2951338905365301062, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
       propertyPath: m_Size.y
-      value: 4.5
+      value: 6.2254443
       objectReference: {fileID: 0}
     - target: {fileID: -2951338905365301062, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
       propertyPath: m_Offset.y
-      value: 2.5
+      value: 1.6372778
       objectReference: {fileID: 0}
     - target: {fileID: -2951338905365301062, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.y
@@ -214,10 +214,30 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5876583144128633288, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1977172737799972093}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3315979588400478878, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6915163305674579884}
   m_SourcePrefab: {fileID: 100100000, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
 --- !u!4 &266538914649907951 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5876583144128633288, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
   m_PrefabInstance: {fileID: 5926524357883165479}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8951897517987791289 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3315979588400478878, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
+  m_PrefabInstance: {fileID: 5926524357883165479}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6915163305674579884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8951897517987791289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4178454d3262c65459adefbacff3a11c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FurnaceBehavior

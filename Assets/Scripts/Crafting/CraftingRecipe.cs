@@ -20,6 +20,9 @@ public class CraftingRecipe : ScriptableObject
     public string description;
 
     public int requiredCampfireLevel = 0;
+
+    [Header("Recipe Type")]
+    public bool isSmeltingRecipe = false;
 }
 
 [System.Serializable]

@@ -7,10 +7,13 @@ public class PlayerInteractionController : MonoBehaviour
     public FoodController foodController;
     public ItemLightController itemLightController;
     public ItemsGeneratorController itemsGeneratorController;
+    public FurnaceController furnaceController;
     
     [Header("Sleeping")]
     public SleepTransitionController sleepTransitionController;
     public SleepingBagHitbox sleepingBagHitbox;
+
+    
 
     private void Update()
     {
@@ -26,7 +29,9 @@ public class PlayerInteractionController : MonoBehaviour
     private void HandleInteraction()
     {
         Debug.Log("E pressed - checking interactions.");
-
+        if (furnaceController != null && furnaceController.TryInteract())
+            return;
+            
         if (sleepingBagHitbox != null &&
             sleepingBagHitbox.TryInteract())
         {

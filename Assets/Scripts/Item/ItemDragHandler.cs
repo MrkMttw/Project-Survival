@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -37,16 +38,12 @@ public class ItemDragHandler : MonoBehaviour,
         canvasGroup.blocksRaycasts = true;
         canvasGroup.alpha = 1f;
 
-        Slot dropSlot = eventData.pointerEnter?.GetComponent<Slot>();
+        Slot dropSlot = null;
 
-        if (dropSlot == null)
+        if (eventData.pointerEnter != null)
         {
-            GameObject dropItem = eventData.pointerEnter;
-
-            if (dropItem != null)
-            {
-                dropSlot = dropItem.GetComponentInParent<Slot>();
-            }
+            dropSlot =
+                eventData.pointerEnter.GetComponentInParent<Slot>();
         }
 
         Slot originalSlot = originalParent.GetComponent<Slot>();
@@ -57,28 +54,21 @@ public class ItemDragHandler : MonoBehaviour,
             return;
         }
 
-        // ==========================================
-        // DROPPED BACK ON ORIGINAL SLOT
-        // ==========================================
-
+        // Dropped back onto the original slot.
         if (dropSlot == originalSlot)
         {
             ResetToOriginalPosition();
             return;
         }
 
-        // ==========================================
-        // DROPPED ON ANOTHER SLOT
-        // ==========================================
-
+        // Dropped onto another slot.
         if (dropSlot != null)
         {
             HandleSlotDrop(dropSlot, originalSlot);
             return;
         }
 
-        // DROPPED OUTSIDE INVENTORY
-
+        // Dropped outside the inventory.
         if (!IsWithinInventory(eventData.position))
         {
             DropItem(originalSlot);
@@ -91,28 +81,69 @@ public class ItemDragHandler : MonoBehaviour,
 
     private void HandleSlotDrop(Slot dropSlot, Slot originalSlot)
     {
-        // EMPTY SLOT
+        Item draggedItem = GetComponent<Item>();
 
+        if (draggedItem == null)
+        {
+            ResetToOriginalPosition();
+            return;
+        }
+
+        FurnaceSlot sourceFurnaceSlot =
+            originalSlot.GetComponentInParent<FurnaceSlot>();
+
+        FurnaceSlot targetFurnaceSlot =
+            dropSlot.GetComponentInParent<FurnaceSlot>();
+
+        // Furnace output cannot be a destination.
+        if (targetFurnaceSlot != null &&
+            targetFurnaceSlot.slotType == FurnaceSlot.SlotType.Output)
+        {
+            ResetToOriginalPosition();
+            return;
+        }
+
+        // Output items cannot be moved into another furnace slot.
+        if (sourceFurnaceSlot != null &&
+            sourceFurnaceSlot.slotType == FurnaceSlot.SlotType.Output &&
+            targetFurnaceSlot != null)
+        {
+            ResetToOriginalPosition();
+            return;
+        }
+
+        // Validate items entering furnace slots.
+        if (targetFurnaceSlot != null &&
+            !targetFurnaceSlot.CanAccept(gameObject))
+        {
+            ResetToOriginalPosition();
+            return;
+        }
+
+        // EMPTY DESTINATION
         if (dropSlot.currentItem == null)
         {
             originalSlot.currentItem = null;
 
             transform.SetParent(dropSlot.transform);
-
             dropSlot.currentItem = gameObject;
 
             ResetToSlotPosition();
-
+            NotifyFurnaceSlotsChanged();
             return;
         }
 
-        // SLOT HAS AN ITEM
+        // OCCUPIED DESTINATION
+        Item targetItem =
+            dropSlot.currentItem.GetComponent<Item>();
 
-        Item draggedItem = GetComponent<Item>();
-        Item targetItem = dropSlot.currentItem.GetComponent<Item>();
+        if (targetItem == null)
+        {
+            ResetToOriginalPosition();
+            return;
+        }
 
         // TRY STACKING
-
         if (CanStack(draggedItem, targetItem))
         {
             int amountToMove = Mathf.Min(
@@ -120,57 +151,57 @@ public class ItemDragHandler : MonoBehaviour,
                 targetItem.GetRemainingStackSpace()
             );
 
-            // Target stack is already full
             if (amountToMove <= 0)
             {
                 ResetToOriginalPosition();
                 return;
             }
 
-            // Add only what can fit
             int amountAdded = targetItem.AddToStack(amountToMove);
-
             draggedItem.RemoveFromStack(amountAdded);
-
-            // ENTIRE DRAGGED STACK WAS MOVED
 
             if (draggedItem.quantity <= 0)
             {
                 originalSlot.currentItem = null;
-
                 Destroy(gameObject);
             }
             else
             {
-                // ONLY PART OF THE STACK WAS MOVED
-
                 transform.SetParent(originalSlot.transform);
-
                 ResetToSlotPosition();
             }
 
+            NotifyFurnaceSlotsChanged();
             return;
         }
 
-        // NOT STACKABLE → SWAP
+        // Validate the item moving into the source furnace slot.
+        if (sourceFurnaceSlot != null &&
+            !sourceFurnaceSlot.CanAccept(dropSlot.currentItem))
+        {
+            ResetToOriginalPosition();
+            return;
+        }
 
+        // SWAP
         GameObject targetObject = dropSlot.currentItem;
 
-        targetObject.transform.SetParent(
-            originalSlot.transform
-        );
-
+        targetObject.transform.SetParent(originalSlot.transform);
         originalSlot.currentItem = targetObject;
 
-        targetObject
-            .GetComponent<RectTransform>()
-            .anchoredPosition = Vector2.zero;
+        RectTransform targetRect =
+            targetObject.GetComponent<RectTransform>();
+
+        if (targetRect != null)
+        {
+            targetRect.anchoredPosition = Vector2.zero;
+        }
 
         transform.SetParent(dropSlot.transform);
-
         dropSlot.currentItem = gameObject;
 
         ResetToSlotPosition();
+        NotifyFurnaceSlotsChanged();
     }
 
     private bool CanStack(Item draggedItem, Item targetItem)
@@ -178,17 +209,14 @@ public class ItemDragHandler : MonoBehaviour,
         if (draggedItem == null || targetItem == null)
             return false;
 
-        return
-            draggedItem.ID == targetItem.ID &&
-            draggedItem.stackable &&
-            targetItem.stackable;
+        return draggedItem.ID == targetItem.ID &&
+               draggedItem.stackable &&
+               targetItem.stackable;
     }
-
-    // RIGHT CLICK → SPLIT STACK
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        // LEFT CLICK → SELECT THE SLOT
+        // LEFT CLICK: Select the hotbar slot.
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             Slot slot = GetComponentInParent<Slot>();
@@ -200,15 +228,13 @@ public class ItemDragHandler : MonoBehaviour,
 
                 if (hotbar != null)
                 {
-                    int slotIndex =
-                        slot.transform.GetSiblingIndex();
-
+                    int slotIndex = slot.transform.GetSiblingIndex();
                     hotbar.SelectSlot(slotIndex);
                 }
             }
         }
 
-        // RIGHT CLICK → SPLIT STACK
+        // RIGHT CLICK: Split stack.
         if (eventData.button == PointerEventData.InputButton.Right)
         {
             SplitStack();
@@ -219,7 +245,6 @@ public class ItemDragHandler : MonoBehaviour,
     {
         Item item = GetComponent<Item>();
 
-        // Non-stackable items cannot split
         if (item == null ||
             !item.stackable ||
             item.quantity <= 1)
@@ -228,8 +253,6 @@ public class ItemDragHandler : MonoBehaviour,
         }
 
         int splitAmount = item.quantity / 2;
-
-        // Find empty slot BEFORE removing quantity
         Slot emptySlot = FindEmptyInventorySlot();
 
         if (emptySlot == null)
@@ -238,23 +261,24 @@ public class ItemDragHandler : MonoBehaviour,
             return;
         }
 
-        // Remove half from original
         item.RemoveFromStack(splitAmount);
 
-        // Create new stack
         GameObject newItem = item.CloneItem(splitAmount);
 
         if (newItem == null)
         {
-            // Restore original if clone failed
             item.AddToStack(splitAmount);
             return;
         }
 
         newItem.transform.SetParent(emptySlot.transform);
 
-        newItem.GetComponent<RectTransform>()
-            .anchoredPosition = Vector2.zero;
+        RectTransform rect = newItem.GetComponent<RectTransform>();
+
+        if (rect != null)
+        {
+            rect.anchoredPosition = Vector2.zero;
+        }
 
         emptySlot.currentItem = newItem;
     }
@@ -269,17 +293,12 @@ public class ItemDragHandler : MonoBehaviour,
         {
             Slot slot = slotTransform.GetComponent<Slot>();
 
-            if (slot != null &&
-                slot.currentItem == null)
-            {
+            if (slot != null && slot.currentItem == null)
                 return slot;
-            }
         }
 
         return null;
     }
-
-    // CHECK IF MOUSE IS INSIDE INVENTORY
 
     private bool IsWithinInventory(Vector2 mousePosition)
     {
@@ -303,8 +322,6 @@ public class ItemDragHandler : MonoBehaviour,
         );
     }
 
-    // DROP ITEM INTO WORLD
-
     private void DropItem(Slot originalSlot)
     {
         Item item = GetComponent<Item>();
@@ -314,13 +331,10 @@ public class ItemDragHandler : MonoBehaviour,
 
         int amountToDrop = item.quantity;
 
-        // Drop the ENTIRE stack
         CreateWorldItem(amountToDrop);
 
-        // Empty the original slot
         originalSlot.currentItem = null;
-
-        // Remove the UI item
+        NotifyFurnaceSlotsChanged();
         Destroy(gameObject);
     }
 
@@ -335,8 +349,7 @@ public class ItemDragHandler : MonoBehaviour,
             return;
         }
 
-        Vector2 dropPosition =
-            (Vector2)playerTransform.position;
+        Vector2 dropPosition = playerTransform.position;
 
         GameObject dropItem = Instantiate(
             gameObject,
@@ -344,8 +357,9 @@ public class ItemDragHandler : MonoBehaviour,
             Quaternion.identity
         );
 
-        Item droppedItem =
-            dropItem.GetComponent<Item>();
+        dropItem.transform.localScale = Vector3.one;
+        
+        Item droppedItem = dropItem.GetComponent<Item>();
 
         if (droppedItem != null)
         {
@@ -354,19 +368,26 @@ public class ItemDragHandler : MonoBehaviour,
         }
     }
 
-    // RESET POSITION
+    private void NotifyFurnaceSlotsChanged()
+    {
+        FurnaceController controller =
+            FindFirstObjectByType<FurnaceController>();
+
+        if (controller != null)
+        {
+            controller.NotifySlotsChanged();
+        }
+    }
 
     private void ResetToOriginalPosition()
     {
         transform.SetParent(originalParent);
-
         ResetToSlotPosition();
     }
 
     private void ResetToSlotPosition()
     {
-        RectTransform rectTransform =
-            GetComponent<RectTransform>();
+        RectTransform rectTransform = GetComponent<RectTransform>();
 
         if (rectTransform != null)
         {

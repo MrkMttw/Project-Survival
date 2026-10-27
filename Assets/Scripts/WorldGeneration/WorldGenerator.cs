@@ -575,15 +575,10 @@ public class WorldGenerator : MonoBehaviour
             objectID
         );
     }
-
+   
     public void RegisterBuilding(BuildingObject building)
     {
-        if (building == null)
-        {
-            return;
-        }
-
-        if (string.IsNullOrEmpty(building.buildingID))
+        if (building == null || string.IsNullOrEmpty(building.buildingID))
         {
             return;
         }
@@ -591,36 +586,33 @@ public class WorldGenerator : MonoBehaviour
         Vector2Int chunkCoordinate =
             GetChunkCoordinate(building.transform.position);
 
-        if (!savedBuildings.TryGetValue(
+        BuildingSaveData data = null;
+
+        if (savedBuildings.TryGetValue(
             chunkCoordinate,
             out Dictionary<string, BuildingSaveData> buildings))
         {
-            buildings =
-                new Dictionary<string, BuildingSaveData>();
-
-            savedBuildings.Add(
-                chunkCoordinate,
-                buildings
-            );
+            buildings.TryGetValue(building.buildingID, out data);
         }
 
-        BuildingSaveData data =
-            new BuildingSaveData();
+        if (data == null)
+        {
+            data = new BuildingSaveData();
+        }
 
-        data.buildingID =
-            building.buildingID;
+        data.buildingID = building.buildingID;
+        data.itemID = building.itemID;
+        data.position = building.transform.position;
+        data.rotation = building.transform.rotation;
+        data.chunkCoordinate = chunkCoordinate;
 
-        data.itemID =
-            building.itemID;
-
-        data.position =
-            building.transform.position;
-
-        data.rotation =
-            building.transform.rotation;
-
-        data.chunkCoordinate =
-            chunkCoordinate;
+        if (!savedBuildings.TryGetValue(
+            chunkCoordinate,
+            out buildings))
+        {
+            buildings = new Dictionary<string, BuildingSaveData>();
+            savedBuildings.Add(chunkCoordinate, buildings);
+        }
 
         buildings[data.buildingID] = data;
     }
@@ -680,59 +672,40 @@ public class WorldGenerator : MonoBehaviour
 
     public void UpdateBuilding(BuildingObject building)
     {
-        if (building == null)
+        if (building == null ||
+            string.IsNullOrEmpty(building.buildingID))
         {
             return;
         }
 
-        if (string.IsNullOrEmpty(building.buildingID))
+        TryGetBuildingSaveData(building, out BuildingSaveData data);
+
+        foreach (var chunk in savedBuildings)
         {
-            return;
+            chunk.Value.Remove(building.buildingID);
         }
 
         Vector2Int newChunkCoordinate =
             GetChunkCoordinate(building.transform.position);
 
-        foreach (
-            KeyValuePair<Vector2Int, Dictionary<string, BuildingSaveData>>
-            chunk in savedBuildings)
+        if (data == null)
         {
-            if (chunk.Value.Remove(building.buildingID))
-            {
-                break;
-            }
+            data = new BuildingSaveData();
         }
+
+        data.buildingID = building.buildingID;
+        data.itemID = building.itemID;
+        data.position = building.transform.position;
+        data.rotation = building.transform.rotation;
+        data.chunkCoordinate = newChunkCoordinate;
 
         if (!savedBuildings.TryGetValue(
             newChunkCoordinate,
             out Dictionary<string, BuildingSaveData> buildings))
         {
-            buildings =
-                new Dictionary<string, BuildingSaveData>();
-
-            savedBuildings.Add(
-                newChunkCoordinate,
-                buildings
-            );
+            buildings = new Dictionary<string, BuildingSaveData>();
+            savedBuildings.Add(newChunkCoordinate, buildings);
         }
-
-        BuildingSaveData data =
-            new BuildingSaveData();
-
-        data.buildingID =
-            building.buildingID;
-
-        data.itemID =
-            building.itemID;
-
-        data.position =
-            building.transform.position;
-
-        data.rotation =
-            building.transform.rotation;
-
-        data.chunkCoordinate =
-            newChunkCoordinate;
 
         buildings[data.buildingID] = data;
     }

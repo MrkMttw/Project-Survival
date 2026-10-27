@@ -251,7 +251,7 @@ MonoBehaviour:
   generationDelay: 10
   isActive: 0
   vibrationAmount: 0.03
-  vibrationSpeed: 25
+  vibrationSpeed: 10
 --- !u!4 &7297306610162133066 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5876583144128633288, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}

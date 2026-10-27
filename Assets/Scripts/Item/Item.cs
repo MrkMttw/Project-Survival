@@ -22,6 +22,19 @@ public class Item : MonoBehaviour
     public GameObject buildingPrefab;
     public GameObject ghostPrefab;
     
+    
+    [Header("Smelting")]
+    public bool isSmeltable;
+
+    [Min(0.1f)]
+    public float smeltingTime = 5f;
+
+    [Header("Fuel")]
+    public bool isFuel;
+
+    [Min(0.1f)]
+    public float fuelBurnDuration = 10f;
+
     private TMP_Text quantityText;
 
     private void Awake()
@@ -43,6 +56,12 @@ public class Item : MonoBehaviour
         }
 
         UpdateQuantityDisplay();
+    }
+
+    private void OnValidate()
+    {
+        smeltingTime = Mathf.Max(0.1f, smeltingTime);
+        fuelBurnDuration = Mathf.Max(0.1f, fuelBurnDuration);
     }
 
     public virtual void UseItem()

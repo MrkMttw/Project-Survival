@@ -251,3 +251,5 @@ MonoBehaviour:
   maximumQuantity: 5
   generationDelay: 10
   isActive: 0
+  vibrationAmount: 0.03
+  vibrationSpeed: 10

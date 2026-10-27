@@ -16,4 +16,18 @@ public class BuildingSaveData
 
     public bool generatorIsActive;
     public float generatorRemainingTime;
+
+    [Header("Furnace")]
+    public int furnaceInputItemID;
+    public int furnaceInputQuantity;
+
+    public int furnaceFuelItemID;
+    public int furnaceFuelQuantity;
+
+    public int furnaceOutputItemID;
+    public int furnaceOutputQuantity;
+
+    public bool furnaceIsCooking;
+    public float furnaceSmeltProgress;
+    public float furnaceFuelRemaining;
 }

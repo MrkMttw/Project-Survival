@@ -17,6 +17,7 @@ MonoBehaviour:
   craftingQuantity: 1
   ingredients:
   - itemPrefab: {fileID: 8857079632696002817, guid: 55a93deab0c8c62438e2207b7e163d0a, type: 3}
-    amount: 2
+    amount: 1
   description: 
   requiredCampfireLevel: 1
+  isSmeltingRecipe: 1
