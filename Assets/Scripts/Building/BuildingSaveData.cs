@@ -13,4 +13,7 @@ public class BuildingSaveData
 
     public float growthDeadline;
     public bool hasGrown;
+
+    public bool generatorIsActive;
+    public float generatorRemainingTime;
 }

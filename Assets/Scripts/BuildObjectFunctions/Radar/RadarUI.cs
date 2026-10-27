@@ -80,5 +80,5 @@ public class RadarUI : MonoBehaviour
     public void RefreshCoordinatesUI()
     {
         UpdateCoordinatesUI();
-    }
+    }   
 }

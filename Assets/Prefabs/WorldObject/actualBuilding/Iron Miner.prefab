@@ -114,11 +114,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2951338905365301062, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
       propertyPath: m_Size.y
-      value: 0.6
+      value: 1.0041685
       objectReference: {fileID: 0}
     - target: {fileID: -2951338905365301062, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
       propertyPath: m_Offset.y
-      value: 0.3
+      value: 0.0979158
       objectReference: {fileID: 0}
     - target: {fileID: -2951338905365301062, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.y
@@ -222,8 +222,36 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5876583144128633288, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4672842504415777915}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3315979588400478878, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8382937241163959318}
   m_SourcePrefab: {fileID: 100100000, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
+--- !u!1 &1931012163729181468 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3315979588400478878, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
+  m_PrefabInstance: {fileID: 3803549958821851522}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8382937241163959318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931012163729181468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c02da83fe0f775f478e6157f133c6db6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemsGeneratorBehavior
+  possibleItems:
+  - {fileID: 3146598401782859227, guid: 55a93deab0c8c62438e2207b7e163d0a, type: 3}
+  minimumQuantity: 3
+  maximumQuantity: 5
+  generationDelay: 10
+  isActive: 0
+  vibrationAmount: 0.03
+  vibrationSpeed: 25
 --- !u!4 &7297306610162133066 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5876583144128633288, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}
