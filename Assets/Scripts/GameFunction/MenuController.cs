@@ -26,7 +26,7 @@ public class MenuController : MonoBehaviour
 
     void Update()
     {
-        if (Keyboard.current.bKey.wasPressedThisFrame)
+        if (Keyboard.current != null && Keyboard.current.bKey.wasPressedThisFrame)
         {
             if (furnaceController != null && furnaceController.IsOpen)
             {

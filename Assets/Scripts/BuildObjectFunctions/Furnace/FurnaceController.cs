@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,6 +20,9 @@ public class FurnaceController : MonoBehaviour
     [Header("Hotbar Resize")]
     public RectTransform hotbarRect;
     public Vector3 furnaceOpenHotbarScale = new Vector3(0.7f, 0.7f, 1f);
+
+    [Header("Furnace Recipes")]
+    public List<CraftingRecipe> furnaceRecipes;
 
     public bool IsOpen => isOpen;
     
@@ -112,11 +116,13 @@ public class FurnaceController : MonoBehaviour
             furnacePanel.SetActive(false);
         }
     }
-
+    
     public void StartCooking()
     {
         if (!isOpen || currentFurnace == null)
+        {
             return;
+        }
 
         currentFurnace.SetCooking(true);
     }

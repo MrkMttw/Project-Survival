@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
@@ -7,7 +6,6 @@ public class FurnaceBehavior : MonoBehaviour
     private BuildingObject building;
     private BoxCollider2D interactionCollider;
     private WorldGenerator worldGenerator;
-    private CraftingController craftingController;
     private FurnaceController furnaceController;
 
     private int inputItemID;
@@ -28,7 +26,6 @@ public class FurnaceBehavior : MonoBehaviour
         building = GetComponentInChildren<BuildingObject>();
         interactionCollider = GetComponent<BoxCollider2D>();
         worldGenerator = FindFirstObjectByType<WorldGenerator>();
-        craftingController = FindFirstObjectByType<CraftingController>();
         furnaceController = FindFirstObjectByType<FurnaceController>();
     }
 
@@ -39,12 +36,8 @@ public class FurnaceBehavior : MonoBehaviour
 
     private void Update()
     {
-        if (building == null ||
-            worldGenerator == null ||
-            craftingController == null)
-        {
+        if (building == null || worldGenerator == null)
             return;
-        }
 
         // A furnace only processes while its own chunk is loaded.
         ProcessFurnace(Time.deltaTime);
@@ -133,12 +126,10 @@ public class FurnaceBehavior : MonoBehaviour
         if (resultItem == null)
             return;
 
-        // Pause if the existing output stack cannot accept the result.
         if (outputQuantity > 0 &&
             (outputItemID != resultItem.ID ||
              !resultItem.stackable ||
-             outputQuantity + recipe.craftingQuantity >
-             resultItem.maxStackSize))
+             outputQuantity + recipe.craftingQuantity > resultItem.maxStackSize))
         {
             return;
         }
@@ -161,7 +152,6 @@ public class FurnaceBehavior : MonoBehaviour
 
             fuelQuantity--;
             fuelRemaining = fuelItem.fuelBurnDuration;
-
             RefreshOpenSlots();
         }
 
@@ -210,40 +200,40 @@ public class FurnaceBehavior : MonoBehaviour
     private CraftingRecipe FindMatchingRecipe()
     {
         if (inputItemID <= 0 ||
-            craftingController == null ||
-            craftingController.recipeLevels == null)
+            furnaceController == null ||
+            furnaceController.furnaceRecipes == null)
         {
             return null;
         }
 
-        foreach (CraftingLevel level in craftingController.recipeLevels)
+        foreach (CraftingRecipe recipe in furnaceController.furnaceRecipes)
         {
-            if (level == null || level.recipes == null)
-                continue;
-
-            foreach (CraftingRecipe recipe in level.recipes)
+            if (recipe == null ||
+                !recipe.isSmeltingRecipe ||
+                recipe.itemPrefab == null ||
+                recipe.ingredients == null ||
+                recipe.ingredients.Count != 1 ||
+                recipe.craftingQuantity <= 0)
             {
-                if (recipe == null ||
-                    !recipe.isSmeltingRecipe ||
-                    recipe.ingredients == null ||
-                    recipe.ingredients.Count != 1)
-                {
-                    continue;
-                }
+                continue;
+            }
 
-                CraftingIngredient ingredient = recipe.ingredients[0];
+            CraftingIngredient ingredient = recipe.ingredients[0];
 
-                if (ingredient == null || ingredient.itemPrefab == null)
-                    continue;
+            if (ingredient == null ||
+                ingredient.itemPrefab == null ||
+                ingredient.amount <= 0)
+            {
+                continue;
+            }
 
-                Item recipeInput = ingredient.itemPrefab.GetComponent<Item>();
+            Item recipeInput = ingredient.itemPrefab.GetComponent<Item>();
 
-                if (recipeInput != null &&
-                    recipeInput.ID == inputItemID &&
-                    inputQuantity >= ingredient.amount)
-                {
-                    return recipe;
-                }
+            if (recipeInput != null &&
+                recipeInput.ID == inputItemID &&
+                inputQuantity >= ingredient.amount)
+            {
+                return recipe;
             }
         }
 

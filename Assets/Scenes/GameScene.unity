@@ -635638,7 +635638,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1219531123
 RectTransform:
   m_ObjectHideFlags: 0
@@ -637349,6 +637349,8 @@ MonoBehaviour:
   arrowFill: {fileID: 1129672786}
   hotbarRect: {fileID: 1693767226}
   furnaceOpenHotbarScale: {x: 0.8, y: 0.8, z: 1}
+  furnaceRecipes:
+  - {fileID: 11400000, guid: 1028dc0520b1f0d4c9d2f1cdb3ba0b8a, type: 2}
 --- !u!4 &1416235697 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5876583144128633288, guid: 79b68fd879b150d41b15ace4258612f9, type: 3}

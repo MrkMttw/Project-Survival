@@ -13,8 +13,6 @@ public class PlayerInteractionController : MonoBehaviour
     public SleepTransitionController sleepTransitionController;
     public SleepingBagHitbox sleepingBagHitbox;
 
-    
-
     private void Update()
     {
         if (Keyboard.current == null)
