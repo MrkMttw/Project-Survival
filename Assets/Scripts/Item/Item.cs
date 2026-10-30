@@ -1,6 +1,17 @@
+
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+
+[System.Serializable]
+public class BuildingPreset
+{
+    public string direction;
+
+    public GameObject buildingPrefab;
+    public GameObject ghostPrefab;
+}
 
 public class Item : MonoBehaviour
 {
@@ -21,8 +32,13 @@ public class Item : MonoBehaviour
     public bool isBuildable;
     public GameObject buildingPrefab;
     public GameObject ghostPrefab;
-    
-    
+
+    [Header("Directional Building")]
+    public bool useDirectionalPrefabs;
+
+    public List<BuildingPreset> buildingPresets =
+        new List<BuildingPreset>();
+
     [Header("Smelting")]
     public bool isSmeltable;
 
@@ -47,12 +63,11 @@ public class Item : MonoBehaviour
         }
         else
         {
-            quantity =
-                Mathf.Clamp(
-                    quantity,
-                    1,
-                    maxStackSize
-                );
+            quantity = Mathf.Clamp(
+                quantity,
+                1,
+                maxStackSize
+            );
         }
 
         UpdateQuantityDisplay();
@@ -66,10 +81,7 @@ public class Item : MonoBehaviour
 
     public virtual void UseItem()
     {
-        Debug.Log(
-            "Using item: " +
-            name
-        );
+        Debug.Log("Using item: " + name);
     }
 
     public void UpdateQuantityDisplay()
@@ -77,26 +89,17 @@ public class Item : MonoBehaviour
         if (quantityText != null)
         {
             quantityText.text =
-                quantity > 1
-                    ? quantity.ToString()
-                    : "";
+                quantity > 1 ? quantity.ToString() : "";
         }
     }
 
     public int AddToStack(int amount = 1)
     {
-        if (!stackable ||
-            amount <= 0)
+        if (!stackable || amount <= 0)
             return 0;
 
-        int availableSpace =
-            maxStackSize - quantity;
-
-        int amountAdded =
-            Mathf.Min(
-                amount,
-                availableSpace
-            );
+        int availableSpace = maxStackSize - quantity;
+        int amountAdded = Mathf.Min(amount, availableSpace);
 
         quantity += amountAdded;
 
@@ -110,18 +113,13 @@ public class Item : MonoBehaviour
         if (amount <= 0)
             return 0;
 
-        int removed =
-            Mathf.Min(
-                amount,
-                quantity
-            );
+        int removed = Mathf.Min(amount, quantity);
 
         quantity -= removed;
 
         if (quantity <= 0)
         {
             Destroy(gameObject);
-
             return removed;
         }
 
@@ -148,31 +146,16 @@ public class Item : MonoBehaviour
 
     public GameObject CloneItem(int newQuantity)
     {
-        GameObject clone =
-            Instantiate(gameObject);
+        GameObject clone = Instantiate(gameObject);
 
-        Item cloneItem =
-            clone.GetComponent<Item>();
+        Item cloneItem = clone.GetComponent<Item>();
 
-        cloneItem.stackable =
-            stackable;
+        cloneItem.stackable = stackable;
+        cloneItem.maxStackSize = maxStackSize;
 
-        cloneItem.maxStackSize =
-            maxStackSize;
-
-        if (stackable)
-        {
-            cloneItem.quantity =
-                Mathf.Clamp(
-                    newQuantity,
-                    1,
-                    maxStackSize
-                );
-        }
-        else
-        {
-            cloneItem.quantity = 1;
-        }
+        cloneItem.quantity = stackable
+            ? Mathf.Clamp(newQuantity, 1, maxStackSize)
+            : 1;
 
         cloneItem.UpdateQuantityDisplay();
 

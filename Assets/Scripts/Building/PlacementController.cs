@@ -32,6 +32,7 @@ public class PlacementController : MonoBehaviour
 
     private Item currentItem;
     private GameObject currentBuildingPrefab;
+    private int currentDirectionalPresetIndex = -1;
 
     private BuildingObject relocatingBuilding;
     private bool isRelocating;
@@ -48,6 +49,14 @@ public class PlacementController : MonoBehaviour
     {
         if (ghostObject == null)
             return;
+
+        // Rotate directional building
+        if (Keyboard.current.rKey.wasPressedThisFrame &&
+            currentItem != null &&
+            currentItem.useDirectionalPrefabs)
+        {
+            CycleDirectionalPreset();
+        }
 
         // Toggle grid with Tab
         if (Keyboard.current.tabKey.wasPressedThisFrame)
@@ -69,6 +78,84 @@ public class PlacementController : MonoBehaviour
                 PlaceBuilding();
         }
     }
+        
+    private BuildingPreset GetCurrentPreset()
+    {
+        if (currentItem == null ||
+            !currentItem.useDirectionalPrefabs)
+            return null;
+
+        if (currentDirectionalPresetIndex < 0 ||
+            currentDirectionalPresetIndex >=
+            currentItem.buildingPresets.Count)
+            return null;
+
+        return currentItem.buildingPresets[
+            currentDirectionalPresetIndex
+        ];
+    }
+
+    private void CycleDirectionalPreset()
+    {
+        if (currentItem.buildingPresets == null ||
+            currentItem.buildingPresets.Count == 0)
+            return;
+
+        currentDirectionalPresetIndex++;
+
+        if (currentDirectionalPresetIndex >=
+            currentItem.buildingPresets.Count)
+        {
+            currentDirectionalPresetIndex = 0;
+        }
+
+        Vector3 position =
+            ghostObject.transform.position;
+
+        Quaternion rotation =
+            ghostObject.transform.rotation;
+
+        Destroy(ghostObject);
+
+        ApplyDirectionalPreset(position, rotation);
+    }
+
+    private void ApplyDirectionalPreset(
+        Vector3 position,
+        Quaternion rotation)
+    {
+        BuildingPreset preset = GetCurrentPreset();
+
+        if (preset == null ||
+            preset.ghostPrefab == null ||
+            preset.buildingPrefab == null)
+        {
+            Debug.LogError(
+                "Invalid directional preset for: " +
+                currentItem.name
+            );
+
+            return;
+        }
+
+        currentBuildingPrefab =
+            preset.buildingPrefab;
+
+        ghostObject = Instantiate(
+            preset.ghostPrefab,
+            position,
+            rotation
+        );
+
+        ghostObject.name =
+            currentItem.name +
+            "_" +
+            preset.direction +
+            "_Ghost";
+
+        SetGhostCollision(false);
+        SetGhostTransparency();
+    }
 
     public void StartPlacement(Item item)
     {
@@ -81,71 +168,88 @@ public class PlacementController : MonoBehaviour
             return;
         }
 
-        if (item.ghostPrefab == null)
-        {
-            Debug.LogWarning(
-                "Cannot place " +
-                item.name +
-                ": ghostPrefab is missing."
-            );
-
-            return;
-        }
-
         if (ghostObject != null)
             Destroy(ghostObject);
 
         currentItem = item;
-        currentBuildingPrefab = item.buildingPrefab;
+        currentDirectionalPresetIndex = -1;
 
-        ghostObject =
-            Instantiate(item.ghostPrefab);
+        if (item.useDirectionalPrefabs)
+        {
+            if (item.buildingPresets == null ||
+                item.buildingPresets.Count == 0)
+            {
+                Debug.LogError(
+                    "No directional presets configured for: " +
+                    item.name
+                );
 
-        ghostObject.name =
-            item.name + "_Ghost";
+                CancelPlacement();
+                return;
+            }
 
-        SetGhostCollision(false);
+            currentDirectionalPresetIndex = 0;
 
-        SetGhostTransparency();
+            ApplyDirectionalPreset(
+                Vector3.zero,
+                Quaternion.identity
+            );
+        }
+        else
+        {
+            if (item.ghostPrefab == null ||
+                item.buildingPrefab == null)
+            {
+                Debug.LogWarning(
+                    "Building or ghost prefab missing for: " +
+                    item.name
+                );
+
+                CancelPlacement();
+                return;
+            }
+
+            currentBuildingPrefab =
+                item.buildingPrefab;
+
+            ghostObject = Instantiate(
+                item.ghostPrefab
+            );
+
+            ghostObject.name =
+                item.name + "_Ghost";
+
+            SetGhostCollision(false);
+            SetGhostTransparency();
+        }
+
+        if (ghostObject == null)
+        {
+            CancelPlacement();
+            return;
+        }
 
         ShowGridPrompt();
-
-        Debug.Log(
-            "Ghost created: " +
-            ghostObject.name
-        );
     }
 
     public void StartRelocation(BuildingObject building)
     {
-        if (building == null)
+        if (building == null || isRelocating)
             return;
 
-        if (isRelocating)
-            return;
-            
         CancelPlacement();
-
-        relocatingBuilding = building;
-        isRelocating = true;
 
         ItemDictionary itemDictionary =
             FindObjectOfType<ItemDictionary>();
 
         if (itemDictionary == null)
         {
-            Debug.LogError(
-                "ItemDictionary not found."
-            );
-
-            CancelPlacement();
+            Debug.LogError("ItemDictionary not found.");
             return;
         }
 
         GameObject itemPrefab =
-            itemDictionary.GetItemPrefab(
-                building.itemID
-            );
+            itemDictionary.GetItemPrefab(building.itemID);
 
         if (itemPrefab == null)
         {
@@ -154,61 +258,71 @@ public class PlacementController : MonoBehaviour
                 building.itemID
             );
 
-            CancelPlacement();
             return;
         }
 
-        Item item =
-            itemPrefab.GetComponent<Item>();
+        Item item = itemPrefab.GetComponent<Item>();
 
         if (item == null)
-        {
-            Debug.LogError(
-                "No Item component found for Item ID: " +
-                building.itemID
-            );
-
-            CancelPlacement();
             return;
-        }
 
-        if (item.ghostPrefab == null)
+        currentItem = item;
+        currentDirectionalPresetIndex =
+            building.directionalPresetIndex;
+
+        isRelocating = true;
+        relocatingBuilding = building;
+
+        Vector3 position = building.transform.position;
+        Quaternion rotation = building.transform.rotation;
+
+        if (item.useDirectionalPrefabs)
         {
-            Debug.LogError(
-                "Ghost prefab missing for Item ID: " +
-                building.itemID
-            );
+            if (currentDirectionalPresetIndex < 0 ||
+                currentDirectionalPresetIndex >=
+                item.buildingPresets.Count)
+            {
+                currentDirectionalPresetIndex = 0;
+            }
 
-            CancelPlacement();
-            return;
+            ApplyDirectionalPreset(position, rotation);
         }
+        else
+        {
+            if (item.ghostPrefab == null)
+            {
+                CancelPlacement();
+                return;
+            }
 
-        ghostObject =
-            Instantiate(
+            currentBuildingPrefab =
+                item.buildingPrefab;
+
+            ghostObject = Instantiate(
                 item.ghostPrefab,
-                building.transform.position,
-                building.transform.rotation
+                position,
+                rotation
             );
+
+            SetGhostCollision(false);
+            SetGhostTransparency();
+        }
+
+        if (ghostObject == null)
+        {
+            CancelPlacement();
+            return;
+        }
 
         ghostObject.name =
             building.gameObject.name + "_Ghost";
 
-        SetGhostCollision(false);
-
-        SetGhostTransparency();
-
         ShowGridPrompt();
-
-        Debug.Log(
-            "Relocation started: " +
-            building.gameObject.name
-        );
     }
 
     public void CancelPlacement()
     {
-        if (ghostObject != null &&
-            !isRelocating)
+        if (ghostObject != null)
         {
             Destroy(ghostObject);
         }
@@ -218,6 +332,7 @@ public class PlacementController : MonoBehaviour
         ghostObject = null;
         currentBuildingPrefab = null;
         currentItem = null;
+        currentDirectionalPresetIndex = -1;
         relocatingBuilding = null;
         isRelocating = false;
         canPlace = false;
@@ -356,7 +471,7 @@ public class PlacementController : MonoBehaviour
         }
 
         GameObject placedBuilding = Instantiate(
-            currentItem.buildingPrefab,
+            currentBuildingPrefab,
             ghostObject.transform.position,
             ghostObject.transform.rotation,
             buildingChunkParent
@@ -383,6 +498,9 @@ public class PlacementController : MonoBehaviour
         
         buildingObject.buildingID =
             Guid.NewGuid().ToString();
+
+        buildingObject.directionalPresetIndex =
+            currentDirectionalPresetIndex;
 
         if (worldGenerator != null)
         {
@@ -438,20 +556,65 @@ public class PlacementController : MonoBehaviour
         ghostObject = null;
         currentBuildingPrefab = null;
         currentItem = null;
+        currentDirectionalPresetIndex = -1;
         canPlace = false;
     }
-
+        
     private void PlaceRelocatedBuilding()
     {
-        relocatingBuilding.transform.position =
-            ghostObject.transform.position;
+        GameObject targetBuilding =
+            relocatingBuilding.gameObject;
 
-        relocatingBuilding.transform.rotation =
-            ghostObject.transform.rotation;
+        bool changePrefab =
+            currentItem.useDirectionalPrefabs &&
+            currentDirectionalPresetIndex !=
+            relocatingBuilding.directionalPresetIndex;
+
+        if (changePrefab)
+        {
+            GameObject replacement = Instantiate(
+                currentBuildingPrefab,
+                ghostObject.transform.position,
+                ghostObject.transform.rotation,
+                relocatingBuilding.transform.parent
+            );
+
+            BuildingObject replacementData =
+                replacement.GetComponentInChildren<BuildingObject>();
+
+            if (replacementData == null)
+            {
+                replacementData =
+                    replacement.AddComponent<BuildingObject>();
+            }
+
+            replacementData.itemID =
+                relocatingBuilding.itemID;
+
+            replacementData.buildingID =
+                relocatingBuilding.buildingID;
+
+            replacementData.directionalPresetIndex =
+                currentDirectionalPresetIndex;
+
+            targetBuilding = replacement;
+
+            Destroy(relocatingBuilding.gameObject);
+        }
+        else
+        {
+            targetBuilding.transform.position =
+                ghostObject.transform.position;
+
+            targetBuilding.transform.rotation =
+                ghostObject.transform.rotation;
+
+            relocatingBuilding.directionalPresetIndex =
+                currentDirectionalPresetIndex;
+        }
 
         SpriteRenderer[] renderers =
-            relocatingBuilding
-            .GetComponentsInChildren<SpriteRenderer>();
+            targetBuilding.GetComponentsInChildren<SpriteRenderer>();
 
         foreach (SpriteRenderer renderer in renderers)
         {
@@ -461,11 +624,14 @@ public class PlacementController : MonoBehaviour
         WorldGenerator worldGenerator =
             FindObjectOfType<WorldGenerator>();
 
-        if (worldGenerator != null)
+        BuildingObject buildingObject =
+            targetBuilding.GetComponentInChildren<BuildingObject>();
+
+        if (worldGenerator != null && buildingObject != null)
         {
             Vector2Int chunkCoordinate =
                 worldGenerator.GetChunkCoordinate(
-                    relocatingBuilding.transform.position
+                    targetBuilding.transform.position
                 );
 
             Transform buildingChunkParent =
@@ -473,14 +639,12 @@ public class PlacementController : MonoBehaviour
                     chunkCoordinate
                 );
 
-            relocatingBuilding.transform.SetParent(
+            targetBuilding.transform.SetParent(
                 buildingChunkParent,
                 true
             );
 
-            worldGenerator.UpdateBuilding(
-                relocatingBuilding
-            );
+            worldGenerator.UpdateBuilding(buildingObject);
 
             FindFirstObjectByType<RadarController>()
                 ?.RefreshCoordinateUI();
@@ -492,10 +656,13 @@ public class PlacementController : MonoBehaviour
 
         Debug.Log(
             "Building relocated: " +
-            relocatingBuilding.gameObject.name
+            targetBuilding.name
         );
 
         ghostObject = null;
+        currentBuildingPrefab = null;
+        currentItem = null;
+        currentDirectionalPresetIndex = -1;
         relocatingBuilding = null;
         isRelocating = false;
         canPlace = false;

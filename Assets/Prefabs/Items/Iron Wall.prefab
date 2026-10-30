@@ -10,16 +10,72 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
       propertyPath: ID
-      value: 13
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
       propertyPath: quantity
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: ghostPrefab
+      value: 
+      objectReference: {fileID: 2515869378775497169, guid: b68f488d2cd7434489592d03bdbd6946, type: 3}
+    - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: isBuildable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
       propertyPath: maxStackSize
       value: 16
       objectReference: {fileID: 0}
+    - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: buildingPrefab
+      value: 
+      objectReference: {fileID: 2515869378775497169, guid: b68f488d2cd7434489592d03bdbd6946, type: 3}
+    - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: useDirectionalPrefabs
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: buildingPresets.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: buildingPresets.Array.data[0].direction
+      value: Horizontal
+      objectReference: {fileID: 0}
+    - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: buildingPresets.Array.data[1].direction
+      value: Vertical
+      objectReference: {fileID: 0}
+    - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: buildingPresets.Array.data[2].direction
+      value: Gate
+      objectReference: {fileID: 0}
+    - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: buildingPresets.Array.data[0].ghostPrefab
+      value: 
+      objectReference: {fileID: 2598960212565857186, guid: efc9015fc9dc83e429bfb5b33c7de16b, type: 3}
+    - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: buildingPresets.Array.data[1].ghostPrefab
+      value: 
+      objectReference: {fileID: 2506638193689298643, guid: ab5c6e26aa1ec2244a9b80723eb6ef6d, type: 3}
+    - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: buildingPresets.Array.data[2].ghostPrefab
+      value: 
+      objectReference: {fileID: 4348333642324574661, guid: 47e79a0d688a8e04baa4a8be9823b176, type: 3}
+    - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: buildingPresets.Array.data[0].buildingPrefab
+      value: 
+      objectReference: {fileID: 7408586723931458321, guid: f2fab295f154703408a511844617bff9, type: 3}
+    - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: buildingPresets.Array.data[1].buildingPrefab
+      value: 
+      objectReference: {fileID: 5209657143139973119, guid: 5bfa870c639c73c4fb6e0dcf837daafe, type: 3}
+    - target: {fileID: 1114964619308015532, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
+      propertyPath: buildingPresets.Array.data[2].buildingPrefab
+      value: 
+      objectReference: {fileID: 5354840403571977053, guid: 0d8dd20d92729a843bd28dfd59928685, type: 3}
     - target: {fileID: 2982858587533249513, guid: 8113e3dc94eb61a409a62d1ef1a4954d, type: 3}
       propertyPath: m_Sprite
       value: 

@@ -30,16 +30,14 @@ public class ClickInteractionController : MonoBehaviour
             HandleInteraction(false);
         }
     }
-
+        
     private void HandleInteraction(bool isMouseClick)
     {
-        // Ignore mouse clicks over UI.
-        // Spacebar remains usable while interacting with UI.
-
+        // IGNORE CLICKS OVER HOTBAR
         if (isMouseClick && IsPointerOverHotbar())
             return;
 
-        // Ignore interactions while the normal menu is open.
+        // IGNORE NORMAL MENU
         if (menuController != null &&
             menuController.menuCanvas != null &&
             menuController.menuCanvas.activeSelf)
@@ -47,14 +45,14 @@ public class ClickInteractionController : MonoBehaviour
             return;
         }
 
-        // Ignore interactions during Game Over.
+        // IGNORE GAME OVER
         if (gameOverController != null &&
             gameOverController.IsGameOver())
         {
             return;
         }
 
-        // Projectile weapon takes priority.
+        // PROJECTILE WEAPON
         if (isMouseClick &&
             projectileWeaponController != null &&
             projectileWeaponController.HasProjectileWeaponEquipped())
@@ -63,15 +61,24 @@ public class ClickInteractionController : MonoBehaviour
             return;
         }
 
-        // Melee weapon takes priority.
+        // MELEE WEAPON
         if (meleeWeaponController != null &&
             meleeWeaponController.HasMeleeWeaponEquipped())
         {
+            // PRIORITIZE BREAKING IF THE TARGET IS VALID
+            if (breakSystem != null &&
+                breakSystem.CanBreakCurrentTarget())
+            {
+                breakSystem.TryBreak();
+                return;
+            }
+
+            // OTHERWISE ATTACK
             meleeWeaponController.TryAttack();
             return;
         }
 
-        // No weapon equipped: attempt breaking.
+        // NO MELEE WEAPON: ATTEMPT BREAKING
         if (breakSystem != null)
         {
             breakSystem.TryBreak();

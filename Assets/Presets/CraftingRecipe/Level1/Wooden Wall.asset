@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CraftingRecipe
   itemPrefab: {fileID: 7602753336872632496, guid: 77573f070a6c4fe45989c2870a2c682d, type: 3}
   recipeIcon: {fileID: 3050022438591746920, guid: c6dae811689773e46bd46a73ed927441, type: 3}
-  craftingQuantity: 1
+  craftingQuantity: 4
   ingredients:
   - itemPrefab: {fileID: 6695288099351985358, guid: 188260af6ee17e643bdd387747284ad9, type: 3}
     amount: 10
   description: 
   requiredCampfireLevel: 1
+  isSmeltingRecipe: 0

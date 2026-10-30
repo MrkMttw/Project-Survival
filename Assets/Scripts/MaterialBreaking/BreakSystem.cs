@@ -48,6 +48,47 @@ public class BreakSystem : MonoBehaviour
         }
     }
 
+    public bool CanBreakCurrentTarget()
+    {
+        if (playerHeldItem == null || player == null)
+            return false;
+
+        if (currentBreakable == null)
+            return false;
+
+        // CHECK BREAKABLE LAYER
+        if (((1 << currentBreakable.gameObject.layer) &
+            breakableLayer) == 0)
+        {
+            return false;
+        }
+
+        // GET MATERIAL
+        BreakableMaterial material =
+            currentBreakable.GetComponentInParent<BreakableMaterial>();
+
+        if (material == null)
+            return false;
+
+        // CHECK DISTANCE
+        Vector2 closestPoint =
+            currentBreakable.ClosestPoint(player.position);
+
+        float distance =
+            Vector2.Distance(player.position, closestPoint);
+
+        if (distance > breakRange)
+            return false;
+
+        // CHECK TOOL PRESET
+        Item equippedItem = playerHeldItem.GetHeldItem();
+
+        ToolBreakPreset preset =
+            FindPreset(equippedItem, material.materialType);
+
+        return preset != null;
+    }
+
     // Called by WeaponController
     public void TryBreak()
     {

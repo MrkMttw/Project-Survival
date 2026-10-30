@@ -602,6 +602,8 @@ public class WorldGenerator : MonoBehaviour
 
         data.buildingID = building.buildingID;
         data.itemID = building.itemID;
+        data.directionalPresetIndex =
+            building.directionalPresetIndex;
         data.position = building.transform.position;
         data.rotation = building.transform.rotation;
         data.chunkCoordinate = chunkCoordinate;
@@ -695,6 +697,8 @@ public class WorldGenerator : MonoBehaviour
 
         data.buildingID = building.buildingID;
         data.itemID = building.itemID;
+        data.directionalPresetIndex =
+            building.directionalPresetIndex;
         data.position = building.transform.position;
         data.rotation = building.transform.rotation;
         data.chunkCoordinate = newChunkCoordinate;
@@ -770,10 +774,29 @@ public class WorldGenerator : MonoBehaviour
 
                 Item item = itemPrefab.GetComponent<Item>();
 
-                if (item == null || item.buildingPrefab == null)
+                if (item == null)
                     continue;
 
-                prefabToRestore = item.buildingPrefab;
+                if (item.useDirectionalPrefabs)
+                {
+                    int presetIndex = data.directionalPresetIndex;
+
+                    if (presetIndex < 0 ||
+                        presetIndex >= item.buildingPresets.Count)
+                    {
+                        continue;
+                    }
+
+                    prefabToRestore =
+                        item.buildingPresets[presetIndex].buildingPrefab;
+                }
+                else
+                {
+                    prefabToRestore = item.buildingPrefab;
+                }
+
+                if (prefabToRestore == null)
+                    continue;
             }
 
             GameObject restoredObject = Instantiate(
@@ -794,6 +817,8 @@ public class WorldGenerator : MonoBehaviour
 
             building.itemID = data.itemID;
             building.buildingID = data.buildingID;
+            building.directionalPresetIndex =
+                data.directionalPresetIndex;
         }
     }
 
