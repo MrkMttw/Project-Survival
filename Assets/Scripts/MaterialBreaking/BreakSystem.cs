@@ -224,6 +224,22 @@ public class BreakSystem : MonoBehaviour
         // Drop items only when completely broken.
         if (broken)
         {
+            StructureObjectIdentity structureIdentity =
+                material.GetComponentInParent<StructureObjectIdentity>();
+
+            if (structureIdentity != null)
+            {
+                StructureSpawner structureSpawner =
+                    FindFirstObjectByType<StructureSpawner>();
+
+                if (structureSpawner != null)
+                {
+                    structureSpawner.MarkStructureObjectDestroyed(
+                        structureIdentity
+                    );
+                }
+            }
+            
             WorldObjectIdentity identity =
                 material.GetComponentInParent<WorldObjectIdentity>();
 

@@ -103,43 +103,46 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-
     private void Start()
     {
         // Initialize health
         currentHP = maxHP;
         UpdateHealthBar();
 
-        // Find player
-        GameObject playerObject =
-            GameObject.FindGameObjectWithTag("Player");
+        // FIND PLAYER
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
-        if (playerObject == null)
+        foreach (GameObject playerObject in players)
         {
-            Debug.LogWarning(
-                "EnemyController: Could not find Player!"
-            );
+            HealthController health = playerObject.GetComponentInChildren<HealthController>(true);
 
-            return;
+            if (health != null)
+            {
+                player = playerObject.transform;
+                playerHealth = health;
+                break;
+            }
         }
 
-        player = playerObject.transform;
-
-        playerHealth =
-            playerObject.GetComponentInChildren<HealthController>();
+        if (player == null)
+        {
+            Debug.LogWarning("EnemyController: Could not find Player with HealthController!");
+            return;
+        }
 
         if (playerHealth == null)
         {
             Debug.LogWarning(
                 "EnemyController: Could not find HealthController!"
             );
-        }
 
+            return;
+        }
+        
         // Initialize timers
         attackTimer = 0f;
         firstAttackTimer = firstAttackDelay;
     }
-
 
     private void Update()
     {
@@ -494,15 +497,54 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-
     // DEATH
-
+        
     private void Die()
     {
         if (isDead)
             return;
 
         isDead = true;
+
+        Debug.Log("[EnemyController] Enemy died: " + gameObject.name);
+
+        StructureObjectIdentity identity =
+            GetComponent<StructureObjectIdentity>();
+
+        if (identity != null)
+        {
+            Debug.Log(
+                "[EnemyController] Structure identity found. " +
+                "Is Boss: " + identity.isBoss +
+                ", Structure ID: " + identity.structureID
+            );
+        }
+        else
+        {
+            Debug.LogWarning(
+                "[EnemyController] No StructureObjectIdentity found!",
+                gameObject
+            );
+        }
+
+        if (identity != null && identity.isBoss)
+        {
+            StructureSpawner structureSpawner =
+                FindFirstObjectByType<StructureSpawner>();
+
+            if (structureSpawner != null)
+            {
+                Debug.Log("[EnemyController] Registering boss defeat.");
+
+                structureSpawner.MarkBossDefeated(identity);
+            }
+            else
+            {
+                Debug.LogWarning(
+                    "[EnemyController] StructureSpawner not found!"
+                );
+            }
+        }
 
         DropItems();
         Destroy(gameObject);

@@ -27,7 +27,15 @@ public class StructureSpawner : MonoBehaviour
         public Vector2Int chunk;
         public Vector3 position;
         public GameObject instance;
+        public int dataIndex;
+        public string structureID;
     }
+  
+    private readonly HashSet<string> destroyedStructureObjects =
+        new HashSet<string>();
+
+    private readonly HashSet<string> defeatedStructureBosses =
+        new HashSet<string>();
 
     private class StructureCandidate
     {
@@ -203,9 +211,16 @@ public class StructureSpawner : MonoBehaviour
                 continue;
             }
 
+            string structureID =
+                candidate.dataIndex + "_" +
+                candidate.chunk.x + "_" +
+                candidate.chunk.y;
+
             StructureRecord record = new StructureRecord
             {
                 data = data,
+                dataIndex = candidate.dataIndex,
+                structureID = structureID,
                 chunk = candidate.chunk,
                 position = candidate.position,
                 instance = null
@@ -324,22 +339,131 @@ public class StructureSpawner : MonoBehaviour
             $"chunk {record.chunk}.",
             record.instance
         );
-    }
 
+        // DESTRUCTIBLE OBJECTS
+        BreakableMaterial[] breakables =
+            record.instance.GetComponentsInChildren<BreakableMaterial>(true);
+
+        for (int i = 0; i < breakables.Length; i++)
+        {
+            BreakableMaterial material = breakables[i];
+
+            if (material == null)
+                continue;
+
+            StructureObjectIdentity identity =
+                material.GetComponent<StructureObjectIdentity>();
+
+            if (identity == null)
+            {
+                identity =
+                    material.gameObject.AddComponent<StructureObjectIdentity>();
+            }
+
+            identity.structureID = record.structureID;
+            identity.objectID = "breakable_" + i;
+            identity.isBoss = false;
+
+            string objectKey =
+                identity.structureID + "/" + identity.objectID;
+
+            if (destroyedStructureObjects.Contains(objectKey))
+            {
+                Debug.Log(
+                    $"[StructureSpawner] Restoring destroyed object: " +
+                    $"'{material.gameObject.name}' ({objectKey})."
+                );
+
+                Destroy(material.gameObject);
+            }
+        }
+
+        // BOSS
+        EnemyController[] enemies =
+            record.instance.GetComponentsInChildren<EnemyController>(true);
+
+        foreach (EnemyController enemy in enemies)
+        {
+            if (enemy == null)
+                continue;
+
+            StructureObjectIdentity identity =
+                enemy.GetComponent<StructureObjectIdentity>();
+
+            if (identity == null || !identity.isBoss)
+                continue;
+
+            identity.structureID = record.structureID;
+
+            if (string.IsNullOrEmpty(identity.objectID))
+                identity.objectID = "boss";
+
+            string bossKey =
+                identity.structureID + "/" + identity.objectID;
+
+            if (defeatedStructureBosses.Contains(bossKey))
+            {
+                Debug.Log(
+                    $"[StructureSpawner] Boss already defeated: " +
+                    $"'{enemy.gameObject.name}' ({bossKey}). Removing boss."
+                );
+
+                Destroy(enemy.gameObject);
+            }
+        }
+    }
     public void UnloadChunk(Vector2Int chunkCoordinate)
     {
         // Keep the layout and records.
         // The chunk can be processed again when it reloads.
         processedChunks.Remove(chunkCoordinate);
     }
+           
+    public void MarkStructureObjectDestroyed(
+        StructureObjectIdentity identity)
+    {
+        if (identity == null || identity.isBoss)
+            return;
+
+        if (string.IsNullOrEmpty(identity.structureID) ||
+            string.IsNullOrEmpty(identity.objectID))
+            return;
+
+        string objectKey =
+            identity.structureID + "/" + identity.objectID;
+
+        destroyedStructureObjects.Add(objectKey);
+    }
+
+    public void MarkBossDefeated(
+        StructureObjectIdentity identity)
+    {
+        if (identity == null || !identity.isBoss)
+            return;
+
+        if (string.IsNullOrEmpty(identity.structureID) ||
+            string.IsNullOrEmpty(identity.objectID))
+            return;
+
+        string bossKey =
+            identity.structureID + "/" + identity.objectID;
+
+        defeatedStructureBosses.Add(bossKey);
+    }
 
     public void UpdateStructureLoading(Vector2Int playerChunk)
     {
+        if (worldGenerator == null)
+            return;
+
+        if (!layoutGenerated)
+            GenerateDeterministicLayout();
+
+        if (!layoutGenerated)
+            return;
+
         foreach (StructureRecord record in structureRecords)
         {
-            if (record.instance == null)
-                continue;
-
             int distanceX = Mathf.Abs(
                 record.chunk.x - playerChunk.x
             );
@@ -348,15 +472,27 @@ public class StructureSpawner : MonoBehaviour
                 record.chunk.y - playerChunk.y
             );
 
-            if (distanceX > structureLoadDistance ||
-                distanceY > structureLoadDistance)
+            bool shouldBeLoaded =
+                distanceX <= structureLoadDistance &&
+                distanceY <= structureLoadDistance;
+
+            if (shouldBeLoaded)
             {
-                Destroy(record.instance);
-                record.instance = null;
+                if (record.instance == null)
+                {
+                    SpawnRecord(record);
+                }
+            }
+            else
+            {
+                if (record.instance != null)
+                {
+                    Destroy(record.instance);
+                    record.instance = null;
+                }
             }
         }
     }
-
         
     public bool TryGetStructurePosition(
         StructureSpawnData target,

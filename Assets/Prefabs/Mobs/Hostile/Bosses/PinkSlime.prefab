@@ -199,5 +199,28 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2935146238334533188, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3511705936615367800}
   m_SourcePrefab: {fileID: 100100000, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+--- !u!1 &2013062956178729720 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2935146238334533188, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+  m_PrefabInstance: {fileID: 3698702020774401212}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3511705936615367800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2013062956178729720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5618d5f3c9d57fa4db352d03fa81ad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StructureObjectIdentity
+  structureID: 
+  objectID: boss4
+  isBoss: 1
