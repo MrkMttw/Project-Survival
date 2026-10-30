@@ -1,7 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.EventSystems;
-using System.Collections.Generic;
 
 public class MeleeWeaponController : MonoBehaviour
 {
@@ -11,14 +8,6 @@ public class MeleeWeaponController : MonoBehaviour
 
     [Header("Combat")]
     public LayerMask enemyLayer;
-
-    [Header("UI")]
-    public MenuController menuController;
-    public GameOverController gameOverController;
-    
-    [Header("Interaction")]
-    public GameObject hotbarPanel;
-    public BreakSystem breakSystem;
     
     private float nextAttackTime;
 
@@ -36,18 +25,6 @@ public class MeleeWeaponController : MonoBehaviour
             );
         }
 
-        if (breakSystem == null)
-        {
-            breakSystem = GetComponent<BreakSystem>();
-        }
-
-        if (breakSystem == null)
-        {
-            Debug.LogError(
-                "MeleeWeaponController: BreakSystem is not assigned!"
-            );
-        }
-
         if (player == null)
         {
             Debug.LogError(
@@ -62,55 +39,28 @@ public class MeleeWeaponController : MonoBehaviour
             );
         }
     }
-            
-    private void Update()
+
+    public bool HasMeleeWeaponEquipped()
     {
-        // Ignore attack and break input while the normal menu is open.
-        if (menuController != null &&
-            menuController.menuCanvas.activeSelf)
-            return;
+        if (playerHeldItem == null)
+            return false;
 
-        // Ignore attack and break input during Game Over.
-        if (gameOverController != null &&
-            gameOverController.IsGameOver())
-            return;
+        Item heldItem = playerHeldItem.GetHeldItem();
 
-        bool leftClick =
-            Mouse.current != null &&
-            Mouse.current.leftButton.wasPressedThisFrame;
+        if (heldItem == null)
+            return false;
 
-        bool spacePressed =
-            Keyboard.current != null &&
-            Keyboard.current.spaceKey.wasPressedThisFrame;
-
-        if (!leftClick && !spacePressed)
-            return;
-
-        if (leftClick && IsPointerOverHotbar())
-            return;
-
-        HandleLeftClick();
+        return heldItem.GetComponent<MeleeWeaponFunction>() != null;
     }
 
-    private void HandleLeftClick()
+    public void TryAttack()
     {
         WeaponData weapon = GetCurrentWeapon();
 
-        // No melee weapon equipped.
         if (weapon == null)
-        {
-            TryBreak();
             return;
-        }
 
-        // Melee weapon equipped.
-        bool hitEnemy = TryAttack(weapon);
-
-        // If no enemy was hit, let BreakSystem handle the click.
-        if (!hitEnemy)
-        {
-            TryBreak();
-        }
+        TryAttack(weapon);
     }
 
     // CURRENT WEAPON
@@ -253,52 +203,6 @@ public class MeleeWeaponController : MonoBehaviour
         }
 
         return hitEnemy;
-    }
-
-    // BREAK SYSTEM
-
-    private void TryBreak()
-    {
-        if (breakSystem == null)
-            return;
-
-        breakSystem.TryBreak();
-    }
-
-    // HOTBAR UI
-
-    private bool IsPointerOverHotbar()
-    {
-        if (hotbarPanel == null)
-            return false;
-
-        if (EventSystem.current == null)
-            return false;
-
-        PointerEventData pointerData =
-            new PointerEventData(EventSystem.current);
-
-        pointerData.position =
-            Mouse.current.position.ReadValue();
-
-        List<RaycastResult> results =
-            new List<RaycastResult>();
-
-        EventSystem.current.RaycastAll(
-            pointerData,
-            results
-        );
-
-        foreach (RaycastResult result in results)
-        {
-            if (result.gameObject.transform.IsChildOf(
-                hotbarPanel.transform))
-            {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     // ATTACK RANGE GIZMO

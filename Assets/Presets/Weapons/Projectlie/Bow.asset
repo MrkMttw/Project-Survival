@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0924ac483e40ca47a1f906df66dd501, type: 3}
+  m_Name: Bow
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectileWeaponData
+  itemPrefab: {fileID: 8610189998618823739, guid: 3bd2245e5d3025b4d928e0e332c05ed0, type: 3}
+  projectilePrefab: {fileID: 8038134037327365184, guid: 6ce374512d77e1843845a6c2e342d80a, type: 3}
+  ammunitionItem: {fileID: 639431159251122371, guid: 81cf7ce12e4cc9043b89e7044e3026de, type: 3}
+  minDamage: 5
+  maxDamage: 10
+  attackSpeed: 2
+  projectileSpeed: 10
+  maxDistance: 10
+  maxLifetime: 3
+  knockbackStrength: 5

@@ -4,7 +4,7 @@
 
 The Furnace System is a Minecraft-style smelting system for Project Survival, a 2D top-down survival game developed in Unity.
 
-It allows players to place items into a furnace, supply fuel, and convert smeltable items into new items using configurable smelting recipes. The system reuses the existing item, crafting recipe, and world persistence systems.
+It allows players to place items into a furnace, supply fuel, and convert smeltable items into new items using configurable smelting recipes. The system reuses the existing item, crafting recipe, building data, and world persistence systems.
 
 ## Features
 
@@ -13,6 +13,7 @@ It allows players to place items into a furnace, supply fuel, and convert smelta
 - **Output Slot:** Displays the results of completed smelting recipes.
 - **Configurable Smelting Time:** Each smeltable item has its own smelting duration.
 - **Configurable Fuel Duration:** Each fuel item has its own burn duration.
+- **Separate Furnace Recipes:** Uses a dedicated recipe list in `FurnaceController`, independent of the crafting table's recipe list.
 - **Recipe-Based Smelting:** Uses `CraftingRecipe` ScriptableObjects to define inputs and outputs.
 - **Live Progress UI:** Displays fuel and smelting progress.
 - **Cook Button:** Allows the player to start furnace processing.
@@ -27,7 +28,6 @@ The furnace system uses the following existing project components:
 - `Item`
 - `ItemDictionary`
 - `CraftingRecipe`
-- `CraftingController`
 - `BuildingObject`
 - `BuildingSaveData`
 - `WorldGenerator`
@@ -39,6 +39,8 @@ The furnace system uses the following existing project components:
 
 The furnace also requires a `BoxCollider2D` for player interaction.
 
+**Note:** `CraftingController` is not required for furnace recipe lookup. Furnace recipes are configured separately through `FurnaceController.furnaceRecipes`.
+
 ## Architecture
 
 ### FurnaceBehavior
@@ -46,7 +48,7 @@ The furnace also requires a `BoxCollider2D` for player interaction.
 Responsible for the furnace's core functionality:
 
 - Managing input, fuel, and output item IDs and quantities.
-- Finding matching smelting recipes.
+- Finding matching smelting recipes from the furnace's dedicated recipe list.
 - Consuming fuel and processing smeltable items.
 - Tracking smelting progress and remaining fuel duration.
 - Updating furnace state in `BuildingSaveData`.
@@ -55,15 +57,18 @@ Responsible for the furnace's core functionality:
 
 ### FurnaceController
 
-Responsible for the furnace interface:
+Responsible for the furnace interface and recipe configuration:
 
 - Opening and closing the furnace UI.
 - Detecting nearby furnaces.
 - Loading furnace contents into the UI slots.
+- Providing the dedicated `furnaceRecipes` list.
 - Starting cooking through the Cook button.
 - Updating the fuel and smelting progress bars.
 - Refreshing the displayed slots when furnace contents change.
 - Resizing the hotbar while the furnace UI is open.
+
+The `furnaceRecipes` list is shared by furnaces using this controller. It is separate from the crafting table's recipe configuration.
 
 ### FurnaceSlot
 
@@ -78,6 +83,8 @@ Determines which items each slot accepts:
 ### CraftingRecipe
 
 Defines the input item, output item, and output quantity for each smelting recipe.
+
+For furnace use, the recipe must be marked as a smelting recipe and configured with exactly one ingredient.
 
 ### BuildingSaveData
 
@@ -98,15 +105,15 @@ The `Item` component contains the following furnace-related fields.
 
 | Item | Configuration |
 |---|---|
-| Raw Iron | `isSmeltable = true`; configure `smeltingTime`. |
+| Raw Iron | Set `isSmeltable = true` and configure `smeltingTime`. |
 | Iron Ingot | Configure as the output item in the smelting recipe. |
-| Wood | `isFuel = true`; configure `fuelBurnDuration`. |
+| Wood | Set `isFuel = true` and configure `fuelBurnDuration`. |
 
 These values are configured on the respective item prefabs in the Unity Inspector.
 
 ## Creating a Smelting Recipe
 
-Smelting recipes use the existing `CraftingRecipe` ScriptableObject.
+Smelting recipes use the existing `CraftingRecipe` ScriptableObject. They are registered in `FurnaceController`, not in `CraftingController`.
 
 ### Step 1: Create the Recipe
 
@@ -131,14 +138,20 @@ Set the following fields:
 
 This configuration converts one raw iron item into one iron ingot.
 
-### Step 3: Register the Recipe
+**Important:** The current furnace implementation supports recipes with exactly one ingredient. The ingredient's item prefab, amount, output prefab, and output quantity must be configured correctly.
 
-1. Select the GameObject containing `CraftingController`.
-2. Locate its `recipeLevels` list.
-3. Expand an existing level.
-4. Add the new recipe asset to that level's `recipes` list.
+### Step 3: Register the Recipe in FurnaceController
 
-The current furnace implementation searches all configured recipe levels for matching recipes marked with `isSmeltingRecipe`. The recipe's crafting level is not currently used as a furnace requirement.
+1. Select the GameObject containing `FurnaceController`.
+2. Locate the **Furnace Recipes** list in the Inspector.
+3. Increase the list size.
+4. Assign the smelting recipe asset to an element of the list.
+
+Repeat this process for every recipe the furnace should support.
+
+You do not need to add furnace recipes to `CraftingController.recipeLevels`. This keeps furnace recipes separate from crafting table recipes.
+
+The current furnace implementation does not use `CraftingRecipe.requiredCampfireLevel` as a furnace requirement.
 
 ## Unity UI Setup
 
@@ -159,7 +172,7 @@ Ensure the corresponding slot objects have the appropriate `FurnaceSlot` configu
 
 ### Progress UI
 
-- `fuelFill`: Image displaying remaining fuel progress.
+- `fuelFill`: Image displaying fuel progress.
 - `arrowFill`: Image displaying smelting progress.
 
 Set both progress Images to **Image Type: Filled** and configure their fill method and direction to match the UI artwork.
@@ -184,9 +197,10 @@ The button starts processing for the currently open furnace.
 3. The player places a valid smeltable item in the input slot.
 4. The player places a valid fuel item in the fuel slot.
 5. The player presses Cook.
-6. The furnace consumes fuel as needed and tracks the smelting progress.
-7. When the smelting duration is reached, one input item is consumed and the recipe output is added to the output slot.
-8. The process continues while cooking is enabled and the required resources and output capacity are available.
+6. The furnace looks for a matching recipe in `FurnaceController.furnaceRecipes`.
+7. The furnace consumes fuel as needed and tracks smelting progress.
+8. When the smelting duration is reached, one input item is consumed and the recipe output is added to the output slot.
+9. Processing continues while cooking is enabled and the required resources and output capacity are available.
 
 Fuel can be consumed even when the furnace has no input item. If fuel runs out during smelting, the partial smelting progress is retained until processing can continue.
 
@@ -205,26 +219,28 @@ The stored fields include:
 - Smelting progress.
 - Remaining fuel duration.
 
-The furnace updates this data through `WorldGenerator.TryGetBuildingSaveData()`.
+The furnace updates this data through the existing `WorldGenerator` building save-data system.
 
 ### Chunk Loading
 
 Furnace processing uses `Time.deltaTime` while the furnace GameObject is active and its world chunk is loaded.
 
-- Loaded chunk: Processing can continue.
-- Unloaded chunk: Processing pauses when the furnace is unloaded.
-- Chunk loaded again: The furnace restores its stored state and can resume processing.
+- **Loaded chunk:** Processing can continue.
+- **Unloaded chunk:** Processing pauses when the furnace is unloaded.
+- **Chunk loaded again:** The furnace restores its stored state and can resume processing.
 
 This is runtime persistence through the existing world-building data. It is not a complete disk-based save system for furnace state.
 
 ## Current Limitations
 
-- Only recipes with exactly one ingredient are supported by the current furnace implementation.
-- Furnace fuel is configured through item properties; wood is the initial intended fuel.
+- Only recipes with exactly one ingredient are supported.
+- Furnace recipes must be assigned to `FurnaceController.furnaceRecipes`.
+- Furnace recipes are separate from the crafting table's recipe list.
+- Fuel eligibility and burn duration are configured through item properties; wood is the initial intended fuel.
 - Furnace experience rewards are not implemented.
 - Furnace state is stored in runtime world data; persistence across closing and reopening the entire game depends on a separate disk save system.
 - Processing is not intended to continue while a chunk is unloaded.
-- The current output capacity check pauses processing when the next complete recipe result cannot fit.
+- The output capacity check pauses processing when the next complete recipe result cannot fit.
 - The current implementation does not enforce `requiredCampfireLevel` as a furnace requirement.
 
 ## Testing Checklist
@@ -234,6 +250,8 @@ This is runtime persistence through the existing world-building data. It is not 
 - [ ] Fuel accepts fuel items only.
 - [ ] Output rejects incoming dragged items.
 - [ ] Cook button starts furnace processing.
+- [ ] Furnace recipes are read from `FurnaceController.furnaceRecipes`.
+- [ ] Furnace recipes work without being registered in `CraftingController.recipeLevels`.
 - [ ] Fuel duration follows the configured fuel item.
 - [ ] Smelting duration follows the configured input item.
 - [ ] Fuel and smelting progress bars update correctly.
@@ -260,4 +278,6 @@ Potential extensions include:
 
 ## Summary
 
-The Furnace System provides configurable, recipe-driven smelting while reusing Project Survival's existing item definitions, crafting recipes, building data, and chunk-loading architecture. Its main behavior is controlled by `FurnaceBehavior`, while `FurnaceController` manages the player-facing interface.
+The Furnace System provides configurable, recipe-driven smelting while reusing Project Survival's existing item definitions, `CraftingRecipe` assets, building data, and chunk-loading architecture.
+
+`FurnaceBehavior` handles smelting logic, while `FurnaceController` manages the player-facing interface and the dedicated furnace recipe list. This separation allows furnace recipes to be maintained independently of crafting table recipes.

@@ -14,7 +14,11 @@ PrefabInstance:
       objectReference: {fileID: 9106117913576091132}
     - target: {fileID: 749299567316942752, guid: 7757192a6a96e0341bef134382e342f2, type: 3}
       propertyPath: fleeSpeed
-      value: 4
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 749299567316942752, guid: 7757192a6a96e0341bef134382e342f2, type: 3}
+      propertyPath: fleeDuration
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 749299567316942752, guid: 7757192a6a96e0341bef134382e342f2, type: 3}
       propertyPath: mobDropPreset
@@ -62,15 +66,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2999368078383841794, guid: 7757192a6a96e0341bef134382e342f2, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.y
-      value: 0.19
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 2999368078383841794, guid: 7757192a6a96e0341bef134382e342f2, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 0.21
+      value: 0.16
       objectReference: {fileID: 0}
     - target: {fileID: 2999368078383841794, guid: 7757192a6a96e0341bef134382e342f2, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 0.21
+      value: 0.19
       objectReference: {fileID: 0}
     - target: {fileID: 3316405685785951548, guid: 7757192a6a96e0341bef134382e342f2, type: 3}
       propertyPath: m_Size.x
@@ -78,12 +82,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3316405685785951548, guid: 7757192a6a96e0341bef134382e342f2, type: 3}
       propertyPath: m_Size.y
-      value: 0.19
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 3316405685785951548, guid: 7757192a6a96e0341bef134382e342f2, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 2135580029, guid: a7abff69e6c2f864abfba0989b2b5902, type: 3}
+      objectReference: {fileID: 239239679, guid: a7abff69e6c2f864abfba0989b2b5902, type: 3}
     - target: {fileID: 3316405685785951548, guid: 7757192a6a96e0341bef134382e342f2, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
@@ -246,7 +250,7 @@ MonoBehaviour:
   m_CategoryHash: 0.000000020668566
   m_labelHash: 1.590883e-24
   m_SpriteKey: 0
-  m_SpriteHash: 144617366
+  m_SpriteHash: 295173676
 --- !u!50 &8165859373663535435 stripped
 Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 8397070958897638684, guid: 7757192a6a96e0341bef134382e342f2, type: 3}

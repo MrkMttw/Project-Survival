@@ -14,7 +14,11 @@ PrefabInstance:
       objectReference: {fileID: 7089588653624166267}
     - target: {fileID: 749299567316942752, guid: 7757192a6a96e0341bef134382e342f2, type: 3}
       propertyPath: fleeSpeed
-      value: 4
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 749299567316942752, guid: 7757192a6a96e0341bef134382e342f2, type: 3}
+      propertyPath: fleeDuration
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 749299567316942752, guid: 7757192a6a96e0341bef134382e342f2, type: 3}
       propertyPath: mobDropPreset
@@ -58,11 +62,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2999368078383841794, guid: 7757192a6a96e0341bef134382e342f2, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x
-      value: 0.16
+      value: 0.21
       objectReference: {fileID: 0}
     - target: {fileID: 2999368078383841794, guid: 7757192a6a96e0341bef134382e342f2, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.y
-      value: 0.19
+      value: 0.24
       objectReference: {fileID: 0}
     - target: {fileID: 2999368078383841794, guid: 7757192a6a96e0341bef134382e342f2, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
@@ -74,16 +78,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3316405685785951548, guid: 7757192a6a96e0341bef134382e342f2, type: 3}
       propertyPath: m_Size.x
-      value: 0.16
+      value: 0.21
       objectReference: {fileID: 0}
     - target: {fileID: 3316405685785951548, guid: 7757192a6a96e0341bef134382e342f2, type: 3}
       propertyPath: m_Size.y
-      value: 0.19
+      value: 0.24
       objectReference: {fileID: 0}
     - target: {fileID: 3316405685785951548, guid: 7757192a6a96e0341bef134382e342f2, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 1736739615, guid: b479980c9aafa7f439415bf72139bce3, type: 3}
+      objectReference: {fileID: -1168407197, guid: b479980c9aafa7f439415bf72139bce3, type: 3}
     - target: {fileID: 3316405685785951548, guid: 7757192a6a96e0341bef134382e342f2, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
