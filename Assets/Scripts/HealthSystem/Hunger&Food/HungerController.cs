@@ -19,6 +19,15 @@ public class HungerController : MonoBehaviour
     [Header("Starvation")]
     public float starvationDamagePercent = 0.01f;
 
+    [Header("Passive Healing")]
+    [Range(0f, 1f)]
+    public float healingThreshold = 0.9f;
+
+    [Range(0f, 10f)]
+    public float passiveHealPercent = 0.01f;
+
+    public float passiveHealInterval = 1f;
+
     [Header("Health")]
     public HealthController healthController;
 
@@ -28,6 +37,7 @@ public class HungerController : MonoBehaviour
 
     private float drainTimer;
     private float starvationTimer;
+    private float healingTimer;
 
     private Image hungerBarImage;
     private TMP_Text hungerTextComponent;
@@ -47,6 +57,7 @@ public class HungerController : MonoBehaviour
     {
         DrainHunger();
         HandleStarvation();
+        HandlePassiveHealing();
     }
 
     private void DrainHunger()
@@ -89,6 +100,34 @@ public class HungerController : MonoBehaviour
         else
         {
             starvationTimer = 0f;
+        }
+    }
+
+    // PASSIVE HEALING
+    private void HandlePassiveHealing()
+    {
+        if (healthController == null)
+            return;
+
+        float requiredHunger = maxHunger * healingThreshold;
+
+        if (currentHunger >= requiredHunger)
+        {
+            healingTimer += Time.deltaTime;
+
+            if (healingTimer >= passiveHealInterval)
+            {
+                float healAmount =
+                    healthController.maxHealth * passiveHealPercent;
+
+                healthController.Heal(healAmount);
+
+                healingTimer = 0f;
+            }
+        }
+        else
+        {
+            healingTimer = 0f;
         }
     }
 

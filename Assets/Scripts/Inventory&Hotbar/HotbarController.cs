@@ -843,4 +843,59 @@ public class HotbarController : MonoBehaviour
 
         return amount - remainingAmount;
     }
+
+    public void DropAllItems(Vector3 dropPosition, float scatterRadius)
+    {
+        if (hotbarPanel == null)
+            return;
+
+        foreach (Transform slotTransform in hotbarPanel.transform)
+        {
+            Slot slot = slotTransform.GetComponent<Slot>();
+
+            if (slot == null || slot.currentItem == null)
+                continue;
+
+            Item item = slot.currentItem.GetComponent<Item>();
+
+            if (item == null)
+                continue;
+
+            // CREATE DROPPED ITEM
+            GameObject droppedItem = item.CloneItem(item.quantity);
+
+            if (droppedItem == null)
+                continue;
+
+            droppedItem.transform.SetParent(null, true);
+
+            Vector2 offset =
+                Random.insideUnitCircle * scatterRadius;
+
+            droppedItem.transform.position =
+                dropPosition + new Vector3(offset.x, offset.y, 0f);
+
+            droppedItem.transform.localScale = Vector3.one;
+
+            // CLEAR HOTBAR SLOT
+            GameObject originalItem = slot.currentItem;
+            slot.currentItem = null;
+
+            Destroy(originalItem);
+        }
+
+        // CLEAR EQUIPPED ITEM
+        if (playerHeldItem != null)
+            playerHeldItem.ClearHeldItem();
+
+        // CANCEL BUILDING PLACEMENT
+        if (placementController != null)
+            placementController.CancelPlacement();
+
+        // RESET HOTBAR SELECTION
+        selectedSlot = -1;
+        HighlightSlot(-1);
+
+        Debug.Log("Hotbar items dropped.");
+    }
 }

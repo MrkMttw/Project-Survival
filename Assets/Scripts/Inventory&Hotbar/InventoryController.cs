@@ -12,6 +12,10 @@ public class InventoryController : MonoBehaviour
     public int slotCount;
     public GameObject[] itemPrefabs;
 
+    [Header("Death Item Scattering")]
+    [SerializeField] private float scatterRadius = 1.5f;
+    [SerializeField] private float scatterForce = 3f;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -205,9 +209,7 @@ public class InventoryController : MonoBehaviour
             slot.currentItem = newItem;
         }
 
-        // -----------------------------------------------------
         // UPDATE REMAINING WORLD ITEM
-        // -----------------------------------------------------
 
         itemToAdd.quantity = remainingQuantity;
         itemToAdd.UpdateQuantityDisplay();
@@ -375,5 +377,48 @@ public class InventoryController : MonoBehaviour
         }
 
         return amount - remainingAmount;
+    }
+
+    public void DropAllItems(Vector3 dropPosition, float scatterRadius)
+    {
+        if (inventoryPanel == null)
+            return;
+
+        foreach (Transform slotTransform in inventoryPanel.transform)
+        {
+            Slot slot = slotTransform.GetComponent<Slot>();
+
+            if (slot == null || slot.currentItem == null)
+                continue;
+
+            Item item = slot.currentItem.GetComponent<Item>();
+
+            if (item == null)
+                continue;
+
+            // CREATE DROPPED ITEM
+            GameObject droppedItem = item.CloneItem(item.quantity);
+
+            if (droppedItem == null)
+                continue;
+
+            droppedItem.transform.SetParent(null, true);
+
+            Vector2 offset =
+                Random.insideUnitCircle * scatterRadius;
+
+            droppedItem.transform.position =
+                dropPosition + new Vector3(offset.x, offset.y, 0f);
+
+            droppedItem.transform.localScale = Vector3.one;
+
+            // CLEAR INVENTORY
+            GameObject originalItem = slot.currentItem;
+            slot.currentItem = null;
+
+            Destroy(originalItem);
+        }
+
+        Debug.Log("Inventory items dropped.");
     }
 }

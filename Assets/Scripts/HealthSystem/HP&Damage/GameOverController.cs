@@ -7,6 +7,11 @@ public class GameOverController : MonoBehaviour
     public GameObject gameOverPanel;
     public Transform player;
 
+    [Header("Death Drop")]
+    public HotbarController hotbarController;
+
+    [SerializeField] private float scatterRadius = 2f;
+
     private bool isGameOver;
     private Vector3 respawnPosition;
     private Rigidbody2D playerRigidbody;
@@ -18,6 +23,16 @@ public class GameOverController : MonoBehaviour
 
     private void Start()
     {
+        if (hotbarController == null)
+        {
+            hotbarController = FindFirstObjectByType<HotbarController>();
+        }
+
+        if (hotbarController == null)
+        {
+            Debug.LogError("GameOverController: HotbarController not found!");
+        }
+
         // Remember the player's starting position.
         if (player != null)
         {
@@ -67,20 +82,38 @@ public class GameOverController : MonoBehaviour
             return;
         }
 
-        // Restore the player's position.
+        // DROP ALL INVENTORY ITEMS
+        if (InventoryController.instance != null)
+        {
+            InventoryController.instance.DropAllItems(
+                player.position,
+                scatterRadius
+            );
+        }
+
+        // DROP ALL HOTBAR ITEMS
+        if (hotbarController != null)
+        {
+            hotbarController.DropAllItems(
+                player.position,
+                scatterRadius
+            );
+        }
+
+        // RESTORE PLAYER POSITION
         player.position = respawnPosition;
 
-        // Stop any remaining Rigidbody2D movement.
+        // RESET MOVEMENT
         if (playerRigidbody != null)
         {
             playerRigidbody.linearVelocity = Vector2.zero;
             playerRigidbody.angularVelocity = 0f;
         }
 
-        // Restore health and allow death to trigger again.
+        // RESTORE HEALTH
         healthController.RespawnHealth();
 
-        // Close Game Over and resume gameplay.
+        // CLOSE GAME OVER
         isGameOver = false;
         gameOverPanel.SetActive(false);
 

@@ -138,7 +138,7 @@ public class CampfireController : MonoBehaviour
 
         fuelDecayDelayTimer = 0f;
         fuelDecayTimer = 0f;
-        
+
         UpdateCampfireUI();
     }
 

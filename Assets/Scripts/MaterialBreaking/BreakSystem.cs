@@ -324,7 +324,7 @@ public class BreakSystem : MonoBehaviour
             );
         }
     }
-
+    
     private ToolBreakPreset FindPreset(
         Item tool,
         string materialType
@@ -366,13 +366,16 @@ public class BreakSystem : MonoBehaviour
                 continue;
 
             // BARE HANDS
-            if (!preset.requiresTool)
+            if (tool == null)
             {
-                return preset;
+                if (!preset.requiresTool)
+                    return preset;
+
+                continue;
             }
 
-            // TOOL REQUIRED
-            if (tool == null)
+            // EQUIPPED TOOL
+            if (!preset.requiresTool)
                 continue;
 
             if (preset.requiredTool == null)

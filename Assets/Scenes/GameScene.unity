@@ -2467,6 +2467,9 @@ MonoBehaviour:
   hungerDrainRate: 1
   drainInterval: 5
   starvationDamagePercent: 0.05
+  healingThreshold: 0.9
+  passiveHealPercent: 2
+  passiveHealInterval: 1
   healthController: {fileID: 1125596428}
   hungerBar: {fileID: 954549848}
   hungerText: {fileID: 1739045917}
@@ -630571,6 +630574,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 506ba81d0ef0cd2408136f51acdf57f9, type: 2}
   - {fileID: 11400000, guid: db8482998835a2c408291be8bc822c93, type: 2}
   - {fileID: 11400000, guid: 37be995cde35fd741a9e1b27ed37905f, type: 2}
+  - {fileID: 11400000, guid: 00a5c45fb6d72a54493eb3cdf950340f, type: 2}
   breakableLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -630716,6 +630720,8 @@ MonoBehaviour:
   healthController: {fileID: 1125596428}
   gameOverPanel: {fileID: 131147277}
   player: {fileID: 543478632}
+  hotbarController: {fileID: 1693767230}
+  scatterRadius: 2
 --- !u!1 &711034067
 GameObject:
   m_ObjectHideFlags: 0
@@ -631685,6 +631691,64 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 799309272}
   m_CullTransparentMesh: 1
+--- !u!1 &799340565
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 799340566}
+  - component: {fileID: 799340567}
+  m_Layer: 5
+  m_Name: CampfireController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &799340566
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 799340565}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1673473373}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &799340567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 799340565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8339b755ad91d8547bb9e99bbcdac522, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CampfireController
+  baseHealPercentPerSecond: 2
+  healPercentPerSecond: 1
+  progressionWood: 0
+  campfireLevel: 0
+  currentWood: 0
+  maxWood: 100
+  woodItemID: 43
+  fuelDecayDelay: 10
+  fuelDecayInterval: 5
+  fuelDecayAmount: 1
 --- !u!1 &799749308
 GameObject:
   m_ObjectHideFlags: 0
@@ -633566,6 +633630,7 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 1536
+  unarmedWeapon: {fileID: 11400000, guid: 607db0c21aaa68b4eafc10295f575d39, type: 2}
 --- !u!224 &1019521887 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5930199063163699655, guid: 9135dba6cb29cd74dbeac901e7e84505, type: 3}
@@ -634707,7 +634772,7 @@ GameObject:
   - component: {fileID: 1125596428}
   m_Layer: 0
   m_Name: Health
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -638558,6 +638623,8 @@ MonoBehaviour:
   - {fileID: 6695288099351985358, guid: 188260af6ee17e643bdd387747284ad9, type: 3}
   - {fileID: 7602753336872632496, guid: 77573f070a6c4fe45989c2870a2c682d, type: 3}
   - {fileID: 417302590787453814, guid: d318aa85f6b580a4bb612c71a6a847b7, type: 3}
+  scatterRadius: 1.5
+  scatterForce: 3
 --- !u!114 &1549747556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -690956,7 +691023,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1673473373}
   - component: {fileID: 1673473374}
-  - component: {fileID: 1673473375}
   - component: {fileID: 1673473376}
   m_Layer: 5
   m_Name: ItemFunctionController
@@ -690983,6 +691049,7 @@ RectTransform:
   - {fileID: 1180774151}
   - {fileID: 1413565792}
   - {fileID: 1451321679}
+  - {fileID: 799340566}
   m_Father: {fileID: 1549747559}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -691004,28 +691071,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WrenchFunction
   wrenchItemID: 46
   instructionUI: {fileID: 1067868519}
---- !u!114 &1673473375
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1673473372}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8339b755ad91d8547bb9e99bbcdac522, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CampfireController
-  baseHealPercentPerSecond: 2
-  healPercentPerSecond: 1
-  progressionWood: 0
-  campfireLevel: 0
-  currentWood: 0
-  maxWood: 100
-  woodItemID: 43
-  fuelDecayDelay: 10
-  fuelDecayInterval: 5
-  fuelDecayAmount: 1
 --- !u!114 &1673473376
 MonoBehaviour:
   m_ObjectHideFlags: 0

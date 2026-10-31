@@ -290,8 +290,12 @@ public class Item : MonoBehaviour
             ? Mathf.Clamp(newQuantity, 1, maxStackSize)
             : 1;
 
-        // DURABILITY
-        // Awake initializes new durable items at maximum durability.
+        // PRESERVE DURABILITY
+        if (hasDurability)
+        {
+            cloneItem.currentDurability = currentDurability;
+            cloneItem.UpdateDurabilityBar();
+        }
 
         cloneItem.UpdateQuantityDisplay();
 

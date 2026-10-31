@@ -8,7 +8,10 @@ public class MeleeWeaponController : MonoBehaviour
 
     [Header("Combat")]
     public LayerMask enemyLayer;
-    
+
+    [Header("Unarmed")]
+    public WeaponData unarmedWeapon;
+
     private float nextAttackTime;
 
     private void Start()
@@ -20,23 +23,22 @@ public class MeleeWeaponController : MonoBehaviour
 
         if (playerHeldItem == null)
         {
-            Debug.LogError(
-                "MeleeWeaponController: PlayerHeldItem is not assigned or found!"
-            );
+            Debug.LogError("MeleeWeaponController: PlayerHeldItem is not assigned or found!");
         }
 
         if (player == null)
         {
-            Debug.LogError(
-                "MeleeWeaponController: Player is not assigned!"
-            );
+            Debug.LogError("MeleeWeaponController: Player is not assigned!");
+        }
+
+        if (unarmedWeapon == null)
+        {
+            Debug.LogError("MeleeWeaponController: Unarmed WeaponData is not assigned!");
         }
 
         if (enemyLayer.value == 0)
         {
-            Debug.LogWarning(
-                "MeleeWeaponController: Enemy Layer is set to Nothing!"
-            );
+            Debug.LogWarning("MeleeWeaponController: Enemy Layer is set to Nothing!");
         }
     }
 
@@ -48,7 +50,7 @@ public class MeleeWeaponController : MonoBehaviour
         Item heldItem = playerHeldItem.GetHeldItem();
 
         if (heldItem == null)
-            return false;
+            return true;
 
         return heldItem.GetComponent<MeleeWeaponFunction>() != null;
     }
@@ -72,8 +74,9 @@ public class MeleeWeaponController : MonoBehaviour
 
         Item heldItem = playerHeldItem.GetHeldItem();
 
+        // UNARMED ATTACK
         if (heldItem == null)
-            return null;
+            return unarmedWeapon;
 
         MeleeWeaponFunction weaponFunction =
             heldItem.GetComponent<MeleeWeaponFunction>();
@@ -111,20 +114,22 @@ public class MeleeWeaponController : MonoBehaviour
         {
             Item heldItem = playerHeldItem.GetHeldItem();
 
-            if (heldItem != null)
+            // WEAPON DURABILITY
+            if (heldItem != null &&
+                heldItem.GetComponent<MeleeWeaponFunction>() != null)
+            {
                 heldItem.UseDurability();
+            }
 
             float attackCooldown =
                 1f / Mathf.Max(weapon.attackSpeed, 0.01f);
 
-            nextAttackTime =
-                Time.time + attackCooldown;
+            nextAttackTime = Time.time + attackCooldown;
         }
 
         return hitEnemy;
     }
 
-    
     private bool Attack(WeaponData weapon)
     {
         if (player == null)
@@ -171,15 +176,6 @@ public class MeleeWeaponController : MonoBehaviour
                     weapon.knockbackStrength
                 );
 
-                Debug.Log(
-                    "Hit " +
-                    enemy.name +
-                    " | Damage: " +
-                    damage.ToString("F1") +
-                    " | Knockback: " +
-                    weapon.knockbackStrength.ToString("F1")
-                );
-
                 continue;
             }
 
@@ -192,7 +188,6 @@ public class MeleeWeaponController : MonoBehaviour
                     enemyCollider.GetComponentInParent<PassiveMobController>();
             }
 
-            
             if (passiveMob != null)
             {
                 hitEnemy = true;
