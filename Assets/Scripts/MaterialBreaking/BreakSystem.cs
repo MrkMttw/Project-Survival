@@ -220,6 +220,12 @@ public class BreakSystem : MonoBehaviour
         // Deal damage.
         bool broken =
             material.TakeDamage(preset.damage);
+        
+        // CONSUME TOOL DURABILITY
+        if (equippedItem != null && preset.damage > 0)
+        {
+            equippedItem.UseDurability();
+        }
 
         // Drop items only when completely broken.
         if (broken)

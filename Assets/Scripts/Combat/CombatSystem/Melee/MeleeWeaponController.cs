@@ -109,6 +109,11 @@ public class MeleeWeaponController : MonoBehaviour
 
         if (hitEnemy)
         {
+            Item heldItem = playerHeldItem.GetHeldItem();
+
+            if (heldItem != null)
+                heldItem.UseDurability();
+
             float attackCooldown =
                 1f / Mathf.Max(weapon.attackSpeed, 0.01f);
 

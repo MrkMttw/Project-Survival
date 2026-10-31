@@ -10,6 +10,7 @@ public class WrenchFunction : MonoBehaviour
 
     private PlacementController placementController;
     private PlayerHeldItem playerHeldItem;
+    private Item pendingRelocationTool;
 
     private void Awake()
     {
@@ -108,11 +109,6 @@ public class WrenchFunction : MonoBehaviour
         if (building == null)
             return;
 
-        Debug.Log(
-            "Relocating building: " +
-            building.gameObject.name
-        );
-
         if (placementController == null)
         {
             Debug.LogError(
@@ -122,7 +118,31 @@ public class WrenchFunction : MonoBehaviour
             return;
         }
 
-        placementController.StartRelocation(building);
+        Item wrench = playerHeldItem.GetHeldItem();
+
+        bool started =
+            placementController.StartRelocation(building);
+
+        if (!started)
+            return;
+
+        pendingRelocationTool = wrench;
+
+        placementController.RelocationFinished +=
+            HandleRelocationFinished;
+    }
+
+    private void HandleRelocationFinished(bool successful)
+    {
+        placementController.RelocationFinished -=
+            HandleRelocationFinished;
+
+        if (successful && pendingRelocationTool != null)
+        {
+            pendingRelocationTool.UseDurability();
+        }
+
+        pendingRelocationTool = null;
     }
 
     private void TryRetrieveBuilding()
@@ -222,6 +242,14 @@ public class WrenchFunction : MonoBehaviour
             );
 
             return;
+        }
+
+        // CONSUME WRENCH DURABILITY
+        Item wrench = playerHeldItem.GetHeldItem();
+
+        if (wrench != null)
+        {
+            wrench.UseDurability();
         }
 
         WorldGenerator worldGenerator =

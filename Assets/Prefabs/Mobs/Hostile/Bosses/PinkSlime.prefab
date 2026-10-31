@@ -60,6 +60,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: PinkSlime
       objectReference: {fileID: 0}
+    - target: {fileID: 3289452482104178595, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.29389498
+      objectReference: {fileID: 0}
+    - target: {fileID: 3289452482104178595, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.18120173
+      objectReference: {fileID: 0}
+    - target: {fileID: 3289452482104178595, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.019
+      objectReference: {fileID: 0}
+    - target: {fileID: 3289452482104178595, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.04
+      objectReference: {fileID: 0}
     - target: {fileID: 3655246650299843580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Size.x
       value: 0.6413382
@@ -82,11 +98,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3655246650299843580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 0.55
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 3655246650299843580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 0.36
+      value: 0.21
       objectReference: {fileID: 0}
     - target: {fileID: 3718453016522833402, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -95,7 +111,7 @@ PrefabInstance:
     - target: {fileID: 4417746939183367772, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -1626183879, guid: 0408f511e4cc67b49817926ba1b57ee0, type: 3}
+      objectReference: {fileID: 990313838, guid: a35d0ca7498abae408a329eecbd37b13, type: 3}
     - target: {fileID: 7514040269052818340, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_LocalScale.x
       value: 5

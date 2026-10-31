@@ -27,6 +27,8 @@ public class PlacementController : MonoBehaviour
     [Header("Hotbar")]
     public HotbarController hotbarController;
 
+    public event Action<bool> RelocationFinished;
+
     public Color validColor = Color.green;
     public Color invalidColor = Color.red;
 
@@ -232,10 +234,10 @@ public class PlacementController : MonoBehaviour
         ShowGridPrompt();
     }
 
-    public void StartRelocation(BuildingObject building)
+    public bool StartRelocation(BuildingObject building)
     {
         if (building == null || isRelocating)
-            return;
+            return false;
 
         CancelPlacement();
 
@@ -245,7 +247,7 @@ public class PlacementController : MonoBehaviour
         if (itemDictionary == null)
         {
             Debug.LogError("ItemDictionary not found.");
-            return;
+            return false;
         }
 
         GameObject itemPrefab =
@@ -258,13 +260,13 @@ public class PlacementController : MonoBehaviour
                 building.itemID
             );
 
-            return;
+            return false;
         }
 
         Item item = itemPrefab.GetComponent<Item>();
 
         if (item == null)
-            return;
+            return false;
 
         currentItem = item;
         currentDirectionalPresetIndex =
@@ -278,9 +280,16 @@ public class PlacementController : MonoBehaviour
 
         if (item.useDirectionalPrefabs)
         {
+            if (item.buildingPresets == null ||
+                item.buildingPresets.Count == 0)
+            {
+                CancelPlacement();
+                Debug.LogError("No directional presets configured for: " + item.name);
+                return false;
+            }
+
             if (currentDirectionalPresetIndex < 0 ||
-                currentDirectionalPresetIndex >=
-                item.buildingPresets.Count)
+                currentDirectionalPresetIndex >= item.buildingPresets.Count)
             {
                 currentDirectionalPresetIndex = 0;
             }
@@ -292,7 +301,7 @@ public class PlacementController : MonoBehaviour
             if (item.ghostPrefab == null)
             {
                 CancelPlacement();
-                return;
+                return false;
             }
 
             currentBuildingPrefab =
@@ -311,17 +320,23 @@ public class PlacementController : MonoBehaviour
         if (ghostObject == null)
         {
             CancelPlacement();
-            return;
+            return false;
         }
 
         ghostObject.name =
             building.gameObject.name + "_Ghost";
 
         ShowGridPrompt();
+        return true;
     }
 
     public void CancelPlacement()
     {
+        if (isRelocating)
+        {
+            RelocationFinished?.Invoke(false);
+        }
+
         if (ghostObject != null)
         {
             Destroy(ghostObject);
@@ -555,9 +570,18 @@ public class PlacementController : MonoBehaviour
 
         ghostObject = null;
         currentBuildingPrefab = null;
-        currentItem = null;
         currentDirectionalPresetIndex = -1;
         canPlace = false;
+
+        // RESTART PLACEMENT IF ITEMS REMAIN
+        if (currentItem != null && currentItem.quantity > 0)
+        {
+            StartPlacement(currentItem);
+        }
+        else
+        {
+            currentItem = null;
+        }
     }
         
     private void PlaceRelocatedBuilding()
@@ -658,6 +682,8 @@ public class PlacementController : MonoBehaviour
             "Building relocated: " +
             targetBuilding.name
         );
+
+        RelocationFinished?.Invoke(true);
 
         ghostObject = null;
         currentBuildingPrefab = null;

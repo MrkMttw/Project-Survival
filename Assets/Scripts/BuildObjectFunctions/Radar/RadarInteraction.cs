@@ -8,6 +8,12 @@ public class RadarInteraction : MonoBehaviour
     private RadarController radarController;
     private bool playerInRange = false;
 
+    private void Start()
+    {
+        if (radarController != null)
+            radarController.RegisterRadarPlaced();
+    }
+
     private void Awake()
     {
         radarController =

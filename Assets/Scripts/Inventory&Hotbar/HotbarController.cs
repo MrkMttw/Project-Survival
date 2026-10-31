@@ -37,34 +37,36 @@ public class HotbarController : MonoBehaviour
 
     private void Update()
     {
-        for (int i = 0; i < slotCount; i++)
+        Keyboard keyboard = Keyboard.current;
+
+        if (keyboard == null)
+            return;
+
+        for (int i = 0; i < hotbarKeys.Length; i++)
         {
-            if (Keyboard.current[hotbarKeys[i]].wasPressedThisFrame)
+            if (keyboard[hotbarKeys[i]].wasPressedThisFrame)
             {
                 UseItemInSlot(i);
             }
         }
 
-        // Drop selected hotbar item
-        // Campfire feeding / Drop selected hotbar item
-        if (Keyboard.current.gKey.wasPressedThisFrame)
-        {
-            if (TryFeedCampfire())
-                return;
+        if (!keyboard.gKey.wasPressedThisFrame)
+            return;
 
-            if (TryFeedRadar())
-                return;
+        if (TryFeedCampfire())
+            return;
 
-            if (Keyboard.current.leftShiftKey.isPressed ||
-                Keyboard.current.rightShiftKey.isPressed)
-            {
-                DropSelectedStack();
-            }
-            else
-            {
-                DropSelectedItem();
-            }
-        }
+        if (TryFeedRadar())
+            return;
+
+        bool shiftPressed =
+            keyboard.leftShiftKey.isPressed ||
+            keyboard.rightShiftKey.isPressed;
+
+        if (shiftPressed)
+            DropSelectedStack();
+        else
+            DropSelectedItem();
     }
 
     private void DropSelectedItem()
@@ -271,7 +273,7 @@ public class HotbarController : MonoBehaviour
         }
     }
 
-        // CONSUME SELECTED ITEM
+    // CONSUME SELECTED ITEM
     public void ConsumeSelectedItem(int amount = 1)
     {
         if (hotbarPanel == null || amount <= 0)
@@ -293,10 +295,9 @@ public class HotbarController : MonoBehaviour
         if (item == null)
             return;
 
-        // Remove the requested quantity from the stack.
         item.RemoveFromStack(amount);
 
-        // Stack is empty.
+        // STACK EMPTY
         if (item.quantity <= 0)
         {
             if (placementController != null)
@@ -307,14 +308,14 @@ public class HotbarController : MonoBehaviour
 
             slot.currentItem = null;
 
-            HighlightSlot(-1);
-            selectedSlot = -1;
+            // KEEP SELECTED SLOT
+            HighlightSlot(selectedSlot);
 
             Destroy(item.gameObject);
             return;
         }
 
-        // Stack still has items.
+        // STACK STILL HAS ITEMS
         item.UpdateQuantityDisplay();
 
         if (playerHeldItem != null)
@@ -410,126 +411,122 @@ public class HotbarController : MonoBehaviour
     }
 
     // ADD ITEM
-
     public bool AddItem(GameObject itemPrefab)
     {
         Item itemToAdd = itemPrefab.GetComponent<Item>();
 
-        if (itemToAdd == null)
-            return false;
-        
-        if (itemToAdd.quantity <= 0)
+        if (itemToAdd == null || itemToAdd.quantity <= 0)
             return false;
 
         int originalQuantity = itemToAdd.quantity;
+
+        bool selectedSlotChanged = false;
+        bool selectedSlotReceivedNewItem = false;
 
         // NON-STACKABLE ITEM
         if (!itemToAdd.stackable)
         {
             foreach (Transform slotTransform in hotbarPanel.transform)
             {
-                Slot slot =
-                    slotTransform.GetComponent<Slot>();
+                Slot slot = slotTransform.GetComponent<Slot>();
 
-                if (slot != null &&
-                    slot.currentItem == null)
+                if (slot == null || slot.currentItem != null)
+                    continue;
+
+                GameObject newItem = Instantiate(
+                    itemPrefab,
+                    slotTransform
+                );
+
+                newItem.GetComponent<RectTransform>()
+                    .anchoredPosition = Vector2.zero;
+
+                Item newItemComponent = newItem.GetComponent<Item>();
+
+                if (newItemComponent != null)
                 {
-                    GameObject newItem =
-                        Instantiate(
-                            itemPrefab,
-                            slotTransform
-                        );
-
-                    newItem.GetComponent<RectTransform>()
-                        .anchoredPosition = Vector2.zero;
-
-                    Item newItemComponent =
-                        newItem.GetComponent<Item>();
-
-                    if (newItemComponent != null)
-                    {
-                        newItemComponent.quantity = 1;
-                        newItemComponent.UpdateQuantityDisplay();
-                    }
-
-                    slot.currentItem = newItem;
-
-                    // One non-stackable item was taken
-                    itemToAdd.quantity -= 1;
-
-                    return true;
+                    newItemComponent.quantity = 1;
+                    newItemComponent.UpdateQuantityDisplay();
                 }
+
+                slot.currentItem = newItem;
+
+                itemToAdd.quantity -= 1;
+
+                if (slotTransform.GetSiblingIndex() == selectedSlot)
+                {
+                    selectedSlotChanged = true;
+                    selectedSlotReceivedNewItem = true;
+                }
+
+                if (selectedSlotChanged)
+                    RefreshSelectedSlot(selectedSlotReceivedNewItem);
+
+                return true;
             }
 
             return false;
         }
 
         // STACKABLE ITEM
-
         int remainingQuantity = itemToAdd.quantity;
 
-        // FIRST: Fill existing stacks
+        // FIRST: FILL EXISTING STACKS
         foreach (Transform slotTransform in hotbarPanel.transform)
         {
             if (remainingQuantity <= 0)
                 break;
 
-            Slot slot =
-                slotTransform.GetComponent<Slot>();
+            Slot slot = slotTransform.GetComponent<Slot>();
 
-            if (slot == null ||
-                slot.currentItem == null)
+            if (slot == null || slot.currentItem == null)
                 continue;
 
-            Item slotItem =
-                slot.currentItem.GetComponent<Item>();
+            Item slotItem = slot.currentItem.GetComponent<Item>();
 
             if (slotItem == null)
                 continue;
 
-            // Same item and stackable
-            if (slotItem.ID == itemToAdd.ID &&
-                slotItem.stackable)
+            if (slotItem.ID == itemToAdd.ID && slotItem.stackable)
             {
-                int addedAmount =
-                    slotItem.AddToStack(remainingQuantity);
+                int addedAmount = slotItem.AddToStack(remainingQuantity);
 
                 remainingQuantity -= addedAmount;
+
+                if (addedAmount > 0 &&
+                    slotTransform.GetSiblingIndex() == selectedSlot)
+                {
+                    selectedSlotChanged = true;
+                }
             }
         }
 
-        // SECOND: Create new stacks
+        // SECOND: CREATE NEW STACKS
         foreach (Transform slotTransform in hotbarPanel.transform)
         {
             if (remainingQuantity <= 0)
                 break;
 
-            Slot slot =
-                slotTransform.GetComponent<Slot>();
+            Slot slot = slotTransform.GetComponent<Slot>();
 
-            if (slot == null ||
-                slot.currentItem != null)
+            if (slot == null || slot.currentItem != null)
                 continue;
 
-            GameObject newItem =
-                Instantiate(
-                    itemPrefab,
-                    slotTransform
-                );
+            GameObject newItem = Instantiate(
+                itemPrefab,
+                slotTransform
+            );
 
-            Item newItemComponent =
-                newItem.GetComponent<Item>();
+            Item newItemComponent = newItem.GetComponent<Item>();
 
             if (newItemComponent != null)
             {
-                int amountForThisStack =
-                    Mathf.Min(
-                        remainingQuantity,
-                        newItemComponent.maxStackSize
-                    );
+                int amountForThisStack = Mathf.Min(
+                    remainingQuantity,
+                    newItemComponent.maxStackSize
+                );
 
-                newItemComponent.quantity =
-                    amountForThisStack;
+                newItemComponent.quantity = amountForThisStack;
 
                 newItemComponent.UpdateQuantityDisplay();
 
@@ -540,13 +537,64 @@ public class HotbarController : MonoBehaviour
                 .anchoredPosition = Vector2.zero;
 
             slot.currentItem = newItem;
+
+            if (slotTransform.GetSiblingIndex() == selectedSlot)
+            {
+                selectedSlotChanged = true;
+                selectedSlotReceivedNewItem = true;
+            }
         }
 
         // UPDATE WORLD ITEM
         itemToAdd.quantity = remainingQuantity;
         itemToAdd.UpdateQuantityDisplay();
 
+        // REFRESH ONLY IF SELECTED SLOT CHANGED
+        if (selectedSlotChanged)
+        {
+            RefreshSelectedSlot(selectedSlotReceivedNewItem);
+        }
+
         return remainingQuantity < originalQuantity;
+    }
+
+    // REFRESH SELECTED SLOT
+    private void RefreshSelectedSlot(bool startPlacement)
+    {
+        if (hotbarPanel == null ||
+            selectedSlot < 0 ||
+            selectedSlot >= hotbarPanel.transform.childCount)
+            return;
+
+        Slot slot = hotbarPanel.transform
+            .GetChild(selectedSlot)
+            .GetComponent<Slot>();
+
+        if (slot == null || slot.currentItem == null)
+        {
+            if (playerHeldItem != null)
+                playerHeldItem.ClearHeldItem();
+
+            return;
+        }
+
+        Item item = slot.currentItem.GetComponent<Item>();
+
+        if (item == null)
+            return;
+
+        if (playerHeldItem != null)
+            playerHeldItem.SetHeldItem(item);
+
+        if (startPlacement && item.isBuildable)
+        {
+            if (placementController != null)
+                placementController.StartPlacement(item);
+        }
+        else if (startPlacement && placementController != null)
+        {
+            placementController.CancelPlacement();
+        }
     }
 
     // SAVE

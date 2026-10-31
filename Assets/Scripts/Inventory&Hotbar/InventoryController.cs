@@ -125,6 +125,11 @@ public class InventoryController : MonoBehaviour
                         newItemComponent.UpdateQuantityDisplay();
                     }
 
+                    if (newItemComponent != null)
+                    {
+                        newItemComponent.CopyDurabilityFrom(itemToAdd);
+                    }
+
                     slot.currentItem = newItem;
 
                     return true;
@@ -227,7 +232,9 @@ public class InventoryController : MonoBehaviour
                 {
                     itemID = item.ID,
                     slotIndex = slotTransform.GetSiblingIndex(),
-                    quantity = item.quantity
+                    quantity = item.quantity,
+                    currentDurability = item.CurrentDurability,
+                    hasSavedDurability = item.hasDurability
                 });
             }
         }
@@ -264,6 +271,19 @@ public class InventoryController : MonoBehaviour
                     {
                         itemComponent.quantity = data.quantity;
                         itemComponent.UpdateQuantityDisplay();
+                    }
+
+                    if (itemComponent != null && data.hasSavedDurability)
+                    {
+                        if (data.currentDurability <= 0)
+                        {
+                            Destroy(item);
+                            continue;
+                        }
+
+                        itemComponent.SetCurrentDurability(
+                            data.currentDurability
+                        );
                     }
 
                     slot.currentItem = item;

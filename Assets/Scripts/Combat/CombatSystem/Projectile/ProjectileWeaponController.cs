@@ -159,6 +159,14 @@ public class ProjectileWeaponController : MonoBehaviour
             weapon.knockbackStrength
         );
 
+        // CONSUME WEAPON DURABILITY
+        Item equippedItem = playerHeldItem.GetHeldItem();
+
+        if (equippedItem != null)
+        {
+            equippedItem.UseDurability();
+        }
+
         // Apply cooldown after a successful shot.
         float cooldown =
             1f / Mathf.Max(weapon.attackSpeed, 0.01f);

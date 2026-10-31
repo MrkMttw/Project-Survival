@@ -38,6 +38,8 @@ public class RadarController : MonoBehaviour
 
     private RadarUI radarUI;
 
+    private bool radarPlaced = false;
+
     public int RadarLevel
     {
         get { return radarLevel; }
@@ -103,7 +105,18 @@ public class RadarController : MonoBehaviour
     public void RegisterRadarUI(RadarUI ui)
     {
         radarUI = ui;
+
+        radarUI.SetCoordinatesVisible(radarPlaced);
+
         UpdateRadarUI();
+    }
+
+    public void RegisterRadarPlaced()
+    {
+        radarPlaced = true;
+
+        if (radarUI != null)
+            radarUI.SetCoordinatesVisible(true);
     }
 
     private void UpdateRadarUI()

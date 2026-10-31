@@ -21,6 +21,7 @@ public class RadarUI : MonoBehaviour
         if (coordinatesText == null)
         {
             TMP_Text[] texts = FindObjectsByType<TMP_Text>(
+                FindObjectsInactive.Include,
                 FindObjectsSortMode.None
             );
 
@@ -39,6 +40,14 @@ public class RadarUI : MonoBehaviour
             radarController.RegisterRadarUI(this);
             UpdateCoordinatesUI();
         }
+    }
+
+    public void SetCoordinatesVisible(bool visible)
+    {
+        if (coordinatesText == null)
+            return;
+
+        coordinatesText.gameObject.SetActive(visible);
     }
 
     public void UpdateUI(
@@ -80,5 +89,5 @@ public class RadarUI : MonoBehaviour
     public void RefreshCoordinatesUI()
     {
         UpdateCoordinatesUI();
-    }   
+    }
 }

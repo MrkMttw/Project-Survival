@@ -295,7 +295,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -543861589
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
@@ -337,6 +337,7 @@ GameObject:
   - component: {fileID: 9215373659139562042}
   - component: {fileID: 6272788661186699199}
   - component: {fileID: -6436987054517495367}
+  - component: {fileID: 9078952238438193532}
   m_Layer: 7
   m_Name: Item
   m_TagString: Item
@@ -433,9 +434,18 @@ MonoBehaviour:
   stackable: 1
   maxStackSize: 99
   quantity: 1
+  hasDurability: 0
+  maxDurability: 100
+  currentDurability: 100
   isBuildable: 0
   buildingPrefab: {fileID: 0}
   ghostPrefab: {fileID: 0}
+  useDirectionalPrefabs: 0
+  buildingPresets: []
+  isSmeltable: 0
+  smeltingTime: 5
+  isFuel: 0
+  fuelBurnDuration: 10
 --- !u!114 &9215373659139562042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -521,3 +531,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &9078952238438193532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6789592075229631350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 153de054f0d0d5641a1ffcc5947ed66c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DurabilityBehavior
+  fillImage: {fileID: 7109466570217330311}
