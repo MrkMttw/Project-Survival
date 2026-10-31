@@ -49,8 +49,8 @@ public class ItemLightController : MonoBehaviour
     private void Update()
     {
         UpdateHeldItemLight();
+        UpdateLightPrompt();
     }
-
 
     // PLAYER HELD ITEM
 
@@ -438,5 +438,43 @@ public class ItemLightController : MonoBehaviour
         currentPreset = null;
 
         currentHeldObject = null;
+    }
+
+    // UPDATE LIGHT PROMPT
+    private void UpdateLightPrompt()
+    {
+        if (PromptController.Instance == null)
+            return;
+
+        if (playerHeldItem == null)
+        {
+            PromptController.Instance.ReleasePrompt(
+                PromptType.E, this);
+
+            return;
+        }
+
+        Item currentItem = playerHeldItem.GetHeldItem();
+
+        if (currentItem != null &&
+            GetPresetForItem(currentItem) != null)
+        {
+            PromptController.Instance.RequestPrompt(
+                PromptType.E, this);
+        }
+        else
+        {
+            PromptController.Instance.ReleasePrompt(
+                PromptType.E, this);
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (PromptController.Instance != null)
+        {
+            PromptController.Instance.ReleasePrompt(
+                PromptType.E, this);
+        }
     }
 }

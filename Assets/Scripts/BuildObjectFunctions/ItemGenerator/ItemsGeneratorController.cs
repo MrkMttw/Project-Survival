@@ -17,12 +17,18 @@ public class ItemsGeneratorController : MonoBehaviour
         }
     }
 
-    public bool TryInteract()
+    private void Update()
+    {
+        UpdateGeneratorPrompt();
+    }
+
+    // FIND NEARBY GENERATOR
+    private ItemsGeneratorBehavior FindNearbyGenerator()
     {
         if (player == null || worldGenerator == null ||
             worldGenerator.itemDictionary == null)
         {
-            return false;
+            return null;
         }
 
         ItemsGeneratorBehavior[] generators =
@@ -61,27 +67,57 @@ public class ItemsGeneratorController : MonoBehaviour
             if (item == null || item.buildingPrefab == null)
                 continue;
 
-            bool supported = false;
-
-            if (generatorBuildingPrefabs != null)
-            {
-                foreach (GameObject prefab in generatorBuildingPrefabs)
-                {
-                    if (prefab == item.buildingPrefab)
-                    {
-                        supported = true;
-                        break;
-                    }
-                }
-            }
-
-            if (!supported)
+            if (generatorBuildingPrefabs == null)
                 continue;
 
-            generator.ToggleActive();
-            return true;
+            foreach (GameObject prefab in generatorBuildingPrefabs)
+            {
+                if (prefab == item.buildingPrefab)
+                {
+                    return generator;
+                }
+            }
         }
 
-        return false;
+        return null;
+    }
+
+    // UPDATE GENERATOR PROMPT
+    private void UpdateGeneratorPrompt()
+    {
+        if (PromptController.Instance == null)
+            return;
+
+        if (FindNearbyGenerator() != null)
+        {
+            PromptController.Instance.RequestPrompt(
+                PromptType.E, this);
+        }
+        else
+        {
+            PromptController.Instance.ReleasePrompt(
+                PromptType.E, this);
+        }
+    }
+
+    // INTERACTION
+    public bool TryInteract()
+    {
+        ItemsGeneratorBehavior generator = FindNearbyGenerator();
+
+        if (generator == null)
+            return false;
+
+        generator.ToggleActive();
+        return true;
+    }
+
+    private void OnDisable()
+    {
+        if (PromptController.Instance != null)
+        {
+            PromptController.Instance.ReleasePrompt(
+                PromptType.E, this);
+        }
     }
 }

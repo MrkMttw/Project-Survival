@@ -65,6 +65,36 @@ public class MeleeWeaponController : MonoBehaviour
         TryAttack(weapon);
     }
 
+    // CHECK ENEMY IN ATTACK RANGE
+    public bool HasEnemyInAttackRange()
+    {
+        WeaponData weapon = GetCurrentWeapon();
+
+        if (weapon == null || player == null)
+            return false;
+
+        Collider2D[] enemies =
+            Physics2D.OverlapCircleAll(
+                player.position,
+                weapon.attackRange,
+                enemyLayer
+            );
+
+        foreach (Collider2D enemyCollider in enemies)
+        {
+            EnemyController enemy =
+                enemyCollider.GetComponentInParent<EnemyController>();
+
+            PassiveMobController passiveMob =
+                enemyCollider.GetComponentInParent<PassiveMobController>();
+
+            if (enemy != null || passiveMob != null)
+                return true;
+        }
+
+        return false;
+    }
+
     // CURRENT WEAPON
 
     private WeaponData GetCurrentWeapon()

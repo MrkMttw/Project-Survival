@@ -49,10 +49,15 @@ public class PlacementController : MonoBehaviour
 
     private void Update()
     {
+        UpdateRotationPrompt();
+
         if (ghostObject == null)
             return;
 
-        // Rotate directional building
+        if (Keyboard.current == null)
+            return;
+
+        // ROTATE DIRECTIONAL BUILDING
         if (Keyboard.current.rKey.wasPressedThisFrame &&
             currentItem != null &&
             currentItem.useDirectionalPrefabs)
@@ -60,11 +65,10 @@ public class PlacementController : MonoBehaviour
             CycleDirectionalPreset();
         }
 
-        // Toggle grid with Tab
+        // TOGGLE GRID WITH TAB
         if (Keyboard.current.tabKey.wasPressedThisFrame)
         {
             useGrid = !useGrid;
-
             UpdateGridPrompt();
         }
 
@@ -120,6 +124,24 @@ public class PlacementController : MonoBehaviour
         Destroy(ghostObject);
 
         ApplyDirectionalPreset(position, rotation);
+    }
+
+    // UPDATE ROTATION PROMPT
+    private void UpdateRotationPrompt()
+    {
+        if (PromptController.Instance == null)
+            return;
+
+        if (ghostObject != null &&
+            currentItem != null &&
+            currentItem.useDirectionalPrefabs)
+        {
+            PromptController.Instance.RequestPrompt(PromptType.R, this);
+        }
+        else
+        {
+            PromptController.Instance.ReleasePrompt(PromptType.R, this);
+        }
     }
 
     private void ApplyDirectionalPreset(
@@ -737,5 +759,11 @@ public class PlacementController : MonoBehaviour
             "Press Tab to Toggle Grid  " +
             "Grid: " +
             (useGrid ? "ON" : "OFF");
+    }
+
+    private void OnDisable()
+    {
+        if (PromptController.Instance != null)
+            PromptController.Instance.ReleasePrompt(PromptType.R, this);
     }
 }

@@ -37,6 +37,9 @@ public class HotbarController : MonoBehaviour
 
     private void Update()
     {
+        // UPDATE DROP PROMPTS
+        UpdateDropPrompts();
+
         Keyboard keyboard = Keyboard.current;
 
         if (keyboard == null)
@@ -69,6 +72,58 @@ public class HotbarController : MonoBehaviour
             DropSelectedItem();
     }
 
+    // UPDATE DROP PROMPTS
+    private void UpdateDropPrompts()
+    {
+        if (PromptController.Instance == null)
+            return;
+
+        Item selectedItem = null;
+
+        if (hotbarPanel != null &&
+            selectedSlot >= 0 &&
+            selectedSlot < hotbarPanel.transform.childCount)
+        {
+            Slot slot = hotbarPanel.transform
+                .GetChild(selectedSlot)
+                .GetComponent<Slot>();
+
+            if (slot != null && slot.currentItem != null)
+            {
+                selectedItem = slot.currentItem.GetComponent<Item>();
+            }
+        }
+
+        // NO SELECTED ITEM
+        if (selectedItem == null)
+        {
+            PromptController.Instance.ReleasePrompt(
+                PromptType.G, this);
+
+            PromptController.Instance.ReleasePrompt(
+                PromptType.ShiftG, this);
+
+            return;
+        }
+
+        // DROP ITEM
+        PromptController.Instance.RequestPrompt(
+            PromptType.G, this);
+
+        // DROP STACK
+        if (selectedItem.stackable && selectedItem.quantity > 1)
+        {
+            PromptController.Instance.RequestPrompt(
+                PromptType.ShiftG, this);
+        }
+        else
+        {
+            PromptController.Instance.ReleasePrompt(
+                PromptType.ShiftG, this);
+        }
+    }
+
+    // DROP SELECTED ITEM 
     private void DropSelectedItem()
     {
         if (hotbarPanel == null)
@@ -897,5 +952,17 @@ public class HotbarController : MonoBehaviour
         HighlightSlot(-1);
 
         Debug.Log("Hotbar items dropped.");
+    }
+
+    private void OnDisable()
+    {
+        if (PromptController.Instance == null)
+            return;
+
+        PromptController.Instance.ReleasePrompt(
+            PromptType.G, this);
+
+        PromptController.Instance.ReleasePrompt(
+            PromptType.ShiftG, this);
     }
 }

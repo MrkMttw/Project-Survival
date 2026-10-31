@@ -25,7 +25,7 @@ public class FurnaceController : MonoBehaviour
     public List<CraftingRecipe> furnaceRecipes;
 
     public bool IsOpen => isOpen;
-    
+
     private Vector3 originalHotbarScale;
 
     private FurnaceBehavior currentFurnace;
@@ -46,6 +46,9 @@ public class FurnaceController : MonoBehaviour
 
     private void Update()
     {
+        // UPDATE FURNACE PROMPT
+        UpdateFurnacePrompt();
+
         if (!isOpen || currentFurnace == null)
             return;
 
@@ -60,9 +63,52 @@ public class FurnaceController : MonoBehaviour
         }
     }
 
+    // UPDATE FURNACE PROMPT
+    private void UpdateFurnacePrompt()
+    {
+        if (PromptController.Instance == null)
+            return;
+
+        if (isOpen || player == null)
+        {
+            PromptController.Instance.ReleasePrompt(
+                PromptType.E, this);
+
+            return;
+        }
+
+        FurnaceBehavior[] furnaces =
+            FindObjectsByType<FurnaceBehavior>(FindObjectsSortMode.None);
+
+        bool nearbyFurnace = false;
+
+        foreach (FurnaceBehavior furnace in furnaces)
+        {
+            if (furnace == null)
+                continue;
+
+            if (furnace.IsPlayerInRange(player.position))
+            {
+                nearbyFurnace = true;
+                break;
+            }
+        }
+
+        if (nearbyFurnace)
+        {
+            PromptController.Instance.RequestPrompt(
+                PromptType.E, this);
+        }
+        else
+        {
+            PromptController.Instance.ReleasePrompt(
+                PromptType.E, this);
+        }
+    }
+
     public bool TryInteract()
     {
-        // Pressing E again closes the currently open furnace.
+        // PRESSING E AGAIN CLOSES THE FURNACE
         if (isOpen)
         {
             CloseFurnace();
@@ -88,6 +134,12 @@ public class FurnaceController : MonoBehaviour
             currentFurnace = furnace;
             isOpen = true;
 
+            if (PromptController.Instance != null)
+            {
+                PromptController.Instance.ReleasePrompt(
+                    PromptType.E, this);
+            }
+
             if (hotbarRect != null)
             {
                 hotbarRect.localScale = furnaceOpenHotbarScale;
@@ -95,6 +147,7 @@ public class FurnaceController : MonoBehaviour
 
             currentFurnace.LoadSlots(inputSlot, fuelSlot, outputSlot);
             furnacePanel.SetActive(true);
+
             return true;
         }
 
@@ -116,7 +169,7 @@ public class FurnaceController : MonoBehaviour
             furnacePanel.SetActive(false);
         }
     }
-    
+
     public void StartCooking()
     {
         if (!isOpen || currentFurnace == null)
@@ -152,6 +205,15 @@ public class FurnaceController : MonoBehaviour
         if (isOpen)
         {
             CloseFurnace();
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (PromptController.Instance != null)
+        {
+            PromptController.Instance.ReleasePrompt(
+                PromptType.E, this);
         }
     }
 }

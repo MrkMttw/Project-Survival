@@ -10,11 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2121072631156973253, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
       propertyPath: m_Size.x
-      value: 0.3251796
+      value: 0.29694745
       objectReference: {fileID: 0}
     - target: {fileID: 2121072631156973253, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
       propertyPath: m_Size.y
       value: 0.03254266
+      objectReference: {fileID: 0}
+    - target: {fileID: 2121072631156973253, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.00056458154
       objectReference: {fileID: 0}
     - target: {fileID: 2121072631156973253, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
       propertyPath: m_Offset.y
@@ -26,7 +30,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3315979588400478878, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
       propertyPath: m_Name
-      value: Ghost Building Variant
+      value: Wooden Gate Ghost Building
       objectReference: {fileID: 0}
     - target: {fileID: 5876583144128633288, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
       propertyPath: m_LocalScale.x

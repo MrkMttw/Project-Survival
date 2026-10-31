@@ -120,6 +120,7 @@ public class PlayerHeldItem : MonoBehaviour
             );
 
             ClearHeldItem();
+            return;
         }
     }
 

@@ -6,6 +6,24 @@ public class SleepingBagHitbox : MonoBehaviour
 
     private SleepingBagInteraction currentSleepingBag;
 
+    private void Update()
+    {
+        // UPDATE SLEEPING BAG PROMPT
+        if (PromptController.Instance == null)
+            return;
+
+        if (currentSleepingBag != null)
+        {
+            PromptController.Instance.RequestPrompt(
+                PromptType.E, this);
+        }
+        else
+        {
+            PromptController.Instance.ReleasePrompt(
+                PromptType.E, this);
+        }
+    }
+
     private void OnTriggerStay2D(Collider2D other)
     {
         SleepingBagInteraction sleepingBag =
@@ -42,5 +60,16 @@ public class SleepingBagHitbox : MonoBehaviour
         );
 
         return true;
+    }
+
+    private void OnDisable()
+    {
+        if (PromptController.Instance != null)
+        {
+            PromptController.Instance.ReleasePrompt(
+                PromptType.E, this);
+        }
+
+        currentSleepingBag = null;
     }
 }

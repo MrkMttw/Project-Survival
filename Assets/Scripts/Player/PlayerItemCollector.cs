@@ -1,4 +1,4 @@
-using UnityEngine;
+    using UnityEngine;
 
 public class PlayerItemCollector : MonoBehaviour
 {
@@ -8,27 +8,42 @@ public class PlayerItemCollector : MonoBehaviour
     [Header("Pickup Settings")]
     public float pickupRadius = 1.5f;
 
-    [Header("Pickup UI")]
-    public GameObject pickUp;
-
     private GameObject nearbyItem;
 
     private void Start()
     {
         inventoryController = FindObjectOfType<InventoryController>();
         hotbarController = FindObjectOfType<HotbarController>();
-
-        if (pickUp != null)
-            pickUp.SetActive(false);
     }
 
     private void Update()
     {
         FindNearbyItem();
 
+        // UPDATE PICKUP PROMPT
+        UpdatePickupPrompt();
+
         if (nearbyItem != null && Input.GetKeyDown(KeyCode.F))
         {
             PickupItem();
+        }
+    }
+
+    // UPDATE PICKUP PROMPT
+    private void UpdatePickupPrompt()
+    {
+        if (PromptController.Instance == null)
+            return;
+
+        if (nearbyItem != null)
+        {
+            PromptController.Instance.RequestPrompt(
+                PromptType.F, this);
+        }
+        else
+        {
+            PromptController.Instance.ReleasePrompt(
+                PromptType.F, this);
         }
     }
 
@@ -62,9 +77,6 @@ public class PlayerItemCollector : MonoBehaviour
         }
 
         nearbyItem = closestItem;
-
-        if (pickUp != null)
-            pickUp.SetActive(nearbyItem != null);
     }
 
     private void PickupItem()
@@ -95,41 +107,28 @@ public class PlayerItemCollector : MonoBehaviour
 
         // NOTHING WAS COLLECTED
         if (!itemAdded)
-        {
             return;
-        }
 
         // NON-STACKABLE ITEMS
-        // If successfully added, the ground item is completely picked up.
         if (!item.stackable)
         {
             Destroy(nearbyItem);
-
             nearbyItem = null;
-
-            if (pickUp != null)
-                pickUp.SetActive(false);
-
             return;
         }
 
         // STACKABLE ITEMS
         int quantityAfterPickup = item.quantity;
 
-        // ALL STACKABLE ITEMS WERE COLLECTED
+        // ALL ITEMS WERE COLLECTED
         if (quantityAfterPickup <= 0)
         {
             Destroy(nearbyItem);
-
             nearbyItem = null;
-
-            if (pickUp != null)
-                pickUp.SetActive(false);
-
             return;
         }
 
-        // ONLY PART OF THE STACK WAS COLLECTED
+        // UPDATE REMAINING STACK
         item.UpdateQuantityDisplay();
 
         Debug.Log(
@@ -139,6 +138,15 @@ public class PlayerItemCollector : MonoBehaviour
             quantityAfterPickup +
             " remaining."
         );
+    }
+
+    private void OnDisable()
+    {
+        if (PromptController.Instance != null)
+        {
+            PromptController.Instance.ReleasePrompt(
+                PromptType.F, this);
+        }
     }
 
     private void OnDrawGizmosSelected()

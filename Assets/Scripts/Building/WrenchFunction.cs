@@ -6,8 +6,6 @@ public class WrenchFunction : MonoBehaviour
     [Header("Item Function")]
     [SerializeField] private int wrenchItemID = 1;
 
-    [SerializeField] private GameObject instructionUI;
-
     private PlacementController placementController;
     private PlayerHeldItem playerHeldItem;
     private Item pendingRelocationTool;
@@ -16,9 +14,6 @@ public class WrenchFunction : MonoBehaviour
     {
         placementController = FindObjectOfType<PlacementController>();
         playerHeldItem = FindObjectOfType<PlayerHeldItem>();
-
-        if (instructionUI != null)
-            instructionUI.SetActive(false);
     }
 
     public void UseTool()
@@ -28,39 +23,28 @@ public class WrenchFunction : MonoBehaviour
 
     private void Update()
     {
+        Item heldItem = null;
+        BuildingObject building = null;
+
+        if (playerHeldItem != null)
+        {
+            heldItem = playerHeldItem.GetHeldItem();
+
+            if (heldItem != null && heldItem.ID == wrenchItemID)
+                building = GetBuilding();
+        }
+
+        // UPDATE WRENCH PROMPTS
+        UpdateWrenchPrompts(building != null);
+
         if (Keyboard.current == null)
             return;
 
-        if (playerHeldItem == null)
+        if (heldItem == null || heldItem.ID != wrenchItemID)
             return;
-
-        Item heldItem = playerHeldItem.GetHeldItem();
-
-        // No item equipped
-        if (heldItem == null)
-        {
-            if (instructionUI != null)
-                instructionUI.SetActive(false);
-
-            return;
-        }
-
-        // Check if the equipped item is the wrench
-        if (heldItem.ID != wrenchItemID)
-        {
-            if (instructionUI != null)
-                instructionUI.SetActive(false);
-
-            return;
-        }
-
-        BuildingObject building = GetBuilding();
 
         if (building != null)
         {
-            if (instructionUI != null)
-                instructionUI.SetActive(true);
-
             if (Keyboard.current.eKey.wasPressedThisFrame)
             {
                 TryRelocateBuilding();
@@ -71,10 +55,23 @@ public class WrenchFunction : MonoBehaviour
                 TryRetrieveBuilding();
             }
         }
+    }
+
+    // UPDATE WRENCH PROMPTS
+    private void UpdateWrenchPrompts(bool canInteract)
+    {
+        if (PromptController.Instance == null)
+            return;
+
+        if (canInteract)
+        {
+            PromptController.Instance.RequestPrompt(PromptType.E, this);
+            PromptController.Instance.RequestPrompt(PromptType.F, this);
+        }
         else
         {
-            if (instructionUI != null)
-                instructionUI.SetActive(false);
+            PromptController.Instance.ReleasePrompt(PromptType.E, this);
+            PromptController.Instance.ReleasePrompt(PromptType.F, this);
         }
     }
 
@@ -111,31 +108,25 @@ public class WrenchFunction : MonoBehaviour
 
         if (placementController == null)
         {
-            Debug.LogError(
-                "PlacementController not found."
-            );
-
+            Debug.LogError("PlacementController not found.");
             return;
         }
 
         Item wrench = playerHeldItem.GetHeldItem();
 
-        bool started =
-            placementController.StartRelocation(building);
+        bool started = placementController.StartRelocation(building);
 
         if (!started)
             return;
 
         pendingRelocationTool = wrench;
 
-        placementController.RelocationFinished +=
-            HandleRelocationFinished;
+        placementController.RelocationFinished += HandleRelocationFinished;
     }
 
     private void HandleRelocationFinished(bool successful)
     {
-        placementController.RelocationFinished -=
-            HandleRelocationFinished;
+        placementController.RelocationFinished -= HandleRelocationFinished;
 
         if (successful && pendingRelocationTool != null)
         {
@@ -162,20 +153,15 @@ public class WrenchFunction : MonoBehaviour
             return;
         }
 
-        ItemDictionary itemDictionary =
-            FindObjectOfType<ItemDictionary>();
+        ItemDictionary itemDictionary = FindObjectOfType<ItemDictionary>();
 
         if (itemDictionary == null)
         {
-            Debug.LogError(
-                "ItemDictionary not found."
-            );
-
+            Debug.LogError("ItemDictionary not found.");
             return;
         }
 
-        GameObject itemPrefab =
-            itemDictionary.GetItemPrefab(building.itemID);
+        GameObject itemPrefab = itemDictionary.GetItemPrefab(building.itemID);
 
         if (itemPrefab == null)
         {
@@ -187,14 +173,10 @@ public class WrenchFunction : MonoBehaviour
             return;
         }
 
-        // Create a temporary runtime copy.
-        // Do NOT pass the shared ItemDictionary object
-        // directly into AddItem().
-        GameObject retrieveItem =
-            Instantiate(itemPrefab);
+        // CREATE TEMPORARY ITEM
+        GameObject retrieveItem = Instantiate(itemPrefab);
 
-        Item retrieveItemComponent =
-            retrieveItem.GetComponent<Item>();
+        Item retrieveItemComponent = retrieveItem.GetComponent<Item>();
 
         if (retrieveItemComponent == null)
         {
@@ -207,31 +189,27 @@ public class WrenchFunction : MonoBehaviour
             return;
         }
 
-        // One placed building = one retrieved item.
+        // SET QUANTITY
         retrieveItemComponent.quantity = 1;
         retrieveItemComponent.UpdateQuantityDisplay();
 
-        HotbarController hotbar =
-            FindObjectOfType<HotbarController>();
-
-        InventoryController inventory =
-            InventoryController.instance;
+        HotbarController hotbar = FindObjectOfType<HotbarController>();
+        InventoryController inventory = InventoryController.instance;
 
         bool added = false;
 
-        // Hotbar first
+        // HOTBAR FIRST
         if (hotbar != null)
         {
             added = hotbar.AddItem(retrieveItem);
         }
 
-        // Inventory second
+        // INVENTORY SECOND
         if (!added && inventory != null)
         {
             added = inventory.AddItem(retrieveItem);
         }
 
-        // The temporary object is no longer needed.
         Destroy(retrieveItem);
 
         if (!added)
@@ -252,8 +230,7 @@ public class WrenchFunction : MonoBehaviour
             wrench.UseDurability();
         }
 
-        WorldGenerator worldGenerator =
-            FindObjectOfType<WorldGenerator>();
+        WorldGenerator worldGenerator = FindObjectOfType<WorldGenerator>();
 
         if (worldGenerator != null)
         {
@@ -262,9 +239,8 @@ public class WrenchFunction : MonoBehaviour
             FindFirstObjectByType<RadarController>()
                 ?.RefreshCoordinateUI();
         }
-        
-        TentController tentController =
-            FindObjectOfType<TentController>();
+
+        TentController tentController = FindObjectOfType<TentController>();
 
         if (tentController != null)
         {
@@ -277,5 +253,14 @@ public class WrenchFunction : MonoBehaviour
             "Building retrieved: " +
             itemPrefab.name
         );
+    }
+
+    private void OnDisable()
+    {
+        if (PromptController.Instance != null)
+        {
+            PromptController.Instance.ReleasePrompt(PromptType.E, this);
+            PromptController.Instance.ReleasePrompt(PromptType.F, this);
+        }
     }
 }

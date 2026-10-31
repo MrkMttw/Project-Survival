@@ -26,6 +26,8 @@ public class MenuController : MonoBehaviour
 
     void Update()
     {
+        UpdateMenuPrompt();
+
         if (Keyboard.current != null && Keyboard.current.bKey.wasPressedThisFrame)
         {
             if (furnaceController != null && furnaceController.IsOpen)
@@ -71,5 +73,23 @@ public class MenuController : MonoBehaviour
         }
 
         wasCraftingPageActive = isCraftingPageActive;
+    }
+
+    // UPDATE MENU PROMPT
+    private void UpdateMenuPrompt()
+    {
+        if (PromptController.Instance == null)
+            return;
+
+        if (!menuCanvas.activeSelf)
+            PromptController.Instance.RequestPrompt(PromptType.B, this);
+        else
+            PromptController.Instance.ReleasePrompt(PromptType.B, this);
+    }
+
+    private void OnDisable()
+    {
+        if (PromptController.Instance != null)
+            PromptController.Instance.ReleasePrompt(PromptType.B, this);
     }
 }

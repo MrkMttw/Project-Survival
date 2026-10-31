@@ -65,7 +65,14 @@ public class ClickInteractionController : MonoBehaviour
         if (meleeWeaponController != null &&
             meleeWeaponController.HasMeleeWeaponEquipped())
         {
-            // PRIORITIZE BREAKING IF THE TARGET IS VALID
+            // PRIORITY 1: ATTACK ENEMIES
+            if (meleeWeaponController.HasEnemyInAttackRange())
+            {
+                meleeWeaponController.TryAttack();
+                return;
+            }
+
+            // PRIORITY 2: BREAK OBJECTS
             if (breakSystem != null &&
                 breakSystem.CanBreakCurrentTarget())
             {
@@ -73,8 +80,6 @@ public class ClickInteractionController : MonoBehaviour
                 return;
             }
 
-            // OTHERWISE ATTACK
-            meleeWeaponController.TryAttack();
             return;
         }
 

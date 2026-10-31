@@ -19,9 +19,28 @@ public class PlayerInteractionController : MonoBehaviour
         if (Keyboard.current == null)
             return;
 
+        // FOOD PROMPT
+        UpdateFoodPrompt();
+
         if (Keyboard.current.eKey.wasPressedThisFrame)
         {
             HandleInteraction();
+        }
+    }
+
+    // UPDATE FOOD PROMPT
+    private void UpdateFoodPrompt()
+    {
+        if (PromptController.Instance == null || foodController == null)
+            return;
+
+        if (foodController.CanEatHeldItem())
+        {
+            PromptController.Instance.RequestPrompt(PromptType.E, this);
+        }
+        else
+        {
+            PromptController.Instance.ReleasePrompt(PromptType.E, this);
         }
     }
 
@@ -63,6 +82,12 @@ public class PlayerInteractionController : MonoBehaviour
             return;
         }
     }
+
+    private void OnDisable()
+    {
+        if (PromptController.Instance != null)
+        {
+            PromptController.Instance.ReleasePrompt(PromptType.E, this);
+        }
+    }
 }
-
-
