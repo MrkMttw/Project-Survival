@@ -182,7 +182,7 @@ public class SleepTransitionController : MonoBehaviour
         RestoreAfterSleep();
     }
 
-    private bool IsSleepTimeAllowed()
+    public bool IsSleepTimeAllowed()
     {
         int currentMinutes =
             (gameClock.GetHour() * 60) + gameClock.GetMinute();
@@ -204,5 +204,13 @@ public class SleepTransitionController : MonoBehaviour
         // Overnight range, such as 18:00–06:00.
         return currentMinutes >= startMinutes ||
             currentMinutes < endMinutes;
+    }
+    
+    public bool IsSleepTimeAllowedNow()
+    {
+        if (gameClock == null)
+            return false;
+
+        return IsSleepTimeAllowed();
     }
 }

@@ -23,10 +23,10 @@ public class HungerController : MonoBehaviour
     [Range(0f, 1f)]
     public float healingThreshold = 0.9f;
 
-    [Range(0f, 10f)]
+    [Range(0f, 1f)]
     public float passiveHealPercent = 0.01f;
 
-    public float passiveHealInterval = 1f;
+    public float passiveHealInterval = 0.02f;
 
     [Header("Health")]
     public HealthController healthController;
