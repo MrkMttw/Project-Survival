@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyController : MonoBehaviour
+public class HostileMobBehavior : MonoBehaviour
 {
     [Header("Enemy Stats")]
     public float maxHP = 100f;
@@ -97,7 +97,7 @@ public class EnemyController : MonoBehaviour
         if (rb == null)
         {
             Debug.LogError(
-                "EnemyController: Rigidbody2D is missing!",
+                "HostileMobBehavior: Rigidbody2D is missing!",
                 this
             );
         }
@@ -126,14 +126,14 @@ public class EnemyController : MonoBehaviour
 
         if (player == null)
         {
-            Debug.LogWarning("EnemyController: Could not find Player with HealthController!");
+            Debug.LogWarning("HostileMobBehavior: Could not find Player with HealthController!");
             return;
         }
 
         if (playerHealth == null)
         {
             Debug.LogWarning(
-                "EnemyController: Could not find HealthController!"
+                "HostileMobBehavior: Could not find HealthController!"
             );
 
             return;
@@ -506,7 +506,7 @@ public class EnemyController : MonoBehaviour
 
         isDead = true;
 
-        Debug.Log("[EnemyController] Enemy died: " + gameObject.name);
+        Debug.Log("[HostileMobBehavior] Enemy died: " + gameObject.name);
 
         StructureObjectIdentity identity =
             GetComponent<StructureObjectIdentity>();
@@ -514,7 +514,7 @@ public class EnemyController : MonoBehaviour
         if (identity != null)
         {
             Debug.Log(
-                "[EnemyController] Structure identity found. " +
+                "[HostileMobBehavior] Structure identity found. " +
                 "Is Boss: " + identity.isBoss +
                 ", Structure ID: " + identity.structureID
             );
@@ -522,7 +522,7 @@ public class EnemyController : MonoBehaviour
         else
         {
             Debug.LogWarning(
-                "[EnemyController] No StructureObjectIdentity found!",
+                "[HostileMobBehavior] No StructureObjectIdentity found!",
                 gameObject
             );
         }
@@ -534,14 +534,14 @@ public class EnemyController : MonoBehaviour
 
             if (structureSpawner != null)
             {
-                Debug.Log("[EnemyController] Registering boss defeat.");
+                Debug.Log("[HostileMobBehavior] Registering boss defeat.");
 
                 structureSpawner.MarkBossDefeated(identity);
             }
             else
             {
                 Debug.LogWarning(
-                    "[EnemyController] StructureSpawner not found!"
+                    "[HostileMobBehavior] StructureSpawner not found!"
                 );
             }
         }

@@ -34,7 +34,7 @@ Identifies objects belonging to a generated structure.
 **Usage:**
 
 - Destructible objects receive this component automatically when their structure is instantiated.
-- Bosses must have this component manually added to the same GameObject as their `EnemyController`.
+- Bosses must have this component manually added to the same GameObject as their `HostileMobBehavior`.
 - Ordinary enemies do not need this component.
 
 For a boss, configure:
@@ -171,9 +171,9 @@ If one exists, it notifies `StructureSpawner` through:
 
 The existing `WorldObjectIdentity` handling remains unchanged, preserving natural-object destruction persistence.
 
-### EnemyController
+### HostileMobBehavior
 
-When an enemy dies, `EnemyController` checks whether it has a `StructureObjectIdentity` component.
+When an enemy dies, `HostileMobBehavior` checks whether it has a `StructureObjectIdentity` component.
 
 If the identity exists and `isBoss` is enabled, it notifies `StructureSpawner` through:
 
@@ -207,7 +207,7 @@ The boss must have both components on the same GameObject:
 
 ```text
 Boss
-├── EnemyController
+├── HostileMobBehavior
 ├── StructureObjectIdentity
 ├── Rigidbody2D
 ├── Collider2D

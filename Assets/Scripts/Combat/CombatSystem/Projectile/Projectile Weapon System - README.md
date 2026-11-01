@@ -152,12 +152,12 @@ The projectile spawn position currently uses a small vertical offset above the p
 
 The projectile system reuses existing combat controllers.
 
-**EnemyController**
+**HostileMobBehavior**
 - Uses TakeDamage(damage, knockbackDirection, knockbackStrength).
 - Applies defense and knockback resistance.
 - Handles health reduction and enemy death.
 
-**PassiveMobController**
+**PassiveMobBehavior**
 - Uses TakeDamage(damage).
 - Uses ApplyKnockback(direction, strength).
 - Uses ReactToAttack(attacker) to trigger fleeing behavior.

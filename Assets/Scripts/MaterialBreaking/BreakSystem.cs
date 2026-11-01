@@ -208,6 +208,9 @@ public class BreakSystem : MonoBehaviour
             preset.name
         );
 
+        // PLAY TOOL SWING
+        playerHeldItem.PlaySwing();
+
         // Shake the material when hit.
         HitShake hitShake =
             material.GetComponent<HitShake>();

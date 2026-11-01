@@ -82,11 +82,11 @@ public class MeleeWeaponController : MonoBehaviour
 
         foreach (Collider2D enemyCollider in enemies)
         {
-            EnemyController enemy =
-                enemyCollider.GetComponentInParent<EnemyController>();
+            HostileMobBehavior enemy =
+                enemyCollider.GetComponentInParent<HostileMobBehavior>();
 
-            PassiveMobController passiveMob =
-                enemyCollider.GetComponentInParent<PassiveMobController>();
+            PassiveMobBehavior passiveMob =
+                enemyCollider.GetComponentInParent<PassiveMobBehavior>();
 
             if (enemy != null || passiveMob != null)
                 return true;
@@ -128,8 +128,6 @@ public class MeleeWeaponController : MonoBehaviour
         return weaponFunction.weaponData;
     }
 
-    // ATTACK
-
     private bool TryAttack(WeaponData weapon)
     {
         if (weapon == null)
@@ -138,24 +136,33 @@ public class MeleeWeaponController : MonoBehaviour
         if (Time.time < nextAttackTime)
             return false;
 
+        // PLAY WEAPON SWING
+        if (playerHeldItem != null &&
+            playerHeldItem.GetHeldItem() != null)
+        {
+            playerHeldItem.PlaySwing();
+        }
+
+        // PERFORM ATTACK
         bool hitEnemy = Attack(weapon);
 
+        // WEAPON DURABILITY
         if (hitEnemy)
         {
             Item heldItem = playerHeldItem.GetHeldItem();
 
-            // WEAPON DURABILITY
             if (heldItem != null &&
                 heldItem.GetComponent<MeleeWeaponFunction>() != null)
             {
                 heldItem.UseDurability();
             }
-
-            float attackCooldown =
-                1f / Mathf.Max(weapon.attackSpeed, 0.01f);
-
-            nextAttackTime = Time.time + attackCooldown;
         }
+
+        // APPLY COOLDOWN EVEN WHEN ATTACK MISSES
+        float attackCooldown =
+            1f / Mathf.Max(weapon.attackSpeed, 0.01f);
+
+        nextAttackTime = Time.time + attackCooldown;
 
         return hitEnemy;
     }
@@ -176,13 +183,13 @@ public class MeleeWeaponController : MonoBehaviour
 
         foreach (Collider2D enemyCollider in enemies)
         {
-            EnemyController enemy =
-                enemyCollider.GetComponent<EnemyController>();
+            HostileMobBehavior enemy =
+                enemyCollider.GetComponent<HostileMobBehavior>();
 
             if (enemy == null)
             {
                 enemy =
-                    enemyCollider.GetComponentInParent<EnemyController>();
+                    enemyCollider.GetComponentInParent<HostileMobBehavior>();
             }
 
             if (enemy != null)
@@ -209,13 +216,13 @@ public class MeleeWeaponController : MonoBehaviour
                 continue;
             }
 
-            PassiveMobController passiveMob =
-                enemyCollider.GetComponent<PassiveMobController>();
+            PassiveMobBehavior passiveMob =
+                enemyCollider.GetComponent<PassiveMobBehavior>();
 
             if (passiveMob == null)
             {
                 passiveMob =
-                    enemyCollider.GetComponentInParent<PassiveMobController>();
+                    enemyCollider.GetComponentInParent<PassiveMobBehavior>();
             }
 
             if (passiveMob != null)

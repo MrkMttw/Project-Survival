@@ -1086,6 +1086,7 @@ RectTransform:
   - {fileID: 1040017514}
   - {fileID: 1070812107}
   - {fileID: 1222193407}
+  - {fileID: 673573528}
   m_Father: {fileID: 1549747559}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1844,7 +1845,7 @@ GameObject:
   m_Component:
   - component: {fileID: 188391876}
   m_Layer: 5
-  m_Name: TimeController
+  m_Name: Time
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -628913,7 +628914,7 @@ GameObject:
   m_Component:
   - component: {fileID: 393635681}
   m_Layer: 5
-  m_Name: Item&BuildingController
+  m_Name: Item&Building
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -630894,37 +630895,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5059c0472ab1ca14f9cf28f13d6aa6a3, type: 3}
---- !u!1 &549664575
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 549664576}
-  m_Layer: 0
-  m_Name: Animals
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &549664576
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 549664575}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1249827463}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &551466174
 GameObject:
   m_ObjectHideFlags: 0
@@ -631712,6 +631682,97 @@ Transform:
   m_Children: []
   m_Father: {fileID: 543478632}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &673573526
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 673573528}
+  - component: {fileID: 673573527}
+  m_Layer: 5
+  m_Name: MobSpawnerController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &673573527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 673573526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fd3fdf771dfa2e4cbeb34f3f26941a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MobSpawnerController
+  maxHostileMobs: 5
+  maxPassiveMobs: 15
+  hostileSpawnData:
+  - enemyPrefab: {fileID: 6615201108757546238, guid: dcc49465b275d6443a4cca05e30d7c46, type: 3}
+    spawnPercentage: 20
+    spawnFromDay: 1
+    spawnStartTime: 21
+    spawnEndTime: 5
+  - enemyPrefab: {fileID: 789803239827235797, guid: 5ac8dbeeba693474d9ffdc2a516e59ed, type: 3}
+    spawnPercentage: 20
+    spawnFromDay: 1
+    spawnStartTime: 21
+    spawnEndTime: 5
+  - enemyPrefab: {fileID: 7603050365449017479, guid: cdda6e79c23ac8b4d80ed4b4bd3f76e4, type: 3}
+    spawnPercentage: 20
+    spawnFromDay: 5
+    spawnStartTime: 21
+    spawnEndTime: 5
+  - enemyPrefab: {fileID: 3487566225509943420, guid: c7c4a55d9f069a1478ea5d5361fe024e, type: 3}
+    spawnPercentage: 20
+    spawnFromDay: 5
+    spawnStartTime: 21
+    spawnEndTime: 5
+  - enemyPrefab: {fileID: 7031878355868238338, guid: cd765f65cad360f438033baabd653a43, type: 3}
+    spawnPercentage: 20
+    spawnFromDay: 10
+    spawnStartTime: 21
+    spawnEndTime: 5
+  hostileSpawnInterval: 5
+  hostileSpawnRadius: 15
+  hostileProtectionRadius: 5
+  passiveSpawnData:
+  - mobPrefab: {fileID: 7072807562321611403, guid: 7191258893709644ebfa96e8e5a1b163, type: 3}
+    spawnPercentage: 50
+  - mobPrefab: {fileID: 9087001462328713228, guid: 5c1195f69fea7a345ac6d792cd6e96a5, type: 3}
+    spawnPercentage: 50
+  passiveSpawnInterval: 5
+  passiveSpawnRadius: 15
+  passiveProtectionRadius: 5
+  overWorld: {fileID: 1628186936}
+  gameClock: {fileID: 886148631}
+  activeMobsParent: {fileID: 0}
+  despawnCheckInterval: 1
+--- !u!224 &673573528
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 673573526}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 86161017}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &678848204
 GameObject:
   m_ObjectHideFlags: 0
@@ -633794,37 +633855,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 827015882}
   m_CullTransparentMesh: 1
---- !u!1 &827271806
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 827271807}
-  m_Layer: 0
-  m_Name: Enemies
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &827271807
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 827271806}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1249827463}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &832057617
 GameObject:
   m_ObjectHideFlags: 0
@@ -634337,7 +634367,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameClock
   realSecondsPerGameHour: 15
-  startingHour: 20
+  startingHour: 6
   startingMinute: 0
   startingDay: 1
   use12HourFormat: 1
@@ -634810,109 +634840,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5876583144128633288, guid: ef8efa50ec84d724abe45260c1c88356, type: 3}
   m_PrefabInstance: {fileID: 1708113742}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1011082186
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1011082187}
-  - component: {fileID: 1011082188}
-  - component: {fileID: 1011082189}
-  m_Layer: 5
-  m_Name: MobController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1011082187
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1011082186}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1549747559}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1011082188
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1011082186}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bbee3dece304da48a38dcb536c72af3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  gameClock: {fileID: 886148631}
-  enemies:
-  - enemyPrefab: {fileID: 6615201108757546238, guid: dcc49465b275d6443a4cca05e30d7c46, type: 3}
-    spawnPercentage: 20
-    spawnFromDay: 1
-    spawnStartTime: 21
-    spawnEndTime: 6
-  - enemyPrefab: {fileID: 789803239827235797, guid: 5ac8dbeeba693474d9ffdc2a516e59ed, type: 3}
-    spawnPercentage: 20
-    spawnFromDay: 1
-    spawnStartTime: 21
-    spawnEndTime: 6
-  - enemyPrefab: {fileID: 7603050365449017479, guid: cdda6e79c23ac8b4d80ed4b4bd3f76e4, type: 3}
-    spawnPercentage: 20
-    spawnFromDay: 5
-    spawnStartTime: 21
-    spawnEndTime: 6
-  - enemyPrefab: {fileID: 3487566225509943420, guid: c7c4a55d9f069a1478ea5d5361fe024e, type: 3}
-    spawnPercentage: 20
-    spawnFromDay: 5
-    spawnStartTime: 21
-    spawnEndTime: 6
-  - enemyPrefab: {fileID: 7031878355868238338, guid: cd765f65cad360f438033baabd653a43, type: 3}
-    spawnPercentage: 10
-    spawnFromDay: 10
-    spawnStartTime: 21
-    spawnEndTime: 6
-  enemyParent: {fileID: 827271807}
-  spawnRadius: 15
-  spawnProtectionRadius: 5
-  spawnInterval: 5
-  maxEnemies: 10
---- !u!114 &1011082189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1011082186}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1a78c3eb4407e047b2fe42a4adec3c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PassiveMobSpawner
-  passiveMobs:
-  - mobPrefab: {fileID: 9087001462328713228, guid: 5c1195f69fea7a345ac6d792cd6e96a5, type: 3}
-    spawnPercentage: 55
-  - mobPrefab: {fileID: 7072807562321611403, guid: 7191258893709644ebfa96e8e5a1b163, type: 3}
-    spawnPercentage: 55
-  mobParent: {fileID: 549664576}
-  spawnRadius: 15
-  spawnProtectionRadius: 5
-  spawnInterval: 5
-  maxMobs: 10
 --- !u!1 &1012469684
 GameObject:
   m_ObjectHideFlags: 0
@@ -635058,7 +634985,7 @@ GameObject:
   - component: {fileID: 1020657093}
   - component: {fileID: 1020657096}
   m_Layer: 5
-  m_Name: MusicManager
+  m_Name: Music
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -637286,8 +637213,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1368665208}
-  - {fileID: 827271807}
-  - {fileID: 549664576}
   - {fileID: 1628186936}
   - {fileID: 1416235697}
   - {fileID: 987746757}
@@ -639917,7 +639842,6 @@ RectTransform:
   - {fileID: 1561105129}
   - {fileID: 393635681}
   - {fileID: 84989084}
-  - {fileID: 1011082187}
   - {fileID: 1839662448}
   - {fileID: 2113588247}
   - {fileID: 1020657093}
@@ -693697,7 +693621,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1839662448}
   m_Layer: 5
-  m_Name: WeaponController
+  m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -695592,6 +695516,9 @@ MonoBehaviour:
   rightOffset: 0.3
   leftOffset: 0.3
   downOffset: -0.5
+  swingAngle: 70
+  swingDuration: 0.12
+  returnDuration: 0.1
   heldItem: {fileID: 0}
 --- !u!114 &2096488643
 MonoBehaviour:

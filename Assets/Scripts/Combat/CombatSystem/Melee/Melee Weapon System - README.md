@@ -124,7 +124,7 @@ The controller should also have its existing ProjectileWeaponController and Brea
 
 The melee system reuses the existing combat controllers.
 
-### EnemyController
+### HostileMobBehavior
 
 Uses:
 
@@ -137,7 +137,7 @@ The enemy controller handles:
 - Enemy death.
 - Item drops.
 
-### PassiveMobController
+### PassiveMobBehavior
 
 Uses:
 

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PassiveMobController : MonoBehaviour
+public class PassiveMobBehavior : MonoBehaviour
 {
     [Header("Movement")]
     public float movementSpeed = 1.5f;
@@ -67,7 +67,7 @@ public class PassiveMobController : MonoBehaviour
         if (rb == null)
         {
             Debug.LogError(
-                "PassiveMobController: Rigidbody2D is missing!",
+                "PassiveMobBehavior: Rigidbody2D is missing!",
                 this
             );
         }

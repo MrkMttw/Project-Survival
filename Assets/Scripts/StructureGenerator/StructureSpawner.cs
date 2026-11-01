@@ -379,10 +379,10 @@ public class StructureSpawner : MonoBehaviour
         }
 
         // BOSS
-        EnemyController[] enemies =
-            record.instance.GetComponentsInChildren<EnemyController>(true);
+        HostileMobBehavior[] enemies =
+            record.instance.GetComponentsInChildren<HostileMobBehavior>(true);
 
-        foreach (EnemyController enemy in enemies)
+        foreach (HostileMobBehavior enemy in enemies)
         {
             if (enemy == null)
                 continue;

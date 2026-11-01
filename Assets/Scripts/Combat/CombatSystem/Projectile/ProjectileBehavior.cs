@@ -102,12 +102,12 @@ public class ProjectileBehavior : MonoBehaviour
             return;
         }
 
-        EnemyController enemy =
-            other.GetComponent<EnemyController>();
+        HostileMobBehavior enemy =
+            other.GetComponent<HostileMobBehavior>();
 
         if (enemy == null)
         {
-            enemy = other.GetComponentInParent<EnemyController>();
+            enemy = other.GetComponentInParent<HostileMobBehavior>();
         }
 
         if (enemy != null)
@@ -128,13 +128,13 @@ public class ProjectileBehavior : MonoBehaviour
             return;
         }
 
-        PassiveMobController passiveMob =
-            other.GetComponent<PassiveMobController>();
+        PassiveMobBehavior passiveMob =
+            other.GetComponent<PassiveMobBehavior>();
 
         if (passiveMob == null)
         {
             passiveMob =
-                other.GetComponentInParent<PassiveMobController>();
+                other.GetComponentInParent<PassiveMobBehavior>();
         }
 
         if (passiveMob != null)

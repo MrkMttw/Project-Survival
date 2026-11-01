@@ -305,8 +305,8 @@ Keep the NPC's existing movement script.
 
 For example:
 
-- Enemies can keep `EnemyController`.
-- Passive animals can keep `PassiveMobController`.
+- Enemies can keep `HostileMobBehavior`.
+- Passive animals can keep `PassiveMobBehavior`.
 
 `NPCAnimationBehavior` handles animation selection only. It should not replace or duplicate the AI movement logic.
 

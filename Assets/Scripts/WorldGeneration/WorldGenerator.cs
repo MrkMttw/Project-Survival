@@ -37,6 +37,8 @@ public class WorldGenerator : MonoBehaviour
     private Dictionary<Vector2Int, GameObject> loadedChunks =
         new Dictionary<Vector2Int, GameObject>();
 
+    private MobSpawnerController mobSpawnerController;
+
     private Dictionary<Vector2Int, GameObject> loadedBuildingChunks =
         new Dictionary<Vector2Int, GameObject>();
 
@@ -73,6 +75,16 @@ public class WorldGenerator : MonoBehaviour
         {
             Debug.LogError("WorldGenerator: OverWorld parent is not assigned.");
             return;
+        }
+
+        mobSpawnerController =
+            FindFirstObjectByType<MobSpawnerController>();
+
+        if (mobSpawnerController == null)
+        {
+            Debug.LogError(
+                "WorldGenerator: MobSpawnerController not found."
+            );
         }
 
         currentPlayerChunk = GetChunkCoordinate(player.position);
@@ -231,6 +243,20 @@ public class WorldGenerator : MonoBehaviour
         if (structureSpawner != null)
         {
             structureSpawner.ProcessChunk(chunkCoordinate);
+        }
+
+        // Initialize the regular mob spawner for this chunk.
+        if (mobSpawnerController != null)
+        {
+            ChunkMobSpawner chunkSpawner =
+                chunkObject.AddComponent<ChunkMobSpawner>();
+
+            chunkSpawner.Initialize(
+                mobSpawnerController,
+                chunkCoordinate,
+                chunkSize,
+                player
+            );
         }
     }
 
@@ -507,6 +533,16 @@ public class WorldGenerator : MonoBehaviour
             return;
         }
         
+        // Clean up regular mobs before destroying the chunk.
+        ChunkMobSpawner chunkSpawner =
+            chunkObject.GetComponent<ChunkMobSpawner>();
+
+        if (chunkSpawner != null)
+        {
+            chunkSpawner.CleanupMobs();
+        }
+
+        // Preserve existing structure unloading.
         if (structureSpawner != null)
         {
             structureSpawner.UnloadChunk(chunkCoordinate);
