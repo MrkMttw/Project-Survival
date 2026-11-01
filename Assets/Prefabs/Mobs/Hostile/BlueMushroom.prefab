@@ -117,9 +117,17 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8631369034572204580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: chaseRange
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8631369034572204580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: mobDropPreset
       value: 
       objectReference: {fileID: 11400000, guid: 9b6605575b7992349b7d4615baa4db26, type: 2}
+    - target: {fileID: 8631369034572204580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: detectionRange
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 66469021256868083, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
     m_RemovedGameObjects: []

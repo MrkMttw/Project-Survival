@@ -430,6 +430,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
   ID: 0
+  itemPrefab: {fileID: 6789592075229631350}
   itemImage: {fileID: 0}
   stackable: 1
   maxStackSize: 99

@@ -12,7 +12,7 @@ public class BreakSystem : MonoBehaviour
     public ToolBreakPreset[] toolPresets;
 
     [Header("Detection")]
-    public LayerMask breakableLayer;
+    public LayerMask[] breakableLayers;
 
     private float nextBreakTime;
 
@@ -31,6 +31,18 @@ public class BreakSystem : MonoBehaviour
                 "BreakSystem: Player Transform is not assigned!"
             );
         }
+    }
+
+    // CHECK IF LAYER IS BREAKABLE
+    private bool IsBreakableLayer(GameObject target)
+    {
+        foreach (LayerMask layer in breakableLayers)
+        {
+            if (((1 << target.layer) & layer) != 0)
+                return true;
+        }
+
+        return false;
     }
 
     // Called by BreakHitbox
@@ -57,11 +69,8 @@ public class BreakSystem : MonoBehaviour
             return false;
 
         // CHECK BREAKABLE LAYER
-        if (((1 << currentBreakable.gameObject.layer) &
-            breakableLayer) == 0)
-        {
+        if (!IsBreakableLayer(currentBreakable.gameObject))
             return false;
-        }
 
         // GET MATERIAL
         BreakableMaterial material =
@@ -130,11 +139,8 @@ public class BreakSystem : MonoBehaviour
         }
 
         // Make sure the target is on the breakable layer.
-        if (((1 << currentBreakable.gameObject.layer) &
-            breakableLayer) == 0)
-        {
+        if (!IsBreakableLayer(currentBreakable.gameObject))
             return;
-        }
 
         // Get BreakableMaterial.
         BreakableMaterial material =

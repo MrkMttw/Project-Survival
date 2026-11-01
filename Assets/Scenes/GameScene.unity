@@ -631663,9 +631663,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: db8482998835a2c408291be8bc822c93, type: 2}
   - {fileID: 11400000, guid: 37be995cde35fd741a9e1b27ed37905f, type: 2}
   - {fileID: 11400000, guid: 00a5c45fb6d72a54493eb3cdf950340f, type: 2}
-  breakableLayer:
-    serializedVersion: 2
+  breakableLayers:
+  - serializedVersion: 2
     m_Bits: 64
+  - serializedVersion: 2
+    m_Bits: 4096
   playerHeldItem: {fileID: 2096488642}
 --- !u!4 &640079119
 Transform:
@@ -631711,7 +631713,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fd3fdf771dfa2e4cbeb34f3f26941a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MobSpawnerController
-  maxHostileMobs: 5
+  maxHostileMobs: 50
   maxPassiveMobs: 15
   hostileSpawnData:
   - enemyPrefab: {fileID: 6615201108757546238, guid: dcc49465b275d6443a4cca05e30d7c46, type: 3}
@@ -631739,7 +631741,7 @@ MonoBehaviour:
     spawnFromDay: 10
     spawnStartTime: 21
     spawnEndTime: 5
-  hostileSpawnInterval: 5
+  hostileSpawnInterval: 1
   hostileSpawnRadius: 15
   hostileProtectionRadius: 5
   passiveSpawnData:
@@ -632965,7 +632967,7 @@ MonoBehaviour:
   dayIntensity: 0.65
   nightIntensity: 0.05
   sunriseTime: 6
-  sunsetTime: 21
+  sunsetTime: 19.5
   transitionSpeed: 0.5
 --- !u!1 &799309272
 GameObject:
@@ -633096,7 +633098,7 @@ MonoBehaviour:
   campfireLevel: 0
   currentWood: 0
   maxWood: 100
-  woodItemID: 43
+  woodItemPrefab: {fileID: 6695288099351985358, guid: 188260af6ee17e643bdd387747284ad9, type: 3}
   fuelDecayDelay: 10
   fuelDecayInterval: 5
   fuelDecayAmount: 1
@@ -692334,7 +692336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2325f540ab2e70459d2f815beb8a151, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WrenchFunction
-  wrenchItemID: 46
+  wrenchPrefab: {fileID: 6091912421739958188, guid: d318aa85f6b580a4bb612c71a6a847b7, type: 3}
 --- !u!114 &1689425137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -694024,6 +694026,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1498c3dfdd6df747aa53659956ef479, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RadarController
+  ironItemPrefab: {fileID: 4677088523442761168, guid: d1f3a988e5618ee419c7d4d73c56067e, type: 3}
   progressionIron: 0
   radarLevel: 0
   worldGenerator: {fileID: 1040017515}

@@ -23,6 +23,9 @@ public class RadarController : MonoBehaviour
         public StructureSpawnData dungeonData;
     }
 
+    [Header("Iron")]
+    public GameObject ironItemPrefab;
+
     [Header("Radar Level")]
     public int progressionIron = 0;
 
@@ -70,6 +73,19 @@ public class RadarController : MonoBehaviour
 
         UpdateRadarLevel();
         UpdateRadarUI();
+    }
+
+    public bool IsIronItem(Item item)
+    {
+        if (item == null || ironItemPrefab == null)
+            return false;
+
+        Item ironItem = ironItemPrefab.GetComponent<Item>();
+
+        if (ironItem == null)
+            return false;
+
+        return item.ID == ironItem.ID;
     }
 
     private void UpdateRadarLevel()

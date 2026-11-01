@@ -19,7 +19,7 @@ public class CampfireController : MonoBehaviour
     [Header("Wood")]
     public int currentWood = 0;
     public int maxWood = 100;
-    public int woodItemID;
+    public GameObject woodItemPrefab;
 
     public float fuelDecayDelay = 10f;
     public float fuelDecayInterval = 5f;
@@ -147,10 +147,15 @@ public class CampfireController : MonoBehaviour
         if (!playerInRange)
             return false;
 
-        if (item == null)
+        if (item == null || woodItemPrefab == null)
             return false;
 
-        return item.ID == woodItemID;
+        Item woodItem = woodItemPrefab.GetComponent<Item>();
+
+        if (woodItem == null)
+            return false;
+
+        return item.ID == woodItem.ID;
     }
 
     public void RegisterCampfireUI(CampfireUI ui)

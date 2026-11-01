@@ -197,6 +197,10 @@ PrefabInstance:
       value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8631369034572204580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: chaseRange
+      value: 13.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8631369034572204580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: mobDropPreset
       value: 
       objectReference: {fileID: 11400000, guid: 0a0e4d1d339a8cf4fad7d9713fbdc604, type: 2}
@@ -214,7 +218,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8631369034572204580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: obstacleCheckDistance
-      value: 1.2
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

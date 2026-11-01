@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class WrenchFunction : MonoBehaviour
 {
     [Header("Item Function")]
-    [SerializeField] private int wrenchItemID = 1;
+    [SerializeField] private Item wrenchPrefab;
 
     private PlacementController placementController;
     private PlayerHeldItem playerHeldItem;
@@ -14,6 +14,11 @@ public class WrenchFunction : MonoBehaviour
     {
         placementController = FindObjectOfType<PlacementController>();
         playerHeldItem = FindObjectOfType<PlayerHeldItem>();
+
+        if (wrenchPrefab == null)
+        {
+            Debug.LogError("Wrench prefab is not assigned!", this);
+        }
     }
 
     public void UseTool()
@@ -30,7 +35,7 @@ public class WrenchFunction : MonoBehaviour
         {
             heldItem = playerHeldItem.GetHeldItem();
 
-            if (heldItem != null && heldItem.ID == wrenchItemID)
+            if (IsWrench(heldItem))
                 building = GetBuilding();
         }
 
@@ -40,21 +45,26 @@ public class WrenchFunction : MonoBehaviour
         if (Keyboard.current == null)
             return;
 
-        if (heldItem == null || heldItem.ID != wrenchItemID)
+        if (!IsWrench(heldItem))
             return;
 
         if (building != null)
         {
             if (Keyboard.current.eKey.wasPressedThisFrame)
-            {
                 TryRelocateBuilding();
-            }
 
             if (Keyboard.current.fKey.wasPressedThisFrame)
-            {
                 TryRetrieveBuilding();
-            }
         }
+    }
+
+    // CHECK WRENCH
+    private bool IsWrench(Item heldItem)
+    {
+        if (heldItem == null || wrenchPrefab == null)
+            return false;
+
+        return heldItem.ID == wrenchPrefab.ID;
     }
 
     // UPDATE WRENCH PROMPTS
@@ -99,6 +109,7 @@ public class WrenchFunction : MonoBehaviour
         return hit.GetComponentInParent<BuildingObject>();
     }
 
+    // RELOCATE BUILDING
     private void TryRelocateBuilding()
     {
         BuildingObject building = GetBuilding();
@@ -129,13 +140,12 @@ public class WrenchFunction : MonoBehaviour
         placementController.RelocationFinished -= HandleRelocationFinished;
 
         if (successful && pendingRelocationTool != null)
-        {
             pendingRelocationTool.UseDurability();
-        }
 
         pendingRelocationTool = null;
     }
 
+    // RETRIEVE BUILDING
     private void TryRetrieveBuilding()
     {
         BuildingObject building = GetBuilding();
@@ -146,8 +156,7 @@ public class WrenchFunction : MonoBehaviour
         if (building.itemID <= 0)
         {
             Debug.LogWarning(
-                "Building has no Item ID: " +
-                building.gameObject.name
+                "Building has no Item ID: " + building.gameObject.name
             );
 
             return;
@@ -166,8 +175,7 @@ public class WrenchFunction : MonoBehaviour
         if (itemPrefab == null)
         {
             Debug.LogError(
-                "No item prefab found for Item ID: " +
-                building.itemID
+                "No item prefab found for Item ID: " + building.itemID
             );
 
             return;
@@ -180,10 +188,7 @@ public class WrenchFunction : MonoBehaviour
 
         if (retrieveItemComponent == null)
         {
-            Debug.LogError(
-                "No Item component on prefab for Item ID: " +
-                building.itemID
-            );
+            Debug.LogError("No Item component on prefab: " + itemPrefab.name);
 
             Destroy(retrieveItem);
             return;
@@ -200,15 +205,11 @@ public class WrenchFunction : MonoBehaviour
 
         // HOTBAR FIRST
         if (hotbar != null)
-        {
             added = hotbar.AddItem(retrieveItem);
-        }
 
         // INVENTORY SECOND
         if (!added && inventory != null)
-        {
             added = inventory.AddItem(retrieveItem);
-        }
 
         Destroy(retrieveItem);
 
@@ -226,9 +227,7 @@ public class WrenchFunction : MonoBehaviour
         Item wrench = playerHeldItem.GetHeldItem();
 
         if (wrench != null)
-        {
             wrench.UseDurability();
-        }
 
         WorldGenerator worldGenerator = FindObjectOfType<WorldGenerator>();
 
@@ -243,16 +242,11 @@ public class WrenchFunction : MonoBehaviour
         TentController tentController = FindObjectOfType<TentController>();
 
         if (tentController != null)
-        {
             tentController.DebugTentCount();
-        }
 
         Destroy(building.gameObject);
 
-        Debug.Log(
-            "Building retrieved: " +
-            itemPrefab.name
-        );
+        Debug.Log("Building retrieved: " + itemPrefab.name);
     }
 
     private void OnDisable()
@@ -262,5 +256,8 @@ public class WrenchFunction : MonoBehaviour
             PromptController.Instance.ReleasePrompt(PromptType.E, this);
             PromptController.Instance.ReleasePrompt(PromptType.F, this);
         }
+
+        if (placementController != null)
+            placementController.RelocationFinished -= HandleRelocationFinished;
     }
 }

@@ -31,6 +31,9 @@ public class HostileMobBehavior : MonoBehaviour
     [Header("Detection")]
     public float detectionRange = 6f;
 
+    [Header("Chase")]
+    public float chaseRange = 10f;
+
     [Header("Combat")]
     public float attackRange = 1.2f;
 
@@ -81,6 +84,7 @@ public class HostileMobBehavior : MonoBehaviour
     private float firstAttackTimer;
 
     // State
+    private bool isChasing;
     private bool isAttacking;
     private bool isKnockedBack;
     private bool isDead;
@@ -153,13 +157,12 @@ public class HostileMobBehavior : MonoBehaviour
         HandleDetectionAndCombat();
     }
 
-
     private void FixedUpdate()
     {
         if (rb == null)
             return;
 
-        // Knockback takes priority over normal movement.
+        // KNOCKBACK
         if (isKnockedBack)
         {
             HandleKnockback();
@@ -169,9 +172,15 @@ public class HostileMobBehavior : MonoBehaviour
         if (player == null)
             return;
 
+        // ONLY MOVE WHILE CHASING
+        if (!isChasing)
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
         MoveTowardsPlayer();
     }
-
 
     // AI
 
@@ -184,20 +193,34 @@ public class HostileMobBehavior : MonoBehaviour
 
     private void HandleDetectionAndCombat()
     {
-        float distance =
-            Vector2.Distance(
-                rb.position,
-                (Vector2)player.position
-            );
+        float distance = Vector2.Distance(
+            rb.position,
+            (Vector2)player.position
+        );
 
-        // Player is outside detection range.
-        if (distance > detectionRange)
+        // DETECT PLAYER
+        if (!isChasing && distance <= detectionRange)
+        {
+            isChasing = true;
+            firstAttackTimer = firstAttackDelay;
+        }
+
+        // PLAYER ESCAPED CHASE RANGE
+        if (isChasing && distance > chaseRange)
+        {
+            isChasing = false;
+            isAttacking = false;
+            return;
+        }
+
+        // NOT CHASING
+        if (!isChasing)
         {
             isAttacking = false;
             return;
         }
 
-        // Player is within attack range.
+        // ATTACK PLAYER
         if (distance <= attackRange)
         {
             isAttacking = true;
@@ -205,14 +228,10 @@ public class HostileMobBehavior : MonoBehaviour
             return;
         }
 
-        // Player is detected but outside attack range.
         isAttacking = false;
     }
 
-
-    // =============================
     // MOVEMENT
-    // =============================
 
     private void MoveTowardsPlayer()
     {
@@ -588,47 +607,20 @@ public class HostileMobBehavior : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        // Detection range.
+        // DETECTION RANGE
         Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, detectionRange);
 
-        Gizmos.DrawWireSphere(
-            transform.position,
-            detectionRange
-        );
+        // CHASE RANGE
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, chaseRange);
 
-        // Attack range.
+        // ATTACK RANGE
         Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
 
-        Gizmos.DrawWireSphere(
-            transform.position,
-            attackRange
-        );
-
-        // Stopping distance.
+        // STOPPING DISTANCE
         Gizmos.color = Color.green;
-
-        Gizmos.DrawWireSphere(
-            transform.position,
-            stoppingDistance
-        );
-
-        // Obstacle detection.
-        if (player != null)
-        {
-            Vector2 direction =
-                (player.position - transform.position)
-                .normalized;
-
-            Gizmos.color = Color.blue;
-
-            Gizmos.DrawLine(
-                transform.position,
-                transform.position +
-                (Vector3)(
-                    direction *
-                    obstacleCheckDistance
-                )
-            );
-        }
+        Gizmos.DrawWireSphere(transform.position, stoppingDistance);
     }
 }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5460831662094382213}
   - component: {fileID: 5555000260135983577}
-  m_Layer: 6
+  m_Layer: 12
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: -1687468009431065349}
   - component: {fileID: -2490772810932762868}
   - component: {fileID: 6924756995464491301}
-  m_Layer: 6
+  m_Layer: 12
   m_Name: Bush
   m_TagString: Untagged
   m_Icon: {fileID: 0}

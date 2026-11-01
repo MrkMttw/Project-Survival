@@ -15,6 +15,9 @@ public class Item : MonoBehaviour
 {
     public int ID;
 
+    [Header("Item Reference")]
+    public GameObject itemPrefab;
+
     public Image itemImage;
 
     [Header("Stack Settings")]
@@ -282,6 +285,10 @@ public class Item : MonoBehaviour
         GameObject clone = Instantiate(gameObject);
 
         Item cloneItem = clone.GetComponent<Item>();
+        
+        cloneItem.itemPrefab = itemPrefab != null
+            ? itemPrefab
+            : gameObject;
 
         cloneItem.stackable = stackable;
         cloneItem.maxStackSize = maxStackSize;
