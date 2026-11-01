@@ -21,6 +21,16 @@ public class CraftingController : MonoBehaviour
     public TextMeshProUGUI recipeText;
     public TextMeshProUGUI descriptionDetails;
 
+    [Header("References")]
+    public Transform player;
+    public MenuController menuController;
+    public TabController tabController;
+
+    private CraftingTableBehavior currentCraftingTable;
+    private bool isOpen;
+
+    public bool IsOpen => isOpen;
+    
     private CampfireController campfireController;
     private CraftingRecipe selectedRecipe;
     private bool nearCraftingTable;
@@ -33,6 +43,11 @@ public class CraftingController : MonoBehaviour
         recipeDetails.SetActive(false);
 
         GenerateRecipeList();
+    }
+    
+    private void Update()
+    {
+        UpdateCraftingPrompt();
     }
 
     private void OnEnable()
@@ -346,5 +361,118 @@ public class CraftingController : MonoBehaviour
     public bool IsNearCraftingTable()
     {
         return nearCraftingTable;
+    }
+
+    // UPDATE CRAFTING PROMPT
+    private void UpdateCraftingPrompt()
+    {
+        if (PromptController.Instance == null)
+            return;
+
+        if (isOpen || player == null)
+        {
+            PromptController.Instance.ReleasePrompt(
+                PromptType.E, this);
+
+            return;
+        }
+
+        CraftingTableBehavior[] tables =
+            FindObjectsByType<CraftingTableBehavior>(
+                FindObjectsSortMode.None);
+
+        bool nearbyTable = false;
+
+        foreach (CraftingTableBehavior table in tables)
+        {
+            if (table == null)
+                continue;
+
+            if (table.IsPlayerInRange(player.position))
+            {
+                nearbyTable = true;
+                break;
+            }
+        }
+
+        if (nearbyTable)
+        {
+            PromptController.Instance.RequestPrompt(
+                PromptType.E, this);
+        }
+        else
+        {
+            PromptController.Instance.ReleasePrompt(
+                PromptType.E, this);
+        }
+    }
+
+    // INTERACT WITH CRAFTING TABLE
+    public bool TryInteract()
+    {
+        if (isOpen)
+        {
+            CloseCraftingPage();
+            return true;
+        }
+
+        if (player == null || menuController == null)
+            return false;
+
+        CraftingTableBehavior[] tables =
+            FindObjectsByType<CraftingTableBehavior>(
+                FindObjectsSortMode.None);
+
+        foreach (CraftingTableBehavior table in tables)
+        {
+            if (table == null ||
+                !table.IsPlayerInRange(player.position))
+            {
+                continue;
+            }
+
+            currentCraftingTable = table;
+            isOpen = true;
+
+            SetCraftingTableAccess(true);
+
+            if (PromptController.Instance != null)
+            {
+                PromptController.Instance.ReleasePrompt(
+                    PromptType.E, this);
+            }
+
+            menuController.OpenCraftingPage();
+
+            if (tabController != null)
+            {
+                tabController.ActiveTab(3);
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    // CLOSE CRAFTING PAGE
+    private void CloseCraftingPage()
+    {
+        isOpen = false;
+        currentCraftingTable = null;
+
+        SetCraftingTableAccess(false);
+
+        if (menuController != null)
+            menuController.menuCanvas.SetActive(false);
+    }
+
+    // CLOSE FOR MENU
+    public void CloseForMenu()
+    {
+        if (isOpen)
+        {
+            CloseCraftingPage();
+        }
     }
 }

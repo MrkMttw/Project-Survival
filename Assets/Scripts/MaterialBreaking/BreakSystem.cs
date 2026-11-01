@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class BreakSystem : MonoBehaviour
@@ -236,49 +237,86 @@ public class BreakSystem : MonoBehaviour
             equippedItem.UseDurability();
         }
 
-        // Drop items only when completely broken.
+        // HANDLE BROKEN OBJECT
         if (broken)
         {
-            StructureObjectIdentity structureIdentity =
-                material.GetComponentInParent<StructureObjectIdentity>();
-
-            if (structureIdentity != null)
-            {
-                StructureSpawner structureSpawner =
-                    FindFirstObjectByType<StructureSpawner>();
-
-                if (structureSpawner != null)
-                {
-                    structureSpawner.MarkStructureObjectDestroyed(
-                        structureIdentity
-                    );
-                }
-            }
-            
-            WorldObjectIdentity identity =
-                material.GetComponentInParent<WorldObjectIdentity>();
-
-            if (identity != null)
-            {
-                WorldGenerator worldGenerator =
-                    FindFirstObjectByType<WorldGenerator>();
-
-                if (worldGenerator != null)
-                {
-                    worldGenerator.MarkObjectDestroyed(identity);
-                }
-            }
-
-            DropItem(
-                material,
-                material.transform.position
-            );
-
             currentBreakable = null;
+
+            StartCoroutine(FinishBreaking(material));
+        }
+    }
+        
+    private IEnumerator FinishBreaking(BreakableMaterial material)
+    {
+        // CHECK FOR TREE ANIMATION
+        TreeFallAnimation treeFall =
+            material.GetComponentInParent<TreeFallAnimation>();
+
+        // PLAY TREE FALL ANIMATION
+        if (treeFall != null)
+        {
+            yield return treeFall.PlayFall(player.position);
+        }
+
+        // MARK STRUCTURE AS DESTROYED
+        StructureObjectIdentity structureIdentity =
+            material.GetComponentInParent<StructureObjectIdentity>();
+
+        if (structureIdentity != null)
+        {
+            StructureSpawner structureSpawner =
+                FindFirstObjectByType<StructureSpawner>();
+
+            if (structureSpawner != null)
+            {
+                structureSpawner.MarkStructureObjectDestroyed(
+                    structureIdentity
+                );
+            }
+        }
+
+        // MARK WORLD OBJECT AS DESTROYED
+        WorldObjectIdentity identity =
+            material.GetComponentInParent<WorldObjectIdentity>();
+
+        if (identity != null)
+        {
+            WorldGenerator worldGenerator =
+                FindFirstObjectByType<WorldGenerator>();
+
+            if (worldGenerator != null)
+            {
+                worldGenerator.MarkObjectDestroyed(identity);
+            }
+        }
+
+        // DROP LOOT
+        Vector3 dropPosition = material.transform.position;
+
+        if (treeFall != null)
+        {
+            dropPosition = treeFall.transform.position;
+        }
+
+        DropItem(material, dropPosition);
+
+        // DESTROY SHADOW
+        if (treeFall != null && treeFall.shadowElement != null)
+        {
+            Destroy(treeFall.shadowElement);
+        }
+
+        // DESTROY OBJECT
+        if (treeFall != null)
+        {
+            Destroy(treeFall.gameObject);
+        }
+        else
+        {
+            Destroy(material.gameObject);
         }
     }
 
-    
     private void DropItem(
         BreakableMaterial material,
         Vector3 position

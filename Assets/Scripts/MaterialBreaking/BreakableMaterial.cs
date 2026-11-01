@@ -14,6 +14,8 @@ public class BreakableMaterial : MonoBehaviour
 
     private int currentHealth;
 
+    public bool IsBroken { get; private set; }
+
     private void Awake()
     {
         currentHealth = maxHealth;
@@ -21,6 +23,9 @@ public class BreakableMaterial : MonoBehaviour
 
     public bool TakeDamage(int damage)
     {
+        if (IsBroken)
+            return false;
+
         if (damage <= 0)
         {
             Debug.LogWarning(
@@ -54,8 +59,8 @@ public class BreakableMaterial : MonoBehaviour
 
     private void Break()
     {
-        Debug.Log(gameObject.name + " BROKE!");
+        IsBroken = true;
 
-        Destroy(gameObject);
+        Debug.Log(gameObject.name + " BROKE!");
     }
 }

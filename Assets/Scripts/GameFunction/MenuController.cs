@@ -28,12 +28,20 @@ public class MenuController : MonoBehaviour
     {
         UpdateMenuPrompt();
 
-        if (Keyboard.current != null && Keyboard.current.bKey.wasPressedThisFrame)
+        if (Keyboard.current != null &&
+            Keyboard.current.bKey.wasPressedThisFrame)
         {
-            if (furnaceController != null && furnaceController.IsOpen)
+            if (furnaceController != null &&
+                furnaceController.IsOpen)
             {
                 furnaceController.CloseForMenu();
                 menuCanvas.SetActive(true);
+            }
+            else if (craftingController != null &&
+                    craftingController.IsOpen)
+            {
+                craftingController.CloseForMenu();
+                menuCanvas.SetActive(false);
             }
             else
             {
@@ -91,5 +99,21 @@ public class MenuController : MonoBehaviour
     {
         if (PromptController.Instance != null)
             PromptController.Instance.ReleasePrompt(PromptType.B, this);
+    }
+
+    // OPEN CRAFTING PAGE
+    public void OpenCraftingPage()
+    {
+        menuCanvas.SetActive(true);
+
+        foreach (GameObject page in pages)
+        {
+            page.SetActive(false);
+        }
+
+        pages[2].SetActive(true);
+
+        if (craftingController != null)
+            craftingController.RefreshRecipes();
     }
 }

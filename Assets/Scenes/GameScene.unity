@@ -628932,15 +628932,16 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1673473373}
-  - {fileID: 1283938113}
+  - {fileID: 799340566}
+  - {fileID: 1328775370}
   - {fileID: 841894800}
   - {fileID: 531562245}
   - {fileID: 1180774151}
   - {fileID: 1413565792}
   - {fileID: 1451321679}
-  - {fileID: 799340566}
   - {fileID: 1897686381}
+  - {fileID: 1283938113}
+  - {fileID: 1673473373}
   m_Father: {fileID: 1549747559}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -635295,6 +635296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3a8c55362ccc4441a0b107602300dc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteractionController
+  craftingController: {fileID: 1328775371}
   gateController: {fileID: 1451321680}
   foodController: {fileID: 84989085}
   itemLightController: {fileID: 2113588248}
@@ -637925,12 +637927,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1328775369}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1549747559}
+  m_Father: {fileID: 393635681}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -637991,6 +637993,9 @@ MonoBehaviour:
   craftingQuantity: {fileID: 824806326}
   recipeText: {fileID: 1896424977}
   descriptionDetails: {fileID: 1448851044}
+  player: {fileID: 543478632}
+  menuController: {fileID: 1119554846}
+  tabController: {fileID: 58264828}
 --- !u!1 &1337792764
 GameObject:
   m_ObjectHideFlags: 0
@@ -639838,8 +639843,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1328775370}
   - {fileID: 1618858646}
+  - {fileID: 1361658760}
   - {fileID: 188391876}
   - {fileID: 1561105129}
   - {fileID: 393635681}
@@ -639850,7 +639855,6 @@ RectTransform:
   - {fileID: 1426636858}
   - {fileID: 86161017}
   - {fileID: 690122884}
-  - {fileID: 1361658760}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

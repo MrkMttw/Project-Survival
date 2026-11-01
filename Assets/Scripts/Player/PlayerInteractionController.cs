@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerInteractionController : MonoBehaviour
 {
     [Header("Interaction References")]
+    public CraftingController craftingController;
     public GateController gateController;
     public FoodController foodController;
     public ItemLightController itemLightController;
@@ -46,6 +47,12 @@ public class PlayerInteractionController : MonoBehaviour
 
     private void HandleInteraction()
     {
+        if (craftingController != null &&
+            craftingController.TryInteract())
+        {
+            return;
+        }
+        
         if (gateController != null &&
             gateController.TryInteract())
         {

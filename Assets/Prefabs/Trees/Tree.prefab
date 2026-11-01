@@ -107,6 +107,7 @@ GameObject:
   - component: {fileID: 6805374286649946349}
   - component: {fileID: 257053879351143101}
   - component: {fileID: 2993136477580528103}
+  - component: {fileID: 8875616289816854911}
   m_Layer: 6
   m_Name: Tree
   m_TagString: Untagged
@@ -331,3 +332,43 @@ MonoBehaviour:
   shadow: {fileID: 8310508449425177614}
   shakeDuration: 0.1
   shakeAngle: 8
+--- !u!114 &8875616289816854911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4963369266823173890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d13dd216c84b78a4d870afb8db2c3989, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TreeFallAnimation
+  treeElement: {fileID: 5480698058156823127}
+  shadowElement: {fileID: 4585930362627953148}
+  fallDuration: 1.5
+  fallAngle: 90
+  fallCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
