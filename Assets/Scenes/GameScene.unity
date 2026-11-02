@@ -630446,6 +630446,7 @@ GameObject:
   - component: {fileID: 543478635}
   - component: {fileID: 543478636}
   - component: {fileID: 543478637}
+  - component: {fileID: 543478644}
   - component: {fileID: 543478638}
   - component: {fileID: 543478639}
   - component: {fileID: 543478640}
@@ -630507,7 +630508,7 @@ SpriteRenderer:
   m_SortingLayer: 4
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -156822502178163421, guid: fe2944080e4130f4f92bd83b3f9c0cfa, type: 3}
+  m_Sprite: {fileID: -9115938624207856695, guid: fe2944080e4130f4f92bd83b3f9c0cfa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -630691,7 +630692,7 @@ Animator:
   m_GameObject: {fileID: 543478630}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 920a605e121531d41a5d0f06433e847b, type: 2}
+  m_Controller: {fileID: 9100000, guid: 5bb021f2ae38fc74f856e41433f41f11, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -630730,9 +630731,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.2D.Animation.Runtime::UnityEngine.U2D.Animation.SpriteResolver
   m_CategoryHash: 0.000000020668566
-  m_labelHash: 3.878673e-11
+  m_labelHash: 1.590883e-24
   m_SpriteKey: 0
-  m_SpriteHash: 676021896
+  m_SpriteHash: 295173676
 --- !u!70 &543478640
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -630795,6 +630796,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf451e287f5a35c4ab9e40262fa8b647, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::YSort
+--- !u!114 &543478644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543478630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1157258e53105454489a2674efe38d62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationBehavior
+  animator: {fileID: 543478637}
+  rb: {fileID: 543478636}
+  movementThreshold: 0.02
+  walkAnimationSpeed: 1.2
+  sprintAnimationSpeed: 1.7
 --- !u!1001 &545181404
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -636607,7 +636625,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000026080415}
+  m_AnchoredPosition: {x: 0, y: 0.0009905908}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1196554902

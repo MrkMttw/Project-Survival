@@ -579,6 +579,7 @@ public class HostileMobBehavior : MonoBehaviour
             if (drop == null || drop.itemPrefab == null)
                 continue;
 
+            // ROLL DROP CHANCE
             float chance = Mathf.Clamp(drop.dropChance, 0f, 100f);
 
             if (chance <= 0f)
@@ -587,10 +588,12 @@ public class HostileMobBehavior : MonoBehaviour
             if (chance < 100f && Random.Range(0f, 100f) >= chance)
                 continue;
 
+            // CALCULATE AMOUNT
             int minAmount = Mathf.Max(1, drop.minAmount);
             int maxAmount = Mathf.Max(minAmount, drop.maxAmount);
             int amount = Random.Range(minAmount, maxAmount + 1);
 
+            // CLONE ITEM
             Item item = drop.itemPrefab.GetComponent<Item>();
 
             if (item == null)
@@ -598,8 +601,26 @@ public class HostileMobBehavior : MonoBehaviour
 
             GameObject droppedItem = item.CloneItem(amount);
 
-            if (droppedItem != null)
-                droppedItem.transform.position = transform.position;
+            if (droppedItem == null)
+                continue;
+
+            droppedItem.transform.position = transform.position;
+
+            // ADD DROP ANIMATION
+            LootDropAnimation dropAnimation =
+                droppedItem.GetComponent<LootDropAnimation>();
+
+            if (dropAnimation == null)
+            {
+                dropAnimation =
+                    droppedItem.AddComponent<LootDropAnimation>();
+            }
+
+            dropAnimation.Play();
+
+            Debug.Log(
+                "Mob dropped " + amount + "x " + drop.itemPrefab.name
+            );
         }
     }
 

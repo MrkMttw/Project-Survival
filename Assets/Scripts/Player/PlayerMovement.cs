@@ -4,11 +4,13 @@ using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Movement")]
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float sprintMultiplier = 2f;
+
+    [Header("Sprint")]
     [SerializeField] private float sprintDuration = 3f;
     [SerializeField] private float sprintRegeneration = 0.3f;
-
     [SerializeField] private Image sprintBar;
 
     private float sprintTimer;
@@ -16,18 +18,18 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D rb;
     private Vector2 moveInput;
-    private Animator animator;
+    private PlayerAnimationBehavior animationBehavior;
 
-    void Start()
+    private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
+        animationBehavior = GetComponent<PlayerAnimationBehavior>();
 
         sprintBar.gameObject.SetActive(false);
         sprintTimer = sprintDuration;
     }
 
-    void Update()
+    private void Update()
     {
         float currentSpeed = moveSpeed;
 
@@ -36,6 +38,8 @@ public class PlayerMovement : MonoBehaviour
             !isExhausted &&
             sprintTimer > 0 &&
             moveInput != Vector2.zero;
+
+        animationBehavior.SetSprinting(isSprinting);
 
         if (isSprinting)
         {
@@ -62,23 +66,12 @@ public class PlayerMovement : MonoBehaviour
 
         sprintBar.fillAmount = sprintTimer / sprintDuration;
         sprintBar.gameObject.SetActive(sprintTimer < sprintDuration);
+
         rb.linearVelocity = moveInput * currentSpeed;
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        animator.SetBool("isWalking", true);
-
-        if (context.canceled)
-        {
-            animator.SetBool("isWalking", false);
-            animator.SetFloat("LastInputX", moveInput.x);
-            animator.SetFloat("LastInputY", moveInput.y);
-        }
-
         moveInput = context.ReadValue<Vector2>();
-
-        animator.SetFloat("InputX", moveInput.x);
-        animator.SetFloat("InputY", moveInput.y);
     }
 }

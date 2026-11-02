@@ -44,18 +44,10 @@ public class PlayerHeldItem : MonoBehaviour
         if (animator == null || heldItemRenderer == null)
             return;
 
-        float inputX = animator.GetFloat("InputX");
-        float inputY = animator.GetFloat("InputY");
+        float moveX = animator.GetFloat("MoveX");
+        float moveY = animator.GetFloat("MoveY");
 
-        // USE LAST FACING DIRECTION WHEN IDLE
-        if (Mathf.Approximately(inputX, 0f) &&
-            Mathf.Approximately(inputY, 0f))
-        {
-            inputX = animator.GetFloat("LastInputX");
-            inputY = animator.GetFloat("LastInputY");
-        }
-
-        UpdateHeldItemDirection(inputX, inputY);
+        UpdateHeldItemDirection(moveX, moveY);
     }
 
     private void UpdateHeldItemDirection(float x, float y)
@@ -127,19 +119,10 @@ public class PlayerHeldItem : MonoBehaviour
 
     private IEnumerator SwingAnimation()
     {
-        float inputX = animator.GetFloat("InputX");
-        float inputY = animator.GetFloat("InputY");
-
-        // USE LAST FACING DIRECTION WHEN IDLE
-        if (Mathf.Approximately(inputX, 0f) &&
-            Mathf.Approximately(inputY, 0f))
-        {
-            inputX = animator.GetFloat("LastInputX");
-            inputY = animator.GetFloat("LastInputY");
-        }
+        float moveX = animator.GetFloat("MoveX");
 
         // MIRROR SWING DIRECTION WHEN FACING LEFT
-        float direction = inputX < 0f ? -1f : -1f;
+        float direction = moveX < 0f ? -1f : 1f;
 
         Transform weaponTransform = heldItemRenderer.transform;
 

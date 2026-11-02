@@ -316,7 +316,7 @@ public class BreakSystem : MonoBehaviour
             Destroy(material.gameObject);
         }
     }
-
+   
     private void DropItem(
         BreakableMaterial material,
         Vector3 position
@@ -333,7 +333,7 @@ public class BreakSystem : MonoBehaviour
             if (drop == null || drop.item == null)
                 continue;
 
-            // Roll independently for each drop.
+            // ROLL DROP CHANCE
             float chance = Mathf.Clamp(
                 drop.dropChance, 0f, 100f
             );
@@ -347,7 +347,7 @@ public class BreakSystem : MonoBehaviour
                 continue;
             }
 
-            // Allow zero minimum and maximum amounts.
+            // CALCULATE AMOUNT
             int minAmount = Mathf.Max(0, drop.minAmount);
             int maxAmount = Mathf.Max(minAmount, drop.maxAmount);
 
@@ -355,16 +355,28 @@ public class BreakSystem : MonoBehaviour
                 minAmount, maxAmount + 1
             );
 
-            // Zero quantity means no item is spawned.
             if (amount <= 0)
                 continue;
 
+            // CLONE ITEM
             GameObject droppedItem = drop.item.CloneItem(amount);
 
             if (droppedItem == null)
                 continue;
 
             droppedItem.transform.position = position;
+
+            // ADD DROP ANIMATION
+            LootDropAnimation dropAnimation =
+                droppedItem.GetComponent<LootDropAnimation>();
+
+            if (dropAnimation == null)
+            {
+                dropAnimation =
+                    droppedItem.AddComponent<LootDropAnimation>();
+            }
+
+            dropAnimation.Play();
 
             Debug.Log(
                 "Dropped " + amount + "x " + drop.item.name

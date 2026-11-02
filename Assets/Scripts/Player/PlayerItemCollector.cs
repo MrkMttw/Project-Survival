@@ -64,6 +64,13 @@ public class PlayerItemCollector : MonoBehaviour
             if (item == null)
                 continue;
 
+            // IGNORE ITEMS STILL ANIMATING
+            LootDropAnimation dropAnimation =
+                item.GetComponent<LootDropAnimation>();
+
+            if (dropAnimation != null && dropAnimation.IsAnimating)
+                continue;
+
             float distance = Vector2.Distance(
                 transform.position,
                 item.transform.position
