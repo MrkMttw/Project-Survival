@@ -6,6 +6,7 @@ public class CampfireLightController : MonoBehaviour
     private Light2D campfireLight;
     private CampfireController campfireController;
     private SpriteRenderer litVisual;
+    private Animator campfireAnimator;
 
     [SerializeField]
     private GameObject unlitVisual;
@@ -14,30 +15,22 @@ public class CampfireLightController : MonoBehaviour
     {
         campfireLight = GetComponent<Light2D>();
         litVisual = GetComponent<SpriteRenderer>();
+        campfireAnimator = GetComponent<Animator>();
 
         campfireController =
             FindFirstObjectByType<CampfireController>();
 
         if (campfireLight == null)
-        {
-            Debug.LogError(
-                "CampfireLightController could not find Light2D."
-            );
-        }
+            Debug.LogError("Campfire Light2D missing.");
 
         if (litVisual == null)
-        {
-            Debug.LogError(
-                "CampfireLightController could not find SpriteRenderer."
-            );
-        }
+            Debug.LogError("Campfire SpriteRenderer missing.");
+
+        if (campfireAnimator == null)
+            Debug.LogError("Campfire Animator missing.");
 
         if (campfireController == null)
-        {
-            Debug.LogError(
-                "CampfireLightController could not find CampfireController."
-            );
-        }
+            Debug.LogError("CampfireController missing.");
 
         if (campfireController != null)
         {
@@ -60,6 +53,9 @@ public class CampfireLightController : MonoBehaviour
 
         if (litVisual != null)
             litVisual.enabled = isLit;
+
+        if (campfireAnimator != null)
+            campfireAnimator.enabled = isLit;
 
         if (unlitVisual != null)
             unlitVisual.SetActive(!isLit);

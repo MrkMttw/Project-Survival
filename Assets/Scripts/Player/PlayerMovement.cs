@@ -40,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
             moveInput != Vector2.zero;
 
         animationBehavior.SetSprinting(isSprinting);
+        animationBehavior.SetMovementInput(moveInput);
 
         if (isSprinting)
         {

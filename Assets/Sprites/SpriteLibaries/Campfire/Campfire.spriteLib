@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e6fedc2472449cead18ef23b5cb30d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.2D.Animation.Runtime::UnityEngine.U2D.Animation.SpriteLibrarySourceAsset
+  m_Library:
+  - m_Name: Lit
+    m_Hash: 630638717
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Campfire_0
+      m_Hash: 617008611
+      m_Sprite: {fileID: 8140220320454008760, guid: 831a565ddf569004897e3b5f79408cea, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 8140220320454008760, guid: 831a565ddf569004897e3b5f79408cea, type: 3}
+    - m_Name: Campfire_1
+      m_Hash: 331480437
+      m_Sprite: {fileID: -798968677046745910, guid: 831a565ddf569004897e3b5f79408cea, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -798968677046745910, guid: 831a565ddf569004897e3b5f79408cea, type: 3}
+    - m_Name: Campfire_2
+      m_Hash: 180923599
+      m_Sprite: {fileID: 9144430542510665174, guid: 831a565ddf569004897e3b5f79408cea, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 9144430542510665174, guid: 831a565ddf569004897e3b5f79408cea, type: 3}
+    - m_Name: Campfire_3
+      m_Hash: 1037016153
+      m_Sprite: {fileID: -5414672128874509247, guid: 831a565ddf569004897e3b5f79408cea, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -5414672128874509247, guid: 831a565ddf569004897e3b5f79408cea, type: 3}
+    - m_Name: Campfire_4
+      m_Hash: 598411770
+      m_Sprite: {fileID: 644414577590754411, guid: 831a565ddf569004897e3b5f79408cea, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 644414577590754411, guid: 831a565ddf569004897e3b5f79408cea, type: 3}
+    - m_Name: Campfire_5
+      m_Hash: 346831212
+      m_Sprite: {fileID: -6926053073770732764, guid: 831a565ddf569004897e3b5f79408cea, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -6926053073770732764, guid: 831a565ddf569004897e3b5f79408cea, type: 3}
+    - m_Name: Campfire_6
+      m_Hash: 228944086
+      m_Sprite: {fileID: -8198522683137083133, guid: 831a565ddf569004897e3b5f79408cea, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -8198522683137083133, guid: 831a565ddf569004897e3b5f79408cea, type: 3}
+    - m_Name: Campfire_7
+      m_Hash: 983717952
+      m_Sprite: {fileID: 3820820786620826059, guid: 831a565ddf569004897e3b5f79408cea, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 3820820786620826059, guid: 831a565ddf569004897e3b5f79408cea, type: 3}
+    - m_Name: Campfire_8
+      m_Hash: 706561489
+      m_Sprite: {fileID: -476170827802729045, guid: 831a565ddf569004897e3b5f79408cea, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -476170827802729045, guid: 831a565ddf569004897e3b5f79408cea, type: 3}
+    - m_Name: Campfire_9
+      m_Hash: 488273223
+      m_Sprite: {fileID: 4897494698931685112, guid: 831a565ddf569004897e3b5f79408cea, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 4897494698931685112, guid: 831a565ddf569004897e3b5f79408cea, type: 3}
+    - m_Name: Campfire_10
+      m_Hash: 342334319
+      m_Sprite: {fileID: -8323142911315225637, guid: 831a565ddf569004897e3b5f79408cea, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -8323142911315225637, guid: 831a565ddf569004897e3b5f79408cea, type: 3}
+    - m_Name: Campfire_11
+      m_Hash: 593538041
+      m_Sprite: {fileID: 4609527886496984349, guid: 831a565ddf569004897e3b5f79408cea, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 4609527886496984349, guid: 831a565ddf569004897e3b5f79408cea, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 12
+  m_PrimaryLibraryGUID: 
+  m_ModificationHash: 639292112328225611
+  m_Version: 1

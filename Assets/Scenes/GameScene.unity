@@ -630809,7 +630809,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationBehavior
   animator: {fileID: 543478637}
-  rb: {fileID: 543478636}
   movementThreshold: 0.02
   walkAnimationSpeed: 1.2
   sprintAnimationSpeed: 1.7
@@ -695991,7 +695990,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6592180695440637111, guid: baeef589ebd62e245848117315d1af30, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6592180695440637111, guid: baeef589ebd62e245848117315d1af30, type: 3}
       propertyPath: m_LocalPosition.y
