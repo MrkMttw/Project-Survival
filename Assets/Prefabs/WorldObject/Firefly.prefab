@@ -268,6 +268,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1368427210627435746}
   - component: {fileID: 6287124503036309789}
+  - component: {fileID: -6779020763488121929}
   m_Layer: 0
   m_Name: Firefly
   m_TagString: Untagged
@@ -311,3 +312,18 @@ MonoBehaviour:
   pulseSpeed: 2
   minGlowScale: 0.1
   maxGlowScale: 0.3
+--- !u!114 &-6779020763488121929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8444587440416531487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d58d3f08da41c8641837346fac6619c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldLightRegistration
+  isIndependentPrefab: 1
+  independentPrefabID: FireFly
+  isAvailable: 1

@@ -1,7 +1,10 @@
 using UnityEngine;
+using System;
 
 public class CampfireController : MonoBehaviour
 {
+    public event Action<bool> FuelStateChanged;
+
     [Header("Healing")]
     [Range(0f, 100f)]
     public float baseHealPercentPerSecond = 2f;
@@ -12,7 +15,6 @@ public class CampfireController : MonoBehaviour
     [Header("Campfire Level")]
     public int progressionWood = 0;
 
-    [Header("Campfire Level")]
     [SerializeField]
     private int campfireLevel = 0;
 
@@ -33,27 +35,23 @@ public class CampfireController : MonoBehaviour
 
     private CampfireUI campfireUI;
 
+    private bool hasFuel;
+
     public int CampfireLevel
     {
         get { return campfireLevel; }
     }
 
-    private void UpdateHealingRate()
-    {
-        healPercentPerSecond =
-            baseHealPercentPerSecond + (campfireLevel * 0.2f);
-    }
-
     private void Awake()
     {
         UpdateHealingRate();
+
+        hasFuel = currentWood > 0;
     }
 
     private void Update()
     {
         UpdateFuel();
-
-        UpdateCampfireUI();
 
         if (!playerInRange || playerHealth == null)
             return;
@@ -61,7 +59,7 @@ public class CampfireController : MonoBehaviour
         if (currentWood <= 0)
             return;
 
-        // Heal based on the player's MAX HP
+        // HEAL BASED ON MAX HP
         float healAmount =
             playerHealth.maxHealth *
             (healPercentPerSecond / 100f) *
@@ -70,12 +68,20 @@ public class CampfireController : MonoBehaviour
         playerHealth.Heal(healAmount);
     }
 
+    private void UpdateHealingRate()
+    {
+        healPercentPerSecond =
+            baseHealPercentPerSecond + (campfireLevel * 0.2f);
+    }
+
     private void UpdateFuel()
     {
         if (currentWood <= 0)
         {
             currentWood = 0;
             fuelDecayTimer = 0f;
+
+            NotifyFuelStateChanged();
 
             return;
         }
@@ -95,8 +101,22 @@ public class CampfireController : MonoBehaviour
 
             fuelDecayTimer = 0f;
 
+            NotifyFuelStateChanged();
+
             UpdateCampfireUI();
         }
+    }
+
+    private void NotifyFuelStateChanged()
+    {
+        bool newFuelState = currentWood > 0;
+
+        if (hasFuel == newFuelState)
+            return;
+
+        hasFuel = newFuelState;
+
+        FuelStateChanged?.Invoke(hasFuel);
     }
 
     public void AddWood(int amount)
@@ -130,14 +150,14 @@ public class CampfireController : MonoBehaviour
                     craftingController.RefreshRecipes();
 
                 if (playerHealth != null)
-                {
                     playerHealth.UpdateMaxHealth(campfireLevel);
-                }
             }
         }
 
         fuelDecayDelayTimer = 0f;
         fuelDecayTimer = 0f;
+
+        NotifyFuelStateChanged();
 
         UpdateCampfireUI();
     }

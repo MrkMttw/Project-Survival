@@ -1,4 +1,5 @@
 using System.Collections;
+using System;
 using UnityEngine;
 
 public class PlayerHeldItem : MonoBehaviour
@@ -18,6 +19,8 @@ public class PlayerHeldItem : MonoBehaviour
 
     [Header("Currently Held Item")]
     public Item heldItem;
+
+    public event Action<Item> HeldItemChanged;
 
     private Animator animator;
     private Vector3 defaultLocalPosition;
@@ -201,6 +204,8 @@ public class PlayerHeldItem : MonoBehaviour
         {
             heldItemRenderer.sprite = itemSprite.sprite;
             heldItemRenderer.enabled = true;
+
+            HeldItemChanged?.Invoke(heldItem);
         }
         else
         {
@@ -247,6 +252,8 @@ public class PlayerHeldItem : MonoBehaviour
             heldItemRenderer.transform.localRotation =
                 defaultLocalRotation;
         }
+
+        HeldItemChanged?.Invoke(null);
     }
 
     public Item GetHeldItem()

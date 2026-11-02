@@ -65,7 +65,7 @@ MonoBehaviour:
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
-  m_ShadowsEnabled: 1
+  m_ShadowsEnabled: 0
   m_ShadowIntensity: 0.75
   m_ShadowSoftness: 0.3
   m_ShadowSoftnessFalloffIntensity: 0.5
@@ -128,6 +128,14 @@ PrefabInstance:
     - target: {fileID: 257053879351143101, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
       propertyPath: m_Offset.y
       value: 0.15368494
+      objectReference: {fileID: 0}
+    - target: {fileID: 257053879351143101, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.x
+      value: 0.55291593
+      objectReference: {fileID: 0}
+    - target: {fileID: 257053879351143101, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.y
+      value: 0.14421065
       objectReference: {fileID: 0}
     - target: {fileID: 257053879351143101, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
@@ -263,6 +271,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4963369266823173890, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
       insertIndex: -1
       addedObject: {fileID: -1435090314164295732}
+    - targetCorrespondingSourceObject: {fileID: 4963369266823173890, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5244367937155398379}
   m_SourcePrefab: {fileID: 100100000, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
 --- !u!4 &519688330755055534 stripped
 Transform:
@@ -314,8 +325,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0, y: 0.455, z: 0}
-    m_Extent: {x: 0.465, y: 0.455, z: 0}
+    m_Center: {x: -0.049211815, y: 0.32376832, z: 0}
+    m_Extent: {x: 0.46500003, y: 0.45499998, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -358,3 +369,18 @@ MonoBehaviour:
           m_Image: {fileID: 2800000, guid: 8839c54710da3374f994e12f39b6d65f, type: 3}
           m_Tooltip: 
           m_TextWithWhitespace: "Sprite\u200B"
+--- !u!114 &5244367937155398379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1141796770898533115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d58d3f08da41c8641837346fac6619c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldLightRegistration
+  isIndependentPrefab: 1
+  independentPrefabID: Tree
+  isAvailable: 1

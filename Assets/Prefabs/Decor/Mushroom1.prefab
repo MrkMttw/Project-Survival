@@ -211,8 +211,47 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 565628899333318616, guid: d5f6eb6a43dc1a94dacf217ebb3bc0d3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5610365362556825668}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7133436450058219875, guid: d5f6eb6a43dc1a94dacf217ebb3bc0d3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -3028731030390404432}
+    - targetCorrespondingSourceObject: {fileID: 7133436450058219875, guid: d5f6eb6a43dc1a94dacf217ebb3bc0d3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3545951178952932669}
   m_SourcePrefab: {fileID: 100100000, guid: d5f6eb6a43dc1a94dacf217ebb3bc0d3, type: 3}
+--- !u!1 &543803470858622588 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7133436450058219875, guid: d5f6eb6a43dc1a94dacf217ebb3bc0d3, type: 3}
+  m_PrefabInstance: {fileID: 7310737235054962463}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-3028731030390404432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543803470858622588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d58d3f08da41c8641837346fac6619c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldLightRegistration
+  isIndependentPrefab: 1
+  independentPrefabID: Decor
+  isAvailable: 1
+--- !u!114 &3545951178952932669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543803470858622588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f65de6e021740b34fb0575a66cacc57e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldObjectLight
+  preset: {fileID: 0}
 --- !u!4 &7110463308151980231 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 565628899333318616, guid: d5f6eb6a43dc1a94dacf217ebb3bc0d3, type: 3}

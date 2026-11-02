@@ -1,18 +1,28 @@
 # Lighting System
 
-This lighting system allows held items and world objects to automatically use custom `Light2D` settings during nighttime.
+## Overview
 
-It supports:
+The Lighting System manages lighting for held items and objects in the game world using Unity's Universal Render Pipeline `Light2D` components.
 
-* Held item lighting
-* Retained held-item lighting
-* World object lighting
-* Custom light presets
-* Smooth flickering
-* Light radius variation
-* Day/night enabling and disabling
-* Multiple item and world object presets
-* E key light toggling for supported held items
+It is divided into three main systems:
+
+1. **Item Lighting** – Controls lighting for held items, including retained light behavior.
+2. **Global Lighting** – Controls world light activation based on the player's distance.
+3. **World Object Lighting** – Handles custom light presets and nighttime flickering for supported world objects.
+
+The system supports:
+
+- Held item lighting.
+- Retained held-item lighting.
+- Distance-based world light activation and deactivation.
+- Independent light prefab registration using string IDs.
+- World object lighting presets.
+- Multiple `Light2D` components per object.
+- Smooth Perlin Noise flickering.
+- Light radius variation.
+- Day/night integration.
+- E key light toggling for supported held items.
+- Chunk-based world object registration and unregistration.
 
 ---
 
@@ -22,12 +32,12 @@ This system uses Unity's Universal Render Pipeline and `Light2D`.
 
 Make sure your project has:
 
-* Universal Render Pipeline (URP)
-* 2D Renderer
-* `Light2D` components
-* `PlayerHeldItem` component for held-item lighting
-* `Item` component for inventory items
-* Unity Input System
+- Universal Render Pipeline (URP).
+- 2D Renderer.
+- `Light2D` components.
+- `PlayerHeldItem` component for held-item lighting.
+- `Item` component for inventory items.
+- Unity Input System.
 
 ---
 
@@ -37,14 +47,12 @@ Item lighting is used for items that the player can hold.
 
 The main scripts are:
 
-* `ItemLightController`
-* `ItemLightPreset`
+- `ItemLightController`
+- `ItemLightPreset`
 
 The actual `Light2D` used for held-item lighting is located under the player's `PlayerHeldItem` object rather than directly on the item prefab.
 
 The system uses the currently equipped item's `Item.ID` to determine which lighting preset should be used.
-
----
 
 ## Step 1: Create an Item Light Preset
 
@@ -61,8 +69,6 @@ Example:
 
 `TorchLightPreset`
 
----
-
 ## Step 2: Assign the Item Prefab
 
 Open the newly created `ItemLightPreset`.
@@ -73,8 +79,6 @@ Set:
 
 to the item prefab that should use this lighting.
 
-The prefab must contain an `Item` component.
-
 Example:
 
 ```text
@@ -84,11 +88,11 @@ Torch Prefab
     └── ...
 ```
 
+The prefab must contain an `Item` component.
+
 The system compares the `ID` of the `Item` component.
 
 The preset does not need to be assigned directly to the item prefab.
-
----
 
 ## Step 3: Configure the Light
 
@@ -130,8 +134,6 @@ When enabled, the system uses smooth Perlin Noise to create natural-looking ligh
 
 Flickering continues while a supported item light is retained, even when the player switches to another item.
 
----
-
 ## Flicker Amount
 
 Controls how much the light intensity changes.
@@ -152,8 +154,6 @@ Recommended range:
 0.05 - 0.25
 ```
 
----
-
 ## Flicker Speed
 
 Controls how quickly the flickering changes.
@@ -166,9 +166,7 @@ Flicker Speed = 2
 
 Higher values make the flickering change faster.
 
----
-
-# 4. Radius Variation
+## Radius Variation
 
 `Radius Variation` controls how much the light radius changes while flickering.
 
@@ -188,7 +186,7 @@ Recommended range:
 
 ---
 
-# 5. Setting Up ItemLightController
+# 4. Setting Up ItemLightController
 
 Add:
 
@@ -210,8 +208,6 @@ Light Presets
     Element 1 = LanternLightPreset
     Element 2 = MagicLightPreset
 ```
-
----
 
 ## Is Night
 
@@ -235,8 +231,6 @@ This value can also be controlled through:
 SetNight(bool night)
 ```
 
----
-
 ## Player Held Item Object
 
 Drag the GameObject containing the `PlayerHeldItem` component into:
@@ -256,7 +250,7 @@ The system then checks which item is currently being held.
 
 ---
 
-# 6. Item Light Setup
+# 5. Item Light Setup
 
 The actual `Light2D` must exist under the `PlayerHeldItem` GameObject or one of its children.
 
@@ -276,17 +270,15 @@ The first `Light2D` it finds is used.
 
 The controller automatically changes:
 
-* Light intensity
-* Light radius
-* Light enabled state
-
-based on the active preset.
+- Light intensity.
+- Light radius.
+- Light enabled state.
 
 The light does not need to be placed on the Torch prefab.
 
 ---
 
-# 7. Retained Item Lighting
+# 6. Retained Item Lighting
 
 Supported light-emitting items can have their light retained after the player switches to another item.
 
@@ -314,8 +306,6 @@ Torch light ON
 Torch light is retained
 ```
 
----
-
 ## Switching Items
 
 After the light has been retained, the player can switch to another item.
@@ -337,8 +327,6 @@ Light remains ON
 The retained light continues using its original lighting preset.
 
 This means the flickering effect continues even though the original light-emitting item is no longer equipped.
-
----
 
 ## Selecting the Light Item Again
 
@@ -364,8 +352,6 @@ Light remains ON
 
 The retained light remains associated with the item's `Item.ID`.
 
----
-
 ## Turning the Retained Light Off
 
 While the original light-emitting item is equipped, press `E` again.
@@ -388,7 +374,7 @@ After this, switching items will no longer keep the light active.
 
 ---
 
-# 8. Item Lighting Flow
+# 7. Item Lighting Flow
 
 The system works in this order:
 
@@ -430,31 +416,383 @@ If there is no matching preset and no retained light, the light is disabled.
 
 If there is no held item but a retained light exists, the retained light can continue operating.
 
-If it is daytime, the light is disabled.
+If it is daytime, the held-item light is disabled.
 
 ---
 
-# 9. World Object Lighting
+# 8. Global Lighting System
 
-World object lighting is used for objects placed in the game world.
+The Global Lighting System manages world light activation based on the player's distance.
 
-Examples:
+Its purpose is to reduce unnecessary lighting workload by disabling lights that are far away from the player.
 
-* Torches
-* Lamps
-* Campfires
-* Street lights
-* Candles
-* Other environmental light sources
+Instead of checking every light individually through separate scripts, a centralized controller manages registered lights.
 
 The main scripts are:
 
-* `WorldObjectLightController`
-* `WorldObjectLightPreset`
+- `GlobalLightingController`
+- `WorldLightRegistration`
+
+The system supports:
+
+- Distance-based light activation and deactivation.
+- Independent light prefab registration.
+- String-based prefab identification.
+- Multiple instances sharing the same prefab ID.
+- Multiple `Light2D` components per object.
+- Automatic registration and unregistration.
+- Chunk-based world generation support.
+
+## Global Lighting Architecture
+
+### GlobalLightingController
+
+The central controller responsible for:
+
+- Maintaining a registry of world lights.
+- Checking the distance between the player and registered lights.
+- Activating and deactivating lights.
+- Validating independent prefab IDs.
+- Updating the player reference.
+
+Attach this script to a persistent GameObject, such as `GameController`.
+
+### WorldLightRegistration
+
+The component attached to objects managed by the global lighting system.
+
+Responsibilities:
+
+- Detects all child `Light2D` components.
+- Registers the object with `GlobalLightingController`.
+- Unregisters the object when disabled.
+- Controls light availability.
+- Stores independent prefab identification information.
+
+Attach this component to the root GameObject of each object managed by the system.
 
 ---
 
-# 10. Create a World Object Light Preset
+# 9. Setting Up GlobalLightingController
+
+Add:
+
+`GlobalLightingController`
+
+to your GameController or another persistent GameObject.
+
+Assign the Player Transform in the Inspector.
+
+## References
+
+| Setting | Description |
+|---|---|
+| Player | Transform used for distance calculations. |
+
+## Distance Settings
+
+| Setting | Default | Description |
+|---|---:|---|
+| Activation Distance | 25 | Distance at which lights become active. |
+| Deactivation Distance | 30 | Distance at which active lights become inactive. |
+
+The system uses separate activation and deactivation distances to prevent lights from rapidly switching on and off when the player is near the boundary.
+
+This behavior is called hysteresis.
+
+## Performance
+
+| Setting | Default | Description |
+|---|---:|---|
+| Check Interval | 0.25 | Time interval between distance checks, in seconds. |
+
+A lower value makes distance detection more frequent.
+
+A higher value reduces how often the controller checks registered lights.
+
+## Independent Light Prefab IDs
+
+This array contains the IDs of independent light prefabs allowed to register.
+
+Example:
+
+```text
+Independent Light Prefab IDs
+
+Element 0 = FIREFLY
+Element 1 = TREE
+```
+
+The IDs are compared as strings and must match exactly.
+
+Multiple prefab variants can share the same ID if they should use the same registration permission.
+
+---
+
+# 10. Setting Up WorldLightRegistration
+
+Open the prefab that contains the world light.
+
+Select its root GameObject and add:
+
+`WorldLightRegistration`
+
+The Inspector contains:
+
+| Setting | Description |
+|---|---|
+| Is Independent Prefab | Enables independent prefab ID validation. |
+| Independent Prefab ID | Identifier used to validate the prefab. |
+| Is Available | Allows registered lights to activate. |
+
+There are two main ways to configure this component.
+
+## Independent Light Prefabs
+
+Use this setup for objects that do not use `WorldObjectLight` or `WorldObjectLightPreset`.
+
+Examples:
+
+- Fireflies.
+- Trees.
+- Other independent environmental lights.
+
+Configure:
+
+```text
+Is Independent Prefab = Enabled
+Independent Prefab ID = TREE
+Is Available = Enabled
+```
+
+The ID must also exist in the `Independent Light Prefab IDs` array of `GlobalLightingController`.
+
+## Preset-Based World Object Lights
+
+For objects using `WorldObjectLight` and `WorldObjectLightPreset`, configure:
+
+```text
+Is Independent Prefab = Disabled
+Is Available = Enabled
+```
+
+These objects still use global distance detection, but they do not need an independent prefab ID.
+
+---
+
+# 11. Independent Light Prefab Setup
+
+Independent lights use string IDs instead of direct prefab references.
+
+This avoids prefab self-reference problems when objects are instantiated by the world generator.
+
+## Example: Firefly
+
+Select the root GameObject of the Firefly prefab.
+
+Add `WorldLightRegistration`.
+
+Configure:
+
+```text
+Is Independent Prefab = Enabled
+Independent Prefab ID = FIREFLY
+Is Available = Enabled
+```
+
+Then add `FIREFLY` to the `GlobalLightingController` Inspector list.
+
+## Example: Tree
+
+Select the root GameObject of the Tree prefab.
+
+Add `WorldLightRegistration`.
+
+Configure:
+
+```text
+Is Independent Prefab = Enabled
+Independent Prefab ID = TREE
+Is Available = Enabled
+```
+
+Then add `TREE` to the `GlobalLightingController` Inspector list.
+
+## Sharing IDs Between Prefabs
+
+Multiple prefab variants can share the same ID.
+
+Example:
+
+| Prefab | Independent Prefab ID |
+|---|---|
+| Tree Oak | TREE |
+| Tree Pine | TREE |
+| Tree Birch | TREE |
+| Tree Dead | TREE |
+
+Only one `TREE` entry is needed in the controller's allowed ID list.
+
+Each spawned instance still registers separately and receives its own distance checks.
+
+---
+
+# 12. Multiple Light2D Components
+
+`WorldLightRegistration` automatically detects all `Light2D` components attached to the root GameObject and its children.
+
+It uses:
+
+```csharp
+GetComponentsInChildren<Light2D>(true);
+```
+
+This means multiple lights can be controlled by a single registration component.
+
+Example:
+
+```text
+Tree (Root)
+├── Light2D
+└── Light
+    └── Light2D
+```
+
+Both Light2D components activate and deactivate together.
+
+There is no need to add a separate `WorldLightRegistration` to each light.
+
+Another example:
+
+```text
+Firefly (Root)
+└── Glow
+    └── Light2D
+```
+
+The registration component on the Firefly root automatically detects the child Light2D.
+
+---
+
+# 13. Distance Detection Logic
+
+The controller uses squared distance calculations instead of calculating the actual distance.
+
+This avoids unnecessary square root calculations.
+
+The activation and deactivation behavior is:
+
+| Player Distance | Light State |
+|---|---|
+| 0–25 units | Activated |
+| 25–30 units | Retains previous state |
+| 30 units or more | Deactivated |
+
+The actual thresholds can be changed in the Inspector.
+
+Distance checks occur at the configured `Check Interval`, rather than every frame.
+
+---
+
+# 14. Registration Lifecycle
+
+When an object containing `WorldLightRegistration` becomes enabled:
+
+1. Its Light2D components are detected.
+2. It attempts to register with `GlobalLightingController`.
+3. Independent prefab IDs are validated when applicable.
+4. The controller checks the object's distance from the player.
+5. Its lights are enabled or disabled according to availability and distance.
+
+When the object becomes disabled:
+
+1. It unregisters from the global controller.
+2. Its distance state is reset.
+3. Its Light2D components are disabled.
+
+This supports chunk-based world generation because objects disabled or destroyed during chunk unloading automatically unregister through their lifecycle methods.
+
+---
+
+# 15. Runtime Light Availability
+
+`WorldLightRegistration` provides:
+
+```csharp
+SetAvailable(bool available);
+```
+
+This allows other scripts to control whether registered lights are allowed to activate.
+
+To disable the lights:
+
+```csharp
+GetComponent<WorldLightRegistration>()
+    .SetAvailable(false);
+```
+
+To make them available again:
+
+```csharp
+GetComponent<WorldLightRegistration>()
+    .SetAvailable(true);
+```
+
+Availability does not override the distance check.
+
+Both conditions must be satisfied:
+
+- The light must be available.
+- The object must be within the activation range.
+
+---
+
+# 16. Updating the Player Reference
+
+The player can be assigned directly through the Inspector.
+
+Alternatively, another script can update the reference at runtime:
+
+```csharp
+GlobalLightingController.Instance.SetPlayer(playerTransform);
+```
+
+This also refreshes the registered lights using the new player position.
+
+---
+
+# 17. World Object Lighting
+
+World object lighting is used for objects placed in the game world that require custom light settings and optional flickering.
+
+Examples:
+
+- Torches.
+- Lamps.
+- Campfires.
+- Street lights.
+- Candles.
+- Other environmental light sources.
+
+The main scripts are:
+
+- `WorldObjectLightController`
+- `WorldObjectLight`
+- `WorldObjectLightPreset`
+- `WorldLightRegistration`
+
+The global distance controller and world-object lighting controller have separate responsibilities.
+
+| Script | Responsibility |
+|---|---|
+| GlobalLightingController | Distance-based light activation. |
+| WorldLightRegistration | Registers and controls Light2D components. |
+| WorldObjectLightController | Manages registered world-object lights and nighttime flickering. |
+| WorldObjectLight | Applies presets and updates flickering. |
+
+---
+
+# 18. Create a World Object Light Preset
 
 In the Project window:
 
@@ -469,68 +807,73 @@ Example:
 
 `TorchWorldLightPreset`
 
----
+The preset contains settings such as:
 
-# 11. Assign the World Object Prefab
-
-Open the `WorldObjectLightPreset`.
-
-Set:
-
-`World Object Prefab`
-
-to the prefab that should use the preset.
-
-Example:
-
-`TorchWorldPrefab`
-
-The controller compares the name of the spawned world object with the name of the assigned prefab.
-
-For example:
-
-```text
-Prefab:
-Torch
-
-Spawned object:
-Torch(Clone)
-```
-
-These are treated as the same object.
+- Intensity.
+- Radius.
+- Enable Flicker.
+- Flicker Amount.
+- Flicker Speed.
+- Radius Variation.
 
 ---
 
-# 12. Add a Light2D to the World Object
+# 19. Setting Up WorldObjectLight
 
-The world object prefab must contain a `Light2D`.
+Open the world object prefab.
 
-Example:
+Attach the following components to its root GameObject:
+
+- `WorldLightRegistration`
+- `WorldObjectLight`
+
+Example hierarchy:
 
 ```text
-Torch
+Torch (Root)
 ├── Sprite
 └── Light2D
 ```
 
-The controller searches the object's children for `Light2D` components.
+Configure `WorldLightRegistration`:
 
-Multiple lights are supported.
+```text
+Is Independent Prefab = Disabled
+Is Available = Enabled
+```
+
+Configure `WorldObjectLight`:
+
+```text
+Preset = TorchWorldLightPreset
+```
+
+The `WorldObjectLight` component stores its own preset reference.
+
+The preset must be assigned directly to the component.
+
+It does not automatically search for a matching prefab name.
+
+## Multiple Light2D Components
+
+Multiple Light2D components are supported.
 
 Example:
 
 ```text
-Lamp
+Lamp (Root)
 ├── Sprite
 ├── Light2D
 └── Light2D
 ```
 
-Both lights will receive the preset settings.
+The `WorldObjectLight` component detects its child Light2D components and applies the preset settings to them.
+
+The `WorldLightRegistration` component also detects these lights and manages their distance-based activation.
 
 ---
 
-# 13. Setting Up WorldObjectLightController
+# 20. Setting Up WorldObjectLightController
 
 Add:
 
@@ -542,122 +885,113 @@ A common setup is:
 
 ```text
 GameController
+├── GlobalLightingController
 ├── WorldObjectLightController
 └── ...
 ```
 
----
+## World Object Light Presets
 
-## Light Presets
+The controller exposes a `lightPresets` array in the Inspector.
 
-Add all world object presets to:
+However, the current `WorldObjectLight` implementation uses the preset assigned directly to each component's `Preset` field.
 
-`World Object Light Presets`
-
-Example:
-
-```text
-World Object Light Presets
-    Element 0 = TorchWorldLightPreset
-    Element 1 = LampWorldLightPreset
-    Element 2 = CampfireWorldLightPreset
-```
-
----
+Assign the required preset to each world object prefab through its `WorldObjectLight` component.
 
 ## Is Night
 
-Controls whether world object lights are active.
+The controller contains:
 
 ```text
 Is Night = true
 ```
 
-enables the lights.
+This controls whether registered world-object lights update their flickering.
 
-```text
-Is Night = false
-```
+When nighttime is active, registered lights with flickering enabled can update their intensity and radius.
 
-disables them.
+When daytime is active, the flickering update loop stops.
 
-The value can also be controlled through:
+**Important:** `WorldObjectLightController.isNight` does not independently enable or disable all world-object Light2D components. Distance-based activation is handled by `GlobalLightingController` and `WorldLightRegistration`.
+
+The value can be controlled through:
 
 ```csharp
-SetNight(bool night)
+SetNight(bool night);
 ```
+
+When `SetNight(true)` is called, the controller refreshes registered world-object presets.
 
 ---
 
-# 14. World Object Lighting Flow
+# 21. World Object Flickering
 
-The system works like this:
+`WorldObjectLight` uses Perlin Noise to create smooth light variation.
 
-```text
-WorldObjectLightController
-        ↓
-Checks all WorldObjectLightPreset assets
-        ↓
-Finds matching world objects in the scene
-        ↓
-Finds Light2D components
-        ↓
-Checks day/night state
-        ↓
-Applies the preset
-        ↓
-Light becomes active
-```
+The controller updates registered world-object lights while nighttime is active.
+
+The following preset settings control the effect:
+
+| Setting | Description |
+|---|---|
+| Enable Flicker | Enables or disables flickering. |
+| Flicker Amount | Controls intensity variation. |
+| Flicker Speed | Controls the speed of variation. |
+| Radius Variation | Controls light radius variation. |
+
+The script uses a randomized noise offset for each world object.
+
+This prevents all registered lights from following exactly the same flickering pattern.
+
+Only enabled Light2D components receive flicker updates.
 
 ---
 
-# 15. Day/Night Integration
+# 22. Day/Night Integration
 
-Both controllers provide:
+The lighting systems have separate day/night responsibilities.
 
-```csharp
-SetNight(bool night)
-```
+## ItemLightController
 
-This can be called by a day/night system.
-
-Example:
+Controls whether held-item lights are allowed to operate.
 
 ```csharp
 itemLightController.SetNight(true);
-worldObjectLightController.SetNight(true);
 ```
 
 For daytime:
 
 ```csharp
 itemLightController.SetNight(false);
+```
+
+## WorldObjectLightController
+
+Controls nighttime flickering updates for registered world-object lights.
+
+```csharp
+worldObjectLightController.SetNight(true);
+```
+
+For daytime:
+
+```csharp
 worldObjectLightController.SetNight(false);
 ```
 
-Recommended usage:
+## GlobalLightingController
 
-```text
-Day
- ↓
-SetNight(false)
- ↓
-Lights disabled
+The global controller does not manage day/night.
 
-Night
- ↓
-SetNight(true)
- ↓
-Lights enabled
-```
+It only manages distance-based activation and deactivation.
 
-For retained item lights, the retained state is preserved when daytime disables the light. When nighttime is active again, the retained light can resume according to its stored state.
+Independent lights such as Fireflies and Trees are not automatically disabled during daytime by this controller.
+
+If a particular world light needs day/night or fuel-based availability, its owning system must manage that state separately.
 
 ---
 
-# 16. Refreshing Lights
-
-Both controllers provide a refresh method.
+# 23. Refreshing Lights
 
 ## ItemLightController
 
@@ -665,11 +999,9 @@ Both controllers provide a refresh method.
 RefreshLights();
 ```
 
-This resets the currently tracked held light and preset.
+This refreshes the currently tracked held light and preset.
 
 Use this if the held-item setup changes and the controller needs to search again.
-
-If the retained-light system is being reset as part of a larger system reset, the retained-light state should also be cleared as appropriate.
 
 ## WorldObjectLightController
 
@@ -677,13 +1009,23 @@ If the retained-light system is being reset as part of a larger system reset, th
 RefreshLights();
 ```
 
-This clears the flicker data and searches the scene again.
+This reapplies presets to registered `WorldObjectLight` components.
 
-It can be useful after spawning or changing world objects.
+It does not search the scene for new objects.
+
+## GlobalLightingController
+
+```csharp
+GlobalLightingController.Instance.RefreshAllLights();
+```
+
+This updates the distance thresholds and refreshes the distance state of registered lights.
+
+Use this after changing distance settings at runtime or when a refresh is needed.
 
 ---
 
-# 17. Recommended Folder Structure
+# 24. Recommended Folder Structure
 
 A clean project structure could be:
 
@@ -692,7 +1034,10 @@ Lighting
 ├── Scripts
 │   ├── ItemLightController.cs
 │   ├── ItemLightPreset.cs
+│   ├── GlobalLightingController.cs
+│   ├── WorldLightRegistration.cs
 │   ├── WorldObjectLightController.cs
+│   ├── WorldObjectLight.cs
 │   └── WorldObjectLightPreset.cs
 │
 └── Presets
@@ -709,7 +1054,7 @@ Lighting
 
 ---
 
-# 18. Example Setup
+# 25. Example Setup
 
 ## Player
 
@@ -738,41 +1083,117 @@ Player Held Item Object
     PlayerHeldItem
 ```
 
----
-
-## World
+## GameController
 
 ```text
 GameController
+├── GlobalLightingController
 └── WorldObjectLightController
+```
+
+GlobalLightingController Inspector:
+
+```text
+References
+    Player = Player Transform
+
+Distance Settings
+    Activation Distance = 25
+    Deactivation Distance = 30
+
+Performance
+    Check Interval = 0.25
+
+Independent Light Prefab IDs
+    FIREFLY
+    TREE
+```
+
+## Independent Firefly Prefab
+
+```text
+Firefly (Root)
+├── WorldLightRegistration
+└── Glow
+    └── Light2D
 ```
 
 Inspector:
 
 ```text
-World Object Light Controller
+WorldLightRegistration
 
-World Object Light Presets
-    TorchWorldLightPreset
-    LampWorldLightPreset
+Is Independent Prefab
+    Enabled
 
-Is Night
-    true
+Independent Prefab ID
+    FIREFLY
+
+Is Available
+    Enabled
 ```
 
-Example world prefab:
+## Independent Tree Prefab
 
 ```text
-Torch
+Tree (Root)
+├── WorldLightRegistration
+├── Light2D
+└── Light
+    └── Light2D
+```
+
+Inspector:
+
+```text
+WorldLightRegistration
+
+Is Independent Prefab
+    Enabled
+
+Independent Prefab ID
+    TREE
+
+Is Available
+    Enabled
+```
+
+Both tree lights are controlled together by one registration component.
+
+## Preset-Based Torch Prefab
+
+```text
+Torch (Root)
+├── WorldLightRegistration
+├── WorldObjectLight
 ├── Sprite
 └── Light2D
 ```
 
+Inspector:
+
+```text
+WorldLightRegistration
+
+Is Independent Prefab
+    Disabled
+
+Is Available
+    Enabled
+```
+
+```text
+WorldObjectLight
+
+Preset
+    TorchWorldLightPreset
+```
+
 ---
 
-# 19. Troubleshooting
+# 26. Troubleshooting
 
-## Held item has no light
+## Held Item Has No Light
 
 Check:
 
@@ -784,9 +1205,7 @@ Check:
 6. A `Light2D` exists under `PlayerHeldItem`.
 7. `Is Night` is enabled.
 
----
-
-## Retained light does not stay on
+## Retained Light Does Not Stay On
 
 Check:
 
@@ -797,64 +1216,58 @@ Check:
 5. `Is Night` is enabled.
 6. The `Light2D` exists under `PlayerHeldItem`.
 
-Expected behavior:
+## Independent World Light Is Rejected
+
+Check:
+
+1. `Is Independent Prefab` is enabled.
+2. The prefab's `Independent Prefab ID` is assigned.
+3. The ID exactly matches an entry in `GlobalLightingController`.
+4. The object has a `WorldLightRegistration` component on its root.
+
+IDs are case-sensitive.
+
+For example:
 
 ```text
-Light item
- ↓
-E
- ↓
-Light ON
- ↓
-Switch item
- ↓
-Light remains ON
+TREE
 ```
 
----
-
-## Retained light does not turn off
-
-Check that the original light-emitting item is equipped when pressing `E` again.
-
-The retained light is toggled using the `Item.ID` of the currently equipped item.
-
-Expected behavior:
+does not match:
 
 ```text
-Light item equipped
- ↓
-E
- ↓
-Light ON
- ↓
-Switch items
- ↓
-Light remains ON
- ↓
-Select light item
- ↓
-E
- ↓
-Light OFF
+Tree
 ```
 
----
+## World Light Does Not Activate
 
-## World object has no light
+Check:
+
+1. `GlobalLightingController` exists in the scene.
+2. The Player Transform is assigned.
+3. The object has `WorldLightRegistration`.
+4. `Is Available` is enabled.
+5. The object is within the activation distance.
+6. The Light2D components are children of the registered root GameObject.
+
+## Only One Light2D Activates
+
+Check whether all Light2D components are children of the GameObject containing `WorldLightRegistration`.
+
+The component automatically detects all child Light2D components.
+
+There is no need for separate registration components on individual lights.
+
+## World Object Preset Is Not Applied
 
 Check:
 
 1. `WorldObjectLightController` exists in the scene.
-2. The world object has a `Light2D`.
-3. The correct prefab is assigned to `World Object Prefab`.
-4. The spawned object's name matches the prefab name.
-5. The preset is added to the controller's `Light Presets`.
-6. `Is Night` is enabled.
+2. `WorldObjectLight` is attached to the world object root.
+3. A valid `WorldObjectLightPreset` is assigned to its `Preset` field.
+4. The object has one or more child Light2D components.
 
----
-
-## Light does not flicker
+## World Object Does Not Flicker
 
 Check:
 
@@ -870,15 +1283,37 @@ Flicker Speed
 Radius Variation
 ```
 
-If `Enable Flicker` is disabled, the light uses a constant intensity and radius.
+Also check:
 
-For retained item lights, the original item's stored preset continues controlling the flickering after switching to another item.
+1. `WorldObjectLightController` exists.
+2. `isNight` is true.
+3. The preset is assigned.
+4. At least one detected Light2D is enabled.
+
+## Light Does Not Turn Off When Leaving the Area
+
+Check the `Deactivation Distance` setting.
+
+The light remains active until it reaches or exceeds the deactivation distance.
+
+This is intentional to prevent rapid activation and deactivation near the activation boundary.
+
+## Light Does Not Register After Chunk Loading
+
+Check:
+
+1. `GlobalLightingController` exists before the spawned object registers.
+2. The spawned object is active.
+3. `WorldLightRegistration` is enabled.
+4. The Player Transform is assigned.
+
+The registration component uses `OnEnable()` to register and `OnDisable()` to unregister.
 
 ---
 
-# 20. Quick Setup Checklist
+# 27. Quick Setup Checklist
 
-### Item Lighting
+## Item Lighting
 
 ```text
 [ ] Create ItemLightPreset
@@ -896,41 +1331,58 @@ For retained item lights, the original item's stored preset continues controllin
 [ ] Test E again while the light item is equipped
 ```
 
-### World Object Lighting
+## Global Lighting
+
+```text
+[ ] Add GlobalLightingController to GameController
+[ ] Assign the Player Transform
+[ ] Configure activation distance
+[ ] Configure deactivation distance
+[ ] Configure check interval
+[ ] Add independent prefab IDs
+[ ] Add WorldLightRegistration to supported prefab roots
+[ ] Configure independent prefab IDs where required
+[ ] Make sure Is Available is enabled
+[ ] Make sure all Light2D components are children of the registered root
+[ ] Test light activation near the player
+[ ] Test light deactivation away from the player
+[ ] Test chunk loading and unloading
+```
+
+## World Object Lighting
 
 ```text
 [ ] Create WorldObjectLightPreset
-[ ] Assign World Object Prefab
 [ ] Configure intensity
 [ ] Configure radius
 [ ] Configure flicker
-[ ] Add Light2D to world object prefab
-[ ] Add preset to WorldObjectLightController
-[ ] Make sure Is Night is enabled
+[ ] Add WorldLightRegistration to the prefab root
+[ ] Keep Is Independent Prefab disabled
+[ ] Add WorldObjectLight to the prefab root
+[ ] Assign the preset directly to WorldObjectLight
+[ ] Make sure Light2D exists on the object or its children
+[ ] Add WorldObjectLightController to GameController
+[ ] Test nighttime flickering
+[ ] Test daytime flickering behavior
 ```
 
 ---
 
-# 21. Important Notes
+# 28. Important Notes
 
-The lighting system does not create `Light2D` components automatically.
+- The lighting system does not create `Light2D` components automatically.
+- You must add `Light2D` to the appropriate prefab or held-item hierarchy.
+- Item lighting uses the currently equipped item's `Item.ID` to identify its preset.
+- Held-item lighting uses the `Light2D` under `PlayerHeldItem`.
+- Retained item lights preserve their original item ID and lighting preset.
+- Global lighting uses `WorldLightRegistration` to manage world light activation.
+- Independent prefabs use string IDs instead of direct prefab references.
+- Multiple prefab variants can share the same independent prefab ID.
+- Multiple Light2D components can be controlled by one registration component.
+- `WorldObjectLight` uses a preset assigned directly through its Inspector field.
+- `WorldObjectLightController` handles nighttime flickering, while `GlobalLightingController` handles distance-based activation.
+- Independent lights are not automatically disabled during daytime.
+- Chunk unloading automatically unregisters objects when their registration components are disabled or destroyed.
+- Player-held lights remain separate from the global world-light registration system.
 
-You must add the `Light2D` component to the appropriate prefab or held-item hierarchy.
-
-Presets control the light's runtime properties. The actual `Light2D` remains on the world object or under the player's `PlayerHeldItem` hierarchy.
-
-For item lighting, matching is based on the `Item.ID`.
-
-For world object lighting, matching is based on the prefab and spawned object name.
-
-The system uses Perlin Noise for smooth flickering rather than completely random frame-by-frame changes.
-
-Held item lights can be retained after the player switches to another item.
-
-A retained light stores the light-emitting item's `Item.ID` and `ItemLightPreset`.
-
-Pressing `E` while the supported light-emitting item is equipped toggles its retained light state.
-
-The retained light continues using its stored preset for intensity, radius, and flickering even when another item is equipped.
-
-The actual `Light2D` used by item lighting remains under `PlayerHeldItem`; it does not need to be attached to the light-emitting item prefab.
+The system separates held-item lighting, world-object preset behavior, and global distance-based activation so each controller can manage its own responsibilities without interfering with the others.

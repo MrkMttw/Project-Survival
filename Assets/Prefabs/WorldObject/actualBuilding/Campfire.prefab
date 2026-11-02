@@ -1045,6 +1045,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a04f521348e9a5e478248a3f4c66d33f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CampfireLightController
+  intensity: 2
+  radius: 5
+  enableFlicker: 1
+  flickerAmount: 0.2
+  flickerSpeed: 4
+  radiusVariation: 0.03
   unlitVisual: {fileID: 2300452494631649693}
 --- !u!114 &7332158378464330728
 MonoBehaviour:

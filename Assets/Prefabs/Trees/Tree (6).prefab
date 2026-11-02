@@ -65,7 +65,7 @@ MonoBehaviour:
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
-  m_ShadowsEnabled: 1
+  m_ShadowsEnabled: 0
   m_ShadowIntensity: 0.75
   m_ShadowSoftness: 0.3
   m_ShadowSoftnessFalloffIntensity: 0.5
@@ -255,6 +255,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4963369266823173890, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8503431044469316426}
+    - targetCorrespondingSourceObject: {fileID: 4963369266823173890, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3815504698822007059}
   m_SourcePrefab: {fileID: 100100000, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}
 --- !u!1 &5978904122800478905 stripped
 GameObject:
@@ -345,6 +348,21 @@ MonoBehaviour:
           m_Image: {fileID: 2800000, guid: 8839c54710da3374f994e12f39b6d65f, type: 3}
           m_Tooltip: 
           m_TextWithWhitespace: "Sprite\u200B"
+--- !u!114 &3815504698822007059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5978904122800478905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d58d3f08da41c8641837346fac6619c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldLightRegistration
+  isIndependentPrefab: 1
+  independentPrefabID: Tree
+  isAvailable: 1
 --- !u!4 &6491765461505433580 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5480698058156823127, guid: c2245760f00c0554d96f1c698d70e4fa, type: 3}

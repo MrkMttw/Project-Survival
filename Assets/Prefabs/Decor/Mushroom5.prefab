@@ -211,8 +211,31 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 565628899333318616, guid: d5f6eb6a43dc1a94dacf217ebb3bc0d3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4435188010177044109}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7133436450058219875, guid: d5f6eb6a43dc1a94dacf217ebb3bc0d3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -1529063686515750779}
   m_SourcePrefab: {fileID: 100100000, guid: d5f6eb6a43dc1a94dacf217ebb3bc0d3, type: 3}
+--- !u!1 &424926263387213043 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7133436450058219875, guid: d5f6eb6a43dc1a94dacf217ebb3bc0d3, type: 3}
+  m_PrefabInstance: {fileID: 7429438033329847696}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-1529063686515750779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 424926263387213043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d58d3f08da41c8641837346fac6619c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldLightRegistration
+  isIndependentPrefab: 1
+  independentPrefabID: Decor
+  isAvailable: 1
 --- !u!4 &6972468307866933832 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 565628899333318616, guid: d5f6eb6a43dc1a94dacf217ebb3bc0d3, type: 3}

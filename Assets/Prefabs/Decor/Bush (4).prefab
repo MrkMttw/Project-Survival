@@ -211,6 +211,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7133436450058219875, guid: d5f6eb6a43dc1a94dacf217ebb3bc0d3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1808035232356673775}
+    - targetCorrespondingSourceObject: {fileID: 7133436450058219875, guid: d5f6eb6a43dc1a94dacf217ebb3bc0d3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -7699605768855813904}
   m_SourcePrefab: {fileID: 100100000, guid: d5f6eb6a43dc1a94dacf217ebb3bc0d3, type: 3}
 --- !u!1 &2449695216402089595 stripped
 GameObject:
@@ -250,7 +253,7 @@ MonoBehaviour:
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
-  m_ShadowsEnabled: 1
+  m_ShadowsEnabled: 0
   m_ShadowIntensity: 0.75
   m_ShadowSoftness: 0.3
   m_ShadowSoftnessFalloffIntensity: 0.5
@@ -301,6 +304,21 @@ MonoBehaviour:
           m_Image: {fileID: 2800000, guid: 8839c54710da3374f994e12f39b6d65f, type: 3}
           m_Tooltip: 
           m_TextWithWhitespace: "Sprite\u200B"
+--- !u!114 &-7699605768855813904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2449695216402089595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d58d3f08da41c8641837346fac6619c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldLightRegistration
+  isIndependentPrefab: 1
+  independentPrefabID: Decor
+  isAvailable: 1
 --- !u!4 &4961165812659441856 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 565628899333318616, guid: d5f6eb6a43dc1a94dacf217ebb3bc0d3, type: 3}

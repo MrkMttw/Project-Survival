@@ -1,58 +1,86 @@
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 
 public class ItemLightController : MonoBehaviour
 {
     [Header("Light Presets")]
-
-    [Tooltip("Light presets for held items.")]
     public ItemLightPreset[] lightPresets;
 
-
     [Header("Night Lighting")]
-
-    [Tooltip("Whether item lighting is currently active.")]
     public bool isNight = true;
 
     [Header("Player Held Item")]
-
-    [Tooltip("GameObject containing the PlayerHeldItem component.")]
     public GameObject playerHeldItemObject;
 
     private PlayerHeldItem playerHeldItem;
-
     private Light2D heldItemLight;
 
-    private ItemLightPreset currentPreset;
-    
+    private ItemLightPreset activePreset;
     private ItemLightPreset retainedPreset;
 
-    private GameObject currentHeldObject;
+    private readonly Dictionary<int, ItemLightPreset> presetDictionary =
+        new Dictionary<int, ItemLightPreset>();
 
     private float noiseOffset;
 
     private bool lightRetained;
+    private bool flickerActive;
+    private bool promptRequested;
 
     private int retainedItemID = -1;
 
     private void Awake()
     {
         noiseOffset = Random.Range(0f, 1000f);
+
+        FindPlayerHeldItem();
+        BuildPresetDictionary();
+    }
+
+    private void OnEnable()
+    {
+        if (playerHeldItem != null)
+        {
+            playerHeldItem.HeldItemChanged += OnHeldItemChanged;
+        }
+
+        RefreshHeldItemLight();
+        UpdateLightPrompt();
     }
 
     private void Start()
     {
-        FindPlayerHeldItem();
+        // REFRESH AFTER OTHER START METHODS
+        RefreshHeldItemLight();
+        UpdateLightPrompt();
+    }
+
+    private void OnDisable()
+    {
+        if (playerHeldItem != null)
+        {
+            playerHeldItem.HeldItemChanged -= OnHeldItemChanged;
+        }
+
+        DisableHeldLight();
+        ReleaseLightPrompt();
     }
 
     private void Update()
     {
-        UpdateHeldItemLight();
-        UpdateLightPrompt();
+        if (!flickerActive ||
+            heldItemLight == null ||
+            activePreset == null ||
+            !heldItemLight.enabled)
+        {
+            return;
+        }
+
+        UpdateFlicker();
     }
 
-    // PLAYER HELD ITEM
+    // FIND PLAYER HELD ITEM
 
     private void FindPlayerHeldItem()
     {
@@ -65,10 +93,8 @@ public class ItemLightController : MonoBehaviour
             return;
         }
 
-
         playerHeldItem =
             playerHeldItemObject.GetComponent<PlayerHeldItem>();
-
 
         if (playerHeldItem == null)
         {
@@ -78,10 +104,47 @@ public class ItemLightController : MonoBehaviour
         }
     }
 
+    // BUILD PRESET CACHE
 
-    // MAIN LIGHT UPDATE
+    private void BuildPresetDictionary()
+    {
+        presetDictionary.Clear();
 
-    private void UpdateHeldItemLight()
+        if (lightPresets == null)
+            return;
+
+        foreach (ItemLightPreset preset in lightPresets)
+        {
+            if (preset == null || preset.itemPrefab == null)
+                continue;
+
+            Item presetItem =
+                preset.itemPrefab.GetComponent<Item>();
+
+            if (presetItem == null)
+                continue;
+
+            if (!presetDictionary.ContainsKey(presetItem.ID))
+            {
+                presetDictionary.Add(
+                    presetItem.ID,
+                    preset
+                );
+            }
+        }
+    }
+
+    // EQUIPMENT EVENT
+
+    private void OnHeldItemChanged(Item item)
+    {
+        RefreshHeldItemLight();
+        UpdateLightPrompt();
+    }
+
+    // MAIN LIGHT REFRESH
+
+    private void RefreshHeldItemLight()
     {
         if (playerHeldItem == null)
         {
@@ -89,7 +152,6 @@ public class ItemLightController : MonoBehaviour
             return;
         }
 
-        // No lighting during daytime.
         if (!isNight)
         {
             DisableHeldLight();
@@ -99,60 +161,18 @@ public class ItemLightController : MonoBehaviour
         Item currentItem =
             playerHeldItem.GetHeldItem();
 
-        // Nothing is equipped.
-        // Keep the retained light if one exists.
-        if (currentItem == null)
-        {
-            if (lightRetained &&
-                retainedPreset != null)
-            {
-                if (heldItemLight == null)
-                {
-                    FindHeldItemLight();
-                }
-
-                if (heldItemLight != null)
-                {
-                    heldItemLight.enabled = true;
-
-                    ApplyPreset(
-                        heldItemLight,
-                        retainedPreset
-                    );
-                }
-            }
-            else
-            {
-                DisableHeldLight();
-            }
-
-            return;
-        }
-
         ItemLightPreset preset =
             GetPresetForItem(currentItem);
 
-        // Current item has no light.
-        // Keep the retained light if one exists.
+        // NO ITEM OR NO LIGHT PRESET
+        // KEEP RETAINED LIGHT
+
         if (preset == null)
         {
             if (lightRetained &&
                 retainedPreset != null)
             {
-                if (heldItemLight == null)
-                {
-                    FindHeldItemLight();
-                }
-
-                if (heldItemLight != null)
-                {
-                    heldItemLight.enabled = true;
-
-                    ApplyPreset(
-                        heldItemLight,
-                        retainedPreset
-                    );
-                }
+                EnableHeldLight(retainedPreset);
             }
             else
             {
@@ -162,43 +182,19 @@ public class ItemLightController : MonoBehaviour
             return;
         }
 
-        // If the held item changed,
-        // find its Light2D again.
-        if (currentPreset != preset)
-        {
-            currentPreset = preset;
+        // ONLY USE RETAINED LIGHT
+        // WHEN THE RETAINED ITEM IS EQUIPPED
 
-            FindHeldItemLight();
-        }
-
-        if (heldItemLight == null)
-        {
-            FindHeldItemLight();
-        }
-
-        if (heldItemLight == null)
-        {
-            return;
-        }
-
-        // Turn on the retained light when
-        // the retained item is equipped.
         if (lightRetained &&
             retainedItemID == currentItem.ID)
         {
-            heldItemLight.enabled = true;
-
-            ApplyPreset(
-                heldItemLight,
-                retainedPreset
-            );
+            EnableHeldLight(retainedPreset);
         }
         else
         {
             DisableHeldLight();
         }
     }
-
 
     // FIND PRESET
 
@@ -207,60 +203,30 @@ public class ItemLightController : MonoBehaviour
         if (item == null)
             return null;
 
-
-        if (lightPresets == null ||
-            lightPresets.Length == 0)
+        if (presetDictionary.TryGetValue(
+            item.ID,
+            out ItemLightPreset preset))
         {
-            return null;
+            return preset;
         }
-
-
-        foreach (ItemLightPreset preset in lightPresets)
-        {
-            if (preset == null)
-                continue;
-
-
-            if (preset.itemPrefab == null)
-                continue;
-
-
-            // Compare the Item component on the preset prefab.
-            Item presetItem =
-                preset.itemPrefab.GetComponent<Item>();
-
-
-            if (presetItem == null)
-                continue;
-
-
-            if (presetItem.ID == item.ID)
-            {
-                return preset;
-            }
-        }
-
 
         return null;
     }
-
 
     // FIND HELD ITEM LIGHT
 
     private void FindHeldItemLight()
     {
-        heldItemLight = null;
-
+        if (heldItemLight != null)
+            return;
 
         if (playerHeldItemObject == null)
             return;
-
 
         Light2D[] lights =
             playerHeldItemObject.GetComponentsInChildren<Light2D>(
                 true
             );
-
 
         if (lights.Length == 0)
         {
@@ -271,9 +237,28 @@ public class ItemLightController : MonoBehaviour
             return;
         }
 
-
-        // Use the first Light2D found.
         heldItemLight = lights[0];
+    }
+
+    // ENABLE HELD LIGHT
+
+    private void EnableHeldLight(ItemLightPreset preset)
+    {
+        if (preset == null)
+            return;
+
+        FindHeldItemLight();
+
+        if (heldItemLight == null)
+            return;
+
+        activePreset = preset;
+
+        heldItemLight.enabled = true;
+
+        ApplyPreset(heldItemLight, preset);
+
+        flickerActive = preset.enableFlicker;
     }
 
     // TOGGLE LIGHT
@@ -283,17 +268,20 @@ public class ItemLightController : MonoBehaviour
         if (playerHeldItem == null)
             return;
 
-        Item currentItem = playerHeldItem.GetHeldItem();
+        Item currentItem =
+            playerHeldItem.GetHeldItem();
 
         if (currentItem == null)
             return;
 
-        ItemLightPreset preset = GetPresetForItem(currentItem);
+        ItemLightPreset preset =
+            GetPresetForItem(currentItem);
 
         if (preset == null)
             return;
 
-        // Turn off the retained light.
+        // TURN OFF RETAINED LIGHT
+
         if (lightRetained &&
             retainedItemID == currentItem.ID)
         {
@@ -301,30 +289,27 @@ public class ItemLightController : MonoBehaviour
             retainedItemID = -1;
             retainedPreset = null;
 
-            DisableHeldLight();
+            RefreshHeldItemLight();
 
             return;
         }
 
-        // Turn on and retain this item's light.
+        // RETAIN THIS ITEM'S LIGHT
+
         lightRetained = true;
         retainedItemID = currentItem.ID;
         retainedPreset = preset;
 
-        FindHeldItemLight();
-
-        if (heldItemLight == null)
-            return;
-
-        heldItemLight.enabled = true;
+        RefreshHeldItemLight();
     }
-        
+
     public bool TryToggleHeldItemLight()
     {
         if (playerHeldItem == null)
             return false;
 
-        Item currentItem = playerHeldItem.GetHeldItem();
+        Item currentItem =
+            playerHeldItem.GetHeldItem();
 
         if (currentItem == null)
             return false;
@@ -333,6 +318,7 @@ public class ItemLightController : MonoBehaviour
             return false;
 
         ToggleLight();
+
         return true;
     }
 
@@ -343,89 +329,65 @@ public class ItemLightController : MonoBehaviour
         ItemLightPreset preset
     )
     {
-        if (light == null ||
-            preset == null)
-        {
+        if (light == null || preset == null)
             return;
-        }
 
+        light.intensity = preset.intensity;
+        light.pointLightOuterRadius = preset.radius;
+    }
 
-        // No animation.
-        if (!preset.enableFlicker)
-        {
-            light.intensity =
-                preset.intensity;
+    // FLICKER
 
-            light.pointLightOuterRadius =
-                preset.radius;
+    private void UpdateFlicker()
+    {
+        float noise = Mathf.PerlinNoise(
+            noiseOffset,
+            Time.time * activePreset.flickerSpeed
+        );
 
-            return;
-        }
-
-
-        // Smooth Perlin Noise.
-        float noise =
-            Mathf.PerlinNoise(
-                noiseOffset,
-                Time.time * preset.flickerSpeed
-            );
-
-
-        // Convert 0-1 into -1 to +1.
-        float variation =
-            (noise * 2f) - 1f;
-
+        float variation = (noise * 2f) - 1f;
 
         // INTENSITY
 
         float intensityMultiplier =
-            1f +
-            (variation * preset.flickerAmount);
+            1f + (variation * activePreset.flickerAmount);
 
-
-        light.intensity =
-            preset.intensity *
-            intensityMultiplier;
-
+        heldItemLight.intensity =
+            activePreset.intensity * intensityMultiplier;
 
         // RADIUS
 
         float radiusMultiplier =
-            1f +
-            (variation * preset.radiusVariation);
+            1f + (variation * activePreset.radiusVariation);
 
-
-        light.pointLightOuterRadius =
-            preset.radius *
-            radiusMultiplier;
+        heldItemLight.pointLightOuterRadius =
+            activePreset.radius * radiusMultiplier;
     }
 
-
-    // DISABLE
+    // DISABLE LIGHT
 
     private void DisableHeldLight()
     {
-        if (heldItemLight == null)
-            return;
+        flickerActive = false;
+        activePreset = null;
 
-
-        heldItemLight.enabled = false;
+        if (heldItemLight != null)
+        {
+            heldItemLight.enabled = false;
+        }
     }
-
 
     // DAY / NIGHT
 
     public void SetNight(bool night)
     {
+        if (isNight == night)
+            return;
+
         isNight = night;
 
-
-        if (!night)
-        {
-            DisableHeldLight();
-        }
+        RefreshHeldItemLight();
     }
-
 
     // REFRESH
 
@@ -435,46 +397,62 @@ public class ItemLightController : MonoBehaviour
 
         heldItemLight = null;
 
-        currentPreset = null;
+        BuildPresetDictionary();
 
-        currentHeldObject = null;
+        RefreshHeldItemLight();
+        UpdateLightPrompt();
     }
 
     // UPDATE LIGHT PROMPT
+
     private void UpdateLightPrompt()
     {
         if (PromptController.Instance == null)
             return;
 
-        if (playerHeldItem == null)
-        {
-            PromptController.Instance.ReleasePrompt(
-                PromptType.E, this);
+        bool shouldShowPrompt = false;
 
-            return;
+        if (playerHeldItem != null)
+        {
+            Item currentItem =
+                playerHeldItem.GetHeldItem();
+
+            shouldShowPrompt =
+                currentItem != null &&
+                GetPresetForItem(currentItem) != null;
         }
 
-        Item currentItem = playerHeldItem.GetHeldItem();
+        if (shouldShowPrompt == promptRequested)
+            return;
 
-        if (currentItem != null &&
-            GetPresetForItem(currentItem) != null)
+        promptRequested = shouldShowPrompt;
+
+        if (promptRequested)
         {
             PromptController.Instance.RequestPrompt(
-                PromptType.E, this);
+                PromptType.E,
+                this
+            );
         }
         else
         {
             PromptController.Instance.ReleasePrompt(
-                PromptType.E, this);
+                PromptType.E,
+                this
+            );
         }
     }
 
-    private void OnDisable()
+    private void ReleaseLightPrompt()
     {
         if (PromptController.Instance != null)
         {
             PromptController.Instance.ReleasePrompt(
-                PromptType.E, this);
+                PromptType.E,
+                this
+            );
         }
+
+        promptRequested = false;
     }
 }
