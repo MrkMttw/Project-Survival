@@ -630453,6 +630453,7 @@ GameObject:
   - component: {fileID: 543478641}
   - component: {fileID: 543478643}
   - component: {fileID: 543478645}
+  - component: {fileID: 543478646}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -630830,6 +630831,20 @@ MonoBehaviour:
   smokeAnimator: {fileID: 1714955453}
   smokeTrigger: Play
   smokeDuration: 0.4
+--- !u!114 &543478646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543478630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20585c3f3f70763438e3b31c12d38b28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitFlashBehavior
+  flashColor: {r: 0.8627452, g: 0.1921569, b: 0.1960784, a: 1}
+  flashDuration: 0.15
 --- !u!1001 &545181404
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -633612,6 +633627,7 @@ MonoBehaviour:
   - Stone
   - Decor
   - Tree
+  - Held
 --- !u!1001 &814968655
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -634497,7 +634513,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameClock
   realSecondsPerGameHour: 15
-  startingHour: 6
+  startingHour: 19
   startingMinute: 0
   startingDay: 1
   use12HourFormat: 1
@@ -635426,7 +635442,7 @@ MonoBehaviour:
   craftingController: {fileID: 1328775371}
   gateController: {fileID: 1451321680}
   foodController: {fileID: 84989085}
-  itemLightController: {fileID: 2113588248}
+  itemLightController: {fileID: 0}
   itemsGeneratorController: {fileID: 1180774152}
   furnaceController: {fileID: 1413565793}
   sleepTransitionController: {fileID: 841894802}
@@ -638127,7 +638143,6 @@ MonoBehaviour:
     - {fileID: 11400000, guid: d8ae521a25d3a034daa5d73c32df654f, type: 2}
     - {fileID: 11400000, guid: 6075175bc1d459a49830089374cf1759, type: 2}
     - {fileID: 11400000, guid: 47df74f5fb71ea2428c23f1b049cdca4, type: 2}
-    - {fileID: 11400000, guid: 06e066b9fa75f4649ae6c271802f8b22, type: 2}
     - {fileID: 11400000, guid: 80646310240a5d44bb750b5fabd739a7, type: 2}
     - {fileID: 11400000, guid: 47f42fac40d91f8438a9a42b7923768e, type: 2}
     - {fileID: 11400000, guid: 68c6fd46edd3ccb44830d393d2ae37be, type: 2}
@@ -638145,9 +638160,11 @@ MonoBehaviour:
   - level: 4
     recipes:
     - {fileID: 11400000, guid: e5dd931185fde7e4389fcaf8ed69e4b8, type: 2}
+    - {fileID: 11400000, guid: 67eaefcb4e475b34486ca9f8cd0ecf12, type: 2}
   - level: 5
     recipes:
     - {fileID: 11400000, guid: 0128418dbf819f74dafce2581bc5b5f7, type: 2}
+    - {fileID: 11400000, guid: 5b5fd037baa7ab64ca32d12d3c18b65d, type: 2}
   contentPanel: {fileID: 1196554901}
   craftingLevelButtonPrefab: {fileID: 680194049382008835, guid: 2db2925d1b9c73c40a37289ff6ef3562, type: 3}
   recipeButtonPrefab: {fileID: 8168608845134254522, guid: 66ea955f9ff2719468ca058ea9c8c93f, type: 3}
@@ -692995,10 +693012,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.2D.Animation.Runtime::UnityEngine.U2D.Animation.SpriteResolver
-  m_CategoryHash: 0.000000005954094
+  m_CategoryHash: 0.00000043437677
   m_labelHash: 1.5803954e-23
   m_SpriteKey: 0
-  m_SpriteHash: 53927238
+  m_SpriteHash: 0
 --- !u!114 &1714955452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -696056,7 +696073,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LightEmissionController
   lightPresets:
   - {fileID: 11400000, guid: 6a30a055aac16494ca4c4fcc27da9546, type: 2}
-  isNight: 1
   playerHeldItemObject: {fileID: 2096488639}
 --- !u!114 &2113588249
 MonoBehaviour:

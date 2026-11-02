@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 7089588653624166267}
     - target: {fileID: 749299567316942752, guid: 7757192a6a96e0341bef134382e342f2, type: 3}
       propertyPath: fleeSpeed
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 749299567316942752, guid: 7757192a6a96e0341bef134382e342f2, type: 3}
       propertyPath: fleeDuration
@@ -29,8 +29,16 @@ PrefabInstance:
       value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 910601917951096028, guid: 7757192a6a96e0341bef134382e342f2, type: 3}
+      propertyPath: m_labelHash
+      value: 1.590883e-24
+      objectReference: {fileID: 0}
+    - target: {fileID: 910601917951096028, guid: 7757192a6a96e0341bef134382e342f2, type: 3}
       propertyPath: m_SpriteHash
       value: 295173676
+      objectReference: {fileID: 0}
+    - target: {fileID: 910601917951096028, guid: 7757192a6a96e0341bef134382e342f2, type: 3}
+      propertyPath: m_CategoryHash
+      value: 0.000000020668566
       objectReference: {fileID: 0}
     - target: {fileID: 1356034440367305850, guid: 7757192a6a96e0341bef134382e342f2, type: 3}
       propertyPath: rb

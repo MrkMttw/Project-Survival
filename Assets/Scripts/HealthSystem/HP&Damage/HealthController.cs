@@ -13,15 +13,17 @@ public class HealthController : MonoBehaviour
     [Header("Health UI")]
     public GameObject healthBar;
     public GameObject healthText;
+    public event Action OnDeath;
 
     private Image healthBarImage;
     private TMP_Text healthTextComponent;
     private bool deathTriggered;
-
-    public event Action OnDeath;
+    private HitFlashBehavior hitFlash;
 
     private void Awake()
     {
+        hitFlash = GetComponentInParent<HitFlashBehavior>();
+
         healthBarImage = healthBar.GetComponent<Image>();
         healthTextComponent = healthText.GetComponent<TMP_Text>();
 
@@ -49,6 +51,10 @@ public class HealthController : MonoBehaviour
 
         currentHealth -= amount;
         currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
+
+        // PLAY HIT FLASH
+        if (amount > 0f)
+            hitFlash?.PlayHitFlash();
 
         UpdateHealthUI();
 

@@ -7,9 +7,6 @@ public class ItemLightController : MonoBehaviour
     [Header("Light Presets")]
     public ItemLightPreset[] lightPresets;
 
-    [Header("Night Lighting")]
-    public bool isNight = true;
-
     [Header("Player Held Item")]
     public GameObject playerHeldItemObject;
 
@@ -152,25 +149,13 @@ public class ItemLightController : MonoBehaviour
             return;
         }
 
-        if (!isNight)
-        {
-            DisableHeldLight();
-            return;
-        }
-
-        Item currentItem =
-            playerHeldItem.GetHeldItem();
-
-        ItemLightPreset preset =
-            GetPresetForItem(currentItem);
+        Item currentItem = playerHeldItem.GetHeldItem();
 
         // NO ITEM OR NO LIGHT PRESET
-        // KEEP RETAINED LIGHT
-
-        if (preset == null)
+        if (currentItem == null ||
+            GetPresetForItem(currentItem) == null)
         {
-            if (lightRetained &&
-                retainedPreset != null)
+            if (lightRetained && retainedPreset != null)
             {
                 EnableHeldLight(retainedPreset);
             }
@@ -182,9 +167,7 @@ public class ItemLightController : MonoBehaviour
             return;
         }
 
-        // ONLY USE RETAINED LIGHT
-        // WHEN THE RETAINED ITEM IS EQUIPPED
-
+        // ONLY ACTIVATE WHEN RETAINED
         if (lightRetained &&
             retainedItemID == currentItem.ID)
         {
@@ -375,18 +358,6 @@ public class ItemLightController : MonoBehaviour
         {
             heldItemLight.enabled = false;
         }
-    }
-
-    // DAY / NIGHT
-
-    public void SetNight(bool night)
-    {
-        if (isNight == night)
-            return;
-
-        isNight = night;
-
-        RefreshHeldItemLight();
     }
 
     // REFRESH

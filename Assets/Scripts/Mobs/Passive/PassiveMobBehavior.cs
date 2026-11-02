@@ -52,6 +52,7 @@ public class PassiveMobBehavior : MonoBehaviour
     private float wanderWaitTimer;
     private float fleeTimer;
     private float currentHP;
+    private HitFlashBehavior hitFlash;
     private float avoidanceTimer;
     private float stuckCheckTimer;
     private float stuckTimer;
@@ -62,6 +63,8 @@ public class PassiveMobBehavior : MonoBehaviour
 
     private void Awake()
     {
+        hitFlash = GetComponent<HitFlashBehavior>();
+
         rb = GetComponent<Rigidbody2D>();
 
         if (rb == null)
@@ -187,6 +190,10 @@ public class PassiveMobBehavior : MonoBehaviour
             0f,
             maxHP
         );
+        
+        // PLAY HIT FLASH
+        if (damage > 0f)
+            hitFlash?.PlayHitFlash();
 
         UpdateHealthBar();
 
@@ -240,8 +247,28 @@ public class PassiveMobBehavior : MonoBehaviour
 
     private void Die()
     {
+        // PLAY DETACHED SMOKE
+        SmokeEffectAnimator smokeEffect =
+            GetComponentInChildren<SmokeEffectAnimator>();
+
+        GameObject detachedSmoke = null;
+
+        if (smokeEffect != null)
+        {
+            detachedSmoke = smokeEffect.PlaySmokeDetached();
+        }
+
+        // DROP ITEMS
         DropItems();
+
+        // DESTROY MOB
         Destroy(gameObject);
+
+        // CLEANUP SMOKE
+        if (detachedSmoke != null)
+        {
+            Destroy(detachedSmoke, smokeEffect.SmokeDuration);
+        }
     }
 
     private void DropItems()

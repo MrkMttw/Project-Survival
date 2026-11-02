@@ -78,6 +78,7 @@ public class HostileMobBehavior : MonoBehaviour
 
     // Health
     private float currentHP;
+    private HitFlashBehavior hitFlash;
 
     // Combat timers
     private float attackTimer;
@@ -96,6 +97,8 @@ public class HostileMobBehavior : MonoBehaviour
 
     private void Awake()
     {
+        hitFlash = GetComponent<HitFlashBehavior>();
+
         rb = GetComponent<Rigidbody2D>();
 
         if (rb == null)
@@ -427,6 +430,8 @@ public class HostileMobBehavior : MonoBehaviour
             );
 
         UpdateHealthBar();
+        // PLAY HIT FLASH
+        hitFlash?.PlayHitFlash();
 
         Debug.Log(
             gameObject.name +
@@ -517,7 +522,7 @@ public class HostileMobBehavior : MonoBehaviour
     }
 
     // DEATH
-        
+    
     private void Die()
     {
         if (isDead)
@@ -527,24 +532,20 @@ public class HostileMobBehavior : MonoBehaviour
 
         Debug.Log("[HostileMobBehavior] Enemy died: " + gameObject.name);
 
+        // PLAY DETACHED SMOKE
+        SmokeEffectAnimator smokeEffect =
+            GetComponentInChildren<SmokeEffectAnimator>();
+
+        GameObject detachedSmoke = null;
+
+        if (smokeEffect != null)
+        {
+            detachedSmoke = smokeEffect.PlaySmokeDetached();
+        }
+
+        // BOSS DEFEAT REGISTRATION
         StructureObjectIdentity identity =
             GetComponent<StructureObjectIdentity>();
-
-        if (identity != null)
-        {
-            Debug.Log(
-                "[HostileMobBehavior] Structure identity found. " +
-                "Is Boss: " + identity.isBoss +
-                ", Structure ID: " + identity.structureID
-            );
-        }
-        else
-        {
-            Debug.LogWarning(
-                "[HostileMobBehavior] No StructureObjectIdentity found!",
-                gameObject
-            );
-        }
 
         if (identity != null && identity.isBoss)
         {
@@ -552,21 +553,20 @@ public class HostileMobBehavior : MonoBehaviour
                 FindFirstObjectByType<StructureSpawner>();
 
             if (structureSpawner != null)
-            {
-                Debug.Log("[HostileMobBehavior] Registering boss defeat.");
-
                 structureSpawner.MarkBossDefeated(identity);
-            }
-            else
-            {
-                Debug.LogWarning(
-                    "[HostileMobBehavior] StructureSpawner not found!"
-                );
-            }
         }
 
+        // DROP ITEMS
         DropItems();
+
+        // DESTROY MOB
         Destroy(gameObject);
+
+        // CLEANUP SMOKE
+        if (detachedSmoke != null)
+        {
+            Destroy(detachedSmoke, smokeEffect.SmokeDuration);
+        }
     }
 
     private void DropItems()
