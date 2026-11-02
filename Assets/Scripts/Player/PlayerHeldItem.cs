@@ -17,6 +17,9 @@ public class PlayerHeldItem : MonoBehaviour
     [SerializeField] private float swingDuration = 0.12f;
     [SerializeField] private float returnDuration = 0.10f;
 
+    [Header("Action Smoke Effect")]
+    [SerializeField] private SmokeEffectAnimator smokeEffectAnimator;
+
     [Header("Currently Held Item")]
     public Item heldItem;
 
@@ -112,12 +115,24 @@ public class PlayerHeldItem : MonoBehaviour
         if (animator == null)
             return;
 
+        // PLAY SMOKE
+        PlaySmoke();
+
         if (swingCoroutine != null)
         {
             StopCoroutine(swingCoroutine);
         }
 
         swingCoroutine = StartCoroutine(SwingAnimation());
+    }
+    
+    // PLAY SMOKE EFFECT
+    private void PlaySmoke()
+    {
+        if (smokeEffectAnimator == null)
+            return;
+
+        smokeEffectAnimator.PlaySmoke();
     }
 
     private IEnumerator SwingAnimation()

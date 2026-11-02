@@ -4,12 +4,12 @@ using UnityEngine;
 public class LootDropAnimation : MonoBehaviour
 {
     [Header("Drop Animation")]
-    [SerializeField] private float scatterDistance = 0.6f;
-    [SerializeField] private float popHeight = 0.5f;
+    [SerializeField] private float scatterDistance = 1.2f;
+    [SerializeField] private float popHeight = 1.2f;
     [SerializeField] private float dropDuration = 0.35f;
 
     [Header("Landing Bounce")]
-    [SerializeField] private float bounceHeight = 0.12f;
+    [SerializeField] private float bounceHeight = 0.15f;
     [SerializeField] private float bounceDuration = 0.15f;
 
     public bool IsAnimating { get; private set; }

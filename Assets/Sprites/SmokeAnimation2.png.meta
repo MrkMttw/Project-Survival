@@ -1,0 +1,822 @@
+fileFormatVersion: 2
+guid: f391867c520490640afee4f496478d27
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3930653856561980594
+    second: SmokeAnimation2_0
+  - first:
+      213: -5726103923498666158
+    second: SmokeAnimation2_1
+  - first:
+      213: 4402651723242310812
+    second: SmokeAnimation2_2
+  - first:
+      213: 451135540693081575
+    second: SmokeAnimation2_3
+  - first:
+      213: 3707787039001709096
+    second: SmokeAnimation2_4
+  - first:
+      213: 3869724229774177262
+    second: SmokeAnimation2_5
+  - first:
+      213: 154613864848434622
+    second: SmokeAnimation2_6
+  - first:
+      213: 5303370444648657059
+    second: SmokeAnimation2_7
+  - first:
+      213: -5317099847043361576
+    second: SmokeAnimation2_8
+  - first:
+      213: -5560950138754181683
+    second: SmokeAnimation2_9
+  - first:
+      213: 1589497858815173287
+    second: SmokeAnimation2_10
+  - first:
+      213: -5860155573623614021
+    second: SmokeAnimation2_11
+  - first:
+      213: 6703195412461047785
+    second: SmokeAnimation2_12
+  - first:
+      213: 1420566925189280876
+    second: SmokeAnimation2_13
+  - first:
+      213: 7384754946931815670
+    second: SmokeAnimation2_14
+  - first:
+      213: -7880395465664183965
+    second: SmokeAnimation2_15
+  - first:
+      213: 867779418294455082
+    second: SmokeAnimation2_16
+  - first:
+      213: -4504919627759031
+    second: SmokeAnimation2_17
+  - first:
+      213: -597881355790564860
+    second: SmokeAnimation2_18
+  - first:
+      213: 4655653860335677727
+    second: SmokeAnimation2_19
+  - first:
+      213: 3773032715525285483
+    second: SmokeAnimation2_20
+  - first:
+      213: 4571800684852540086
+    second: SmokeAnimation2_21
+  - first:
+      213: -4394642506418895420
+    second: SmokeAnimation2_22
+  - first:
+      213: 3869690092081763300
+    second: SmokeAnimation2_23
+  - first:
+      213: 452721854579706201
+    second: SmokeAnimation2_24
+  - first:
+      213: -2717046955897231073
+    second: SmokeAnimation2_25
+  - first:
+      213: -408311992088258395
+    second: SmokeAnimation2_26
+  - first:
+      213: -4252174030520662708
+    second: SmokeAnimation2_27
+  - first:
+      213: -6181736231499938789
+    second: SmokeAnimation2_28
+  - first:
+      213: -6069989914597662447
+    second: SmokeAnimation2_29
+  - first:
+      213: -3693273485087298580
+    second: SmokeAnimation2_30
+  - first:
+      213: 6552490016296412460
+    second: SmokeAnimation2_31
+  - first:
+      213: 8806273752229541957
+    second: SmokeAnimation2_32
+  - first:
+      213: -1705712924497007768
+    second: SmokeAnimation2_33
+  - first:
+      213: 3191080912769791184
+    second: SmokeAnimation2_34
+  - first:
+      213: -7630488797601480229
+    second: SmokeAnimation2_35
+  - first:
+      213: 1196256305031878780
+    second: SmokeAnimation2_36
+  - first:
+      213: -4958161389231718772
+    second: SmokeAnimation2_37
+  - first:
+      213: -4089323274903431211
+    second: SmokeAnimation2_38
+  - first:
+      213: -8665022615079084021
+    second: SmokeAnimation2_39
+  - first:
+      213: 6075300163138498442
+    second: SmokeAnimation2_40
+  - first:
+      213: 7448772213107788337
+    second: SmokeAnimation2_41
+  - first:
+      213: 8206858379337627983
+    second: SmokeAnimation2_42
+  - first:
+      213: -7750898748887865757
+    second: SmokeAnimation2_43
+  - first:
+      213: 5494476680387639392
+    second: SmokeAnimation2_44
+  - first:
+      213: -5455262397890500757
+    second: SmokeAnimation2_45
+  - first:
+      213: -825240426448240439
+    second: SmokeAnimation2_46
+  - first:
+      213: 5429392014786274414
+    second: SmokeAnimation2_47
+  - first:
+      213: 7813501197221732760
+    second: SmokeAnimation2_48
+  - first:
+      213: -8215044897383064247
+    second: SmokeAnimation2_49
+  - first:
+      213: -7519129100333728366
+    second: SmokeAnimation2_50
+  - first:
+      213: -8006117395506461103
+    second: SmokeAnimation2_51
+  - first:
+      213: 8431044780226433803
+    second: SmokeAnimation2_52
+  - first:
+      213: -3221170644930899584
+    second: SmokeAnimation2_53
+  - first:
+      213: 1009337858099032412
+    second: SmokeAnimation2_54
+  - first:
+      213: -2539387387765055995
+    second: SmokeAnimation2_55
+  - first:
+      213: 6276486274020902935
+    second: SmokeAnimation2_56
+  - first:
+      213: 543845303876338043
+    second: SmokeAnimation2_57
+  - first:
+      213: -5554412238555686972
+    second: SmokeAnimation2_58
+  - first:
+      213: 1921913881393859775
+    second: SmokeAnimation2_59
+  - first:
+      213: 5862844663992851720
+    second: SmokeAnimation2_60
+  - first:
+      213: -4885563412302092673
+    second: SmokeAnimation2_61
+  - first:
+      213: -3321291319422042114
+    second: SmokeAnimation2_62
+  - first:
+      213: -2830711994083405264
+    second: SmokeAnimation2_63
+  - first:
+      213: -6246854001584374970
+    second: SmokeAnimation2_64
+  - first:
+      213: -4513270885248613441
+    second: SmokeAnimation2_65
+  - first:
+      213: 3238027375131202285
+    second: SmokeAnimation2_66
+  - first:
+      213: -8805714223648973469
+    second: SmokeAnimation2_67
+  - first:
+      213: 2073744280395025944
+    second: SmokeAnimation2_68
+  - first:
+      213: -8971325282332699173
+    second: SmokeAnimation2_69
+  - first:
+      213: 2765458489220414241
+    second: SmokeAnimation2_70
+  - first:
+      213: 3628009954344634538
+    second: SmokeAnimation2_71
+  - first:
+      213: 3742360442882958780
+    second: SmokeAnimation2_72
+  - first:
+      213: 8696432075067207638
+    second: SmokeAnimation2_73
+  - first:
+      213: 3984241041598635436
+    second: SmokeAnimation2_74
+  - first:
+      213: 1655271751728107365
+    second: SmokeAnimation2_75
+  - first:
+      213: -812332424888750561
+    second: SmokeAnimation2_76
+  - first:
+      213: -9031142569168373857
+    second: SmokeAnimation2_77
+  - first:
+      213: 1499465613160628733
+    second: SmokeAnimation2_78
+  - first:
+      213: 7696731895049691277
+    second: SmokeAnimation2_79
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: SmokeAnimation2_0
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 639
+        width: 81
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4b9a9894238379c0800000000000000
+      internalID: -3930653856561980594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SmokeAnimation2_1
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 630
+        width: 111
+        height: 93
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25734ecd1dac880b0800000000000000
+      internalID: -5726103923498666158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SmokeAnimation2_2
+      rect:
+        serializedVersion: 2
+        x: 789
+        y: 619
+        width: 137
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9c8e918a6c591d30800000000000000
+      internalID: 4402651723242310812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SmokeAnimation2_3
+      rect:
+        serializedVersion: 2
+        x: 1110
+        y: 609
+        width: 164
+        height: 132
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ed90905261c24600800000000000000
+      internalID: 451135540693081575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SmokeAnimation2_4
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 435
+        width: 156
+        height: 134
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82a8e72daa4b47330800000000000000
+      internalID: 3707787039001709096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SmokeAnimation2_5
+      rect:
+        serializedVersion: 2
+        x: 438
+        y: 435
+        width: 155
+        height: 134
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee3796e2fa504b530800000000000000
+      internalID: 3869724229774177262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SmokeAnimation2_6
+      rect:
+        serializedVersion: 2
+        x: 765
+        y: 418
+        width: 185
+        height: 165
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb524abad7c452200800000000000000
+      internalID: 154613864848434622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SmokeAnimation2_7
+      rect:
+        serializedVersion: 2
+        x: 1098
+        y: 413
+        width: 186
+        height: 173
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a0b699225b599940800000000000000
+      internalID: 5303370444648657059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SmokeAnimation2_8
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 221
+        width: 192
+        height: 177
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d452bd3cddd536b0800000000000000
+      internalID: -5317099847043361576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SmokeAnimation2_9
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 217
+        width: 207
+        height: 186
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc5d5eddf4983d2b0800000000000000
+      internalID: -5560950138754181683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SmokeAnimation2_10
+      rect:
+        serializedVersion: 2
+        x: 765
+        y: 217
+        width: 208
+        height: 186
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a22ced81e70f0610800000000000000
+      internalID: 1589497858815173287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SmokeAnimation2_11
+      rect:
+        serializedVersion: 2
+        x: 1094
+        y: 228
+        width: 189
+        height: 168
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb593a1ed8b8caea0800000000000000
+      internalID: -5860155573623614021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SmokeAnimation2_12
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 34
+        width: 192
+        height: 163
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9efc4cb66b8860d50800000000000000
+      internalID: 6703195412461047785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SmokeAnimation2_13
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 26
+        width: 194
+        height: 178
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c64739b871ed6b310800000000000000
+      internalID: 1420566925189280876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SmokeAnimation2_14
+      rect:
+        serializedVersion: 2
+        x: 782
+        y: 33
+        width: 186
+        height: 171
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b2f58c108c427f30800000000000000
+      internalID: 4571800684852540086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SmokeAnimation2_15
+      rect:
+        serializedVersion: 2
+        x: 1092
+        y: 33
+        width: 193
+        height: 168
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15603c2a5ae84e090800000000000000
+      internalID: -8006117395506461103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SmokeAnimation2_16
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 641
+        width: 93
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f597809c3aa2cd34db31fc722e961041
+      internalID: 867779418294455082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 51034dd10273cf948aea567665246769
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      SmokeAnimation2_0: -3930653856561980594
+      SmokeAnimation2_1: -5726103923498666158
+      SmokeAnimation2_10: 1589497858815173287
+      SmokeAnimation2_11: -5860155573623614021
+      SmokeAnimation2_12: 6703195412461047785
+      SmokeAnimation2_13: 1420566925189280876
+      SmokeAnimation2_14: 4571800684852540086
+      SmokeAnimation2_15: -8006117395506461103
+      SmokeAnimation2_16: 867779418294455082
+      SmokeAnimation2_17: -4504919627759031
+      SmokeAnimation2_18: -597881355790564860
+      SmokeAnimation2_19: 4655653860335677727
+      SmokeAnimation2_2: 4402651723242310812
+      SmokeAnimation2_20: 3773032715525285483
+      SmokeAnimation2_22: -4394642506418895420
+      SmokeAnimation2_23: 3869690092081763300
+      SmokeAnimation2_24: 452721854579706201
+      SmokeAnimation2_25: -2717046955897231073
+      SmokeAnimation2_26: -408311992088258395
+      SmokeAnimation2_27: -4252174030520662708
+      SmokeAnimation2_28: -6181736231499938789
+      SmokeAnimation2_29: -6069989914597662447
+      SmokeAnimation2_3: 451135540693081575
+      SmokeAnimation2_30: -3693273485087298580
+      SmokeAnimation2_31: 6552490016296412460
+      SmokeAnimation2_32: 8806273752229541957
+      SmokeAnimation2_33: -1705712924497007768
+      SmokeAnimation2_34: 3191080912769791184
+      SmokeAnimation2_35: -7630488797601480229
+      SmokeAnimation2_36: 1196256305031878780
+      SmokeAnimation2_37: -4958161389231718772
+      SmokeAnimation2_38: -4089323274903431211
+      SmokeAnimation2_39: -8665022615079084021
+      SmokeAnimation2_4: 3707787039001709096
+      SmokeAnimation2_40: 6075300163138498442
+      SmokeAnimation2_41: 7448772213107788337
+      SmokeAnimation2_42: 8206858379337627983
+      SmokeAnimation2_43: -7750898748887865757
+      SmokeAnimation2_44: 5494476680387639392
+      SmokeAnimation2_45: -5455262397890500757
+      SmokeAnimation2_46: -825240426448240439
+      SmokeAnimation2_47: 5429392014786274414
+      SmokeAnimation2_48: 7813501197221732760
+      SmokeAnimation2_49: -8215044897383064247
+      SmokeAnimation2_5: 3869724229774177262
+      SmokeAnimation2_50: -7519129100333728366
+      SmokeAnimation2_52: 8431044780226433803
+      SmokeAnimation2_53: -3221170644930899584
+      SmokeAnimation2_54: 1009337858099032412
+      SmokeAnimation2_55: -2539387387765055995
+      SmokeAnimation2_56: 6276486274020902935
+      SmokeAnimation2_57: 543845303876338043
+      SmokeAnimation2_58: -5554412238555686972
+      SmokeAnimation2_59: 1921913881393859775
+      SmokeAnimation2_6: 154613864848434622
+      SmokeAnimation2_60: 5862844663992851720
+      SmokeAnimation2_61: -4885563412302092673
+      SmokeAnimation2_62: -3321291319422042114
+      SmokeAnimation2_63: -2830711994083405264
+      SmokeAnimation2_64: -6246854001584374970
+      SmokeAnimation2_65: -4513270885248613441
+      SmokeAnimation2_66: 3238027375131202285
+      SmokeAnimation2_67: -8805714223648973469
+      SmokeAnimation2_68: 2073744280395025944
+      SmokeAnimation2_69: -8971325282332699173
+      SmokeAnimation2_7: 5303370444648657059
+      SmokeAnimation2_70: 2765458489220414241
+      SmokeAnimation2_71: 3628009954344634538
+      SmokeAnimation2_72: 3742360442882958780
+      SmokeAnimation2_73: 8696432075067207638
+      SmokeAnimation2_74: 3984241041598635436
+      SmokeAnimation2_75: 1655271751728107365
+      SmokeAnimation2_76: -812332424888750561
+      SmokeAnimation2_77: -9031142569168373857
+      SmokeAnimation2_78: 1499465613160628733
+      SmokeAnimation2_79: 7696731895049691277
+      SmokeAnimation2_8: -5317099847043361576
+      SmokeAnimation2_9: -5560950138754181683
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -245,7 +245,7 @@ public class BreakSystem : MonoBehaviour
             StartCoroutine(FinishBreaking(material));
         }
     }
-        
+    
     private IEnumerator FinishBreaking(BreakableMaterial material)
     {
         // CHECK FOR TREE ANIMATION
@@ -256,6 +256,18 @@ public class BreakSystem : MonoBehaviour
         if (treeFall != null)
         {
             yield return treeFall.PlayFall(player.position);
+        }
+
+        // FIND SMOKE EFFECT
+        SmokeEffectAnimator smokeEffect =
+            material.GetComponentInParent<SmokeEffectAnimator>();
+
+        GameObject detachedSmoke = null;
+
+        // PLAY SMOKE
+        if (smokeEffect != null)
+        {
+            detachedSmoke = smokeEffect.PlaySmokeDetached();
         }
 
         // MARK STRUCTURE AS DESTROYED
@@ -294,19 +306,27 @@ public class BreakSystem : MonoBehaviour
         Vector3 dropPosition = material.transform.position;
 
         if (treeFall != null)
-        {
             dropPosition = treeFall.transform.position;
-        }
 
         DropItem(material, dropPosition);
 
-        // DESTROY SHADOW
+        // WAIT FOR SMOKE
+        if (detachedSmoke != null)
+        {
+            yield return new WaitForSeconds(
+                smokeEffect.SmokeDuration
+            );
+
+            Destroy(detachedSmoke);
+        }
+
+        // DESTROY TREE SHADOW
         if (treeFall != null && treeFall.shadowElement != null)
         {
             Destroy(treeFall.shadowElement);
         }
 
-        // DESTROY OBJECT
+        // DESTROY BROKEN OBJECT
         if (treeFall != null)
         {
             Destroy(treeFall.gameObject);
