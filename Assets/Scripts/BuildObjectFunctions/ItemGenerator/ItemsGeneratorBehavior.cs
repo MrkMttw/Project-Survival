@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class ItemsGeneratorBehavior : MonoBehaviour
@@ -23,6 +24,9 @@ public class ItemsGeneratorBehavior : MonoBehaviour
     public float vibrationAmount = 0.03f;
     public float vibrationSpeed = 25f;
 
+    [Header("Smoke Effect")]
+    [SerializeField] private SmokeEffectAnimator smokeEffectAnimator;
+
     private Vector3 originalLocalPosition;
     private BuildingObject building;
     private WorldGenerator worldGenerator;
@@ -46,10 +50,10 @@ public class ItemsGeneratorBehavior : MonoBehaviour
             isActive = data.generatorIsActive;
 
             if (data.generatorRemainingTime > 0f)
-            {
                 remainingTime = data.generatorRemainingTime;
-            }
         }
+
+        SyncBuildingState();
     }
 
     private void Update()
@@ -67,9 +71,11 @@ public class ItemsGeneratorBehavior : MonoBehaviour
 
         GenerateItem();
 
+        // AUTOMATICALLY TURN OFF
         isActive = false;
         remainingTime = Mathf.Max(0.1f, generationDelay);
 
+        SyncBuildingState();
         SaveGeneratorState();
     }
 
@@ -81,7 +87,16 @@ public class ItemsGeneratorBehavior : MonoBehaviour
         isActive = true;
         remainingTime = Mathf.Max(0.1f, generationDelay);
 
+        SyncBuildingState();
         SaveGeneratorState();
+    }
+
+    private void SyncBuildingState()
+    {
+        if (building == null)
+            return;
+
+        building.SetState(isActive);
     }
 
     private void GenerateItem()
@@ -105,6 +120,10 @@ public class ItemsGeneratorBehavior : MonoBehaviour
         if (spawnedItem != null)
         {
             spawnedItem.transform.position = transform.position;
+
+            // PLAY SMOKE EFFECT
+            if (smokeEffectAnimator != null)
+                smokeEffectAnimator.PlaySmoke();
         }
     }
 

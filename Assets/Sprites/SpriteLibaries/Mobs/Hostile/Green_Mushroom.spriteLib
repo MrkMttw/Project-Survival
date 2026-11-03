@@ -79,6 +79,52 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: -903535117, guid: 33389417ce096a845b96ddfb0e226cb1, type: 3}
     m_FromMain: 0
     m_EntryOverrideCount: 12
+  - m_Name: Attack
+    m_Hash: 7088141
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: attack_sprite_sheet_0
+      m_Hash: 979277246
+      m_Sprite: {fileID: -1770206705, guid: 56d5443bba96bc44288f39d55fb7fe60, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1770206705, guid: 56d5443bba96bc44288f39d55fb7fe60, type: 3}
+    - m_Name: attack_sprite_sheet_1
+      m_Hash: 223978792
+      m_Sprite: {fileID: -736771530, guid: 56d5443bba96bc44288f39d55fb7fe60, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -736771530, guid: 56d5443bba96bc44288f39d55fb7fe60, type: 3}
+    - m_Name: attack_sprite_sheet_2
+      m_Hash: 340849810
+      m_Sprite: {fileID: -2068595580, guid: 56d5443bba96bc44288f39d55fb7fe60, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -2068595580, guid: 56d5443bba96bc44288f39d55fb7fe60, type: 3}
+    - m_Name: attack_sprite_sheet_3
+      m_Hash: 592954372
+      m_Sprite: {fileID: -612764325, guid: 56d5443bba96bc44288f39d55fb7fe60, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -612764325, guid: 56d5443bba96bc44288f39d55fb7fe60, type: 3}
+    - m_Name: attack_sprite_sheet_4
+      m_Hash: 1026773415
+      m_Sprite: {fileID: 1228745836, guid: 56d5443bba96bc44288f39d55fb7fe60, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1228745836, guid: 56d5443bba96bc44288f39d55fb7fe60, type: 3}
+    - m_Name: attack_sprite_sheet_5
+      m_Hash: 171204913
+      m_Sprite: {fileID: -1932103305, guid: 56d5443bba96bc44288f39d55fb7fe60, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1932103305, guid: 56d5443bba96bc44288f39d55fb7fe60, type: 3}
+    - m_Name: attack_sprite_sheet_6
+      m_Hash: 322777227
+      m_Sprite: {fileID: 1941912421, guid: 56d5443bba96bc44288f39d55fb7fe60, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1941912421, guid: 56d5443bba96bc44288f39d55fb7fe60, type: 3}
+    - m_Name: attack_sprite_sheet_7
+      m_Hash: 607780893
+      m_Sprite: {fileID: -308428259, guid: 56d5443bba96bc44288f39d55fb7fe60, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -308428259, guid: 56d5443bba96bc44288f39d55fb7fe60, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 8
   m_PrimaryLibraryGUID: 
-  m_ModificationHash: 639273094593307745
+  m_ModificationHash: 639292878081199655
   m_Version: 1

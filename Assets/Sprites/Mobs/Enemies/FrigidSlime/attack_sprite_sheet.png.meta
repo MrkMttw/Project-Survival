@@ -1,0 +1,423 @@
+fileFormatVersion: 2
+guid: 2eff8192ea794344da25fc9042be870e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 457182000033337222
+    second: Slime4Attack_0
+  - first:
+      213: 4978259189465040757
+    second: Slime4Attack_1
+  - first:
+      213: 7364482162073750565
+    second: Slime4Attack_2
+  - first:
+      213: 7040474583629584516
+    second: Slime4Attack_3
+  - first:
+      213: 1210399401354686796
+    second: Slime4Attack_4
+  - first:
+      213: 6669805963663085096
+    second: Slime4Attack_5
+  - first:
+      213: -6549427321955728151
+    second: Slime4Attack_6
+  - first:
+      213: -3382308865659604405
+    second: Slime4Attack_7
+  - first:
+      213: 4404793822246883416
+    second: Slime4Attack_8
+  - first:
+      213: 8772256627058450224
+    second: Slime4Attack_9
+  - first:
+      213: -342541312315537849
+    second: Slime4Attack_10
+  - first:
+      213: -4465259778798007991
+    second: Slime4Attack_11
+  - first:
+      213: 18772583878399452
+    second: Slime4Attack_12
+  - first:
+      213: 2366867877443759254
+    second: Slime4Attack_13
+  - first:
+      213: -4585190536357999127
+    second: Slime4Attack_14
+  - first:
+      213: -8120037919877785138
+    second: Slime4Attack_15
+  - first:
+      213: 532784773876130247
+    second: Slime4Attack_16
+  - first:
+      213: -4731048428293830720
+    second: Slime4Attack_17
+  - first:
+      213: 9182742720743418529
+    second: Slime4Attack_18
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: attack_sprite_sheet_0
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 117
+        width: 17
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 072bcfc779139cd4fa73f6f2e5dd9028
+      internalID: 1726495898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack_sprite_sheet_1
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 116
+        width: 18
+        height: 19
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2597d05334ce95a4c8bb69f7ff50c0b9
+      internalID: 570409722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack_sprite_sheet_2
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 115
+        width: 18
+        height: 21
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21fa57b2af5e346409abb3920705edec
+      internalID: 895753264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack_sprite_sheet_3
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 112
+        width: 19
+        height: 27
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6641c49e77ab2694ba25d4ed9af567d5
+      internalID: 573375103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack_sprite_sheet_7
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 55
+        width: 21
+        height: 40
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1775609e66fc7bb4abb232722d1b7526
+      internalID: 616087859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack_sprite_sheet_4
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 59
+        width: 20
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 529f0b25b6af76249aff50cb5c8246b2
+      internalID: 2123368042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack_sprite_sheet_5
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 56
+        width: 19
+        height: 38
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9de0cdc2ef3293444901981e16e05e33
+      internalID: 903711694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack_sprite_sheet_6
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 58
+        width: 21
+        height: 34
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2aa4d75f244fdf448047d3a732b80b8
+      internalID: 503284245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack_sprite_sheet_8
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 6
+        width: 18
+        height: 39
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2e04b8b3ef978d458978b3423c8bde1
+      internalID: 403201651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack_sprite_sheet_9
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 17
+        width: 17
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09f888306e887834d97aead40304079a
+      internalID: -51504137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 2b3059194c532bb4695f3c11e9173c54
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      attack_sprite_sheet_0: 1726495898
+      attack_sprite_sheet_1: 570409722
+      attack_sprite_sheet_13: -1796436287
+      attack_sprite_sheet_14: 1250931956
+      attack_sprite_sheet_17: -1608558065
+      attack_sprite_sheet_18: -1785539988
+      attack_sprite_sheet_2: 895753264
+      attack_sprite_sheet_3: 573375103
+      attack_sprite_sheet_4: 2123368042
+      attack_sprite_sheet_5: 903711694
+      attack_sprite_sheet_6: 503284245
+      attack_sprite_sheet_7: 616087859
+      attack_sprite_sheet_8: 403201651
+      attack_sprite_sheet_9: -51504137
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

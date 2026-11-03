@@ -55,6 +55,10 @@ public class FurnaceBehavior : MonoBehaviour
     public void SetCooking(bool cooking)
     {
         isCooking = cooking;
+
+        if (building != null)
+            building.SetState(isCooking);
+
         SaveState();
     }
 
@@ -261,6 +265,8 @@ public class FurnaceBehavior : MonoBehaviour
         isCooking = data.furnaceIsCooking;
         smeltProgress = data.furnaceSmeltProgress;
         fuelRemaining = data.furnaceFuelRemaining;
+
+        building.SetState(isCooking);
     }
 
     private void SaveState()

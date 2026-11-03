@@ -634513,7 +634513,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameClock
   realSecondsPerGameHour: 15
-  startingHour: 19
+  startingHour: 6
   startingMinute: 0
   startingDay: 1
   use12HourFormat: 1
@@ -636676,8 +636676,8 @@ MonoBehaviour:
   player: {fileID: 543478632}
   worldGenerator: {fileID: 1040017515}
   generatorBuildingPrefabs:
-  - {fileID: 1931012163729181468, guid: beaf364efc6be18418852efad2e2ca0e, type: 3}
   - {fileID: 8675234145191383315, guid: 0193cc9a50e9b2346beb1c4780470699, type: 3}
+  - {fileID: 1931012163729181468, guid: beaf364efc6be18418852efad2e2ca0e, type: 3}
 --- !u!1 &1195284679
 GameObject:
   m_ObjectHideFlags: 0
