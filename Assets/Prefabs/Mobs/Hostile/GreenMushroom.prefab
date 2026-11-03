@@ -9,8 +9,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -7377677427859226636, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: m_labelHash
+      value: 1.590883e-24
+      objectReference: {fileID: 0}
+    - target: {fileID: -7377677427859226636, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_SpriteHash
-      value: 647024314
+      value: 295173676
+      objectReference: {fileID: 0}
+    - target: {fileID: -7377677427859226636, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: m_CategoryHash
+      value: 0.000000020668566
       objectReference: {fileID: 0}
     - target: {fileID: 66469021256868083, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: rb
@@ -19,6 +27,10 @@ PrefabInstance:
     - target: {fileID: 66469021256868083, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: animator
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1330580274994532926, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: attackTrigger
+      value: MushroomAttack
       objectReference: {fileID: 0}
     - target: {fileID: 1331486460801449365, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Color.b
@@ -49,12 +61,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3655246650299843580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 0.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 3655246650299843580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3655246650299843580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.63
+      value: 0.16
       objectReference: {fileID: 0}
     - target: {fileID: 3655246650299843580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1.63
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 4116513312689265495, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_SpriteHash
@@ -81,9 +101,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7108339969198208228, guid: b40d6de2683c7af42a1ea819c9a37dd9, type: 3}
     - target: {fileID: 4417746939183367772, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: m_Size.x
+      value: 0.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 4417746939183367772, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: m_Size.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4417746939183367772, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 1472951027, guid: 33389417ce096a845b96ddfb0e226cb1, type: 3}
+      objectReference: {fileID: 3598816396581488280, guid: 85f6663529c5904489990dee404e893c, type: 3}
     - target: {fileID: 4440019151895969526, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Color.b
       value: 0.4980392
@@ -138,7 +166,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8360457301408759976, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 2
+      value: 0.245
       objectReference: {fileID: 0}
     - target: {fileID: 8631369034572204580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: baseDamage
@@ -155,6 +183,10 @@ PrefabInstance:
     - target: {fileID: 8631369034572204580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: detectionRange
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8930902574207177744, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: m_labelHash
+      value: 1.5803954e-23
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

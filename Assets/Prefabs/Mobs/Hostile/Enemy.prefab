@@ -26,9 +26,9 @@ Transform:
   m_GameObject: {fileID: 75686120185049652}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0435, y: -0.4663, z: 0}
-  m_LocalScale: {x: 2.8521383, y: 1.9266647, z: 21.666668}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: -0.004, y: 0.011, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.13510318, z: 1.5193281}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7514040269052818340}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -121,8 +121,8 @@ Transform:
   m_GameObject: {fileID: 404599200361799166}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 4, y: 2, z: 2}
+  m_LocalPosition: {x: 0, y: 0.118, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7514040269052818340}
@@ -214,7 +214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.2D.Animation.Runtime::UnityEngine.U2D.Animation.SpriteResolver
   m_CategoryHash: 0.000000005954094
-  m_labelHash: 3.7962041e-34
+  m_labelHash: 1.5803954e-23
   m_SpriteKey: 0
   m_SpriteHash: 53927238
 --- !u!95 &8569604651964635480
@@ -260,6 +260,7 @@ GameObject:
   - component: {fileID: -7377677427859226636}
   - component: {fileID: 9056907103388623937}
   - component: {fileID: 6081825070909272709}
+  - component: {fileID: 1330580274994532926}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Untagged
@@ -277,7 +278,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.71555, y: 1.17479, z: 0}
-  m_LocalScale: {x: 0.45, y: 0.45, z: 0.45}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3289452482104178595}
@@ -407,8 +408,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 1}
+  m_Offset: {x: 0.00034650564, y: 0.08175732}
+  m_Size: {x: 0.09475892, y: 0.09475892}
   m_Direction: 0
 --- !u!61 &3655246650299843580
 BoxCollider2D:
@@ -444,7 +445,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.000000014901161, y: 0.13214354}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -454,7 +455,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.22962758, y: 0.26246616}
   m_EdgeRadius: 0
 --- !u!114 &8631369034572204580
 MonoBehaviour:
@@ -479,6 +480,7 @@ MonoBehaviour:
   detectionRange: 8
   chaseRange: 10
   attackRange: 1.2
+  attackDamageDelay: 0.3
   attackCooldown: 1
   firstAttackDelay: 0.5
   stoppingDistance: 1.2
@@ -599,6 +601,21 @@ MonoBehaviour:
   smokeAnimator: {fileID: 8569604651964635480}
   smokeTrigger: Play
   smokeDuration: 0.5
+--- !u!114 &1330580274994532926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2935146238334533188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1090453a0d991924f803a2bdaa10886c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MobAttackAnimator
+  mobAnimator: {fileID: 1955485923764683718}
+  attackTrigger: Attack
+  maxAttackDuration: 1.5
 --- !u!1 &3647285071756393200
 GameObject:
   m_ObjectHideFlags: 0
@@ -634,7 +651,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1, y: 0.15}
+  m_SizeDelta: {x: 0.1, y: 0.015}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6259996852522893737
 CanvasRenderer:
@@ -700,7 +717,7 @@ Transform:
   m_GameObject: {fileID: 3747118056970759841}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0.09, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -814,7 +831,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1, y: 0.15}
+  m_SizeDelta: {x: 0.1, y: 0.015}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1112202136304584522
 CanvasRenderer:
@@ -891,8 +908,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 3}
-  m_SizeDelta: {x: 1, y: 0.15}
+  m_AnchoredPosition: {x: 0, y: 0.245}
+  m_SizeDelta: {x: 0.1, y: 0.015}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &3918481013470358601
 Canvas:

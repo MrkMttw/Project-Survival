@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: movementThreshold
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1330580274994532926, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: attackTrigger
+      value: MushroomAttack
+      objectReference: {fileID: 0}
     - target: {fileID: 1331486460801449365, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Color.g
       value: 0.5647059
@@ -37,12 +41,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3655246650299843580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 0.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 3655246650299843580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3655246650299843580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 2.5
+      value: 0.16
       objectReference: {fileID: 0}
     - target: {fileID: 3655246650299843580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 2.52
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 4126768581658979578, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Color.g
@@ -61,9 +73,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4417746939183367772, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: m_Size.x
+      value: 0.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 4417746939183367772, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: m_Size.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4417746939183367772, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 310177306, guid: 383171f894f041b4aa49e3030b2c5b44, type: 3}
+      objectReference: {fileID: -1872669166, guid: a480798411dd4c74a9061ac8218e3138, type: 3}
     - target: {fileID: 4440019151895969526, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Color.g
       value: 0.5647059
@@ -71,6 +91,18 @@ PrefabInstance:
     - target: {fileID: 4440019151895969526, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Color.r
       value: 0.1176471
+      objectReference: {fileID: 0}
+    - target: {fileID: 7514040269052818340, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7514040269052818340, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7514040269052818340, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7514040269052818340, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -181,6 +213,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.2D.Animation.Runtime::UnityEngine.U2D.Animation.SpriteResolver
   m_CategoryHash: 0.000000020668566
-  m_labelHash: 4.0846696e-19
+  m_labelHash: 1.590883e-24
   m_SpriteKey: 0
-  m_SpriteHash: 647024314
+  m_SpriteHash: 295173676

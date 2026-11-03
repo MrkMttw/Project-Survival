@@ -35,7 +35,10 @@ public class HostileMobBehavior : MonoBehaviour
     public float chaseRange = 10f;
 
     [Header("Combat")]
-    public float attackRange = 1.2f;
+    public float attackRange = 1.5f;
+
+    [Tooltip("Delay before damage is applied after the attack animation starts.")]
+    public float attackDamageDelay = 0.3f;
 
     [Tooltip("Delay after an attack before the enemy can attack again.")]
     public float attackCooldown = 1f;
@@ -45,7 +48,7 @@ public class HostileMobBehavior : MonoBehaviour
 
     [Header("AI Movement")]
     [Tooltip("How close the enemy gets to the player before stopping.")]
-    public float stoppingDistance = 1.3f;
+    public float stoppingDistance = 1.0f;
 
     [Tooltip("Layer containing walls/obstacles.")]
     public LayerMask obstacleLayer;
@@ -69,6 +72,9 @@ public class HostileMobBehavior : MonoBehaviour
     [Tooltip("How long the enemy commits to an avoidance direction.")]
     public float avoidanceDuration = 0.35f;
 
+    // Attack
+    private MobAttackAnimator mobAttackAnimator;
+
     // Components
     private Rigidbody2D rb;
 
@@ -85,6 +91,7 @@ public class HostileMobBehavior : MonoBehaviour
     private float firstAttackTimer;
 
     // State
+    private bool isAttackAnimationPlaying;
     private bool isChasing;
     private bool isAttacking;
     private bool isKnockedBack;
@@ -105,6 +112,25 @@ public class HostileMobBehavior : MonoBehaviour
         {
             Debug.LogError(
                 "HostileMobBehavior: Rigidbody2D is missing!",
+                this
+            );
+        }
+
+        mobAttackAnimator = GetComponentInChildren<MobAttackAnimator>(true);
+
+        if (mobAttackAnimator != null)
+        {
+            mobAttackAnimator.AttackFinished += OnAttackAnimationFinished;
+
+            Debug.Log(
+                "[HostileMobBehavior] Successfully subscribed to attack events!",
+                this
+            );
+        }
+        else
+        {
+            Debug.LogWarning(
+                "HostileMobBehavior: MobAttackAnimator is missing!",
                 this
             );
         }
@@ -347,42 +373,99 @@ public class HostileMobBehavior : MonoBehaviour
     }
 
     // ATTACK
-
+    
     private void AttackPlayer()
     {
-        // First attack delay.
+        if (isKnockedBack || isDead)
+            return;
+
+        // FIRST ATTACK DELAY
         if (firstAttackTimer > 0f)
         {
             firstAttackTimer -= Time.deltaTime;
             return;
         }
 
-        // Attack cooldown.
+        // ATTACK COOLDOWN
         if (attackTimer > 0f)
             return;
 
-        
-    float damage = baseDamage;
-    bool isCritical = Random.Range(0f, 100f) < critChance;
+        // PREVENT REPEATED ATTACKS
+        if (isAttackAnimationPlaying)
+            return;
 
-    if (isCritical)
-    {
-        damage += playerHealth.maxHealth *
-                (attackDamagePercent / 100f);
+        if (mobAttackAnimator == null)
+            return;
+
+        // START ATTACK
+        if (mobAttackAnimator.PlayAttack())
+        {
+            isAttackAnimationPlaying = true;
+
+            StartCoroutine(ApplyDelayedAttackDamage());
+        }
     }
 
-    playerHealth.TakeDamage(damage);
+    // APPLY DAMAGE AT THE ANIMATION HIT FRAME
 
-    Debug.Log(
-        gameObject.name +
-        (isCritical ? " landed a CRITICAL HIT for " : " attacked the player for ") +
-        damage.ToString("F1") +
-        " damage."
-    );
+    private System.Collections.IEnumerator ApplyDelayedAttackDamage()
+    {
+        yield return new WaitForSeconds(attackDamageDelay);
+
+        if (isDead || isKnockedBack)
+            yield break;
+
+        ApplyAttackDamage();
+    }
+    
+    private void ApplyAttackDamage()
+    {
+        Debug.Log("ATTACK HIT EVENT RECEIVED!");
+
+        if (isDead || isKnockedBack || player == null || playerHealth == null)
+            return;
+
+        // CHECK IF PLAYER IS STILL IN ATTACK RANGE
+        float distance = Vector2.Distance(
+            rb.position,
+            (Vector2)player.position
+        );
+
+        if (distance > attackRange)
+            return;
+
+        // CALCULATE DAMAGE
+        float damage = baseDamage;
+
+        bool isCritical = Random.Range(0f, 100f) < critChance;
+
+        if (isCritical)
+        {
+            damage += playerHealth.maxHealth *
+                    (attackDamagePercent / 100f);
+        }
+
+        // APPLY DAMAGE
+        playerHealth.TakeDamage(damage);
+
+        Debug.Log(
+            gameObject.name +
+            (isCritical ? " landed a CRITICAL HIT for " :
+                        " attacked the player for ") +
+            damage.ToString("F1") +
+            " damage."
+        );
+    }
+
+    // ATTACK ANIMATION FINISHED
+    private void OnAttackAnimationFinished()
+    {
+        Debug.Log("ATTACK FINISHED - READY FOR NEXT ATTACK!");
+
+        isAttackAnimationPlaying = false;
 
         attackTimer = attackCooldown;
     }
-
 
     // HEALTH
 
@@ -643,5 +726,11 @@ public class HostileMobBehavior : MonoBehaviour
         // STOPPING DISTANCE
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, stoppingDistance);
+    }
+
+    private void OnDestroy()
+    {
+        if (mobAttackAnimator != null)
+            mobAttackAnimator.AttackFinished -= OnAttackAnimationFinished;
     }
 }
