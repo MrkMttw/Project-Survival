@@ -10,6 +10,9 @@ public class ProjectileWeaponController : MonoBehaviour
     [Header("Inventory")]
     public HotbarController hotbarController;
 
+    [Header("Hand Smoke")]
+    public SmokeEffectAnimator handSmokeEffect;
+
     private float nextAttackTime;
 
     private void Start()
@@ -158,6 +161,12 @@ public class ProjectileWeaponController : MonoBehaviour
             damage,
             weapon.knockbackStrength
         );
+        
+        // PLAY HAND SMOKE
+        if (handSmokeEffect != null)
+        {
+            handSmokeEffect.PlaySmoke();
+        }
 
         // CONSUME WEAPON DURABILITY
         Item equippedItem = playerHeldItem.GetHeldItem();

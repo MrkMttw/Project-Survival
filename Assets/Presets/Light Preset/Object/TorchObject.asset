@@ -15,6 +15,8 @@ MonoBehaviour:
   worldObjectPrefab: {fileID: 2129169679768779416, guid: 9b514b218293640429e1501f878a6b23, type: 3}
   intensity: 2
   radius: 5
+  hasHostileMobProtection: 1
+  hostileMobProtectionRadius: 10
   enableFlicker: 1
   flickerAmount: 0.25
   flickerSpeed: 2

@@ -6,6 +6,7 @@ public class GameOverController : MonoBehaviour
 {
     [Header("References")]
     public HealthController healthController;
+    public HungerController hungerController;
     public GameObject gameOverPanel;
     public Transform player;
 
@@ -169,6 +170,12 @@ public class GameOverController : MonoBehaviour
 
         // RESTORE HEALTH
         healthController.RespawnHealth();
+
+        // RESET HUNGER
+        if (hungerController != null)
+        {
+            hungerController.ResetHunger();
+        }
 
         // CLOSE GAME OVER
         isGameOver = false;

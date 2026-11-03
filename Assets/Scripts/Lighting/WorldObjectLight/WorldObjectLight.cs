@@ -12,6 +12,37 @@ public class WorldObjectLight : MonoBehaviour
 
     public WorldObjectLightPreset Preset => preset;
 
+    public bool ProvidesHostileMobProtection
+    {
+        get
+        {
+            if (preset == null)
+                return false;
+
+            if (!preset.hasHostileMobProtection)
+                return false;
+
+            if (preset.hostileMobProtectionRadius <= 0f)
+                return false;
+
+            BuildingObject building = GetBuildingObject();
+
+            if (building != null &&
+                building.hasOnOffState &&
+                !building.isOn)
+            {
+                return false;
+            }
+
+            return true;
+        }
+    }
+
+    public float HostileMobProtectionRadius =>
+        preset != null
+            ? preset.hostileMobProtectionRadius
+            : 0f;
+
     private void Awake()
     {
         lights = GetComponentsInChildren<Light2D>(true);
@@ -47,8 +78,19 @@ public class WorldObjectLight : MonoBehaviour
         }
     }
 
-    // APPLY PRESET
+    // BUILDING REFERENCE
+    private BuildingObject GetBuildingObject()
+    {
+        BuildingObject building =
+            GetComponentInParent<BuildingObject>();
 
+        if (building != null)
+            return building;
+
+        return transform.root.GetComponentInChildren<BuildingObject>(true);
+    }
+
+    // APPLY PRESET
     public void ApplyPreset()
     {
         if (preset == null || lights == null)
@@ -65,7 +107,6 @@ public class WorldObjectLight : MonoBehaviour
     }
 
     // FLICKER
-
     public void UpdateFlicker()
     {
         if (preset == null || !preset.enableFlicker)
@@ -101,7 +142,6 @@ public class WorldObjectLight : MonoBehaviour
     }
 
     // CHECK ACTIVE LIGHTS
-
     public bool HasActiveLight()
     {
         if (lights == null)

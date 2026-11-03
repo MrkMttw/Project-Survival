@@ -12,6 +12,9 @@ public class MeleeWeaponController : MonoBehaviour
     [Header("Unarmed")]
     public WeaponData unarmedWeapon;
 
+    [Header("Hand Smoke")]
+    public SmokeEffectAnimator handSmokeEffect;
+
     private float nextAttackTime;
 
     private void Start()
@@ -141,6 +144,12 @@ public class MeleeWeaponController : MonoBehaviour
             playerHeldItem.GetHeldItem() != null)
         {
             playerHeldItem.PlaySwing();
+        }
+
+        // PLAY HAND SMOKE
+        if (handSmokeEffect != null)
+        {
+            handSmokeEffect.PlaySmoke();
         }
 
         // PERFORM ATTACK

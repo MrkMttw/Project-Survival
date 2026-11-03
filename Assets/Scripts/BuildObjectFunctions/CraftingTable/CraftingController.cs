@@ -62,12 +62,8 @@ public class CraftingController : MonoBehaviour
         {
             RefreshRecipes();
         }
-
-        if (selectedRecipe != null)
-        {
-            SelectRecipe(selectedRecipe);
-        }
     }
+
     public void SetCraftingTableAccess(bool hasAccess)
     {
         nearCraftingTable = hasAccess;
@@ -455,11 +451,22 @@ public class CraftingController : MonoBehaviour
         return false;
     }
 
+    public void ResetCraftingPanel()
+    {
+        selectedRecipe = null;
+
+        if (recipeDetails != null)
+                recipeDetails.SetActive(false);
+    }
+
     // CLOSE CRAFTING PAGE
     private void CloseCraftingPage()
     {
         isOpen = false;
         currentCraftingTable = null;
+
+        // RESET CRAFTING PANEL
+        ResetCraftingPanel();
 
         SetCraftingTableAccess(false);
 

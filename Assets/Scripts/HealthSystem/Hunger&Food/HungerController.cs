@@ -214,4 +214,17 @@ public class HungerController : MonoBehaviour
 
         UpdateHungerUI();
     }
+
+    // RESET HUNGER AFTER DEATH
+    public void ResetHunger()
+    {
+        currentHunger = maxHunger;
+        currentSaturation = 0f;
+
+        drainTimer = 0f;
+        starvationTimer = 0f;
+        healingTimer = 0f;
+
+        UpdateHungerUI();
+    }
 }

@@ -113,64 +113,98 @@ public class FurnaceBehavior : MonoBehaviour
 
     private void ProcessFurnace(float deltaTime)
     {
+        if (!isCooking)
+            return;
+
+        // CHECK INPUT
+        if (inputQuantity <= 0)
+        {
+            StopCooking();
+            return;
+        }
+
+        // CHECK RECIPE
+        CraftingRecipe recipe = FindMatchingRecipe();
+
+        if (recipe == null || recipe.itemPrefab == null)
+        {
+            StopCooking();
+            return;
+        }
+
+        Item resultItem = recipe.itemPrefab.GetComponent<Item>();
+
+        if (resultItem == null)
+        {
+            StopCooking();
+            return;
+        }
+
+        // CHECK OUTPUT SPACE
+        if (outputQuantity > 0 &&
+            (outputItemID != resultItem.ID ||
+            !resultItem.stackable ||
+            outputQuantity + recipe.craftingQuantity > resultItem.maxStackSize))
+        {
+            return;
+        }
+
+        // CONSUME FUEL
         if (fuelRemaining > 0f)
         {
             fuelRemaining = Mathf.Max(0f, fuelRemaining - deltaTime);
         }
 
-        if (!isCooking || inputQuantity <= 0)
-            return;
-
-        CraftingRecipe recipe = FindMatchingRecipe();
-
-        if (recipe == null || recipe.itemPrefab == null)
-            return;
-
-        Item resultItem = recipe.itemPrefab.GetComponent<Item>();
-
-        if (resultItem == null)
-            return;
-
-        if (outputQuantity > 0 &&
-            (outputItemID != resultItem.ID ||
-             !resultItem.stackable ||
-             outputQuantity + recipe.craftingQuantity > resultItem.maxStackSize))
-        {
-            return;
-        }
-
         if (fuelRemaining <= 0f)
         {
             if (fuelQuantity <= 0 || worldGenerator.itemDictionary == null)
+            {
+                StopCooking();
                 return;
+            }
 
             GameObject fuelPrefab =
                 worldGenerator.itemDictionary.GetItemPrefab(fuelItemID);
 
             if (fuelPrefab == null)
+            {
+                StopCooking();
                 return;
+            }
 
             Item fuelItem = fuelPrefab.GetComponent<Item>();
 
             if (fuelItem == null || !fuelItem.isFuel)
+            {
+                StopCooking();
                 return;
+            }
 
             fuelQuantity--;
             fuelRemaining = fuelItem.fuelBurnDuration;
+
             RefreshOpenSlots();
         }
 
+        // CHECK INPUT ITEM
         GameObject inputPrefab =
             worldGenerator.itemDictionary.GetItemPrefab(inputItemID);
 
         if (inputPrefab == null)
+        {
+            StopCooking();
             return;
+        }
 
         Item inputItem = inputPrefab.GetComponent<Item>();
 
         if (inputItem == null)
+        {
+            StopCooking();
             return;
+        }
 
+        // SMELTING PROGRESS
         smeltProgress += deltaTime;
 
         if (smeltProgress < inputItem.smeltingTime)
@@ -185,6 +219,7 @@ public class FurnaceBehavior : MonoBehaviour
             inputQuantity = 0;
         }
 
+        // ADD OUTPUT
         if (outputQuantity <= 0)
             outputItemID = resultItem.ID;
 
@@ -192,6 +227,12 @@ public class FurnaceBehavior : MonoBehaviour
 
         SaveState();
         RefreshOpenSlots();
+
+        // AUTOMATICALLY TURN OFF
+        if (inputQuantity <= 0)
+        {
+            StopCooking();
+        }
     }
 
     private void RefreshOpenSlots()
@@ -200,6 +241,19 @@ public class FurnaceBehavior : MonoBehaviour
         {
             furnaceController.RefreshSlots(this);
         }
+    }
+
+    private void StopCooking()
+    {
+        if (!isCooking)
+            return;
+
+        isCooking = false;
+
+        if (building != null)
+            building.SetState(false);
+
+        SaveState();
     }
 
     private CraftingRecipe FindMatchingRecipe()

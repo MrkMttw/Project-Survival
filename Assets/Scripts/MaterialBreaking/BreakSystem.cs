@@ -20,6 +20,9 @@ public class BreakSystem : MonoBehaviour
     [Header("Held Item")]
     public PlayerHeldItem playerHeldItem;
 
+    [Header("Hand Smoke")]
+    public SmokeEffectAnimator handSmokeEffect;
+
     // Current object inside the player's break hitbox
     private Collider2D currentBreakable;
 
@@ -217,6 +220,12 @@ public class BreakSystem : MonoBehaviour
 
         // PLAY TOOL SWING
         playerHeldItem.PlaySwing();
+
+        // PLAY HAND SMOKE
+        if (handSmokeEffect != null)
+        {
+            handSmokeEffect.PlaySmoke();
+        }
 
         // Shake the material when hit.
         HitShake hitShake =

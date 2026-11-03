@@ -37,6 +37,18 @@ public class MenuController : MonoBehaviour
                 furnaceController.CloseForMenu();
                 menuCanvas.SetActive(true);
             }
+            else if (menuCanvas.activeSelf &&
+                    pages[2].activeSelf)
+            {
+                // RESET CRAFTING PANEL
+                if (craftingController != null)
+                {
+                    craftingController.CloseForMenu();
+                    craftingController.ResetCraftingPanel();
+                }
+
+                menuCanvas.SetActive(false);
+            }
             else if (craftingController != null &&
                     craftingController.IsOpen)
             {
@@ -114,6 +126,9 @@ public class MenuController : MonoBehaviour
         pages[2].SetActive(true);
 
         if (craftingController != null)
+        {
+            craftingController.ResetCraftingPanel();
             craftingController.RefreshRecipes();
+        }
     }
 }

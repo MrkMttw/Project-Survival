@@ -307,7 +307,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -10, y: -4.5}
+  m_AnchoredPosition: {x: -10, y: -4.45}
   m_SizeDelta: {x: 3, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1197827948814732341
@@ -340,8 +340,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Radar (Level No)
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a503addc23fb20f48bb6eae6764e47a4, type: 2}
-  m_sharedMaterial: {fileID: -1628096696770258836, guid: a503addc23fb20f48bb6eae6764e47a4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0c3d4a9e2fccba14fb4f9d9509092416, type: 2}
+  m_sharedMaterial: {fileID: -8931623188544356088, guid: 0c3d4a9e2fccba14fb4f9d9509092416, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -371,7 +371,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 32
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -477,8 +477,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 0/0
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a503addc23fb20f48bb6eae6764e47a4, type: 2}
-  m_sharedMaterial: {fileID: -1628096696770258836, guid: a503addc23fb20f48bb6eae6764e47a4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0c3d4a9e2fccba14fb4f9d9509092416, type: 2}
+  m_sharedMaterial: {fileID: -8931623188544356088, guid: 0c3d4a9e2fccba14fb4f9d9509092416, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -508,7 +508,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -777,7 +777,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24f584f5dbfaaef40830d8afaccace98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RadarInteraction
-  ironItemID: 16
 --- !u!114 &244641045743810874
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -793,3 +792,5 @@ MonoBehaviour:
   levelText: {fileID: 1216982389609466548}
   progressText: {fileID: 6285231591984545027}
   progressBar: {fileID: 8215565954419079789}
+  coordinatesText: {fileID: 0}
+  coordinatesObjectName: CoordinatesText

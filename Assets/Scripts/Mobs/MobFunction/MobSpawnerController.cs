@@ -137,7 +137,8 @@ public class MobSpawnerController : MonoBehaviour
                 hostileSpawnRadius,
                 hostileProtectionRadius,
                 out Vector3 position,
-                out Vector2Int originChunk))
+                out Vector2Int originChunk,
+                true))
                 continue;
 
             SpawnMob(prefab, MobType.Hostile, position, originChunk);
@@ -175,7 +176,8 @@ public class MobSpawnerController : MonoBehaviour
         float spawnRadius,
         float protectionRadius,
         out Vector3 spawnPosition,
-        out Vector2Int originChunk)
+        out Vector2Int originChunk,
+        bool checkHostileLightProtection = false)
     {
         spawnPosition = Vector3.zero;
         originChunk = Vector2Int.zero;
@@ -199,7 +201,6 @@ public class MobSpawnerController : MonoBehaviour
             worldGenerator.player.position;
 
         // TRY RANDOM POSITIONS ACROSS ALL LOADED CHUNKS.
-
         for (int i = 0; i < 50; i++)
         {
             ChunkMobSpawner chunk = loadedChunkList[
@@ -224,9 +225,19 @@ public class MobSpawnerController : MonoBehaviour
                 Vector2.Distance(candidate, playerPosition);
 
             // PREVENT SPAWNING TOO CLOSE TO PLAYER.
-
             if (distance < protectionRadius)
                 continue;
+
+            // CHECK PLAYER-PLACED WORLD OBJECT LIGHTS.
+            if (checkHostileLightProtection &&
+                WorldObjectLightController.Instance != null)
+            {
+                if (WorldObjectLightController.Instance
+                    .IsPositionProtectedFromHostileSpawning(candidate))
+                {
+                    continue;
+                }
+            }
 
             spawnPosition = new Vector3(
                 candidate.x,

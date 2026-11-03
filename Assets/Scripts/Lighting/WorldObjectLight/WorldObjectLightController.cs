@@ -41,6 +41,8 @@ public class WorldObjectLightController : MonoBehaviour
         if (!isNight)
             return;
 
+        registeredLights.RemoveWhere(light => light == null);
+
         foreach (WorldObjectLight worldLight in registeredLights)
         {
             if (worldLight == null)
@@ -60,19 +62,16 @@ public class WorldObjectLightController : MonoBehaviour
     }
 
     // REGISTER
-
     public void RegisterLight(WorldObjectLight worldLight)
     {
         if (worldLight == null)
             return;
 
         registeredLights.Add(worldLight);
-
         worldLight.ApplyPreset();
     }
 
     // UNREGISTER
-
     public void UnregisterLight(WorldObjectLight worldLight)
     {
         if (worldLight == null)
@@ -81,8 +80,35 @@ public class WorldObjectLightController : MonoBehaviour
         registeredLights.Remove(worldLight);
     }
 
-    // DAY / NIGHT
+    // HOSTILE MOB PROTECTION
+    public bool IsPositionProtectedFromHostileSpawning(
+        Vector2 position)
+    {
+        registeredLights.RemoveWhere(light => light == null);
 
+        foreach (WorldObjectLight worldLight in registeredLights)
+        {
+            if (worldLight == null || !worldLight.isActiveAndEnabled)
+                continue;
+
+            if (!worldLight.ProvidesHostileMobProtection)
+                continue;
+
+            float radius =
+                worldLight.HostileMobProtectionRadius;
+
+            float distanceSquared =
+                (position -
+                (Vector2)worldLight.transform.position).sqrMagnitude;
+
+            if (distanceSquared <= radius * radius)
+                return true;
+        }
+
+        return false;
+    }
+
+    // DAY / NIGHT
     public void SetNight(bool night)
     {
         isNight = night;
@@ -92,7 +118,6 @@ public class WorldObjectLightController : MonoBehaviour
     }
 
     // REFRESH
-
     public void RefreshLights()
     {
         foreach (WorldObjectLight worldLight in registeredLights)
