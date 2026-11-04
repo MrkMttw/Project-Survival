@@ -631816,7 +631816,7 @@ MonoBehaviour:
     spawnEndTime: 5
   - enemyPrefab: {fileID: 7603050365449017479, guid: cdda6e79c23ac8b4d80ed4b4bd3f76e4, type: 3}
     spawnPercentage: 20
-    spawnFromDay: 5
+    spawnFromDay: 1
     spawnStartTime: 21
     spawnEndTime: 5
   - enemyPrefab: {fileID: 3487566225509943420, guid: c7c4a55d9f069a1478ea5d5361fe024e, type: 3}
@@ -634515,8 +634515,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c30168d182f033747a4a0297409c184f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameClock
-  realSecondsPerGameHour: 15
-  startingHour: 21
+  realSecondsPerGameHour: 30
+  startingHour: 6
   startingMinute: 0
   startingDay: 1
   use12HourFormat: 1

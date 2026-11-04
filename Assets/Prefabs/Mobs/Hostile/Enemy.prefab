@@ -277,7 +277,7 @@ Transform:
   m_GameObject: {fileID: 2935146238334533188}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.71555, y: 1.17479, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -480,6 +480,8 @@ MonoBehaviour:
   detectionRange: 8
   chaseRange: 10
   attackRange: 1.2
+  playerKnockbackStrength: 5
+  playerKnockbackDuration: 0.2
   attackDamageDelay: 0.3
   attackCooldown: 1
   firstAttackDelay: 0.5
