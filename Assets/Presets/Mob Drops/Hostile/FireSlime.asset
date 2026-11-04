@@ -10,14 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5073bb094bde2f748bd9cefc5d024e67, type: 3}
-  m_Name: PinkSlime
+  m_Name: FireSlime
   m_EditorClassIdentifier: Assembly-CSharp::MobDropData
   drops:
-  - itemPrefab: {fileID: 6767933570118797814, guid: 9b13b7e3a69014e43b649f63cf271faf, type: 3}
-    minAmount: 1
-    maxAmount: 1
-    dropChance: 100
-  - itemPrefab: {fileID: 4706408624345572566, guid: 07fa47fe8246b1745b583a95d9ca7614, type: 3}
+  - itemPrefab: {fileID: 6779398648682258772, guid: 5059c0472ab1ca14f9cf28f13d6aa6a3, type: 3}
     minAmount: 1
     maxAmount: 1
     dropChance: 100

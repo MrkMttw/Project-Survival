@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e6fedc2472449cead18ef23b5cb30d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.2D.Animation.Runtime::UnityEngine.U2D.Animation.SpriteLibrarySourceAsset
+  m_Library:
+  - m_Name: Effect
+    m_Hash: 835491012
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Smoke_0
+      m_Hash: 429447346
+      m_Sprite: {fileID: -3904834056191275125, guid: 172e13cceef1a214eaf0ca334c1fbd0d, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -3904834056191275125, guid: 172e13cceef1a214eaf0ca334c1fbd0d, type: 3}
+    - m_Name: Smoke_1
+      m_Hash: 782231588
+      m_Sprite: {fileID: 7838509228844001534, guid: 172e13cceef1a214eaf0ca334c1fbd0d, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 7838509228844001534, guid: 172e13cceef1a214eaf0ca334c1fbd0d, type: 3}
+    - m_Name: Smoke_2
+      m_Hash: 932624798
+      m_Sprite: {fileID: 6383589091423774191, guid: 172e13cceef1a214eaf0ca334c1fbd0d, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 6383589091423774191, guid: 172e13cceef1a214eaf0ca334c1fbd0d, type: 3}
+    - m_Name: Smoke_3
+      m_Hash: 9537800
+      m_Sprite: {fileID: -7605226032848022824, guid: 172e13cceef1a214eaf0ca334c1fbd0d, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -7605226032848022824, guid: 172e13cceef1a214eaf0ca334c1fbd0d, type: 3}
+    - m_Name: Smoke_4
+      m_Hash: 519380139
+      m_Sprite: {fileID: 2198085096930620629, guid: 172e13cceef1a214eaf0ca334c1fbd0d, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 2198085096930620629, guid: 172e13cceef1a214eaf0ca334c1fbd0d, type: 3}
+    - m_Name: Smoke_5
+      m_Hash: 703736893
+      m_Sprite: {fileID: 9205579089460328973, guid: 172e13cceef1a214eaf0ca334c1fbd0d, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 9205579089460328973, guid: 172e13cceef1a214eaf0ca334c1fbd0d, type: 3}
+    - m_Name: Smoke_6
+      m_Hash: 821788039
+      m_Sprite: {fileID: -7243895445094853094, guid: 172e13cceef1a214eaf0ca334c1fbd0d, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -7243895445094853094, guid: 172e13cceef1a214eaf0ca334c1fbd0d, type: 3}
+    - m_Name: Smoke_7
+      m_Hash: 133975313
+      m_Sprite: {fileID: -3061270436189492997, guid: 172e13cceef1a214eaf0ca334c1fbd0d, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -3061270436189492997, guid: 172e13cceef1a214eaf0ca334c1fbd0d, type: 3}
+    - m_Name: Smoke_8
+      m_Hash: 390287488
+      m_Sprite: {fileID: -4316499544389322057, guid: 172e13cceef1a214eaf0ca334c1fbd0d, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -4316499544389322057, guid: 172e13cceef1a214eaf0ca334c1fbd0d, type: 3}
+    - m_Name: Smoke_9
+      m_Hash: 541351958
+      m_Sprite: {fileID: -805512263920021014, guid: 172e13cceef1a214eaf0ca334c1fbd0d, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -805512263920021014, guid: 172e13cceef1a214eaf0ca334c1fbd0d, type: 3}
+    - m_Name: Smoke_10
+      m_Hash: 137798680
+      m_Sprite: {fileID: -5084898782853654077, guid: 172e13cceef1a214eaf0ca334c1fbd0d, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -5084898782853654077, guid: 172e13cceef1a214eaf0ca334c1fbd0d, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 11
+  m_PrimaryLibraryGUID: 
+  m_ModificationHash: 639293815738250375
+  m_Version: 1

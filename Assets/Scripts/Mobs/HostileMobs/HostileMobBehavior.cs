@@ -72,73 +72,50 @@ public class HostileMobBehavior : MonoBehaviour
     [Tooltip("How long the enemy commits to an avoidance direction.")]
     public float avoidanceDuration = 0.35f;
 
-    // Attack
+    // ATTACK
     private MobAttackAnimator mobAttackAnimator;
 
-    // Components
+    // COMPONENTS
     private Rigidbody2D rb;
 
-    // Player
+    // PLAYER
     private Transform player;
     private HealthController playerHealth;
 
-    // Health
+    // HEALTH
     private float currentHP;
     private HitFlashBehavior hitFlash;
 
-    // Combat timers
+    // COMBAT TIMERS
     private float attackTimer;
     private float firstAttackTimer;
 
-    // State
+    // STATE
     private bool isAttackAnimationPlaying;
     private bool isChasing;
     private bool isAttacking;
     private bool isKnockedBack;
     private bool isDead;
 
-    // Knockback
+    // KNOCKBACK
     private Vector2 knockbackVelocity;
     private float knockbackTimer;
-
 
     private void Awake()
     {
         hitFlash = GetComponent<HitFlashBehavior>();
-
         rb = GetComponent<Rigidbody2D>();
-
-        if (rb == null)
-        {
-            Debug.LogError(
-                "HostileMobBehavior: Rigidbody2D is missing!",
-                this
-            );
-        }
 
         mobAttackAnimator = GetComponentInChildren<MobAttackAnimator>(true);
 
         if (mobAttackAnimator != null)
         {
             mobAttackAnimator.AttackFinished += OnAttackAnimationFinished;
-
-            Debug.Log(
-                "[HostileMobBehavior] Successfully subscribed to attack events!",
-                this
-            );
-        }
-        else
-        {
-            Debug.LogWarning(
-                "HostileMobBehavior: MobAttackAnimator is missing!",
-                this
-            );
         }
     }
 
     private void Start()
     {
-        // Initialize health
         currentHP = maxHP;
         UpdateHealthBar();
 
@@ -157,22 +134,10 @@ public class HostileMobBehavior : MonoBehaviour
             }
         }
 
-        if (player == null)
-        {
-            Debug.LogWarning("HostileMobBehavior: Could not find Player with HealthController!");
+        if (player == null || playerHealth == null)
             return;
-        }
 
-        if (playerHealth == null)
-        {
-            Debug.LogWarning(
-                "HostileMobBehavior: Could not find HealthController!"
-            );
-
-            return;
-        }
-        
-        // Initialize timers
+        // INITIALIZE TIMERS
         attackTimer = 0f;
         firstAttackTimer = firstAttackDelay;
     }
@@ -218,7 +183,6 @@ public class HostileMobBehavior : MonoBehaviour
         if (attackTimer > 0f)
             attackTimer -= Time.deltaTime;
     }
-
 
     private void HandleDetectionAndCombat()
     {
@@ -269,7 +233,6 @@ public class HostileMobBehavior : MonoBehaviour
             (Vector2)player.position
         );
 
-        // Stop when close enough.
         if (distance <= stoppingDistance)
         {
             rb.linearVelocity = Vector2.zero;
@@ -291,15 +254,12 @@ public class HostileMobBehavior : MonoBehaviour
 
     private Vector2 GetMovementDirection(Vector2 direction)
     {
-        // Continue using the current avoidance direction
-        // while its timer is active.
         if (avoidanceTimer > 0f)
         {
             avoidanceTimer -= Time.fixedDeltaTime;
             return avoidanceDirection;
         }
 
-        // Check for an obstacle in the movement direction.
         RaycastHit2D obstacle = Physics2D.Raycast(
             rb.position,
             direction,
@@ -307,14 +267,12 @@ public class HostileMobBehavior : MonoBehaviour
             obstacleLayer
         );
 
-        // No obstacle: move directly toward the player.
         if (obstacle.collider == null)
         {
             avoidanceDirection = direction;
             return direction;
         }
 
-        // Calculate left and right directions.
         Vector2 leftDirection = new Vector2(
             -direction.y,
             direction.x
@@ -339,10 +297,8 @@ public class HostileMobBehavior : MonoBehaviour
             obstacleLayer
         );
 
-        // Choose an available direction and commit to it.
         if (leftCheck.collider == null && rightCheck.collider == null)
         {
-            // Choose the direction that points more toward the player.
             if (Vector2.Dot(leftDirection, direction) >=
                 Vector2.Dot(rightDirection, direction))
             {
@@ -363,7 +319,6 @@ public class HostileMobBehavior : MonoBehaviour
         }
         else
         {
-            // Both sides are blocked; keep moving toward the player.
             avoidanceDirection = direction;
         }
 
@@ -373,7 +328,7 @@ public class HostileMobBehavior : MonoBehaviour
     }
 
     // ATTACK
-    
+
     private void AttackPlayer()
     {
         if (isKnockedBack || isDead)
@@ -401,12 +356,11 @@ public class HostileMobBehavior : MonoBehaviour
         if (mobAttackAnimator.PlayAttack())
         {
             isAttackAnimationPlaying = true;
-
             StartCoroutine(ApplyDelayedAttackDamage());
         }
     }
 
-    // APPLY DAMAGE AT THE ANIMATION HIT FRAME
+    // APPLY DELAYED ATTACK DAMAGE
 
     private System.Collections.IEnumerator ApplyDelayedAttackDamage()
     {
@@ -417,11 +371,9 @@ public class HostileMobBehavior : MonoBehaviour
 
         ApplyAttackDamage();
     }
-    
+
     private void ApplyAttackDamage()
     {
-        Debug.Log("ATTACK HIT EVENT RECEIVED!");
-
         if (isDead || isKnockedBack || player == null || playerHealth == null)
             return;
 
@@ -442,28 +394,18 @@ public class HostileMobBehavior : MonoBehaviour
         if (isCritical)
         {
             damage += playerHealth.maxHealth *
-                    (attackDamagePercent / 100f);
+                      (attackDamagePercent / 100f);
         }
 
         // APPLY DAMAGE
         playerHealth.TakeDamage(damage);
-
-        Debug.Log(
-            gameObject.name +
-            (isCritical ? " landed a CRITICAL HIT for " :
-                        " attacked the player for ") +
-            damage.ToString("F1") +
-            " damage."
-        );
     }
 
     // ATTACK ANIMATION FINISHED
+
     private void OnAttackAnimationFinished()
     {
-        Debug.Log("ATTACK FINISHED - READY FOR NEXT ATTACK!");
-
         isAttackAnimationPlaying = false;
-
         attackTimer = attackCooldown;
     }
 
@@ -480,12 +422,8 @@ public class HostileMobBehavior : MonoBehaviour
             return;
         }
 
-        hpBar.fillAmount =
-            Mathf.Clamp01(
-                currentHP / maxHP
-            );
+        hpBar.fillAmount = Mathf.Clamp01(currentHP / maxHP);
     }
-
 
     public void TakeDamage(
         float damage,
@@ -496,47 +434,28 @@ public class HostileMobBehavior : MonoBehaviour
         if (isDead)
             return;
 
-        // Apply defense.
-        float actualDamage =
-            Mathf.Max(
-                damage - defense,
-                1f
-            );
+        float actualDamage = Mathf.Max(damage - defense, 1f);
 
         currentHP -= actualDamage;
-
-        // Prevent negative HP.
-        currentHP =
-            Mathf.Max(
-                currentHP,
-                0f
-            );
+        currentHP = Mathf.Max(currentHP, 0f);
 
         UpdateHealthBar();
+
         // PLAY HIT FLASH
         hitFlash?.PlayHitFlash();
 
-        Debug.Log(
-            gameObject.name +
-            " took " +
-            actualDamage.ToString("F1") +
-            " damage. HP: " +
-            currentHP.ToString("F1")
-        );
-
-        // Apply knockback.
+        // APPLY KNOCKBACK
         ApplyKnockback(
             knockbackDirection,
             knockbackStrength
         );
 
-        // Check death.
+        // CHECK DEATH
         if (currentHP <= 0f)
         {
             Die();
         }
     }
-
 
     // KNOCKBACK
 
@@ -545,11 +464,10 @@ public class HostileMobBehavior : MonoBehaviour
         float strength
     )
     {
-        float actualKnockback =
-            Mathf.Max(
-                strength - knockbackResistance,
-                0f
-            );
+        float actualKnockback = Mathf.Max(
+            strength - knockbackResistance,
+            0f
+        );
 
         if (actualKnockback <= 0f)
             return;
@@ -559,16 +477,10 @@ public class HostileMobBehavior : MonoBehaviour
 
         direction.Normalize();
 
-        knockbackVelocity =
-            direction *
-            actualKnockback;
-
-        knockbackTimer =
-            knockbackDuration;
-
+        knockbackVelocity = direction * actualKnockback;
+        knockbackTimer = knockbackDuration;
         isKnockedBack = true;
     }
-
 
     private void HandleKnockback()
     {
@@ -579,20 +491,15 @@ public class HostileMobBehavior : MonoBehaviour
 
         rb.MovePosition(
             rb.position +
-            knockbackVelocity *
-            Time.fixedDeltaTime
+            knockbackVelocity * Time.fixedDeltaTime
         );
 
-        knockbackVelocity =
-            Vector2.MoveTowards(
-                knockbackVelocity,
-                Vector2.zero,
-                knockbackDamping *
-                Time.fixedDeltaTime
-            );
+        knockbackVelocity = Vector2.MoveTowards(
+            knockbackVelocity,
+            Vector2.zero,
+            knockbackDamping * Time.fixedDeltaTime
+        );
 
-        // End knockback when either the timer
-        // or velocity reaches zero.
         if (
             knockbackTimer <= 0f ||
             knockbackVelocity.sqrMagnitude <= 0.01f
@@ -605,15 +512,13 @@ public class HostileMobBehavior : MonoBehaviour
     }
 
     // DEATH
-    
+
     private void Die()
     {
         if (isDead)
             return;
 
         isDead = true;
-
-        Debug.Log("[HostileMobBehavior] Enemy died: " + gameObject.name);
 
         // PLAY DETACHED SMOKE
         SmokeEffectAnimator smokeEffect =
@@ -700,10 +605,6 @@ public class HostileMobBehavior : MonoBehaviour
             }
 
             dropAnimation.Play();
-
-            Debug.Log(
-                "Mob dropped " + amount + "x " + drop.itemPrefab.name
-            );
         }
     }
 
@@ -711,19 +612,15 @@ public class HostileMobBehavior : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        // DETECTION RANGE
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, detectionRange);
 
-        // CHASE RANGE
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(transform.position, chaseRange);
 
-        // ATTACK RANGE
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
 
-        // STOPPING DISTANCE
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, stoppingDistance);
     }

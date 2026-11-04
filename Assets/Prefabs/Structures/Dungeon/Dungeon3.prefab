@@ -811,6 +811,7 @@ Transform:
   - {fileID: 6162616595368996055}
   - {fileID: 6048245516891842630}
   - {fileID: 1549102624472028559}
+  - {fileID: 639800000260727606}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1187369827518281743
@@ -3756,6 +3757,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7289300643404807458}
     m_Modifications:
+    - target: {fileID: 1170339663836956744, guid: 47ef5295b7e0a90488918c09a1018e3b, type: 3}
+      propertyPath: m_labelHash
+      value: 1.5803954e-23
+      objectReference: {fileID: 0}
     - target: {fileID: 2537890290681920705, guid: 47ef5295b7e0a90488918c09a1018e3b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8
@@ -3818,6 +3823,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7289300643404807458}
     m_Modifications:
+    - target: {fileID: 1170339663836956744, guid: 47ef5295b7e0a90488918c09a1018e3b, type: 3}
+      propertyPath: m_labelHash
+      value: 1.5803954e-23
+      objectReference: {fileID: 0}
     - target: {fileID: 2537890290681920705, guid: 47ef5295b7e0a90488918c09a1018e3b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -13
@@ -3966,6 +3975,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stone (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 5353855919533652237, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
+      propertyPath: m_labelHash
+      value: 1.5803954e-23
+      objectReference: {fileID: 0}
     - target: {fileID: 7552419935064023474, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
       propertyPath: m_LocalScale.x
       value: 7.3242326
@@ -4051,6 +4064,10 @@ PrefabInstance:
     - target: {fileID: 2240963674255031140, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
       propertyPath: m_Name
       value: Stone (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5353855919533652237, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
+      propertyPath: m_labelHash
+      value: 1.5803954e-23
       objectReference: {fileID: 0}
     - target: {fileID: 7552419935064023474, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
       propertyPath: m_LocalScale.x
@@ -4211,6 +4228,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stone (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 5353855919533652237, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
+      propertyPath: m_labelHash
+      value: 1.5803954e-23
+      objectReference: {fileID: 0}
     - target: {fileID: 7552419935064023474, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
       propertyPath: m_LocalScale.x
       value: 7.3242326
@@ -4296,6 +4317,10 @@ PrefabInstance:
     - target: {fileID: 2714410441752089172, guid: 7416e93c846435744a1e115f63e2bf0f, type: 3}
       propertyPath: m_LocalBounds.m_Extent.y
       value: 0.185
+      objectReference: {fileID: 0}
+    - target: {fileID: 5997467262694852705, guid: 7416e93c846435744a1e115f63e2bf0f, type: 3}
+      propertyPath: m_labelHash
+      value: 1.5803954e-23
       objectReference: {fileID: 0}
     - target: {fileID: 8194416956985250014, guid: 7416e93c846435744a1e115f63e2bf0f, type: 3}
       propertyPath: m_LocalScale.x
@@ -4597,6 +4622,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stone (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 5353855919533652237, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
+      propertyPath: m_labelHash
+      value: 1.5803954e-23
+      objectReference: {fileID: 0}
     - target: {fileID: 7552419935064023474, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
       propertyPath: m_LocalScale.x
       value: 7.3242326
@@ -4659,6 +4688,68 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7552419935064023474, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
   m_PrefabInstance: {fileID: 3733529543586278718}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &3744205692767576687
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7289300643404807458}
+    m_Modifications:
+    - target: {fileID: 4257891251564429657, guid: d5595edf01c67d64e953cba816bae40f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.55846477
+      objectReference: {fileID: 0}
+    - target: {fileID: 4257891251564429657, guid: d5595edf01c67d64e953cba816bae40f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5.14674
+      objectReference: {fileID: 0}
+    - target: {fileID: 4257891251564429657, guid: d5595edf01c67d64e953cba816bae40f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4257891251564429657, guid: d5595edf01c67d64e953cba816bae40f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4257891251564429657, guid: d5595edf01c67d64e953cba816bae40f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4257891251564429657, guid: d5595edf01c67d64e953cba816bae40f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4257891251564429657, guid: d5595edf01c67d64e953cba816bae40f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4257891251564429657, guid: d5595edf01c67d64e953cba816bae40f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4257891251564429657, guid: d5595edf01c67d64e953cba816bae40f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4257891251564429657, guid: d5595edf01c67d64e953cba816bae40f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8929390850331544761, guid: d5595edf01c67d64e953cba816bae40f, type: 3}
+      propertyPath: m_Name
+      value: FireSlime
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d5595edf01c67d64e953cba816bae40f, type: 3}
+--- !u!4 &639800000260727606 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4257891251564429657, guid: d5595edf01c67d64e953cba816bae40f, type: 3}
+  m_PrefabInstance: {fileID: 3744205692767576687}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4260469749525121524
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4682,6 +4773,10 @@ PrefabInstance:
     - target: {fileID: 2240963674255031140, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
       propertyPath: m_Name
       value: Stone (18)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5353855919533652237, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
+      propertyPath: m_labelHash
+      value: 1.5803954e-23
       objectReference: {fileID: 0}
     - target: {fileID: 7552419935064023474, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
       propertyPath: m_LocalScale.x
@@ -4769,6 +4864,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stone (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 5353855919533652237, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
+      propertyPath: m_labelHash
+      value: 1.5803954e-23
+      objectReference: {fileID: 0}
     - target: {fileID: 7552419935064023474, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
       propertyPath: m_LocalScale.x
       value: 7.3242326
@@ -4855,6 +4954,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stone (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 5353855919533652237, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
+      propertyPath: m_labelHash
+      value: 1.5803954e-23
+      objectReference: {fileID: 0}
     - target: {fileID: 7552419935064023474, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
       propertyPath: m_LocalScale.x
       value: 2.4165
@@ -4936,6 +5039,10 @@ PrefabInstance:
     - target: {fileID: 2240963674255031140, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
       propertyPath: m_Name
       value: Stone (20)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5353855919533652237, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
+      propertyPath: m_labelHash
+      value: 1.5803954e-23
       objectReference: {fileID: 0}
     - target: {fileID: 7552419935064023474, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
       propertyPath: m_LocalScale.x
@@ -5023,6 +5130,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stone (21)
       objectReference: {fileID: 0}
+    - target: {fileID: 5353855919533652237, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
+      propertyPath: m_labelHash
+      value: 1.5803954e-23
+      objectReference: {fileID: 0}
     - target: {fileID: 7552419935064023474, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
       propertyPath: m_LocalScale.x
       value: 7.3242326
@@ -5109,6 +5220,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stone (23)
       objectReference: {fileID: 0}
+    - target: {fileID: 5353855919533652237, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
+      propertyPath: m_labelHash
+      value: 1.5803954e-23
+      objectReference: {fileID: 0}
     - target: {fileID: 7552419935064023474, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
       propertyPath: m_LocalScale.x
       value: 7.3242326
@@ -5179,6 +5294,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7289300643404807458}
     m_Modifications:
+    - target: {fileID: 1170339663836956744, guid: 47ef5295b7e0a90488918c09a1018e3b, type: 3}
+      propertyPath: m_labelHash
+      value: 1.5803954e-23
+      objectReference: {fileID: 0}
     - target: {fileID: 2537890290681920705, guid: 47ef5295b7e0a90488918c09a1018e3b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.5
@@ -5256,6 +5375,10 @@ PrefabInstance:
     - target: {fileID: 2240963674255031140, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
       propertyPath: m_Name
       value: Stone (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5353855919533652237, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
+      propertyPath: m_labelHash
+      value: 1.5803954e-23
       objectReference: {fileID: 0}
     - target: {fileID: 7552419935064023474, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
       propertyPath: m_LocalScale.x
@@ -5342,6 +5465,10 @@ PrefabInstance:
     - target: {fileID: 2240963674255031140, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
       propertyPath: m_Name
       value: Stone (16)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5353855919533652237, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
+      propertyPath: m_labelHash
+      value: 1.5803954e-23
       objectReference: {fileID: 0}
     - target: {fileID: 7552419935064023474, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
       propertyPath: m_LocalScale.x
@@ -5472,6 +5599,10 @@ PrefabInstance:
     - target: {fileID: 2104936981923610478, guid: 335ed4f6e365e914089f29a43dd760e2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4590609983558559697, guid: 335ed4f6e365e914089f29a43dd760e2, type: 3}
+      propertyPath: m_labelHash
+      value: 1.5803954e-23
       objectReference: {fileID: 0}
     - target: {fileID: 7701199842905957816, guid: 335ed4f6e365e914089f29a43dd760e2, type: 3}
       propertyPath: m_Name
@@ -5619,6 +5750,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7289300643404807458}
     m_Modifications:
+    - target: {fileID: 1170339663836956744, guid: 47ef5295b7e0a90488918c09a1018e3b, type: 3}
+      propertyPath: m_labelHash
+      value: 1.5803954e-23
+      objectReference: {fileID: 0}
     - target: {fileID: 2537890290681920705, guid: 47ef5295b7e0a90488918c09a1018e3b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -11.5
@@ -5751,6 +5886,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7289300643404807458}
     m_Modifications:
+    - target: {fileID: 1170339663836956744, guid: 47ef5295b7e0a90488918c09a1018e3b, type: 3}
+      propertyPath: m_labelHash
+      value: 1.5803954e-23
+      objectReference: {fileID: 0}
     - target: {fileID: 2537890290681920705, guid: 47ef5295b7e0a90488918c09a1018e3b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10
@@ -5817,6 +5956,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7289300643404807458}
     m_Modifications:
+    - target: {fileID: 1170339663836956744, guid: 47ef5295b7e0a90488918c09a1018e3b, type: 3}
+      propertyPath: m_labelHash
+      value: 1.5803954e-23
+      objectReference: {fileID: 0}
     - target: {fileID: 2537890290681920705, guid: 47ef5295b7e0a90488918c09a1018e3b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.5
@@ -5894,6 +6037,10 @@ PrefabInstance:
     - target: {fileID: 2240963674255031140, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
       propertyPath: m_Name
       value: Stone (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5353855919533652237, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
+      propertyPath: m_labelHash
+      value: 1.5803954e-23
       objectReference: {fileID: 0}
     - target: {fileID: 7552419935064023474, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
       propertyPath: m_LocalScale.x
@@ -6051,6 +6198,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stone (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 5353855919533652237, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
+      propertyPath: m_labelHash
+      value: 1.5803954e-23
+      objectReference: {fileID: 0}
     - target: {fileID: 7552419935064023474, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
       propertyPath: m_LocalScale.x
       value: 7.3242326
@@ -6121,6 +6272,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7289300643404807458}
     m_Modifications:
+    - target: {fileID: 1170339663836956744, guid: 47ef5295b7e0a90488918c09a1018e3b, type: 3}
+      propertyPath: m_labelHash
+      value: 1.5803954e-23
+      objectReference: {fileID: 0}
     - target: {fileID: 2537890290681920705, guid: 47ef5295b7e0a90488918c09a1018e3b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8
@@ -6335,6 +6490,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stone (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 5353855919533652237, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
+      propertyPath: m_labelHash
+      value: 1.5803954e-23
+      objectReference: {fileID: 0}
     - target: {fileID: 7552419935064023474, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
       propertyPath: m_LocalScale.x
       value: 7.3242326
@@ -6453,6 +6612,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2333837388418653810, guid: ab327f34f1b9ee44bac4d321008709c2, type: 3}
+      propertyPath: m_labelHash
+      value: 1.5803954e-23
+      objectReference: {fileID: 0}
     - target: {fileID: 3376192324421085115, guid: ab327f34f1b9ee44bac4d321008709c2, type: 3}
       propertyPath: m_LocalBounds.m_Center.y
       value: 0.12
@@ -6564,6 +6727,10 @@ PrefabInstance:
     - target: {fileID: 2240963674255031140, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
       propertyPath: m_Name
       value: Stone (22)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5353855919533652237, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
+      propertyPath: m_labelHash
+      value: 1.5803954e-23
       objectReference: {fileID: 0}
     - target: {fileID: 7552419935064023474, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
       propertyPath: m_LocalScale.x
@@ -6791,6 +6958,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stone (19)
       objectReference: {fileID: 0}
+    - target: {fileID: 5353855919533652237, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
+      propertyPath: m_labelHash
+      value: 1.5803954e-23
+      objectReference: {fileID: 0}
     - target: {fileID: 7552419935064023474, guid: f8ccb1f4b474c604abc71a806ca347de, type: 3}
       propertyPath: m_LocalScale.x
       value: 7.3242326
@@ -6861,6 +7032,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7289300643404807458}
     m_Modifications:
+    - target: {fileID: 1170339663836956744, guid: 47ef5295b7e0a90488918c09a1018e3b, type: 3}
+      propertyPath: m_labelHash
+      value: 1.5803954e-23
+      objectReference: {fileID: 0}
     - target: {fileID: 2537890290681920705, guid: 47ef5295b7e0a90488918c09a1018e3b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4

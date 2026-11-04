@@ -236,7 +236,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_sheet_3
+      name: sprite_sheet_6
       rect:
         serializedVersion: 2
         x: 2
@@ -258,7 +258,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_sheet_4
+      name: sprite_sheet_7
       rect:
         serializedVersion: 2
         x: 26
@@ -280,7 +280,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_sheet_5
+      name: sprite_sheet_8
       rect:
         serializedVersion: 2
         x: 51
@@ -302,7 +302,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_sheet_6
+      name: sprite_sheet_3
       rect:
         serializedVersion: 2
         x: 2
@@ -324,7 +324,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_sheet_7
+      name: sprite_sheet_4
       rect:
         serializedVersion: 2
         x: 26
@@ -346,7 +346,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_sheet_8
+      name: sprite_sheet_5
       rect:
         serializedVersion: 2
         x: 51
@@ -449,6 +449,7 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
+      1: 528687199
       sprite_sheet_0: 1775151984
       sprite_sheet_1: 272653224
       sprite_sheet_10: -1317535224
@@ -457,12 +458,12 @@ TextureImporter:
       sprite_sheet_15: 1958865391
       sprite_sheet_17: 1444568298
       sprite_sheet_2: 1801199018
-      sprite_sheet_3: -1146678360
-      sprite_sheet_4: 528687199
-      sprite_sheet_5: -2142382
-      sprite_sheet_6: 273805512
-      sprite_sheet_7: 1243876321
-      sprite_sheet_8: -804336922
+      sprite_sheet_3: 273805512
+      sprite_sheet_4: 1243876321
+      sprite_sheet_5: -804336922
+      sprite_sheet_6: -1146678360
+      sprite_sheet_7: 528687199
+      sprite_sheet_8: -2142382
       sprite_sheet_9: -367201097
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0

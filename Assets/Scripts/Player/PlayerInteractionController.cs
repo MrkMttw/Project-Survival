@@ -20,7 +20,6 @@ public class PlayerInteractionController : MonoBehaviour
         if (Keyboard.current == null)
             return;
 
-        // FOOD PROMPT
         UpdateFoodPrompt();
 
         if (Keyboard.current.eKey.wasPressedThisFrame)
@@ -30,6 +29,7 @@ public class PlayerInteractionController : MonoBehaviour
     }
 
     // UPDATE FOOD PROMPT
+
     private void UpdateFoodPrompt()
     {
         if (PromptController.Instance == null || foodController == null)
@@ -45,56 +45,47 @@ public class PlayerInteractionController : MonoBehaviour
         }
     }
 
+    // HANDLE INTERACTION
+
     private void HandleInteraction()
     {
         if (craftingController != null &&
             craftingController.TryInteract())
-        {
             return;
-        }
-        
+
         if (gateController != null &&
             gateController.TryInteract())
-        {
             return;
-        }
 
         if (furnaceController != null &&
             furnaceController.TryInteract())
-        {
             return;
-        }
 
         if (sleepingBagHitbox != null &&
             sleepingBagHitbox.TryInteract())
-        {
             return;
-        }
 
         if (foodController != null &&
             foodController.TryEatHeldItem())
-        {
             return;
-        }
 
         if (itemLightController != null &&
             itemLightController.TryToggleHeldItemLight())
-        {
             return;
-        }
 
         if (itemsGeneratorController != null &&
             itemsGeneratorController.TryInteract())
-        {
             return;
-        }
     }
 
     private void OnDisable()
     {
         if (PromptController.Instance != null)
         {
-            PromptController.Instance.ReleasePrompt(PromptType.E, this);
+            PromptController.Instance.ReleasePrompt(
+                PromptType.E,
+                this
+            );
         }
     }
 }

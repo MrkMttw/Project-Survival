@@ -22,14 +22,6 @@ public class MobAttackAnimator : MonoBehaviour
     {
         if (mobAnimator == null)
             mobAnimator = GetComponent<Animator>();
-
-        if (mobAnimator == null)
-        {
-            Debug.LogError(
-                "[MobAttackAnimator] Animator reference missing!",
-                this
-            );
-        }
     }
 
     public bool PlayAttack()
@@ -46,8 +38,6 @@ public class MobAttackAnimator : MonoBehaviour
         mobAnimator.ResetTrigger(attackTrigger);
         mobAnimator.SetTrigger(attackTrigger);
 
-        Debug.Log("[MobAttackAnimator] Attack started.");
-
         return true;
     }
 
@@ -58,12 +48,6 @@ public class MobAttackAnimator : MonoBehaviour
 
         if (Time.time - playStartTime >= maxAttackDuration)
         {
-            Debug.LogWarning(
-                "[MobAttackAnimator] Attack finish event missed. " +
-                "Forcing attack reset.",
-                this
-            );
-
             ForceFinish();
         }
     }
@@ -74,8 +58,6 @@ public class MobAttackAnimator : MonoBehaviour
         if (!isPlaying)
             return;
 
-        Debug.Log("[MobAttackAnimator] Attack hit event received.");
-
         AttackHit?.Invoke();
     }
 
@@ -84,8 +66,6 @@ public class MobAttackAnimator : MonoBehaviour
     {
         if (!isPlaying)
             return;
-
-        Debug.Log("[MobAttackAnimator] Attack finished event received.");
 
         ForceFinish();
     }

@@ -48,7 +48,6 @@ public class ItemLightController : MonoBehaviour
 
     private void Start()
     {
-        // REFRESH AFTER OTHER START METHODS
         RefreshHeldItemLight();
         UpdateLightPrompt();
     }
@@ -82,23 +81,10 @@ public class ItemLightController : MonoBehaviour
     private void FindPlayerHeldItem()
     {
         if (playerHeldItemObject == null)
-        {
-            Debug.LogWarning(
-                "ItemLightController: PlayerHeldItem GameObject is not assigned."
-            );
-
             return;
-        }
 
         playerHeldItem =
             playerHeldItemObject.GetComponent<PlayerHeldItem>();
-
-        if (playerHeldItem == null)
-        {
-            Debug.LogWarning(
-                "ItemLightController: PlayerHeldItem component was not found."
-            );
-        }
     }
 
     // BUILD PRESET CACHE
@@ -123,10 +109,7 @@ public class ItemLightController : MonoBehaviour
 
             if (!presetDictionary.ContainsKey(presetItem.ID))
             {
-                presetDictionary.Add(
-                    presetItem.ID,
-                    preset
-                );
+                presetDictionary.Add(presetItem.ID, preset);
             }
         }
     }
@@ -151,7 +134,6 @@ public class ItemLightController : MonoBehaviour
 
         Item currentItem = playerHeldItem.GetHeldItem();
 
-        // NO ITEM OR NO LIGHT PRESET
         if (currentItem == null ||
             GetPresetForItem(currentItem) == null)
         {
@@ -167,7 +149,6 @@ public class ItemLightController : MonoBehaviour
             return;
         }
 
-        // ONLY ACTIVATE WHEN RETAINED
         if (lightRetained &&
             retainedItemID == currentItem.ID)
         {
@@ -207,18 +188,10 @@ public class ItemLightController : MonoBehaviour
             return;
 
         Light2D[] lights =
-            playerHeldItemObject.GetComponentsInChildren<Light2D>(
-                true
-            );
+            playerHeldItemObject.GetComponentsInChildren<Light2D>(true);
 
         if (lights.Length == 0)
-        {
-            Debug.LogWarning(
-                "ItemLightController: No Light2D found under PlayerHeldItem."
-            );
-
             return;
-        }
 
         heldItemLight = lights[0];
     }
@@ -251,19 +224,15 @@ public class ItemLightController : MonoBehaviour
         if (playerHeldItem == null)
             return;
 
-        Item currentItem =
-            playerHeldItem.GetHeldItem();
+        Item currentItem = playerHeldItem.GetHeldItem();
 
         if (currentItem == null)
             return;
 
-        ItemLightPreset preset =
-            GetPresetForItem(currentItem);
+        ItemLightPreset preset = GetPresetForItem(currentItem);
 
         if (preset == null)
             return;
-
-        // TURN OFF RETAINED LIGHT
 
         if (lightRetained &&
             retainedItemID == currentItem.ID)
@@ -273,11 +242,8 @@ public class ItemLightController : MonoBehaviour
             retainedPreset = null;
 
             RefreshHeldItemLight();
-
             return;
         }
-
-        // RETAIN THIS ITEM'S LIGHT
 
         lightRetained = true;
         retainedItemID = currentItem.ID;
@@ -291,8 +257,7 @@ public class ItemLightController : MonoBehaviour
         if (playerHeldItem == null)
             return false;
 
-        Item currentItem =
-            playerHeldItem.GetHeldItem();
+        Item currentItem = playerHeldItem.GetHeldItem();
 
         if (currentItem == null)
             return false;
@@ -309,8 +274,7 @@ public class ItemLightController : MonoBehaviour
 
     private void ApplyPreset(
         Light2D light,
-        ItemLightPreset preset
-    )
+        ItemLightPreset preset)
     {
         if (light == null || preset == null)
             return;
@@ -330,15 +294,11 @@ public class ItemLightController : MonoBehaviour
 
         float variation = (noise * 2f) - 1f;
 
-        // INTENSITY
-
         float intensityMultiplier =
             1f + (variation * activePreset.flickerAmount);
 
         heldItemLight.intensity =
             activePreset.intensity * intensityMultiplier;
-
-        // RADIUS
 
         float radiusMultiplier =
             1f + (variation * activePreset.radiusVariation);
@@ -385,8 +345,7 @@ public class ItemLightController : MonoBehaviour
 
         if (playerHeldItem != null)
         {
-            Item currentItem =
-                playerHeldItem.GetHeldItem();
+            Item currentItem = playerHeldItem.GetHeldItem();
 
             shouldShowPrompt =
                 currentItem != null &&

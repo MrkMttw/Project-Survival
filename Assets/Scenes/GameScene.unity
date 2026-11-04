@@ -634515,7 +634515,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameClock
   realSecondsPerGameHour: 15
-  startingHour: 21
+  startingHour: 6
   startingMinute: 0
   startingDay: 1
   use12HourFormat: 1
@@ -635445,7 +635445,7 @@ MonoBehaviour:
   craftingController: {fileID: 1328775371}
   gateController: {fileID: 1451321680}
   foodController: {fileID: 84989085}
-  itemLightController: {fileID: 0}
+  itemLightController: {fileID: 2113588248}
   itemsGeneratorController: {fileID: 1180774152}
   furnaceController: {fileID: 1413565793}
   sleepTransitionController: {fileID: 841894802}
@@ -693016,10 +693016,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.2D.Animation.Runtime::UnityEngine.U2D.Animation.SpriteResolver
-  m_CategoryHash: 0.00000043437677
+  m_CategoryHash: 0.000000005954094
   m_labelHash: 1.5803954e-23
   m_SpriteKey: 0
-  m_SpriteHash: 0
+  m_SpriteHash: 53927238
 --- !u!114 &1714955452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -693106,7 +693106,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 3938687153734216002, guid: 27c61e7886224984887401875247f0b1, type: 3}
-  m_Color: {r: 0.7, g: 0.7, b: 0.7, a: 0.78431374}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

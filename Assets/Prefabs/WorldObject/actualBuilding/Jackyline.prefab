@@ -17,6 +17,10 @@ PrefabInstance:
       value: 0.08258092
       objectReference: {fileID: 0}
     - target: {fileID: 453242821373534116, guid: 9e611cf74e27fc04188652440f4b0052, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 453242821373534116, guid: 9e611cf74e27fc04188652440f4b0052, type: 3}
       propertyPath: m_Offset.x
       value: 0.006552977
       objectReference: {fileID: 0}
@@ -103,6 +107,10 @@ PrefabInstance:
     - target: {fileID: 3585041190493024158, guid: 9e611cf74e27fc04188652440f4b0052, type: 3}
       propertyPath: obstacleCheckDistance
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4337304044708474362, guid: 9e611cf74e27fc04188652440f4b0052, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4513672286455793722, guid: 9e611cf74e27fc04188652440f4b0052, type: 3}
       propertyPath: itemID
