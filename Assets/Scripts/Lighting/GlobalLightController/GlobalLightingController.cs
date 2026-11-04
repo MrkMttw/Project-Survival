@@ -97,12 +97,6 @@ public class GlobalLightingController : MonoBehaviour
 
         registeredLights.Add(registration);
 
-        Debug.Log(
-            $"LIGHT REGISTERED: {registration.name}. " +
-            $"Player Assigned: {player != null}",
-            registration
-        );
-
         UpdateLightDistance(registration);
     }
 

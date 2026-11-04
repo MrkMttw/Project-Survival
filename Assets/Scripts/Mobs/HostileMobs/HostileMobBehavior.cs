@@ -5,17 +5,13 @@ public class HostileMobBehavior : MonoBehaviour
 {
     [Header("Enemy Stats")]
     public float maxHP = 100f;
-
-    [Tooltip("Fixed damage dealt by a normal attack.")]
     public float baseDamage = 10f;
 
     [Range(0f, 100f)]
-    [Tooltip("Bonus damage on a critical hit, as a percentage of the player's MAX HP.")]
     public float attackDamagePercent = 10f;
 
     [Header("Critical Hits")]
     [Range(0f, 100f)]
-    [Tooltip("Chance for an attack to deal critical damage.")]
     public float critChance = 20f;
 
     public float movementSpeed = 2f;
@@ -25,7 +21,6 @@ public class HostileMobBehavior : MonoBehaviour
     public MobDropData mobDropPreset;
 
     [Header("Health Bar")]
-    [Tooltip("UI Image set to Filled that represents the enemy's HP.")]
     public Image hpBar;
 
     [Header("Detection")]
@@ -37,40 +32,31 @@ public class HostileMobBehavior : MonoBehaviour
     [Header("Combat")]
     public float attackRange = 1.5f;
 
+    [Header("Player Knockback")]
+    public float playerKnockbackStrength = 5f;
+    public float playerKnockbackDuration = 0.2f;
+
     [Tooltip("Delay before damage is applied after the attack animation starts.")]
     public float attackDamageDelay = 0.3f;
 
-    [Tooltip("Delay after an attack before the enemy can attack again.")]
     public float attackCooldown = 1f;
-
-    [Tooltip("Delay before the enemy's first attack after reaching attack range.")]
     public float firstAttackDelay = 0.5f;
 
     [Header("AI Movement")]
-    [Tooltip("How close the enemy gets to the player before stopping.")]
     public float stoppingDistance = 1.0f;
-
-    [Tooltip("Layer containing walls/obstacles.")]
     public LayerMask obstacleLayer;
-
-    [Tooltip("How far the enemy checks for obstacles.")]
     public float obstacleCheckDistance = 1f;
 
     [Header("Knockback")]
-    [Tooltip("How much the enemy resists weapon knockback.")]
     public float knockbackResistance = 0f;
-
-    [Tooltip("How long the enemy is affected by knockback.")]
     public float knockbackDuration = 0.15f;
-
-    [Tooltip("How quickly the knockback movement slows down.")]
     public float knockbackDamping = 12f;
-
-    private Vector2 avoidanceDirection = Vector2.zero;
-    private float avoidanceTimer = 0f;
 
     [Tooltip("How long the enemy commits to an avoidance direction.")]
     public float avoidanceDuration = 0.35f;
+
+    private Vector2 avoidanceDirection = Vector2.zero;
+    private float avoidanceTimer = 0f;
 
     // ATTACK
     private MobAttackAnimator mobAttackAnimator;
@@ -80,6 +66,7 @@ public class HostileMobBehavior : MonoBehaviour
 
     // PLAYER
     private Transform player;
+    private PlayerMovement playerMovement;
     private HealthController playerHealth;
 
     // HEALTH
@@ -124,17 +111,23 @@ public class HostileMobBehavior : MonoBehaviour
 
         foreach (GameObject playerObject in players)
         {
-            HealthController health = playerObject.GetComponentInChildren<HealthController>(true);
+            HealthController health =
+                playerObject.GetComponentInChildren<HealthController>(true);
 
-            if (health != null)
+            PlayerMovement movement =
+                playerObject.GetComponentInChildren<PlayerMovement>(true);
+
+            if (health != null && movement != null)
             {
                 player = playerObject.transform;
                 playerHealth = health;
+                playerMovement = movement;
+
                 break;
             }
         }
 
-        if (player == null || playerHealth == null)
+        if (player == null || playerHealth == null || playerMovement == null)
             return;
 
         // INITIALIZE TIMERS
@@ -399,6 +392,19 @@ public class HostileMobBehavior : MonoBehaviour
 
         // APPLY DAMAGE
         playerHealth.TakeDamage(damage);
+
+        // APPLY PLAYER KNOCKBACK
+        if (playerMovement != null)
+        {
+            Vector2 knockbackDirection =
+                ((Vector2)player.position - rb.position).normalized;
+
+            playerMovement.ApplyKnockback(
+                knockbackDirection,
+                playerKnockbackStrength,
+                playerKnockbackDuration
+            );
+        }
     }
 
     // ATTACK ANIMATION FINISHED

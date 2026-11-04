@@ -13,6 +13,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float sprintRegeneration = 0.3f;
     [SerializeField] private Image sprintBar;
 
+    [Header("Knockback")]
+    [SerializeField] private float knockbackDamping = 15f;
+
     private float sprintTimer;
     private bool isExhausted;
 
@@ -20,12 +23,19 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveInput;
     private PlayerAnimationBehavior animationBehavior;
 
+    // KNOCKBACK
+    private Vector2 knockbackVelocity;
+    private float knockbackTimer;
+    private bool isKnockedBack;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animationBehavior = GetComponent<PlayerAnimationBehavior>();
 
-        sprintBar.gameObject.SetActive(false);
+        if (sprintBar != null)
+            sprintBar.gameObject.SetActive(false);
+
         sprintTimer = sprintDuration;
     }
 
@@ -65,10 +75,65 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        sprintBar.fillAmount = sprintTimer / sprintDuration;
-        sprintBar.gameObject.SetActive(sprintTimer < sprintDuration);
+        if (sprintBar != null)
+        {
+            sprintBar.fillAmount = sprintTimer / sprintDuration;
+            sprintBar.gameObject.SetActive(sprintTimer < sprintDuration);
+        }
 
-        rb.linearVelocity = moveInput * currentSpeed;
+        // NORMAL MOVEMENT
+        if (!isKnockedBack)
+        {
+            rb.linearVelocity = moveInput * currentSpeed;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (!isKnockedBack)
+            return;
+
+        // APPLY KNOCKBACK
+        rb.linearVelocity = knockbackVelocity;
+
+        knockbackVelocity = Vector2.MoveTowards(
+            knockbackVelocity,
+            Vector2.zero,
+            knockbackDamping * Time.fixedDeltaTime
+        );
+
+        knockbackTimer -= Time.fixedDeltaTime;
+
+        // END KNOCKBACK
+        if (knockbackTimer <= 0f ||
+            knockbackVelocity.sqrMagnitude <= 0.01f)
+        {
+            knockbackVelocity = Vector2.zero;
+            knockbackTimer = 0f;
+            isKnockedBack = false;
+
+            rb.linearVelocity = Vector2.zero;
+        }
+    }
+
+    // APPLY KNOCKBACK
+    public void ApplyKnockback(
+        Vector2 direction,
+        float strength,
+        float duration
+    )
+    {
+        if (direction.sqrMagnitude <= 0.001f)
+            return;
+
+        if (strength <= 0f || duration <= 0f)
+            return;
+
+        direction.Normalize();
+
+        knockbackVelocity = direction * strength;
+        knockbackTimer = duration;
+        isKnockedBack = true;
     }
 
     public void OnMove(InputAction.CallbackContext context)

@@ -160,6 +160,10 @@ PrefabInstance:
       propertyPath: detectionRange
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 8631369034572204580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: playerKnockbackStrength
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8930902574207177744, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_labelHash
       value: 1.5803954e-23
