@@ -46,6 +46,30 @@ public class MobSpawnerController : MonoBehaviour
     public float passiveSpawnRadius = 15f;
     public float passiveProtectionRadius = 5f;
 
+    [Header("Boss Spawn Settings")]
+    public GameObject[] bossPrefabs;
+
+    [Min(1)]
+    public int bossSpawnIntervalDays = 15;
+
+    [Range(0, 23)]
+    public int bossSpawnHour = 22;
+
+    public float bossSpawnRadius = 20f;
+    public float bossProtectionRadius = 10f;
+
+    [Tooltip("How often the boss spawn condition is checked.")]
+    public float bossSpawnCheckInterval = 1f;
+
+    [Header("Boss Spawn Tracking")]
+    [SerializeField] private int bossDayCounter = 1;
+    [SerializeField] private int nextBossPrefabIndex = 0;
+
+    private int lastTrackedDay;
+    private bool bossTrackingInitialized;
+    private bool bossSpawnPending;
+    private float bossSpawnCheckTimer;
+
     [Header("References")]
     public Transform overWorld;
     public GameClock gameClock;
@@ -170,6 +194,170 @@ public class MobSpawnerController : MonoBehaviour
         }
     }
 
+    // BOSS SPAWNING
+
+    private void InitializeBossTracking()
+    {
+        if (gameClock == null)
+            return;
+
+        lastTrackedDay = gameClock.GetDay();
+
+        // The starting day counts as the first day.
+        bossDayCounter = 1;
+
+        bossTrackingInitialized = true;
+    }
+
+    private void UpdateBossDayCounter()
+    {
+        if (gameClock == null)
+            return;
+
+        if (!bossTrackingInitialized)
+        {
+            InitializeBossTracking();
+            return;
+        }
+
+        int currentDay = gameClock.GetDay();
+
+        if (currentDay > lastTrackedDay)
+        {
+            int daysPassed = currentDay - lastTrackedDay;
+
+            bossDayCounter += daysPassed;
+
+            lastTrackedDay = currentDay;
+
+            Debug.Log(
+                "Boss Day Counter: " + bossDayCounter +
+                "/" + bossSpawnIntervalDays
+            );
+        }
+
+        // Boss becomes scheduled even if multiple days were skipped.
+        if (bossDayCounter >= Mathf.Max(1, bossSpawnIntervalDays))
+        {
+            bossSpawnPending = true;
+        }
+    }
+
+    private void CheckBossSpawning()
+    {
+        UpdateBossDayCounter();
+
+        if (!bossSpawnPending || gameClock == null)
+            return;
+
+        bossSpawnCheckTimer += Time.deltaTime;
+
+        if (bossSpawnCheckTimer < Mathf.Max(0.1f, bossSpawnCheckInterval))
+            return;
+
+        bossSpawnCheckTimer = 0f;
+
+        // Wait until the configured game hour.
+        if (gameClock.GetHour() < bossSpawnHour)
+            return;
+
+        TrySpawnBoss();
+    }
+
+    private void TrySpawnBoss()
+    {
+        if (bossPrefabs == null || bossPrefabs.Length == 0)
+            return;
+
+        if (activeMobsParent == null)
+            return;
+
+        if (!TryGetLoadedSpawnPosition(
+            bossSpawnRadius,
+            bossProtectionRadius,
+            out Vector3 position,
+            out Vector2Int originChunk))
+        {
+            return;
+        }
+
+        if (!TryGetNextBossPrefab(
+            out GameObject selectedBoss,
+            out int selectedIndex))
+        {
+            return;
+        }
+
+        // SPAWN BOSS
+        GameObject spawnedBoss = Instantiate(
+            selectedBoss,
+            position,
+            Quaternion.identity
+        );
+
+        spawnedBoss.transform.SetParent(
+            activeMobsParent,
+            true
+        );
+
+        // Automatically mark the spawned boss.
+        StructureObjectIdentity bossIdentity =
+            spawnedBoss.GetComponentInChildren<StructureObjectIdentity>(true);
+
+        if (bossIdentity != null)
+        {
+            bossIdentity.isBoss = true;
+        }
+        else
+        {
+            Debug.LogWarning(
+                "Boss prefab has no StructureObjectIdentity: " +
+                spawnedBoss.name
+            );
+        }
+
+        // ADVANCE BOSS PREFAB INDEX
+        nextBossPrefabIndex =
+            (selectedIndex + 1) % bossPrefabs.Length;
+
+        // RESET BOSS DAY COUNTER
+        bossDayCounter = 0;
+        bossSpawnPending = false;
+
+        Debug.Log(
+            "BOSS SPAWNED: " + spawnedBoss.name +
+            " | Day: " + gameClock.GetDay() +
+            " | Time: " + gameClock.GetHour() + ":00"
+        );
+    }
+
+    private bool TryGetNextBossPrefab(
+        out GameObject selectedBoss,
+        out int selectedIndex)
+    {
+        selectedBoss = null;
+        selectedIndex = -1;
+
+        if (bossPrefabs == null || bossPrefabs.Length == 0)
+            return false;
+
+        for (int i = 0; i < bossPrefabs.Length; i++)
+        {
+            int index =
+                (nextBossPrefabIndex + i) % bossPrefabs.Length;
+
+            if (bossPrefabs[index] == null)
+                continue;
+
+            selectedBoss = bossPrefabs[index];
+            selectedIndex = index;
+
+            return true;
+        }
+
+        return false;
+    }
+
     // LOADED CHUNK SPAWN POSITION
 
     private bool TryGetLoadedSpawnPosition(
@@ -200,7 +388,6 @@ public class MobSpawnerController : MonoBehaviour
         Vector2 playerPosition =
             worldGenerator.player.position;
 
-        // TRY RANDOM POSITIONS ACROSS ALL LOADED CHUNKS.
         for (int i = 0; i < 50; i++)
         {
             ChunkMobSpawner chunk = loadedChunkList[
@@ -224,11 +411,9 @@ public class MobSpawnerController : MonoBehaviour
             float distance =
                 Vector2.Distance(candidate, playerPosition);
 
-            // PREVENT SPAWNING TOO CLOSE TO PLAYER.
             if (distance < protectionRadius)
                 continue;
 
-            // CHECK PLAYER-PLACED WORLD OBJECT LIGHTS.
             if (checkHostileLightProtection &&
                 WorldObjectLightController.Instance != null)
             {
@@ -315,7 +500,7 @@ public class MobSpawnerController : MonoBehaviour
         StructureObjectIdentity structureIdentity =
             mob.GetComponentInChildren<StructureObjectIdentity>(true);
 
-        // Bosses are managed by StructureSpawner.
+        // Bosses are managed separately.
         if (structureIdentity != null && structureIdentity.isBoss)
             return false;
 
@@ -333,7 +518,6 @@ public class MobSpawnerController : MonoBehaviour
         if (!CanSpawnMob(mob.mobType))
             return false;
 
-        // Preserve world position while detaching from old parent.
         mob.transform.SetParent(
             activeMobsParent,
             true
@@ -566,6 +750,10 @@ public class MobSpawnerController : MonoBehaviour
 
     private void Update()
     {
+        // BOSS SPAWNING
+        CheckBossSpawning();
+
+        // CHUNK DESPAWNING
         despawnCheckTimer += Time.deltaTime;
 
         if (despawnCheckTimer < Mathf.Max(0.1f, despawnCheckInterval))

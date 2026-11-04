@@ -631829,7 +631829,7 @@ MonoBehaviour:
     spawnFromDay: 10
     spawnStartTime: 21
     spawnEndTime: 5
-  hostileSpawnInterval: 1
+  hostileSpawnInterval: 2
   hostileSpawnRadius: 15
   hostileProtectionRadius: 5
   passiveSpawnData:
@@ -631840,6 +631840,20 @@ MonoBehaviour:
   passiveSpawnInterval: 5
   passiveSpawnRadius: 15
   passiveProtectionRadius: 5
+  bossPrefabs:
+  - {fileID: 8929390850331544761, guid: e5486e2e105dbc34189f269afdd2fedc, type: 3}
+  - {fileID: 8929390850331544761, guid: d5595edf01c67d64e953cba816bae40f, type: 3}
+  - {fileID: 8929390850331544761, guid: bed0e9f79b9dc3647b8dbaf115ceb3fd, type: 3}
+  - {fileID: 8929390850331544761, guid: a0162b73ae8a2a54d93b7f0a1cb12db0, type: 3}
+  - {fileID: 8929390850331544761, guid: fbe5a7dd0e0a0c242ac29a02b88cfda9, type: 3}
+  - {fileID: 8929390850331544761, guid: c5438929ae5ba2c499b8be4623f274ca, type: 3}
+  bossSpawnIntervalDays: 15
+  bossSpawnHour: 0
+  bossSpawnRadius: 20
+  bossProtectionRadius: 10
+  bossSpawnCheckInterval: 1
+  bossDayCounter: 1
+  nextBossPrefabIndex: 0
   overWorld: {fileID: 1628186936}
   gameClock: {fileID: 886148631}
   activeMobsParent: {fileID: 0}
