@@ -529,7 +529,7 @@ GameObject:
   - component: {fileID: 19404430}
   m_Layer: 0
   m_Name: PlayerHitbox
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -631816,7 +631816,7 @@ MonoBehaviour:
     spawnEndTime: 5
   - enemyPrefab: {fileID: 7603050365449017479, guid: cdda6e79c23ac8b4d80ed4b4bd3f76e4, type: 3}
     spawnPercentage: 20
-    spawnFromDay: 1
+    spawnFromDay: 5
     spawnStartTime: 21
     spawnEndTime: 5
   - enemyPrefab: {fileID: 3487566225509943420, guid: c7c4a55d9f069a1478ea5d5361fe024e, type: 3}
