@@ -65,6 +65,22 @@ public class WorldGenerator : MonoBehaviour
 
     private void Start()
     {
+        // LOAD SELECTED WORLD DATA
+        if (SelectedWorldData.world != null)
+        {
+            worldData = SelectedWorldData.world;
+            worldSeed = worldData.worldSeed;
+
+            Debug.Log("WORLD LOADED: " + worldData.worldName);
+            Debug.Log("WORLD SEED APPLIED: " + worldSeed);
+        }
+        else
+        {
+            Debug.LogWarning(
+                "WorldGenerator: No selected world found. Using default seed."
+            );
+        }
+
         if (player == null)
         {
             Debug.LogError("WorldGenerator: Player is not assigned.");

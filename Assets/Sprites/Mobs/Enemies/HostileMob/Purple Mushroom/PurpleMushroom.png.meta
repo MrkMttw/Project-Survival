@@ -1,0 +1,754 @@
+fileFormatVersion: 2
+guid: 71158869939c33646a0cabc2847f6955
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 478521620576905941
+    second: PurpleMushroom_0
+  - first:
+      213: 8482300531805151600
+    second: PurpleMushroom_1
+  - first:
+      213: 865039175429928749
+    second: PurpleMushroom_2
+  - first:
+      213: 4359768657496901425
+    second: PurpleMushroom_3
+  - first:
+      213: 3471533244937025633
+    second: PurpleMushroom_4
+  - first:
+      213: -4598887614436336350
+    second: PurpleMushroom_5
+  - first:
+      213: -760075532992702234
+    second: PurpleMushroom_6
+  - first:
+      213: 8590899566976101249
+    second: PurpleMushroom_7
+  - first:
+      213: 720706981486819047
+    second: PurpleMushroom_8
+  - first:
+      213: 3571374488197704490
+    second: PurpleMushroom_9
+  - first:
+      213: 3567860579611248042
+    second: PurpleMushroom_10
+  - first:
+      213: -6792258185800477172
+    second: PurpleMushroom_11
+  - first:
+      213: -5498478461019817267
+    second: PurpleMushroom_12
+  - first:
+      213: -2843823146050015080
+    second: PurpleMushroom_13
+  - first:
+      213: 7393756098371795277
+    second: PurpleMushroom_14
+  - first:
+      213: -5907424801400451380
+    second: PurpleMushroom_15
+  - first:
+      213: -4963290487776361291
+    second: PurpleMushroom_16
+  - first:
+      213: -6899833005696755421
+    second: PurpleMushroom_17
+  - first:
+      213: 3355749779174410057
+    second: PurpleMushroom_18
+  - first:
+      213: 2563657426370930589
+    second: PurpleMushroom_19
+  - first:
+      213: -8635910247984061219
+    second: PurpleMushroom_20
+  - first:
+      213: 1816344067802736414
+    second: PurpleMushroom_21
+  - first:
+      213: -8252316455480529332
+    second: PurpleMushroom_22
+  - first:
+      213: 7060048237252968154
+    second: PurpleMushroom_23
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: PurpleMushroom_0
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 79
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5daa4dbe0ec04a600800000000000000
+      internalID: 478521620576905941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PurpleMushroom_1
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 79
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0716a5c746f27b570800000000000000
+      internalID: 8482300531805151600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PurpleMushroom_2
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 79
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d273c400c8c310c00800000000000000
+      internalID: 865039175429928749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PurpleMushroom_3
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 78
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1370cf4be72018c30800000000000000
+      internalID: 4359768657496901425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PurpleMushroom_4
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 77
+        width: 18
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1683e62e71d5d2030800000000000000
+      internalID: 3471533244937025633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PurpleMushroom_5
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 78
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22d1493a4187d20c0800000000000000
+      internalID: -4598887614436336350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PurpleMushroom_6
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 54
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e8118d645ba375f0800000000000000
+      internalID: -760075532992702234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PurpleMushroom_7
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 55
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18beaaeb3a1093770800000000000000
+      internalID: 8590899566976101249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PurpleMushroom_8
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 55
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e67aa26e27700a00800000000000000
+      internalID: 720706981486819047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PurpleMushroom_9
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 53
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2baae0dc22109130800000000000000
+      internalID: 3571374488197704490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PurpleMushroom_10
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 53
+        width: 18
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa509d73b46938130800000000000000
+      internalID: 3567860579611248042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PurpleMushroom_11
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 53
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c069f9cba2d0db1a0800000000000000
+      internalID: -6792258185800477172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PurpleMushroom_12
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 29
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dcaf6cdc8fa71b3b0800000000000000
+      internalID: -5498478461019817267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PurpleMushroom_13
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 29
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 890b7a77ae5b888d0800000000000000
+      internalID: -2843823146050015080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PurpleMushroom_14
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 29
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4934576ff5eb9660800000000000000
+      internalID: 7393756098371795277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PurpleMushroom_15
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 28
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cce8137217c940ea0800000000000000
+      internalID: -5907424801400451380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PurpleMushroom_16
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 27
+        width: 18
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b4c3071999de1bb0800000000000000
+      internalID: -4963290487776361291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PurpleMushroom_17
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 28
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 329dded207ede30a0800000000000000
+      internalID: -6899833005696755421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PurpleMushroom_18
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 4
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94749c605a4029e20800000000000000
+      internalID: 3355749779174410057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PurpleMushroom_19
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 5
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d97a1a0b8d0f39320800000000000000
+      internalID: 2563657426370930589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PurpleMushroom_20
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 5
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd421cc6265172880800000000000000
+      internalID: -8635910247984061219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PurpleMushroom_21
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 3
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1725476e43f43910800000000000000
+      internalID: 1816344067802736414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PurpleMushroom_22
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 3
+        width: 18
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4ee8f808e1e97d80800000000000000
+      internalID: -8252316455480529332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PurpleMushroom_23
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 3
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: adef59e47745af160800000000000000
+      internalID: 7060048237252968154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      PurpleMushroom_0: 478521620576905941
+      PurpleMushroom_1: 8482300531805151600
+      PurpleMushroom_10: 3567860579611248042
+      PurpleMushroom_11: -6792258185800477172
+      PurpleMushroom_12: -5498478461019817267
+      PurpleMushroom_13: -2843823146050015080
+      PurpleMushroom_14: 7393756098371795277
+      PurpleMushroom_15: -5907424801400451380
+      PurpleMushroom_16: -4963290487776361291
+      PurpleMushroom_17: -6899833005696755421
+      PurpleMushroom_18: 3355749779174410057
+      PurpleMushroom_19: 2563657426370930589
+      PurpleMushroom_2: 865039175429928749
+      PurpleMushroom_20: -8635910247984061219
+      PurpleMushroom_21: 1816344067802736414
+      PurpleMushroom_22: -8252316455480529332
+      PurpleMushroom_23: 7060048237252968154
+      PurpleMushroom_3: 4359768657496901425
+      PurpleMushroom_4: 3471533244937025633
+      PurpleMushroom_5: -4598887614436336350
+      PurpleMushroom_6: -760075532992702234
+      PurpleMushroom_7: 8590899566976101249
+      PurpleMushroom_8: 720706981486819047
+      PurpleMushroom_9: 3571374488197704490
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

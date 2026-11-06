@@ -3,9 +3,10 @@ using UnityEngine.SceneManagement;
 
 public class StartMenuController : MonoBehaviour
 {
-    public GameObject MainMenu;
+    public GameObject MainMenu; 
     public GameObject PlayScreen;
     public GameObject CreateWorld;
+
     void Start()
     {
         MainMenu.SetActive(true);
@@ -22,8 +23,15 @@ public class StartMenuController : MonoBehaviour
             CreateWorld.SetActive(false);
         }
     }
+
     public void OnClickPlay()
     {
+        if (!WorldSaveManager.Initialize())
+        {
+            Debug.LogError("FAILED TO INITIALIZE WORLD SAVE SYSTEM.");
+            return;
+        }
+
         PlayScreen.SetActive(true);
         MainMenu.SetActive(false);
         CreateWorld.SetActive(false);
@@ -35,7 +43,7 @@ public class StartMenuController : MonoBehaviour
         PlayScreen.SetActive(false);
         CreateWorld.SetActive(false);
     }
-    
+
     public void OnClickCreateWorldBack()
     {
         MainMenu.SetActive(false);
@@ -50,7 +58,7 @@ public class StartMenuController : MonoBehaviour
         #endif
         Application.Quit();
     }
-    
+
     public void OnClickLoadScene()
     {
         SceneManager.LoadScene("GameScene");

@@ -1,0 +1,1430 @@
+fileFormatVersion: 2
+guid: d472ecb6737aa1e4ba3486963effc200
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1931686855666230593
+    second: FrozenSlimeSpriteSheet_0
+  - first:
+      213: 3406874389834451715
+    second: FrozenSlimeSpriteSheet_1
+  - first:
+      213: -3406643869449339182
+    second: FrozenSlimeSpriteSheet_2
+  - first:
+      213: -3554423479376145766
+    second: FrozenSlimeSpriteSheet_3
+  - first:
+      213: -6788168367779648399
+    second: FrozenSlimeSpriteSheet_4
+  - first:
+      213: 2090331330703042837
+    second: FrozenSlimeSpriteSheet_5
+  - first:
+      213: 4117176765422530269
+    second: FrozenSlimeSpriteSheet_6
+  - first:
+      213: 8398203999828590804
+    second: FrozenSlimeSpriteSheet_7
+  - first:
+      213: 8795250124458367433
+    second: FrozenSlimeSpriteSheet_8
+  - first:
+      213: 239586721678656978
+    second: FrozenSlimeSpriteSheet_9
+  - first:
+      213: 4015866357132759505
+    second: FrozenSlimeSpriteSheet_10
+  - first:
+      213: -7261314450241706939
+    second: FrozenSlimeSpriteSheet_11
+  - first:
+      213: 3558140153765301742
+    second: FrozenSlimeSpriteSheet_12
+  - first:
+      213: -5829640404092084747
+    second: FrozenSlimeSpriteSheet_13
+  - first:
+      213: 6871131770434132233
+    second: FrozenSlimeSpriteSheet_14
+  - first:
+      213: 3700045351284221913
+    second: FrozenSlimeSpriteSheet_15
+  - first:
+      213: 4499496182149884002
+    second: FrozenSlimeSpriteSheet_16
+  - first:
+      213: -8748225690329996223
+    second: FrozenSlimeSpriteSheet_17
+  - first:
+      213: 3808742660630064333
+    second: FrozenSlimeSpriteSheet_18
+  - first:
+      213: -49297980329341662
+    second: FrozenSlimeSpriteSheet_19
+  - first:
+      213: -5276223464529369135
+    second: FrozenSlimeSpriteSheet_20
+  - first:
+      213: -5101682623132183026
+    second: FrozenSlimeSpriteSheet_21
+  - first:
+      213: 4053063000634512775
+    second: FrozenSlimeSpriteSheet_22
+  - first:
+      213: -5557465887279576979
+    second: FrozenSlimeSpriteSheet_23
+  - first:
+      213: 3157088737678878182
+    second: FrozenSlimeSpriteSheet_24
+  - first:
+      213: 4271814266640544390
+    second: FrozenSlimeSpriteSheet_25
+  - first:
+      213: -8004889931896718448
+    second: FrozenSlimeSpriteSheet_26
+  - first:
+      213: -1187606322853737152
+    second: FrozenSlimeSpriteSheet_27
+  - first:
+      213: 2920568383824335629
+    second: FrozenSlimeSpriteSheet_28
+  - first:
+      213: 2814563758002485323
+    second: FrozenSlimeSpriteSheet_29
+  - first:
+      213: -5659777358845610096
+    second: FrozenSlimeSpriteSheet_30
+  - first:
+      213: 7188702514056053168
+    second: FrozenSlimeSpriteSheet_31
+  - first:
+      213: -692882802893138848
+    second: FrozenSlimeSpriteSheet_32
+  - first:
+      213: -8930202136410564434
+    second: FrozenSlimeSpriteSheet_33
+  - first:
+      213: 1828022890079754118
+    second: FrozenSlimeSpriteSheet_34
+  - first:
+      213: 6420738698425132398
+    second: FrozenSlimeSpriteSheet_35
+  - first:
+      213: -4107209151865859174
+    second: FrozenSlimeSpriteSheet_36
+  - first:
+      213: 8135283868542527371
+    second: FrozenSlimeSpriteSheet_37
+  - first:
+      213: 1771159731422991975
+    second: FrozenSlimeSpriteSheet_38
+  - first:
+      213: 2845123787246377559
+    second: FrozenSlimeSpriteSheet_39
+  - first:
+      213: 3857863286672892334
+    second: FrozenSlimeSpriteSheet_40
+  - first:
+      213: 3032273774671862057
+    second: FrozenSlimeSpriteSheet_41
+  - first:
+      213: -2620846826818305703
+    second: FrozenSlimeSpriteSheet_42
+  - first:
+      213: -998058930945007016
+    second: FrozenSlimeSpriteSheet_43
+  - first:
+      213: -4052618048041322844
+    second: FrozenSlimeSpriteSheet_44
+  - first:
+      213: -6792035774644149153
+    second: FrozenSlimeSpriteSheet_45
+  - first:
+      213: 2587620286305364625
+    second: FrozenSlimeSpriteSheet_46
+  - first:
+      213: 398350394001069048
+    second: FrozenSlimeSpriteSheet_47
+  - first:
+      213: 3343510547464985563
+    second: FrozenSlimeSpriteSheet_48
+  - first:
+      213: 723400772177463109
+    second: FrozenSlimeSpriteSheet_49
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_0
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 213
+        width: 19
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 145e641f5fabeca10800000000000000
+      internalID: 1931686855666230593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_1
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 213
+        width: 19
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30b45780536a74f20800000000000000
+      internalID: 3406874389834451715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_2
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 213
+        width: 20
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2deb53d237b29b0d0800000000000000
+      internalID: -3406643869449339182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_3
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 213
+        width: 23
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a921a7a7da62caec0800000000000000
+      internalID: -3554423479376145766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_4
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 213
+        width: 26
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17c63f2b5d49bc1a0800000000000000
+      internalID: -6788168367779648399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_5
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 231
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 519ac6d2549520d10800000000000000
+      internalID: 2090331330703042837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_6
+      rect:
+        serializedVersion: 2
+        x: 338
+        y: 213
+        width: 28
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dde60845476232930800000000000000
+      internalID: 4117176765422530269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_7
+      rect:
+        serializedVersion: 2
+        x: 353
+        y: 232
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d04c01da0a6c8470800000000000000
+      internalID: 8398203999828590804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_8
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 226
+        width: 20
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c91d0393610f0a70800000000000000
+      internalID: 8795250124458367433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_9
+      rect:
+        serializedVersion: 2
+        x: 469
+        y: 227
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d58e8e9ade235300800000000000000
+      internalID: 239586721678656978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_10
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 213
+        width: 29
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d11752cc293bb730800000000000000
+      internalID: 4015866357132759505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_11
+      rect:
+        serializedVersion: 2
+        x: 469
+        y: 213
+        width: 22
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 544aee6caf0aa3b90800000000000000
+      internalID: -7261314450241706939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_12
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 149
+        width: 19
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eed0c363e9d016130800000000000000
+      internalID: 3558140153765301742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_13
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 149
+        width: 19
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fd93d170f4f81fa0800000000000000
+      internalID: -5829640404092084747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_14
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 149
+        width: 20
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90990adb0f92b5f50800000000000000
+      internalID: 6871131770434132233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_15
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 149
+        width: 23
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d7a120b4a3395330800000000000000
+      internalID: 3700045351284221913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_16
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 149
+        width: 26
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 268254530fb617e30800000000000000
+      internalID: 4499496182149884002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_17
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 167
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1442fe0b51f089680800000000000000
+      internalID: -8748225690329996223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_18
+      rect:
+        serializedVersion: 2
+        x: 338
+        y: 149
+        width: 28
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dcc2bbf254f5bd430800000000000000
+      internalID: 3808742660630064333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_19
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 168
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22d43528fbbd05ff0800000000000000
+      internalID: -49297980329341662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_20
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 162
+        width: 20
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d76521b6b617c6b0800000000000000
+      internalID: -5276223464529369135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_21
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 163
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e065c632fae2339b0800000000000000
+      internalID: -5101682623132183026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_22
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 149
+        width: 29
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7855915335f5f3830800000000000000
+      internalID: 4053063000634512775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_23
+      rect:
+        serializedVersion: 2
+        x: 469
+        y: 149
+        width: 22
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d688951683aefd2b0800000000000000
+      internalID: -5557465887279576979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_24
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 85
+        width: 20
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e56cbdda7b30db20800000000000000
+      internalID: 3157088737678878182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_25
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 85
+        width: 19
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6823e854178884b30800000000000000
+      internalID: 4271814266640544390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_26
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 85
+        width: 23
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09bf137c40be8e090800000000000000
+      internalID: -8004889931896718448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_27
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 85
+        width: 23
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04d8b417756c48fe0800000000000000
+      internalID: -1187606322853737152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_28
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 85
+        width: 28
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d031614a871f78820800000000000000
+      internalID: 2920568383824335629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_29
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 103
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b483d6163d65f0720800000000000000
+      internalID: 2814563758002485323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_30
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 98
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 097753a9a7e6471b0800000000000000
+      internalID: -5659777358845610096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_31
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 102
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b1c44269d663c360800000000000000
+      internalID: 7188702514056053168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_32
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 99
+        width: 18
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 064d39603c26266f0800000000000000
+      internalID: -692882802893138848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_33
+      rect:
+        serializedVersion: 2
+        x: 469
+        y: 100
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea850de987c811480800000000000000
+      internalID: -8930202136410564434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_34
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 85
+        width: 27
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6879c7c12217e5910800000000000000
+      internalID: 1828022890079754118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_35
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 85
+        width: 25
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e65eb33e3db0b1950800000000000000
+      internalID: 6420738698425132398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_36
+      rect:
+        serializedVersion: 2
+        x: 470
+        y: 85
+        width: 24
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a935dcc89034007c0800000000000000
+      internalID: -4107209151865859174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_37
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 21
+        width: 20
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b87617b639556e070800000000000000
+      internalID: 8135283868542527371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_38
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 21
+        width: 19
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76691f7446c649810800000000000000
+      internalID: 1771159731422991975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_39
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 21
+        width: 23
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75a95d8a209eb7720800000000000000
+      internalID: 2845123787246377559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_40
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 21
+        width: 23
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea1a82a2832e98530800000000000000
+      internalID: 3857863286672892334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_41
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 21
+        width: 28
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9299c01beecc41a20800000000000000
+      internalID: 3032273774671862057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_42
+      rect:
+        serializedVersion: 2
+        x: 284
+        y: 39
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95109c462b1e0abd0800000000000000
+      internalID: -2620846826818305703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_43
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 38
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 852ed14b0be2622f0800000000000000
+      internalID: -998058930945007016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_44
+      rect:
+        serializedVersion: 2
+        x: 358
+        y: 34
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a6f8246b5532c7c0800000000000000
+      internalID: -4052618048041322844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_45
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 35
+        width: 18
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f54279ed277ddb1a0800000000000000
+      internalID: -6792035774644149153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_46
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 36
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19a63dac0f219e320800000000000000
+      internalID: 2587620286305364625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_47
+      rect:
+        serializedVersion: 2
+        x: 341
+        y: 21
+        width: 27
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f31292a299378500800000000000000
+      internalID: 398350394001069048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_48
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 21
+        width: 25
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bdb1c64d029866e20800000000000000
+      internalID: 3343510547464985563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrozenSlimeSpriteSheet_49
+      rect:
+        serializedVersion: 2
+        x: 466
+        y: 21
+        width: 24
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54781e76b290a0a00800000000000000
+      internalID: 723400772177463109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      FrozenSlimeSpriteSheet_0: 1931686855666230593
+      FrozenSlimeSpriteSheet_1: 3406874389834451715
+      FrozenSlimeSpriteSheet_10: 4015866357132759505
+      FrozenSlimeSpriteSheet_11: -7261314450241706939
+      FrozenSlimeSpriteSheet_12: 3558140153765301742
+      FrozenSlimeSpriteSheet_13: -5829640404092084747
+      FrozenSlimeSpriteSheet_14: 6871131770434132233
+      FrozenSlimeSpriteSheet_15: 3700045351284221913
+      FrozenSlimeSpriteSheet_16: 4499496182149884002
+      FrozenSlimeSpriteSheet_17: -8748225690329996223
+      FrozenSlimeSpriteSheet_18: 3808742660630064333
+      FrozenSlimeSpriteSheet_19: -49297980329341662
+      FrozenSlimeSpriteSheet_2: -3406643869449339182
+      FrozenSlimeSpriteSheet_20: -5276223464529369135
+      FrozenSlimeSpriteSheet_21: -5101682623132183026
+      FrozenSlimeSpriteSheet_22: 4053063000634512775
+      FrozenSlimeSpriteSheet_23: -5557465887279576979
+      FrozenSlimeSpriteSheet_24: 3157088737678878182
+      FrozenSlimeSpriteSheet_25: 4271814266640544390
+      FrozenSlimeSpriteSheet_26: -8004889931896718448
+      FrozenSlimeSpriteSheet_27: -1187606322853737152
+      FrozenSlimeSpriteSheet_28: 2920568383824335629
+      FrozenSlimeSpriteSheet_29: 2814563758002485323
+      FrozenSlimeSpriteSheet_3: -3554423479376145766
+      FrozenSlimeSpriteSheet_30: -5659777358845610096
+      FrozenSlimeSpriteSheet_31: 7188702514056053168
+      FrozenSlimeSpriteSheet_32: -692882802893138848
+      FrozenSlimeSpriteSheet_33: -8930202136410564434
+      FrozenSlimeSpriteSheet_34: 1828022890079754118
+      FrozenSlimeSpriteSheet_35: 6420738698425132398
+      FrozenSlimeSpriteSheet_36: -4107209151865859174
+      FrozenSlimeSpriteSheet_37: 8135283868542527371
+      FrozenSlimeSpriteSheet_38: 1771159731422991975
+      FrozenSlimeSpriteSheet_39: 2845123787246377559
+      FrozenSlimeSpriteSheet_4: -6788168367779648399
+      FrozenSlimeSpriteSheet_40: 3857863286672892334
+      FrozenSlimeSpriteSheet_41: 3032273774671862057
+      FrozenSlimeSpriteSheet_42: -2620846826818305703
+      FrozenSlimeSpriteSheet_43: -998058930945007016
+      FrozenSlimeSpriteSheet_44: -4052618048041322844
+      FrozenSlimeSpriteSheet_45: -6792035774644149153
+      FrozenSlimeSpriteSheet_46: 2587620286305364625
+      FrozenSlimeSpriteSheet_47: 398350394001069048
+      FrozenSlimeSpriteSheet_48: 3343510547464985563
+      FrozenSlimeSpriteSheet_49: 723400772177463109
+      FrozenSlimeSpriteSheet_5: 2090331330703042837
+      FrozenSlimeSpriteSheet_6: 4117176765422530269
+      FrozenSlimeSpriteSheet_7: 8398203999828590804
+      FrozenSlimeSpriteSheet_8: 8795250124458367433
+      FrozenSlimeSpriteSheet_9: 239586721678656978
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

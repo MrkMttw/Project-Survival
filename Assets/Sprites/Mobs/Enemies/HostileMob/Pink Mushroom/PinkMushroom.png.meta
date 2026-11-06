@@ -1,0 +1,754 @@
+fileFormatVersion: 2
+guid: 0b89c3c5913d1e0418122b64b3acab41
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -785353006664498546
+    second: PinkMushroom_0
+  - first:
+      213: 4064660443252714500
+    second: PinkMushroom_1
+  - first:
+      213: -27046577138209938
+    second: PinkMushroom_2
+  - first:
+      213: -5994452660670449785
+    second: PinkMushroom_3
+  - first:
+      213: -3109946915295548411
+    second: PinkMushroom_4
+  - first:
+      213: 9098256798199396388
+    second: PinkMushroom_5
+  - first:
+      213: 4490764737888710898
+    second: PinkMushroom_6
+  - first:
+      213: -1617199918948422441
+    second: PinkMushroom_7
+  - first:
+      213: -3480521430630028546
+    second: PinkMushroom_8
+  - first:
+      213: -2825250137859546486
+    second: PinkMushroom_9
+  - first:
+      213: -3583121749102404796
+    second: PinkMushroom_10
+  - first:
+      213: 4442915113280431195
+    second: PinkMushroom_11
+  - first:
+      213: -407801883331477855
+    second: PinkMushroom_12
+  - first:
+      213: 6107083387530857828
+    second: PinkMushroom_13
+  - first:
+      213: -7981800309047676421
+    second: PinkMushroom_14
+  - first:
+      213: -2784448471560682071
+    second: PinkMushroom_15
+  - first:
+      213: 7337911957268917631
+    second: PinkMushroom_16
+  - first:
+      213: -999381088783195640
+    second: PinkMushroom_17
+  - first:
+      213: -6760443704501620221
+    second: PinkMushroom_18
+  - first:
+      213: -7765574435400249971
+    second: PinkMushroom_19
+  - first:
+      213: 3064948597315144247
+    second: PinkMushroom_20
+  - first:
+      213: -9019467970646689827
+    second: PinkMushroom_21
+  - first:
+      213: 2700619530525822058
+    second: PinkMushroom_22
+  - first:
+      213: 301780336740245552
+    second: PinkMushroom_23
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: PinkMushroom_0
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 85
+        width: 21
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e824a76f99dd915f0800000000000000
+      internalID: -785353006664498546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PinkMushroom_1
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 85
+        width: 21
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40ce8ac3323986830800000000000000
+      internalID: 4064660443252714500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PinkMushroom_2
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 85
+        width: 21
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6b69490849ef9ff0800000000000000
+      internalID: -27046577138209938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PinkMushroom_3
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 84
+        width: 21
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 787b7d9a01d6fcca0800000000000000
+      internalID: -5994452660670449785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PinkMushroom_4
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 83
+        width: 21
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50cac7bf1cf37d4d0800000000000000
+      internalID: -3109946915295548411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PinkMushroom_5
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 84
+        width: 21
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42835f37a50834e70800000000000000
+      internalID: 9098256798199396388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PinkMushroom_6
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 58
+        width: 21
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f0f4bb6cb6625e30800000000000000
+      internalID: 4490764737888710898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PinkMushroom_7
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 59
+        width: 21
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7dce944fd3d8e89e0800000000000000
+      internalID: -1617199918948422441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PinkMushroom_8
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 59
+        width: 21
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: efaa92e0334b2bfc0800000000000000
+      internalID: -3480521430630028546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PinkMushroom_9
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 57
+        width: 21
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a82224be7f1bac8d0800000000000000
+      internalID: -2825250137859546486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PinkMushroom_10
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 57
+        width: 21
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44b56cdd0c1364ec0800000000000000
+      internalID: -3583121749102404796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PinkMushroom_11
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 57
+        width: 21
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b546b4681c768ad30800000000000000
+      internalID: 4442915113280431195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PinkMushroom_12
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 31
+        width: 21
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1aeba450952375af0800000000000000
+      internalID: -407801883331477855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PinkMushroom_13
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 31
+        width: 21
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46d4777fbf7b0c450800000000000000
+      internalID: 6107083387530857828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PinkMushroom_14
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 31
+        width: 21
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf13c1788e2fa3190800000000000000
+      internalID: -7981800309047676421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PinkMushroom_15
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 30
+        width: 21
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a50f352ed6ab59d0800000000000000
+      internalID: -2784448471560682071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PinkMushroom_16
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 29
+        width: 21
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7dea161c0085d560800000000000000
+      internalID: 7337911957268917631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PinkMushroom_17
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 30
+        width: 21
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 802a5d7d13c7122f0800000000000000
+      internalID: -999381088783195640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PinkMushroom_18
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 4
+        width: 21
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 302b725e4441e22a0800000000000000
+      internalID: -6760443704501620221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PinkMushroom_19
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 5
+        width: 21
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8d0d1dd1332b3490800000000000000
+      internalID: -7765574435400249971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PinkMushroom_20
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 5
+        width: 21
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73a0dcda282e88a20800000000000000
+      internalID: 3064948597315144247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PinkMushroom_21
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 3
+        width: 21
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd7379afaa964d280800000000000000
+      internalID: -9019467970646689827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PinkMushroom_22
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 3
+        width: 21
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6c497e87278a7520800000000000000
+      internalID: 2700619530525822058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PinkMushroom_23
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 3
+        width: 21
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 030a99b0e93203400800000000000000
+      internalID: 301780336740245552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      PinkMushroom_0: -785353006664498546
+      PinkMushroom_1: 4064660443252714500
+      PinkMushroom_10: -3583121749102404796
+      PinkMushroom_11: 4442915113280431195
+      PinkMushroom_12: -407801883331477855
+      PinkMushroom_13: 6107083387530857828
+      PinkMushroom_14: -7981800309047676421
+      PinkMushroom_15: -2784448471560682071
+      PinkMushroom_16: 7337911957268917631
+      PinkMushroom_17: -999381088783195640
+      PinkMushroom_18: -6760443704501620221
+      PinkMushroom_19: -7765574435400249971
+      PinkMushroom_2: -27046577138209938
+      PinkMushroom_20: 3064948597315144247
+      PinkMushroom_21: -9019467970646689827
+      PinkMushroom_22: 2700619530525822058
+      PinkMushroom_23: 301780336740245552
+      PinkMushroom_3: -5994452660670449785
+      PinkMushroom_4: -3109946915295548411
+      PinkMushroom_5: 9098256798199396388
+      PinkMushroom_6: 4490764737888710898
+      PinkMushroom_7: -1617199918948422441
+      PinkMushroom_8: -3480521430630028546
+      PinkMushroom_9: -2825250137859546486
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
