@@ -25,6 +25,6 @@ MonoBehaviour:
   - {fileID: 2471362044701166966, guid: 690b7ec9ae9731545b7c007bcfaac361, type: 3}
   - {fileID: 896484224631370102, guid: 45c35072ae6ab0c4eb78874b2468d0ea, type: 3}
   minSpawnCount: 6
-  maxSpawnCount: 7
-  minSpacing: 4
+  maxSpawnCount: 8
+  minSpacing: 2
   ignoreSpacingValidation: 0

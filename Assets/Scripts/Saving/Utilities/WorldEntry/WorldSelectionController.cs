@@ -1,3 +1,6 @@
+using System;
+using System.Globalization;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -45,6 +48,25 @@ public class WorldSelectionController : MonoBehaviour
 
         // GET REGISTERED WORLDS
         List<WorldSaveData> worlds = WorldSaveManager.GetAllWorlds();
+
+        // SORT WORLDS BY LAST PLAYED
+        worlds = worlds
+            .OrderByDescending(world =>
+            {
+                DateTime date;
+
+                if (DateTime.TryParse(
+                    world.lastPlayedDate,
+                    CultureInfo.InvariantCulture,
+                    DateTimeStyles.RoundtripKind,
+                    out date))
+                {
+                    return date;
+                }
+
+                return DateTime.MinValue;
+            })
+            .ToList();
 
         // CREATE WORLD ENTRIES
         foreach (WorldSaveData world in worlds)
@@ -145,11 +167,19 @@ public class WorldSelectionController : MonoBehaviour
             return;
         }
 
+        // UPDATE LAST PLAYED DATE
+        if (!WorldSaveManager.UpdateLastPlayedDate(selectedWorld.worldID))
+        {
+            Debug.LogError("FAILED TO UPDATE LAST PLAYED DATE!");
+            return;
+        }
+
         // STORE SELECTED WORLD
         SelectedWorldData.world = selectedWorld;
 
         Debug.Log("SELECTED WORLD: " + selectedWorld.worldName);
         Debug.Log("WORLD SEED: " + selectedWorld.worldSeed);
+        Debug.Log("LAST PLAYED DATE UPDATED!");
         Debug.Log("WORLD HANDOFF SUCCESSFUL!");
 
         // LOAD GAME SCENE

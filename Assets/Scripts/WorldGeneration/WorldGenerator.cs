@@ -60,6 +60,19 @@ public class WorldGenerator : MonoBehaviour
         public float radius;
     }
 
+    private struct NaturalObjectCandidate
+    {
+        public Vector2Int chunkCoordinate;
+        public int dataIndex;
+        public int objectIndex;
+
+        public Vector3 position;
+        public GameObject prefab;
+        public float priority;
+
+        public WorldSpawnData data;
+    }
+
     private List<StructureClearArea> structureClearAreas =
         new List<StructureClearArea>();
 
@@ -104,6 +117,12 @@ public class WorldGenerator : MonoBehaviour
         }
 
         currentPlayerChunk = GetChunkCoordinate(player.position);
+
+        // Generate structure layout and register clear areas first.
+        if (structureSpawner != null)
+        {
+            structureSpawner.UpdateStructureLoading(currentPlayerChunk);
+        }
 
         UpdateChunks();
     }
@@ -302,40 +321,103 @@ public class WorldGenerator : MonoBehaviour
         Vector2Int chunkCoordinate,
         Transform chunkParent)
     {
-        for (int dataIndex = 0; dataIndex < spawnData.Length; dataIndex++)
+        List<NaturalObjectCandidate> candidates =
+            GenerateCandidatesForChunk(chunkCoordinate);
+
+        foreach (NaturalObjectCandidate candidate in candidates)
         {
-            WorldSpawnData data = spawnData[dataIndex];
+            string objectID =
+                candidate.dataIndex + "_" + candidate.objectIndex;
 
-            if (data == null)
+            if (IsInsideStructureClearArea(candidate.position))
+            {
+                MarkObjectIDDestroyed(chunkCoordinate, objectID);
+                continue;
+            }
+
+            if (!IsCandidateValid(candidate))
             {
                 continue;
             }
 
-            if (data.prefabs == null || data.prefabs.Length == 0)
+            if (IsObjectDestroyed(chunkCoordinate, objectID))
             {
                 continue;
             }
 
-            Random.InitState(
-                worldSeed +
-                chunkCoordinate.x * 73856093 +
-                chunkCoordinate.y * 19349663 +
-                dataIndex * 83492791
+            GameObject spawnedObject = Instantiate(
+                candidate.prefab,
+                candidate.position,
+                Quaternion.identity,
+                chunkParent
             );
 
-            int spawnCount = Random.Range(
-                data.minSpawnCount,
-                data.maxSpawnCount + 1
+            WorldObjectIdentity identity =
+                spawnedObject.AddComponent<WorldObjectIdentity>();
+
+            identity.chunkCoordinate = chunkCoordinate;
+            identity.spawnDataIndex = candidate.dataIndex;
+            identity.objectIndex = candidate.objectIndex;
+
+            generatedPositions[chunkCoordinate].Add(
+                candidate.position
             );
 
-            for (int i = 0; i < spawnCount; i++)
+            persistentObjectPositions[chunkCoordinate].Add(
+                objectID,
+                candidate.position
+            );
+
+            persistentObjectPrefabs[chunkCoordinate].Add(
+                objectID,
+                candidate.prefab
+            );
+        }
+    }
+
+    private List<NaturalObjectCandidate> GenerateCandidatesForChunk(
+        Vector2Int chunkCoordinate)
+    {
+        List<NaturalObjectCandidate> candidates =
+            new List<NaturalObjectCandidate>();
+
+        if (spawnData == null)
+        {
+            return candidates;
+        }
+
+        // Preserve the current global Unity random state.
+        Random.State previousRandomState = Random.state;
+
+        try
+        {
+            for (int dataIndex = 0; dataIndex < spawnData.Length; dataIndex++)
             {
-                bool validPosition = false;
-                Vector3 spawnPosition = Vector3.zero;
+                WorldSpawnData data = spawnData[dataIndex];
 
-                for (int attempt = 0; attempt < 20; attempt++)
+                if (data == null ||
+                    data.prefabs == null ||
+                    data.prefabs.Length == 0)
                 {
-                    spawnPosition = new Vector3(
+                    continue;
+                }
+
+                int chunkSeed =
+                    worldSeed +
+                    chunkCoordinate.x * 73856093 +
+                    chunkCoordinate.y * 19349663 +
+                    dataIndex * 83492791;
+
+                Random.InitState(chunkSeed);
+
+                int spawnCount = Random.Range(
+                    data.minSpawnCount,
+                    data.maxSpawnCount + 1
+                );
+
+                for (int i = 0; i < spawnCount; i++)
+                {
+                    Vector3 position = new Vector3(
                         chunkCoordinate.x * chunkSize +
                         Random.Range(0f, chunkSize),
 
@@ -345,72 +427,34 @@ public class WorldGenerator : MonoBehaviour
                         0f
                     );
 
-                    if (IsPositionValid(
-                        chunkCoordinate,
-                        spawnPosition,
-                        data))
-                    {
-                        validPosition = true;
-                        break;
-                    }
+                    GameObject prefab = data.prefabs[
+                        Random.Range(0, data.prefabs.Length)
+                    ];
+
+                    float priority = Random.value;
+
+                    NaturalObjectCandidate candidate =
+                        new NaturalObjectCandidate();
+
+                    candidate.chunkCoordinate = chunkCoordinate;
+                    candidate.dataIndex = dataIndex;
+                    candidate.objectIndex = i;
+                    candidate.position = position;
+                    candidate.prefab = prefab;
+                    candidate.priority = priority;
+                    candidate.data = data;
+
+                    candidates.Add(candidate);
                 }
-
-                if (!validPosition)
-                {
-                    continue;
-                }
-
-                string objectID =
-                    dataIndex +
-                    "_" +
-                    i;
-
-                if (IsInsideStructureClearArea(spawnPosition))
-                {
-                    MarkObjectIDDestroyed(chunkCoordinate, objectID);
-                    continue;
-                }
-
-                if (IsObjectDestroyed(
-                    chunkCoordinate,
-                    objectID))
-                {
-                    continue;
-                }
-
-                GameObject prefab = data.prefabs[
-                    Random.Range(0, data.prefabs.Length)
-                ];
-
-                GameObject spawnedObject = Instantiate(
-                    prefab,
-                    spawnPosition,
-                    Quaternion.identity,
-                    chunkParent
-                );
-
-                WorldObjectIdentity identity =
-                    spawnedObject.AddComponent<WorldObjectIdentity>();
-
-                identity.chunkCoordinate = chunkCoordinate;
-                identity.spawnDataIndex = dataIndex;
-                identity.objectIndex = i;
-
-                generatedPositions[chunkCoordinate].Add(
-                    spawnPosition
-                );
-
-                persistentObjectPositions[chunkCoordinate].Add(
-                    objectID,
-                    spawnPosition
-                );
-
-                persistentObjectPrefabs[chunkCoordinate].Add(
-                    objectID,
-                    prefab
-                );
             }
         }
+        finally
+        {
+            // Prevent world generation from changing other systems' RNG.
+            Random.state = previousRandomState;
+        }
+
+        return candidates;
     }
 
     private void GenerateChunkFromSavedPositions(
@@ -469,61 +513,89 @@ public class WorldGenerator : MonoBehaviour
         }
     }
 
-    private bool IsPositionValid(
-    Vector2Int chunkCoordinate,
-    Vector3 position,
-    WorldSpawnData data)
+    private bool IsCandidateValid(
+        NaturalObjectCandidate candidate)
     {
-        if (data.ignoreSpacingValidation)
+        if (candidate.data.ignoreSpacingValidation)
         {
             return true;
         }
 
-        foreach (Vector3 existingPosition in
-                generatedPositions[chunkCoordinate])
-        {
-            if (Vector3.Distance(
-                position,
-                existingPosition) < data.minSpacing)
-            {
-                return false;
-            }
-        }
+        int chunkRadius = Mathf.Max(
+            0,
+            Mathf.CeilToInt(candidate.data.minSpacing / chunkSize)
+        );
 
-        for (int x = -1; x <= 1; x++)
+        for (int x = -chunkRadius; x <= chunkRadius; x++)
         {
-            for (int y = -1; y <= 1; y++)
+            for (int y = -chunkRadius; y <= chunkRadius; y++)
             {
-                if (x == 0 && y == 0)
-                {
-                    continue;
-                }
-
                 Vector2Int neighborChunk = new Vector2Int(
-                    chunkCoordinate.x + x,
-                    chunkCoordinate.y + y
+                    candidate.chunkCoordinate.x + x,
+                    candidate.chunkCoordinate.y + y
                 );
 
-                if (!generatedPositions.TryGetValue(
-                    neighborChunk,
-                    out List<Vector3> neighborPositions))
-                {
-                    continue;
-                }
+                List<NaturalObjectCandidate> neighborCandidates =
+                    GenerateCandidatesForChunk(neighborChunk);
 
-                foreach (Vector3 existingPosition in neighborPositions)
+                foreach (NaturalObjectCandidate other in neighborCandidates)
                 {
-                    if (Vector3.Distance(
-                        position,
-                        existingPosition) < data.minSpacing)
+                    // Don't compare a candidate against itself.
+                    if (other.chunkCoordinate == candidate.chunkCoordinate &&
+                        other.dataIndex == candidate.dataIndex &&
+                        other.objectIndex == candidate.objectIndex)
                     {
-                        return false;
+                        continue;
+                    }
+
+                    // Candidates inside structure clear areas cannot block others.
+                    if (IsInsideStructureClearArea(other.position))
+                    {
+                        continue;
+                    }
+
+                    if (Vector3.Distance(
+                        candidate.position,
+                        other.position) < candidate.data.minSpacing)
+                    {
+                        if (HasHigherPriority(other, candidate))
+                        {
+                            return false;
+                        }
                     }
                 }
             }
         }
 
         return true;
+    }   
+
+    private bool HasHigherPriority(
+        NaturalObjectCandidate first,
+        NaturalObjectCandidate second)
+    {
+        if (first.priority != second.priority)
+        {
+            return first.priority > second.priority;
+        }
+
+        // Stable tie-breakers.
+        if (first.chunkCoordinate.x != second.chunkCoordinate.x)
+        {
+            return first.chunkCoordinate.x < second.chunkCoordinate.x;
+        }
+
+        if (first.chunkCoordinate.y != second.chunkCoordinate.y)
+        {
+            return first.chunkCoordinate.y < second.chunkCoordinate.y;
+        }
+
+        if (first.dataIndex != second.dataIndex)
+        {
+            return first.dataIndex < second.dataIndex;
+        }
+
+        return first.objectIndex < second.objectIndex;
     }
     
     private bool IsObjectDestroyed(
