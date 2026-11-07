@@ -32,6 +32,8 @@ public class WorldGenerator : MonoBehaviour
     private Dictionary<Vector2Int, HashSet<string>> destroyedObjects =
         new Dictionary<Vector2Int, HashSet<string>>();
 
+    private WorldStateData worldStateData;
+
     private Vector2Int currentPlayerChunk;
 
     private Dictionary<Vector2Int, GameObject> loadedChunks =
@@ -86,6 +88,15 @@ public class WorldGenerator : MonoBehaviour
 
             Debug.Log("WORLD LOADED: " + worldData.worldName);
             Debug.Log("WORLD SEED APPLIED: " + worldSeed);
+            
+            // LOAD SAVED WORLD STATE
+            if (!LoadDestroyedObjectData())
+            {
+                Debug.LogError(
+                    "WorldGenerator: Failed to load world state. Generation cancelled."
+                );
+                return;
+            }
         }
         else
         {
@@ -317,6 +328,53 @@ public class WorldGenerator : MonoBehaviour
         );
     }
 
+    // LOAD DESTROYED OBJECT DATA
+    private bool LoadDestroyedObjectData()
+    {
+        if (worldData == null)
+            return true;
+
+        worldStateData =
+            WorldSaveManager.LoadWorldState(worldData.worldID);
+
+        if (worldStateData == null)
+            return false;
+
+        destroyedObjects.Clear();
+
+        foreach (DestroyedObjectSaveData data in
+                worldStateData.destroyedObjects)
+        {
+            if (data == null || string.IsNullOrEmpty(data.objectID))
+                continue;
+
+            Vector2Int chunkCoordinate = new Vector2Int(
+                data.chunkX,
+                data.chunkY
+            );
+
+            if (!destroyedObjects.TryGetValue(
+                chunkCoordinate,
+                out HashSet<string> destroyed))
+            {
+                destroyed = new HashSet<string>();
+
+                destroyedObjects.Add(
+                    chunkCoordinate,
+                    destroyed
+                );
+            }
+
+            destroyed.Add(data.objectID);
+        }
+
+        Debug.Log(
+            "Loaded destroyed objects: " +
+            worldStateData.destroyedObjects.Count
+        );
+
+        return true;
+    }
     private void GenerateChunk(
         Vector2Int chunkCoordinate,
         Transform chunkParent)
@@ -698,6 +756,29 @@ public class WorldGenerator : MonoBehaviour
             " / " +
             objectID
         );
+
+        // UPDATE WORLD STATE DATA
+        if (worldStateData != null)
+        {
+            bool alreadySaved = worldStateData.destroyedObjects.Exists(
+                data =>
+                    data.chunkX == identity.chunkCoordinate.x &&
+                    data.chunkY == identity.chunkCoordinate.y &&
+                    data.objectID == objectID
+            );
+
+            if (!alreadySaved)
+            {
+                worldStateData.destroyedObjects.Add(
+                    new DestroyedObjectSaveData
+                    {
+                        chunkX = identity.chunkCoordinate.x,
+                        chunkY = identity.chunkCoordinate.y,
+                        objectID = objectID
+                    }
+                );
+            }
+        }
     }
    
     public void RegisterBuilding(BuildingObject building)
@@ -944,6 +1025,15 @@ public class WorldGenerator : MonoBehaviour
             building.directionalPresetIndex =
                 data.directionalPresetIndex;
         }
+    }
+
+    // SAVE CURRENT WORLD STATE
+    public bool SaveCurrentWorldState()
+    {
+        if (worldStateData == null)
+            return false;
+
+        return WorldSaveManager.SaveWorldState(worldStateData);
     }
 
     public Transform GetBuildingChunkParent(Vector2Int chunkCoordinate)

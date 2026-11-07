@@ -324,6 +324,99 @@ public static class WorldSaveManager
         );
     }
 
+    // GET WORLD STATE FILE PATH
+    public static string GetWorldStateFilePath(string worldID)
+    {
+        return Path.Combine(
+            GetWorldDirectory(worldID),
+            "world_state.json"
+        );
+    }
+
+    // LOAD WORLD STATE
+    public static WorldStateData LoadWorldState(string worldID)
+    {
+        if (worldCatalog == null || GetWorldByID(worldID) == null)
+        {
+            Debug.LogError("Cannot load world state. World not found.");
+            return null;
+        }
+
+        string filePath = GetWorldStateFilePath(worldID);
+
+        // CREATE EMPTY DATA FOR WORLDS WITHOUT A STATE FILE
+        if (!File.Exists(filePath))
+        {
+            return new WorldStateData
+            {
+                worldID = worldID
+            };
+        }
+
+        WorldStateData stateData =
+            SaveFileHandler.LoadFromJson<WorldStateData>(filePath);
+
+        // ATTEMPT BACKUP RECOVERY
+        if (stateData == null ||
+            stateData.worldID != worldID ||
+            stateData.destroyedObjects == null)
+        {
+            Debug.LogWarning("World state is invalid. Attempting backup recovery.");
+
+            if (SaveBackupHandler.RestoreLatestBackup<WorldStateData>(
+                filePath,
+                data => data != null &&
+                        data.worldID == worldID &&
+                        data.destroyedObjects != null))
+            {
+                stateData =
+                    SaveFileHandler.LoadFromJson<WorldStateData>(filePath);
+            }
+        }
+
+        // DO NOT OVERWRITE INVALID DATA
+        if (stateData == null ||
+            stateData.worldID != worldID ||
+            stateData.destroyedObjects == null)
+        {
+            Debug.LogError("World state could not be recovered.");
+            return null;
+        }
+
+        Debug.Log("World state loaded: " + worldID);
+
+        return stateData;
+    }
+
+    // SAVE WORLD STATE
+    public static bool SaveWorldState(WorldStateData stateData)
+    {
+        if (worldCatalog == null || stateData == null)
+            return false;
+
+        if (!IsValidWorldID(stateData.worldID) ||
+            GetWorldByID(stateData.worldID) == null)
+        {
+            Debug.LogError("Cannot save world state. Invalid world ID.");
+            return false;
+        }
+
+        if (stateData.destroyedObjects == null)
+        {
+            stateData.destroyedObjects =
+                new List<DestroyedObjectSaveData>();
+        }
+
+        string filePath = GetWorldStateFilePath(stateData.worldID);
+
+        bool saved = SaveFileHandler.SaveToJson(filePath, stateData);
+
+        if (saved)
+            Debug.Log("World state saved: " + stateData.worldID);
+
+        return saved;
+    }
+
     // GET WORLD CATALOG
     public static WorldCatalogData GetWorldCatalog()
     {

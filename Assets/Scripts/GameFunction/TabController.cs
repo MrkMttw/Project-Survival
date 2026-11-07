@@ -29,6 +29,6 @@ public class TabController : MonoBehaviour
     public void SettingsButton()
     {
         menuCanvas.SetActive(!menuCanvas.activeSelf);
-        ActiveTab(3);
+        ActiveTab(2);
     }
 }

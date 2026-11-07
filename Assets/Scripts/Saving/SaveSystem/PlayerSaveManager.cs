@@ -14,6 +14,9 @@ public class PlayerSaveManager : MonoBehaviour
     public HotbarController hotbarController;
     public ItemDictionary itemDictionary;
 
+    [Header("World References")]
+    public WorldGenerator worldGenerator;
+    
     private PlayerSaveData loadedData;
     private string savePath;
 
@@ -327,9 +330,12 @@ public class PlayerSaveManager : MonoBehaviour
     // SAVE AND RETURN TO MAIN MENU
     public void ExitToMainMenu()
     {
-        bool saved = SavePlayer();
+        bool playerSaved = SavePlayer();
 
-        if (!saved)
+        bool worldSaved = worldGenerator != null &&
+                        worldGenerator.SaveCurrentWorldState();
+
+        if (!playerSaved || !worldSaved)
         {
             Debug.LogError("Save failed. Staying in game.");
             return;

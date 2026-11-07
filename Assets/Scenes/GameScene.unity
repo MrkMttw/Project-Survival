@@ -640522,6 +640522,7 @@ MonoBehaviour:
   inventoryController: {fileID: 1549747555}
   hotbarController: {fileID: 1693767230}
   itemDictionary: {fileID: 1618858647}
+  worldGenerator: {fileID: 1040017515}
 --- !u!1 &1618858645
 GameObject:
   m_ObjectHideFlags: 0
