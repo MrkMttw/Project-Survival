@@ -17,6 +17,7 @@ public class HotbarController : MonoBehaviour
     public PlacementController placementController;
 
     private int selectedSlot = -1;
+    public int SelectedSlot => selectedSlot;
 
     private ItemDictionary itemDictionary;
     private Key[] hotbarKeys;
@@ -900,5 +901,39 @@ public class HotbarController : MonoBehaviour
 
         PromptController.Instance.ReleasePrompt(
             PromptType.ShiftG, this);
+    }
+
+    // RESTORE SELECTED HOTBAR SLOT
+    public void RestoreSelectedSlot(int slotIndex)
+    {
+        if (slotIndex < 0 || slotIndex >= slotCount)
+        {
+            selectedSlot = -1;
+            HighlightSlot(-1);
+
+            if (playerHeldItem != null)
+                playerHeldItem.ClearHeldItem();
+
+            return;
+        }
+
+        selectedSlot = slotIndex;
+
+        HighlightSlot(selectedSlot);
+
+        Slot slot = hotbarPanel.transform
+            .GetChild(selectedSlot)
+            .GetComponent<Slot>();
+
+        if (slot != null && slot.currentItem != null)
+        {
+            Item item = slot.currentItem.GetComponent<Item>();
+
+            playerHeldItem.SetHeldItem(item);
+        }
+        else
+        {
+            playerHeldItem.ClearHeldItem();
+        }
     }
 }

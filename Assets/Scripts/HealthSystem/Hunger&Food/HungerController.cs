@@ -227,4 +227,13 @@ public class HungerController : MonoBehaviour
 
         UpdateHungerUI();
     }
+
+    // RESTORE SAVED HUNGER
+    public void RestoreSavedHunger(float hunger, float saturation)
+    {
+        currentHunger = Mathf.Clamp(hunger, 0f, maxHunger);
+        currentSaturation = Mathf.Clamp(saturation, 0f, maxSaturation);
+
+        UpdateHungerUI();
+    }
 }

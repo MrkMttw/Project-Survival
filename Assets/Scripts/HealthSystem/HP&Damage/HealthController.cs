@@ -103,4 +103,12 @@ public class HealthController : MonoBehaviour
     {
         return currentHealth <= 0f;
     }
+
+    // RESTORE SAVED HEALTH
+    public void RestoreSavedHealth(float savedHealth)
+    {
+        currentHealth = Mathf.Clamp(savedHealth, 0f, maxHealth);
+
+        UpdateHealthUI();
+    }
 }
