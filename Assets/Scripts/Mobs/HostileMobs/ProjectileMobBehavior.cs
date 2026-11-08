@@ -667,6 +667,14 @@ public class ProjectileMobBehavior : MonoBehaviour
         )
             return;
 
+        if (DropLootController.Instance == null)
+        {
+            Debug.LogError(
+                "ProjectileMobBehavior: DropLootController instance is missing!"
+            );
+            return;
+        }
+
         foreach (MobDropData.DropEntry drop in mobDropPreset.drops)
         {
             if (drop == null || drop.itemPrefab == null)
@@ -697,30 +705,12 @@ public class ProjectileMobBehavior : MonoBehaviour
                 maxAmount + 1
             );
 
-            // CLONE ITEM
-            Item item = drop.itemPrefab.GetComponent<Item>();
-
-            if (item == null)
-                continue;
-
-            GameObject droppedItem = item.CloneItem(amount);
-
-            if (droppedItem == null)
-                continue;
-
-            droppedItem.transform.position = transform.position;
-
-            // LOOT DROP ANIMATION
-            LootDropAnimation dropAnimation =
-                droppedItem.GetComponent<LootDropAnimation>();
-
-            if (dropAnimation == null)
-            {
-                dropAnimation =
-                    droppedItem.AddComponent<LootDropAnimation>();
-            }
-
-            dropAnimation.Play();
+            // SPAWN THROUGH DROP LOOT CONTROLLER
+            DropLootController.Instance.SpawnLoot(
+                drop.itemPrefab,
+                amount,
+                transform.position
+            );
         }
     }
 

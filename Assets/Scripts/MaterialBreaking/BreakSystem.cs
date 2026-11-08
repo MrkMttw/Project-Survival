@@ -357,6 +357,14 @@ public class BreakSystem : MonoBehaviour
             return;
         }
 
+        if (DropLootController.Instance == null)
+        {
+            Debug.LogError(
+                "BreakSystem: DropLootController instance is missing!"
+            );
+            return;
+        }
+
         foreach (DropItemData drop in material.drops)
         {
             if (drop == null || drop.item == null)
@@ -387,29 +395,20 @@ public class BreakSystem : MonoBehaviour
             if (amount <= 0)
                 continue;
 
-            // CLONE ITEM
-            GameObject droppedItem = drop.item.CloneItem(amount);
+            // SPAWN THROUGH DROP LOOT CONTROLLER
+            GameObject droppedItem =
+                DropLootController.Instance.SpawnLoot(
+                    drop.item.gameObject,
+                    amount,
+                    position
+                );
 
-            if (droppedItem == null)
-                continue;
-
-            droppedItem.transform.position = position;
-
-            // ADD DROP ANIMATION
-            LootDropAnimation dropAnimation =
-                droppedItem.GetComponent<LootDropAnimation>();
-
-            if (dropAnimation == null)
+            if (droppedItem != null)
             {
-                dropAnimation =
-                    droppedItem.AddComponent<LootDropAnimation>();
+                Debug.Log(
+                    "Dropped " + amount + "x " + drop.item.name
+                );
             }
-
-            dropAnimation.Play();
-
-            Debug.Log(
-                "Dropped " + amount + "x " + drop.item.name
-            );
         }
     }
     

@@ -349,7 +349,10 @@ public static class WorldSaveManager
         {
             return new WorldStateData
             {
-                worldID = worldID
+                worldID = worldID,
+                destroyedObjects = new List<DestroyedObjectSaveData>(),
+                droppedLoot = new List<DroppedLootSaveData>(),
+                buildings = new List<BuildingSaveData>()
             };
         }
 
@@ -361,7 +364,9 @@ public static class WorldSaveManager
             stateData.worldID != worldID ||
             stateData.destroyedObjects == null)
         {
-            Debug.LogWarning("World state is invalid. Attempting backup recovery.");
+            Debug.LogWarning(
+                "World state is invalid. Attempting backup recovery."
+            );
 
             if (SaveBackupHandler.RestoreLatestBackup<WorldStateData>(
                 filePath,
@@ -382,6 +387,17 @@ public static class WorldSaveManager
             Debug.LogError("World state could not be recovered.");
             return null;
         }
+
+        // INITIALIZE NEW DATA FIELDS
+        // Supports older saves that do not contain droppedLoot.
+        if (stateData.droppedLoot == null)
+        {
+            stateData.droppedLoot =
+                new List<DroppedLootSaveData>();
+        }
+
+        if (stateData.buildings == null)
+            stateData.buildings = new List<BuildingSaveData>();
 
         Debug.Log("World state loaded: " + worldID);
 
@@ -406,6 +422,15 @@ public static class WorldSaveManager
             stateData.destroyedObjects =
                 new List<DestroyedObjectSaveData>();
         }
+
+        if (stateData.droppedLoot == null)
+        {
+            stateData.droppedLoot =
+                new List<DroppedLootSaveData>();
+        }
+
+        if (stateData.buildings == null)
+            stateData.buildings = new List<BuildingSaveData>();
 
         string filePath = GetWorldStateFilePath(stateData.worldID);
 

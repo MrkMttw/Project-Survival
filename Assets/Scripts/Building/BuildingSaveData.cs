@@ -9,7 +9,10 @@ public class BuildingSaveData
     public Quaternion rotation;
     public Vector2Int chunkCoordinate;
     public int directionalPresetIndex = -1;
-    
+
+    public int grownPrefabIndex = -1;
+
+    [System.NonSerialized]
     public GameObject grownPrefab;
 
     public float growthDeadline;

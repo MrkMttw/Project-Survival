@@ -276,6 +276,14 @@ public class PassiveMobBehavior : MonoBehaviour
         if (mobDropPreset == null || mobDropPreset.drops == null)
             return;
 
+        if (DropLootController.Instance == null)
+        {
+            Debug.LogError(
+                "PassiveMobBehavior: DropLootController instance is missing!"
+            );
+            return;
+        }
+
         foreach (MobDropData.DropEntry drop in mobDropPreset.drops)
         {
             if (drop == null || drop.itemPrefab == null)
@@ -291,8 +299,10 @@ public class PassiveMobBehavior : MonoBehaviour
             if (dropChance <= 0f)
                 continue;
 
-            if (dropChance < 100f &&
-                Random.Range(0f, 100f) >= dropChance)
+            if (
+                dropChance < 100f &&
+                Random.Range(0f, 100f) >= dropChance
+            )
             {
                 continue;
             }
@@ -301,37 +311,26 @@ public class PassiveMobBehavior : MonoBehaviour
             int minAmount = Mathf.Max(1, drop.minAmount);
             int maxAmount = Mathf.Max(minAmount, drop.maxAmount);
 
-            int amount = Random.Range(minAmount, maxAmount + 1);
-
-            // CLONE ITEM
-            Item item = drop.itemPrefab.GetComponent<Item>();
-
-            if (item == null)
-                continue;
-
-            GameObject droppedItem = item.CloneItem(amount);
-
-            if (droppedItem == null)
-                continue;
-
-            droppedItem.transform.position = transform.position;
-
-            // ADD DROP ANIMATION
-            LootDropAnimation dropAnimation =
-                droppedItem.GetComponent<LootDropAnimation>();
-
-            if (dropAnimation == null)
-            {
-                dropAnimation =
-                    droppedItem.AddComponent<LootDropAnimation>();
-            }
-
-            dropAnimation.Play();
-
-            Debug.Log(
-                "Passive mob dropped " +
-                amount + "x " + drop.itemPrefab.name
+            int amount = Random.Range(
+                minAmount,
+                maxAmount + 1
             );
+
+            // SPAWN THROUGH DROP LOOT CONTROLLER
+            GameObject droppedItem =
+                DropLootController.Instance.SpawnLoot(
+                    drop.itemPrefab,
+                    amount,
+                    transform.position
+                );
+
+            if (droppedItem != null)
+            {
+                Debug.Log(
+                    "Passive mob dropped " +
+                    amount + "x " + drop.itemPrefab.name
+                );
+            }
         }
     }
 

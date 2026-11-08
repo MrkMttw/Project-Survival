@@ -119,6 +119,8 @@ public class PlayerItemCollector : MonoBehaviour
         // NON-STACKABLE ITEMS
         if (!item.stackable)
         {
+            DropLootController.Instance?.RemoveLoot(nearbyItem);
+
             Destroy(nearbyItem);
             nearbyItem = null;
             return;
@@ -130,6 +132,8 @@ public class PlayerItemCollector : MonoBehaviour
         // ALL ITEMS WERE COLLECTED
         if (quantityAfterPickup <= 0)
         {
+            DropLootController.Instance?.RemoveLoot(nearbyItem);
+
             Destroy(nearbyItem);
             nearbyItem = null;
             return;
@@ -137,6 +141,8 @@ public class PlayerItemCollector : MonoBehaviour
 
         // UPDATE REMAINING STACK
         item.UpdateQuantityDisplay();
+
+        DropLootController.Instance?.UpdateLoot(nearbyItem);
 
         Debug.Log(
             "Picked up " +

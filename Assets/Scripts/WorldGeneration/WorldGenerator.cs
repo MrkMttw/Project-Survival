@@ -34,6 +34,8 @@ public class WorldGenerator : MonoBehaviour
 
     private WorldStateData worldStateData;
 
+    private TreeController treeController;
+
     private Vector2Int currentPlayerChunk;
 
     private Dictionary<Vector2Int, GameObject> loadedChunks =
@@ -80,6 +82,8 @@ public class WorldGenerator : MonoBehaviour
 
     private void Start()
     {
+        treeController = FindFirstObjectByType<TreeController>();
+
         // LOAD SELECTED WORLD DATA
         if (SelectedWorldData.world != null)
         {
@@ -96,6 +100,18 @@ public class WorldGenerator : MonoBehaviour
                     "WorldGenerator: Failed to load world state. Generation cancelled."
                 );
                 return;
+            }
+
+            // INITIALIZE DROPPED LOOT
+            if (DropLootController.Instance != null)
+            {
+                DropLootController.Instance.InitializeWorldLoot(worldStateData);
+            }
+            else
+            {
+                Debug.LogError(
+                    "WorldGenerator: DropLootController is missing."
+                );
             }
         }
         else
@@ -328,7 +344,7 @@ public class WorldGenerator : MonoBehaviour
         );
     }
 
-    // LOAD DESTROYED OBJECT DATA
+    // LOAD DESTROYED OBJECT AND BUILDING DATA
     private bool LoadDestroyedObjectData()
     {
         if (worldData == null)
@@ -341,7 +357,9 @@ public class WorldGenerator : MonoBehaviour
             return false;
 
         destroyedObjects.Clear();
+        savedBuildings.Clear();
 
+        // RESTORE DESTROYED OBJECTS
         foreach (DestroyedObjectSaveData data in
                 worldStateData.destroyedObjects)
         {
@@ -358,14 +376,61 @@ public class WorldGenerator : MonoBehaviour
                 out HashSet<string> destroyed))
             {
                 destroyed = new HashSet<string>();
-
-                destroyedObjects.Add(
-                    chunkCoordinate,
-                    destroyed
-                );
+                destroyedObjects.Add(chunkCoordinate, destroyed);
             }
 
             destroyed.Add(data.objectID);
+        }
+
+        // RESTORE BUILDING REGISTRY
+        foreach (BuildingSaveData data in worldStateData.buildings)
+        {
+            if (data == null || string.IsNullOrEmpty(data.buildingID))
+                continue;
+
+            Vector2Int chunkCoordinate = data.chunkCoordinate;
+
+            if (!savedBuildings.TryGetValue(
+                chunkCoordinate,
+                out Dictionary<string, BuildingSaveData> buildings))
+            {
+                buildings = new Dictionary<string, BuildingSaveData>();
+
+                savedBuildings.Add(
+                    chunkCoordinate,
+                    buildings
+                );
+            }
+
+            if (buildings.ContainsKey(data.buildingID))
+            {
+                Debug.LogWarning(
+                    "Duplicate building ID skipped: " + data.buildingID
+                );
+
+                continue;
+            }
+
+            // RESTORE THE GROWN TREE PREFAB REFERENCE
+            if (data.grownPrefabIndex >= 0)
+            {
+                if (treeController != null &&
+                    treeController.treePrefabs != null &&
+                    data.grownPrefabIndex < treeController.treePrefabs.Length)
+                {
+                    data.grownPrefab =
+                        treeController.treePrefabs[data.grownPrefabIndex];
+                }
+                else
+                {
+                    Debug.LogWarning(
+                        "Could not resolve grown tree prefab for building: " +
+                        data.buildingID
+                    );
+                }
+            }
+
+            buildings.Add(data.buildingID, data);
         }
 
         Debug.Log(
@@ -373,8 +438,14 @@ public class WorldGenerator : MonoBehaviour
             worldStateData.destroyedObjects.Count
         );
 
+        Debug.Log(
+            "Loaded building records: " +
+            worldStateData.buildings.Count
+        );
+
         return true;
     }
+
     private void GenerateChunk(
         Vector2Int chunkCoordinate,
         Transform chunkParent)
@@ -963,6 +1034,17 @@ public class WorldGenerator : MonoBehaviour
 
             GameObject prefabToRestore = null;
 
+            // DO NOT RESTORE A GROWN SAPLING AS AN UNGROWN SAPLING
+            if (data.hasGrown && data.grownPrefab == null)
+            {
+                Debug.LogError(
+                    "Grown tree prefab could not be restored for building: " +
+                    data.buildingID
+                );
+
+                continue;
+            }
+
             if (data.hasGrown && data.grownPrefab != null)
             {
                 // Restore the grown tree.
@@ -1032,6 +1114,52 @@ public class WorldGenerator : MonoBehaviour
     {
         if (worldStateData == null)
             return false;
+
+        worldStateData.buildings.Clear();
+
+        foreach (var chunk in savedBuildings)
+        {
+            foreach (BuildingSaveData data in chunk.Value.Values)
+            {
+                if (data == null)
+                    continue;
+
+                // STORE THE GROWN TREE'S PREFAB INDEX
+                if (data.grownPrefab != null)
+                {
+                    if (treeController == null)
+                    {
+                        treeController =
+                            FindFirstObjectByType<TreeController>();
+                    }
+
+                    if (treeController != null &&
+                        treeController.treePrefabs != null)
+                    {
+                        data.grownPrefabIndex =
+                            System.Array.IndexOf(
+                                treeController.treePrefabs,
+                                data.grownPrefab
+                            );
+                    }
+
+                    if (data.grownPrefabIndex < 0)
+                    {
+                        Debug.LogWarning(
+                            "Could not find grown tree prefab index for: " +
+                            data.buildingID
+                        );
+                    }
+                }
+
+                worldStateData.buildings.Add(data);
+            }
+        }
+
+        Debug.Log(
+            "Saving building records: " +
+            worldStateData.buildings.Count
+        );
 
         return WorldSaveManager.SaveWorldState(worldStateData);
     }
