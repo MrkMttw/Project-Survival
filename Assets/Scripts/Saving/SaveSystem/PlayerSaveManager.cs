@@ -8,6 +8,7 @@ public class PlayerSaveManager : MonoBehaviour
     public Transform player;
     public HealthController healthController;
     public HungerController hungerController;
+    public GameOverController gameOverController;
 
     [Header("Inventory References")]
     public InventoryController inventoryController;
@@ -16,7 +17,7 @@ public class PlayerSaveManager : MonoBehaviour
 
     [Header("World References")]
     public WorldGenerator worldGenerator;
-    
+
     private PlayerSaveData loadedData;
     private string savePath;
 
@@ -59,11 +60,26 @@ public class PlayerSaveManager : MonoBehaviour
     // RESTORE PLAYER DATA AFTER INITIALIZATION
     private IEnumerator Start()
     {
+        // WAIT FOR OTHER START METHODS
+        yield return null;
+
+        if (gameOverController == null)
+        {
+            gameOverController =
+                FindFirstObjectByType<GameOverController>();
+        }
+
+        // RESTORE RESPAWN POINT
+        if (loadedData != null && gameOverController != null)
+        {
+            gameOverController.RestoreRespawnPosition(
+                loadedData.hasRespawnPoint,
+                loadedData.respawnPosition
+            );
+        }
+
         if (loadedData == null)
             yield break;
-
-        // WAIT FOR INVENTORY START INITIALIZATION
-        yield return null;
 
         RestoreInventory();
         RestoreHotbar();
@@ -112,9 +128,27 @@ public class PlayerSaveManager : MonoBehaviour
         // PLAYER POSITION
         data.playerPosition = player.position;
 
+        // RESPAWN POINT
+        if (gameOverController == null)
+        {
+            gameOverController =
+                FindFirstObjectByType<GameOverController>();
+        }
+
+        if (gameOverController != null)
+        {
+            data.hasRespawnPoint =
+                gameOverController.HasRespawnPoint;
+
+            data.respawnPosition =
+                gameOverController.RespawnPosition;
+        }
+
         // PLAYER STATS
         if (healthController != null)
+        {
             data.currentHealth = healthController.currentHealth;
+        }
 
         if (hungerController != null)
         {
@@ -123,19 +157,30 @@ public class PlayerSaveManager : MonoBehaviour
         }
 
         // INVENTORY
-        SaveSlots(
-            inventoryController.inventoryPanel.transform,
-            data.inventoryItems
-        );
+        if (inventoryController != null &&
+            inventoryController.inventoryPanel != null)
+        {
+            SaveSlots(
+                inventoryController.inventoryPanel.transform,
+                data.inventoryItems
+            );
+        }
 
         // HOTBAR
-        SaveSlots(
-            hotbarController.hotbarPanel.transform,
-            data.hotbarItems
-        );
+        if (hotbarController != null &&
+            hotbarController.hotbarPanel != null)
+        {
+            SaveSlots(
+                hotbarController.hotbarPanel.transform,
+                data.hotbarItems
+            );
+        }
 
         // SELECTED HOTBAR SLOT
-        data.selectedHotbarSlot = hotbarController.SelectedSlot;
+        if (hotbarController != null)
+        {
+            data.selectedHotbarSlot = hotbarController.SelectedSlot;
+        }
 
         bool success = SaveFileHandler.SaveToJson(savePath, data);
 
@@ -333,7 +378,7 @@ public class PlayerSaveManager : MonoBehaviour
         bool playerSaved = SavePlayer();
 
         bool worldSaved = worldGenerator != null &&
-                        worldGenerator.SaveCurrentWorldState();
+                          worldGenerator.SaveCurrentWorldState();
 
         if (!playerSaved || !worldSaved)
         {
@@ -341,6 +386,8 @@ public class PlayerSaveManager : MonoBehaviour
             return;
         }
 
-        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenuScene");
+        UnityEngine.SceneManagement.SceneManager.LoadScene(
+            "MainMenuScene"
+        );
     }
 }

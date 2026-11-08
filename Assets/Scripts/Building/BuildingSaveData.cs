@@ -22,6 +22,8 @@ public class BuildingSaveData
     public float generatorRemainingTime;
 
     [Header("Furnace")]
+    public bool hasFurnaceState;
+
     public int furnaceInputItemID;
     public int furnaceInputQuantity;
 

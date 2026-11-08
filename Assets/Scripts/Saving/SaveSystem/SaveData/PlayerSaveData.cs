@@ -11,6 +11,10 @@ public class PlayerSaveData
     // PLAYER POSITION
     public Vector3 playerPosition;
 
+    // RESPAWN POINT
+    public bool hasRespawnPoint;
+    public Vector3 respawnPosition;
+
     // PLAYER STATS
     public float currentHealth;
     public float currentHunger;

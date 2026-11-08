@@ -24,6 +24,8 @@ public class GameOverController : MonoBehaviour
     private Rigidbody2D playerRigidbody;
     private Coroutine notificationCoroutine;
 
+    private bool hasRespawnPoint;
+
     private void Awake()
     {
         if (gameOverPanel != null)
@@ -95,6 +97,8 @@ public class GameOverController : MonoBehaviour
             newPosition.y,
             player != null ? player.position.z : 0f
         );
+
+        hasRespawnPoint = true;
 
         Debug.Log("Respawn point updated: " + respawnPosition);
     }
@@ -182,5 +186,25 @@ public class GameOverController : MonoBehaviour
         gameOverPanel.SetActive(false);
 
         Time.timeScale = 1f;
+    }
+
+    public Vector3 RespawnPosition => respawnPosition;
+    public bool HasRespawnPoint => hasRespawnPoint;
+
+    // RESTORE SAVED RESPAWN POINT
+    public void RestoreRespawnPosition(
+        bool hasSavedPoint,
+        Vector3 savedPosition)
+    {
+        hasRespawnPoint = hasSavedPoint;
+
+        if (hasSavedPoint)
+        {
+            respawnPosition = savedPosition;
+        }
+        else if (player != null)
+        {
+            respawnPosition = player.position;
+        }
     }
 }

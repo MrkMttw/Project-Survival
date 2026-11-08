@@ -281,6 +281,8 @@ public class ItemDragHandler : MonoBehaviour,
         }
 
         emptySlot.currentItem = newItem;
+
+        NotifyFurnaceSlotsChanged();
     }
 
     private Slot FindEmptyInventorySlot()

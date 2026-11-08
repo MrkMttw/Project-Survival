@@ -156,6 +156,15 @@ public class FurnaceController : MonoBehaviour
 
     private void CloseFurnace()
     {
+        // SAVE LATEST SLOT CONTENTS
+        if (currentFurnace != null)
+        {
+            currentFurnace.SyncSlots(
+                inputSlot,
+                fuelSlot,
+                outputSlot);
+        }
+
         isOpen = false;
         currentFurnace = null;
 

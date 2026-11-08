@@ -310,12 +310,19 @@ public class FurnaceBehavior : MonoBehaviour
             return;
         }
 
+        // CHECK IF FURNACE DATA EXISTS
+        if (!data.hasFurnaceState)
+            return;
+
         inputItemID = data.furnaceInputItemID;
         inputQuantity = data.furnaceInputQuantity;
+
         fuelItemID = data.furnaceFuelItemID;
         fuelQuantity = data.furnaceFuelQuantity;
+
         outputItemID = data.furnaceOutputItemID;
         outputQuantity = data.furnaceOutputQuantity;
+
         isCooking = data.furnaceIsCooking;
         smeltProgress = data.furnaceSmeltProgress;
         fuelRemaining = data.furnaceFuelRemaining;
@@ -334,12 +341,18 @@ public class FurnaceBehavior : MonoBehaviour
             return;
         }
 
+        // MARK FURNACE DATA AS SAVED
+        data.hasFurnaceState = true;
+
         data.furnaceInputItemID = inputItemID;
         data.furnaceInputQuantity = inputQuantity;
+
         data.furnaceFuelItemID = fuelItemID;
         data.furnaceFuelQuantity = fuelQuantity;
+
         data.furnaceOutputItemID = outputItemID;
         data.furnaceOutputQuantity = outputQuantity;
+
         data.furnaceIsCooking = isCooking;
         data.furnaceSmeltProgress = smeltProgress;
         data.furnaceFuelRemaining = fuelRemaining;
