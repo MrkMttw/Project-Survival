@@ -6,8 +6,10 @@ public class MenuController : MonoBehaviour
     public GameObject menuCanvas;
     public GameObject[] pages;
     public GameObject Hotbar;
+
     public CraftingController craftingController;
     public FurnaceController furnaceController;
+    public ContainerController containerController;
 
     private RectTransform panelRect;
     private Vector2 originalPosition;
@@ -17,10 +19,10 @@ public class MenuController : MonoBehaviour
     {
         panelRect = Hotbar.GetComponent<RectTransform>();
 
-        // Save the Hotbar's starting position
+        // SAVE THE HOTBAR'S STARTING POSITION
         originalPosition = panelRect.anchoredPosition;
 
-        // Menu starts closed
+        // MENU STARTS CLOSED
         menuCanvas.SetActive(false);
     }
 
@@ -31,16 +33,24 @@ public class MenuController : MonoBehaviour
         if (Keyboard.current != null &&
             Keyboard.current.bKey.wasPressedThisFrame)
         {
+            // FURNACE OPEN
             if (furnaceController != null &&
                 furnaceController.IsOpen)
             {
                 furnaceController.CloseForMenu();
                 menuCanvas.SetActive(true);
             }
-            else if (menuCanvas.activeSelf &&
-                    pages[2].activeSelf)
+            // CONTAINER OPEN
+            else if (containerController != null &&
+                     containerController.IsOpen)
             {
-                // RESET CRAFTING PANEL
+                containerController.CloseForMenu();
+                OpenInventoryPage();
+            }
+            // CRAFTING PAGE OPEN
+            else if (menuCanvas.activeSelf &&
+                     pages[2].activeSelf)
+            {
                 if (craftingController != null)
                 {
                     craftingController.CloseForMenu();
@@ -49,8 +59,9 @@ public class MenuController : MonoBehaviour
 
                 menuCanvas.SetActive(false);
             }
+            // CRAFTING CONTROLLER OPEN
             else if (craftingController != null &&
-                    craftingController.IsOpen)
+                     craftingController.IsOpen)
             {
                 craftingController.CloseForMenu();
                 menuCanvas.SetActive(false);
@@ -61,7 +72,14 @@ public class MenuController : MonoBehaviour
             }
         }
 
-        if (!menuCanvas.activeSelf)
+        // HOTBAR POSITION
+        if (containerController != null &&
+            containerController.IsOpen)
+        {
+            // CONTAINER CONTROLLER HANDLES THE POSITION
+            Hotbar.SetActive(true);
+        }
+        else if (!menuCanvas.activeSelf)
         {
             Hotbar.SetActive(true);
             panelRect.anchoredPosition = originalPosition;
@@ -95,6 +113,20 @@ public class MenuController : MonoBehaviour
         wasCraftingPageActive = isCraftingPageActive;
     }
 
+    // OPEN INVENTORY PAGE
+    private void OpenInventoryPage()
+    {
+        menuCanvas.SetActive(true);
+
+        foreach (GameObject page in pages)
+        {
+            page.SetActive(false);
+        }
+
+        // PAGE 1 = INVENTORY
+        pages[1].SetActive(true);
+    }
+
     // UPDATE MENU PROMPT
     private void UpdateMenuPrompt()
     {
@@ -102,15 +134,18 @@ public class MenuController : MonoBehaviour
             return;
 
         if (!menuCanvas.activeSelf)
-            PromptController.Instance.RequestPrompt(PromptType.B, this);
+            PromptController.Instance.RequestPrompt(
+                PromptType.B, this);
         else
-            PromptController.Instance.ReleasePrompt(PromptType.B, this);
+            PromptController.Instance.ReleasePrompt(
+                PromptType.B, this);
     }
 
     private void OnDisable()
     {
         if (PromptController.Instance != null)
-            PromptController.Instance.ReleasePrompt(PromptType.B, this);
+            PromptController.Instance.ReleasePrompt(
+                PromptType.B, this);
     }
 
     // OPEN CRAFTING PAGE

@@ -10,6 +10,7 @@ public class PlayerInteractionController : MonoBehaviour
     public ItemLightController itemLightController;
     public ItemsGeneratorController itemsGeneratorController;
     public FurnaceController furnaceController;
+    public ContainerController containerController;
 
     [Header("Sleeping")]
     public SleepTransitionController sleepTransitionController;
@@ -59,6 +60,10 @@ public class PlayerInteractionController : MonoBehaviour
 
         if (furnaceController != null &&
             furnaceController.TryInteract())
+            return;
+
+        if (containerController != null &&
+            containerController.TryInteract())
             return;
 
         if (sleepingBagHitbox != null &&

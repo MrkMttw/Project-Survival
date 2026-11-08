@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -52,4 +53,9 @@ public class BuildingSaveData
     [Header("Gate")]
     public bool hasGateState;
     public bool gateIsOpen;
+
+    [Header("Container")]
+    public bool hasContainerState;
+    public List<ItemSlotSaveData> containerItems = new List<ItemSlotSaveData>();
+    public int containerCapacity;
 }
