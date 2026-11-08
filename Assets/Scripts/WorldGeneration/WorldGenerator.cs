@@ -11,6 +11,9 @@ public class WorldGenerator : MonoBehaviour
     public Transform naturalObjectsParent;
     public Transform buildingParent;
 
+    [Header("Floor Generation")]
+    public ChunkFloorGenerator chunkFloorGenerator;
+
     [Header("Item Dictionary")]
     public ItemDictionary itemDictionary;
 
@@ -265,6 +268,15 @@ public class WorldGenerator : MonoBehaviour
         chunkObject.transform.SetParent(naturalObjectsParent);
 
         loadedChunks.Add(chunkCoordinate, chunkObject);
+
+        // GENERATE CHUNK FLOOR
+        if (chunkFloorGenerator != null)
+        {
+            chunkFloorGenerator.GenerateChunkFloor(
+                chunkCoordinate,
+                chunkSize
+            );
+        }
         
         if (!persistentObjectPositions.ContainsKey(chunkCoordinate))
         {
@@ -763,6 +775,15 @@ public class WorldGenerator : MonoBehaviour
         if (structureSpawner != null)
         {
             structureSpawner.UnloadChunk(chunkCoordinate);
+        }
+        
+        // CLEAR CHUNK FLOOR
+        if (chunkFloorGenerator != null)
+        {
+            chunkFloorGenerator.ClearChunkFloor(
+                chunkCoordinate,
+                chunkSize
+            );
         }
 
         Destroy(chunkObject);
