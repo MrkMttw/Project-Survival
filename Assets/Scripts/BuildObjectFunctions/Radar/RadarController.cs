@@ -40,6 +40,10 @@ public class RadarController : MonoBehaviour
         new List<CoordinateEntry>();
 
     private RadarUI radarUI;
+    
+    private BuildingSaveData savedData;
+
+    private BuildingObject buildingObject;
 
     private bool radarPlaced = false;
 
@@ -64,6 +68,11 @@ public class RadarController : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        SaveRadarStateToMemory();
+    }
+
     public void AddIron(int amount)
     {
         if (amount <= 0 || radarLevel >= 5)
@@ -73,6 +82,8 @@ public class RadarController : MonoBehaviour
 
         UpdateRadarLevel();
         UpdateRadarUI();
+
+        SaveRadarStateToMemory(savedData);
     }
 
     public bool IsIronItem(Item item)
@@ -202,5 +213,73 @@ public class RadarController : MonoBehaviour
             return;
 
         radarUI.RefreshCoordinatesUI();
+    }
+    
+    public void ConnectToBuildingSaveData(BuildingObject building)
+    {
+        if (building == null)
+        {
+            Debug.LogError("[RADAR] BuildingObject is NULL!");
+            return;
+        }
+
+        buildingObject = building;
+
+        worldGenerator = FindFirstObjectByType<WorldGenerator>();
+
+        if (worldGenerator == null)
+        {
+            Debug.LogError("[RADAR] WorldGenerator NOT FOUND!");
+            return;
+        }
+
+        if (!worldGenerator.TryGetBuildingSaveData(
+            buildingObject, out savedData))
+        {
+            Debug.LogError(
+                "[RADAR] Building save data NOT FOUND! ID: " +
+                buildingObject.buildingID
+            );
+
+            return;
+        }
+
+        if (savedData.hasRadarState)
+        {
+            progressionIron = savedData.radarProgressionIron;
+            radarLevel = savedData.radarLevel;
+
+            Debug.Log(
+                $"[RADAR] STATE RESTORED | Level: {radarLevel} | Iron: {progressionIron}"
+            );
+        }
+
+        radarPlaced = true;
+
+        SaveRadarStateToMemory();
+        UpdateRadarUI();
+
+        if (radarUI != null)
+            radarUI.SetCoordinatesVisible(true);
+    }
+
+    public void SaveRadarStateToMemory()
+    {
+        if (savedData == null)
+            return;
+
+        savedData.hasRadarState = true;
+        savedData.radarProgressionIron = progressionIron;
+        savedData.radarLevel = radarLevel;
+    }
+
+    public void SaveRadarStateToMemory(BuildingSaveData data)
+    {
+        if (data == null)
+            return;
+
+        data.hasRadarState = true;
+        data.radarProgressionIron = progressionIron;
+        data.radarLevel = radarLevel;
     }
 }

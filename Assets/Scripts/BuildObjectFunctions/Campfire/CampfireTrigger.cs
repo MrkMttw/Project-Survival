@@ -5,10 +5,12 @@ public class CampfireTrigger : MonoBehaviour
 {
     private CampfireController campfireController;
     private BoxCollider2D hitbox;
+    private BuildingObject buildingObject;
 
     private void Awake()
     {
         hitbox = GetComponent<BoxCollider2D>();
+        buildingObject = GetComponent<BuildingObject>();
 
         if (hitbox == null)
         {
@@ -16,16 +18,19 @@ public class CampfireTrigger : MonoBehaviour
             return;
         }
 
+        if (buildingObject == null)
+        {
+            Debug.LogError("[CampfireTrigger] BuildingObject missing!");
+            return;
+        }
+
         hitbox.isTrigger = true;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void Start()
     {
-        if (campfireController == null)
-        {
-            campfireController =
-                FindFirstObjectByType<CampfireController>();
-        }
+        campfireController =
+            FindFirstObjectByType<CampfireController>();
 
         if (campfireController == null)
         {
@@ -33,7 +38,15 @@ public class CampfireTrigger : MonoBehaviour
             return;
         }
 
+        campfireController.ConnectToBuildingSaveData(buildingObject);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
         if (!other.CompareTag("Player"))
+            return;
+
+        if (campfireController == null)
             return;
 
         HealthController health =

@@ -9,7 +9,6 @@ public class RadarUI : MonoBehaviour
     public TMP_Text progressText;
     public Image progressBar;
     public TMP_Text coordinatesText;
-    public string coordinatesObjectName = "CoordinatesText";
 
     private RadarController radarController;
 
@@ -18,27 +17,14 @@ public class RadarUI : MonoBehaviour
         radarController =
             FindFirstObjectByType<RadarController>();
 
-        if (coordinatesText == null)
-        {
-            TMP_Text[] texts = FindObjectsByType<TMP_Text>(
-                FindObjectsInactive.Include,
-                FindObjectsSortMode.None
-            );
-
-            foreach (TMP_Text text in texts)
-            {
-                if (text.gameObject.name == coordinatesObjectName)
-                {
-                    coordinatesText = text;
-                    break;
-                }
-            }
-        }
-
         if (radarController != null)
         {
             radarController.RegisterRadarUI(this);
             UpdateCoordinatesUI();
+        }
+        else
+        {
+            Debug.LogError("[RADAR UI] RadarController NOT FOUND!");
         }
     }
 
@@ -56,22 +42,17 @@ public class RadarUI : MonoBehaviour
         int requiredIron
     )
     {
-        levelText.text =
-            "Radar (Level " + level + ")";
+        if (levelText != null)
+            levelText.text = "Radar (Level " + level + ")";
 
-        progressText.text =
-            currentIron + " / " + requiredIron;
+        if (progressText != null)
+            progressText.text = currentIron + " / " + requiredIron;
 
-        if (requiredIron > 0)
+        if (progressBar != null)
         {
-            progressBar.fillAmount =
-                Mathf.Clamp01(
-                    (float)currentIron / requiredIron
-                );
-        }
-        else
-        {
-            progressBar.fillAmount = 1f;
+            progressBar.fillAmount = requiredIron > 0
+                ? Mathf.Clamp01((float)currentIron / requiredIron)
+                : 1f;
         }
 
         UpdateCoordinatesUI();

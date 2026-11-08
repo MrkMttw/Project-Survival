@@ -34,4 +34,20 @@ public class BuildingSaveData
     public bool furnaceIsCooking;
     public float furnaceSmeltProgress;
     public float furnaceFuelRemaining;
+
+    [Header("Campfire")]
+    public bool hasCampfireState;
+    public int campfireCurrentWood;
+    public int campfireLevel;
+    public float campfireFuelDecayTimer;
+    public float campfireFuelDecayDelayTimer;
+
+    [Header("Radar")]
+    public bool hasRadarState;
+    public int radarProgressionIron;
+    public int radarLevel;
+
+    [Header("Gate")]
+    public bool hasGateState;
+    public bool gateIsOpen;
 }

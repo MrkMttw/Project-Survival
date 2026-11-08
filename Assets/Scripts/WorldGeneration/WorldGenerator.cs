@@ -884,6 +884,16 @@ public class WorldGenerator : MonoBehaviour
         data.rotation = building.transform.rotation;
         data.chunkCoordinate = chunkCoordinate;
 
+        // SAVE INITIAL GATE STATE
+        GateBehavior gate =
+            building.GetComponentInChildren<GateBehavior>(true);
+
+        if (gate != null)
+        {
+            data.hasGateState = true;
+            data.gateIsOpen = gate.IsOpen;
+        }
+
         if (!savedBuildings.TryGetValue(
             chunkCoordinate,
             out buildings))
@@ -1106,6 +1116,15 @@ public class WorldGenerator : MonoBehaviour
             building.buildingID = data.buildingID;
             building.directionalPresetIndex =
                 data.directionalPresetIndex;
+
+            // RESTORE GATE STATE
+            GateBehavior gate =
+                restoredObject.GetComponentInChildren<GateBehavior>(true);
+
+            if (gate != null && data.hasGateState)
+            {
+                gate.SetGateState(data.gateIsOpen);
+            }
         }
     }
 
@@ -1153,6 +1172,16 @@ public class WorldGenerator : MonoBehaviour
                 }
 
                 worldStateData.buildings.Add(data);
+
+                if (data.hasCampfireState || data.itemID == 9)
+                {
+                    Debug.Log(
+                        $"CAMPFIRE SAVE CHECK | ID: {data.buildingID} | " +
+                        $"Has State: {data.hasCampfireState} | " +
+                        $"Wood: {data.campfireCurrentWood} | " +
+                        $"Level: {data.campfireLevel}"
+                    );
+                }
             }
         }
 
@@ -1342,6 +1371,7 @@ public class WorldGenerator : MonoBehaviour
 
         return false;
     }
+
     public bool TryGetPlacedBuildingPosition(
         int itemID,
         out Vector2Int coordinates)

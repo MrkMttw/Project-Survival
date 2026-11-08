@@ -3,18 +3,35 @@ using UnityEngine;
 public class RadarInteraction : MonoBehaviour
 {
     private RadarController radarController;
+    private BuildingObject buildingObject;
+
     private bool playerInRange = false;
 
     private void Awake()
     {
-        radarController =
-            FindFirstObjectByType<RadarController>();
+        buildingObject = GetComponent<BuildingObject>();
+
+        if (buildingObject == null)
+            buildingObject = GetComponentInParent<BuildingObject>();
     }
 
     private void Start()
     {
-        if (radarController != null)
-            radarController.RegisterRadarPlaced();
+        radarController = FindFirstObjectByType<RadarController>();
+
+        if (radarController == null)
+        {
+            Debug.LogError("[RadarInteraction] RadarController NOT FOUND!");
+            return;
+        }
+
+        if (buildingObject == null)
+        {
+            Debug.LogError("[RadarInteraction] BuildingObject NOT FOUND!");
+            return;
+        }
+
+        radarController.ConnectToBuildingSaveData(buildingObject);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -31,10 +48,7 @@ public class RadarInteraction : MonoBehaviour
 
     public bool CanFeedIron(Item item)
     {
-        if (!playerInRange)
-            return false;
-
-        if (radarController == null)
+        if (!playerInRange || radarController == null)
             return false;
 
         if (radarController.RadarLevel >= 5)

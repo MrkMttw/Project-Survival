@@ -13,6 +13,8 @@ public class GateBehavior : MonoBehaviour
 
     private bool isOpen;
 
+    public bool IsOpen => isOpen;
+
     private void Awake()
     {
         interactionCollider = GetComponent<BoxCollider2D>();
@@ -29,18 +31,22 @@ public class GateBehavior : MonoBehaviour
         SetGateState(false);
     }
 
+    // CHECK PLAYER RANGE
     public bool IsPlayerInRange(Vector2 playerPosition)
     {
         return interactionCollider != null &&
                interactionCollider.OverlapPoint(playerPosition);
     }
 
+    // TOGGLE GATE
     public void ToggleGate()
     {
         SetGateState(!isOpen);
+        UpdateSavedGateState();
     }
 
-    private void SetGateState(bool open)
+    // SET GATE STATE
+    public void SetGateState(bool open)
     {
         isOpen = open;
 
@@ -56,5 +62,31 @@ public class GateBehavior : MonoBehaviour
 
         if (capsuleCollider != null)
             capsuleCollider.enabled = !isOpen;
+    }
+
+    // UPDATE SAVED GATE STATE
+    private void UpdateSavedGateState()
+    {
+        WorldGenerator worldGenerator =
+            FindFirstObjectByType<WorldGenerator>();
+
+        if (worldGenerator == null)
+            return;
+
+        BuildingObject building =
+            GetComponentInParent<BuildingObject>();
+
+        if (building == null)
+            building = GetComponentInChildren<BuildingObject>(true);
+
+        if (building == null)
+            return;
+
+        if (worldGenerator.TryGetBuildingSaveData(
+            building, out BuildingSaveData data))
+        {
+            data.hasGateState = true;
+            data.gateIsOpen = isOpen;
+        }
     }
 }

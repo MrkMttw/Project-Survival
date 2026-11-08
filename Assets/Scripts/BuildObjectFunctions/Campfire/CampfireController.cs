@@ -34,8 +34,12 @@ public class CampfireController : MonoBehaviour
     private bool playerInRange = false;
 
     private CampfireUI campfireUI;
-
     private bool hasFuel;
+
+    // PERSISTENCE
+    private BuildingObject buildingObject;
+    private WorldGenerator worldGenerator;
+    private BuildingSaveData savedData;
 
     public int CampfireLevel
     {
@@ -45,13 +49,20 @@ public class CampfireController : MonoBehaviour
     private void Awake()
     {
         UpdateHealingRate();
-
         hasFuel = currentWood > 0;
+    }
+
+    private void Start()
+    {
+        Debug.Log("CAMPFIRE START RAN: " + name, this);
     }
 
     private void Update()
     {
         UpdateFuel();
+
+        // KEEP THE IN-MEMORY SAVE DATA UPDATED
+        SaveCampfireStateToMemory();
 
         if (!playerInRange || playerHealth == null)
             return;
@@ -59,7 +70,6 @@ public class CampfireController : MonoBehaviour
         if (currentWood <= 0)
             return;
 
-        // HEAL BASED ON MAX HP
         float healAmount =
             playerHealth.maxHealth *
             (healPercentPerSecond / 100f) *
@@ -68,11 +78,85 @@ public class CampfireController : MonoBehaviour
         playerHealth.Heal(healAmount);
     }
 
+    // PERSISTENCE
+
+    public void ConnectToBuildingSaveData(BuildingObject building)
+    {
+        if (building == null)
+        {
+            Debug.LogError("CAMPFIRE CONNECTION FAILED: BuildingObject is NULL!");
+            return;
+        }
+
+        buildingObject = building;
+
+        worldGenerator = FindFirstObjectByType<WorldGenerator>();
+
+        if (worldGenerator == null)
+        {
+            Debug.LogError("CAMPFIRE CONNECTION FAILED: WorldGenerator not found!");
+            return;
+        }
+
+        if (!worldGenerator.TryGetBuildingSaveData(
+            buildingObject,
+            out savedData))
+        {
+            Debug.LogError(
+                "CAMPFIRE CONNECTION FAILED: Building record not found! ID: " +
+                buildingObject.buildingID
+            );
+
+            return;
+        }
+
+        Debug.Log(
+            "CAMPFIRE CONNECTION SUCCESSFUL | ID: " +
+            buildingObject.buildingID,
+            this
+        );
+
+        if (savedData.hasCampfireState)
+        {
+            currentWood = savedData.campfireCurrentWood;
+            campfireLevel = savedData.campfireLevel;
+            fuelDecayTimer = savedData.campfireFuelDecayTimer;
+            fuelDecayDelayTimer = savedData.campfireFuelDecayDelayTimer;
+
+            UpdateHealingRate();
+
+            hasFuel = currentWood > 0;
+
+            FuelStateChanged?.Invoke(hasFuel);
+
+            Debug.Log("CAMPFIRE STATE RESTORED!");
+        }
+
+        SaveCampfireStateToMemory();
+        UpdateCampfireUI();
+    }
+
+    private void SaveCampfireStateToMemory()
+    {
+        if (savedData == null)
+            return;
+
+        savedData.hasCampfireState = true;
+        savedData.campfireCurrentWood = currentWood;
+        savedData.campfireLevel = campfireLevel;
+        savedData.campfireFuelDecayTimer = fuelDecayTimer;
+        savedData.campfireFuelDecayDelayTimer = fuelDecayDelayTimer;
+    }
+
+    // HEALING
+
     private void UpdateHealingRate()
     {
         healPercentPerSecond =
             baseHealPercentPerSecond + (campfireLevel * 0.2f);
     }
+
+    // FUEL
 
     private void UpdateFuel()
     {
@@ -102,7 +186,6 @@ public class CampfireController : MonoBehaviour
             fuelDecayTimer = 0f;
 
             NotifyFuelStateChanged();
-
             UpdateCampfireUI();
         }
     }
@@ -118,6 +201,8 @@ public class CampfireController : MonoBehaviour
 
         FuelStateChanged?.Invoke(hasFuel);
     }
+
+    // ADD WOOD
 
     public void AddWood(int amount)
     {
@@ -158,9 +243,12 @@ public class CampfireController : MonoBehaviour
         fuelDecayTimer = 0f;
 
         NotifyFuelStateChanged();
-
         UpdateCampfireUI();
+
+        SaveCampfireStateToMemory();
     }
+
+    // WOOD VALIDATION
 
     public bool CanFeedWood(Item item)
     {
@@ -178,10 +266,11 @@ public class CampfireController : MonoBehaviour
         return item.ID == woodItem.ID;
     }
 
+    // UI
+
     public void RegisterCampfireUI(CampfireUI ui)
     {
         campfireUI = ui;
-
         UpdateCampfireUI();
     }
 
@@ -211,26 +300,22 @@ public class CampfireController : MonoBehaviour
         {
             case 0:
                 return 10;
-
             case 1:
                 return 25;
-
             case 2:
                 return 40;
-
             case 3:
                 return 55;
-
             case 4:
                 return 70;
-
             case 5:
                 return 70;
-
             default:
                 return 10;
         }
     }
+
+    // PLAYER DETECTION
 
     public void PlayerEntered(HealthController health)
     {
