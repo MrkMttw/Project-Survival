@@ -7023,6 +7023,12 @@ MonoBehaviour:
     spawnPercentage: 50
   - mobPrefab: {fileID: 9087001462328713228, guid: 5c1195f69fea7a345ac6d792cd6e96a5, type: 3}
     spawnPercentage: 50
+  - mobPrefab: {fileID: 7072807562321611403, guid: 7dd7df9f43fd8f0408d321e5fdd3d57e, type: 3}
+    spawnPercentage: 50
+  - mobPrefab: {fileID: 7072807562321611403, guid: 6cd1b7fb3f6918e4191af00dd408be44, type: 3}
+    spawnPercentage: 50
+  - mobPrefab: {fileID: 7072807562321611403, guid: 144051018746f4948bb6906eb468a63b, type: 3}
+    spawnPercentage: 50
   passiveSpawnInterval: 5
   passiveSpawnRadius: 20
   passiveProtectionRadius: 2

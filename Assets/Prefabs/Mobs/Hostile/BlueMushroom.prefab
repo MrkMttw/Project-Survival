@@ -42,11 +42,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3655246650299843580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x
-      value: 0.16
+      value: 0.29
       objectReference: {fileID: 0}
     - target: {fileID: 3655246650299843580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.y
-      value: 0.25
+      value: 0.36
       objectReference: {fileID: 0}
     - target: {fileID: 3655246650299843580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
@@ -54,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3655246650299843580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 0.25
+      value: 0.16
       objectReference: {fileID: 0}
     - target: {fileID: 4126768581658979578, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Color.g
@@ -74,16 +74,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4417746939183367772, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Size.x
-      value: 0.16
+      value: 0.29
       objectReference: {fileID: 0}
     - target: {fileID: 4417746939183367772, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Size.y
-      value: 0.25
+      value: 0.36
       objectReference: {fileID: 0}
     - target: {fileID: 4417746939183367772, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -1872669166, guid: a480798411dd4c74a9061ac8218e3138, type: 3}
+      objectReference: {fileID: 478521620576905941, guid: 71158869939c33646a0cabc2847f6955, type: 3}
     - target: {fileID: 4440019151895969526, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Color.g
       value: 0.5647059
@@ -203,7 +203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.2D.Animation.Runtime::UnityEngine.U2D.Animation.SpriteLibrary
   m_Library: []
-  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 3ec0b873f84b1d244962901df82ef2d3, type: 3}
+  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 56250dfef8128a845bd03af132190144, type: 3}
 --- !u!114 &5744877928910470421
 MonoBehaviour:
   m_ObjectHideFlags: 0

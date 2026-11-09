@@ -19,66 +19,126 @@ MonoBehaviour:
     m_OverrideEntries:
     - m_Name: sprite_sheet_0
       m_Hash: 402009438
-      m_Sprite: {fileID: 1740433398, guid: b2fdd735f8ff64d46a232d042aba65f7, type: 3}
+      m_Sprite: {fileID: -736987620, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
       m_FromMain: 0
-      m_SpriteOverride: {fileID: 1740433398, guid: b2fdd735f8ff64d46a232d042aba65f7, type: 3}
+      m_SpriteOverride: {fileID: -736987620, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
     - m_Name: sprite_sheet_1
       m_Hash: 552672712
-      m_Sprite: {fileID: -1794297960, guid: b2fdd735f8ff64d46a232d042aba65f7, type: 3}
+      m_Sprite: {fileID: 1760584388, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
       m_FromMain: 0
-      m_SpriteOverride: {fileID: -1794297960, guid: b2fdd735f8ff64d46a232d042aba65f7, type: 3}
+      m_SpriteOverride: {fileID: 1760584388, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
     - m_Name: sprite_sheet_2
       m_Hash: 972573810
-      m_Sprite: {fileID: 53204777, guid: b2fdd735f8ff64d46a232d042aba65f7, type: 3}
+      m_Sprite: {fileID: 998904639, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
       m_FromMain: 0
-      m_SpriteOverride: {fileID: 53204777, guid: b2fdd735f8ff64d46a232d042aba65f7, type: 3}
+      m_SpriteOverride: {fileID: 998904639, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
     - m_Name: sprite_sheet_3
       m_Hash: 251624676
-      m_Sprite: {fileID: -846188770, guid: b2fdd735f8ff64d46a232d042aba65f7, type: 3}
+      m_Sprite: {fileID: 187109721, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
       m_FromMain: 0
-      m_SpriteOverride: {fileID: -846188770, guid: b2fdd735f8ff64d46a232d042aba65f7, type: 3}
+      m_SpriteOverride: {fileID: 187109721, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
     - m_Name: sprite_sheet_4
       m_Hash: 278653255
-      m_Sprite: {fileID: -528153933, guid: b2fdd735f8ff64d46a232d042aba65f7, type: 3}
+      m_Sprite: {fileID: 1933175756, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
       m_FromMain: 0
-      m_SpriteOverride: {fileID: -528153933, guid: b2fdd735f8ff64d46a232d042aba65f7, type: 3}
+      m_SpriteOverride: {fileID: 1933175756, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
     - m_Name: sprite_sheet_5
       m_Hash: 664590801
-      m_Sprite: {fileID: -717690090, guid: b2fdd735f8ff64d46a232d042aba65f7, type: 3}
+      m_Sprite: {fileID: 699723698, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
       m_FromMain: 0
-      m_SpriteOverride: {fileID: -717690090, guid: b2fdd735f8ff64d46a232d042aba65f7, type: 3}
+      m_SpriteOverride: {fileID: 699723698, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
     - m_Name: sprite_sheet_6
       m_Hash: 1049987179
-      m_Sprite: {fileID: -1324649287, guid: b2fdd735f8ff64d46a232d042aba65f7, type: 3}
+      m_Sprite: {fileID: 192316849, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
       m_FromMain: 0
-      m_SpriteOverride: {fileID: -1324649287, guid: b2fdd735f8ff64d46a232d042aba65f7, type: 3}
+      m_SpriteOverride: {fileID: 192316849, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
     - m_Name: sprite_sheet_7
       m_Hash: 160610557
-      m_Sprite: {fileID: 709461002, guid: b2fdd735f8ff64d46a232d042aba65f7, type: 3}
+      m_Sprite: {fileID: -1077683452, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
       m_FromMain: 0
-      m_SpriteOverride: {fileID: 709461002, guid: b2fdd735f8ff64d46a232d042aba65f7, type: 3}
+      m_SpriteOverride: {fileID: -1077683452, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
     - m_Name: sprite_sheet_8
       m_Hash: 422421868
-      m_Sprite: {fileID: -1223274224, guid: b2fdd735f8ff64d46a232d042aba65f7, type: 3}
+      m_Sprite: {fileID: 1097234053, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
       m_FromMain: 0
-      m_SpriteOverride: {fileID: -1223274224, guid: b2fdd735f8ff64d46a232d042aba65f7, type: 3}
+      m_SpriteOverride: {fileID: 1097234053, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
     - m_Name: sprite_sheet_9
       m_Hash: 774542842
-      m_Sprite: {fileID: 1151466286, guid: b2fdd735f8ff64d46a232d042aba65f7, type: 3}
+      m_Sprite: {fileID: 856378769, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
       m_FromMain: 0
-      m_SpriteOverride: {fileID: 1151466286, guid: b2fdd735f8ff64d46a232d042aba65f7, type: 3}
+      m_SpriteOverride: {fileID: 856378769, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
     - m_Name: sprite_sheet_10
       m_Hash: 558130366
-      m_Sprite: {fileID: 659318470, guid: b2fdd735f8ff64d46a232d042aba65f7, type: 3}
+      m_Sprite: {fileID: 1646434192, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
       m_FromMain: 0
-      m_SpriteOverride: {fileID: 659318470, guid: b2fdd735f8ff64d46a232d042aba65f7, type: 3}
+      m_SpriteOverride: {fileID: 1646434192, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
     - m_Name: sprite_sheet_11
       m_Hash: 373511208
-      m_Sprite: {fileID: 1551037532, guid: b2fdd735f8ff64d46a232d042aba65f7, type: 3}
+      m_Sprite: {fileID: 450952744, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
       m_FromMain: 0
-      m_SpriteOverride: {fileID: 1551037532, guid: b2fdd735f8ff64d46a232d042aba65f7, type: 3}
+      m_SpriteOverride: {fileID: 450952744, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
+    - m_Name: sprite_sheet_12
+      m_Hash: 256509330
+      m_Sprite: {fileID: -834669454, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -834669454, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
+    - m_Name: sprite_sheet_13
+      m_Hash: 944583940
+      m_Sprite: {fileID: -1315569073, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1315569073, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
+    - m_Name: sprite_sheet_14
+      m_Hash: 640262311
+      m_Sprite: {fileID: -972887517, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -972887517, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
+    - m_Name: sprite_sheet_15
+      m_Hash: 288264241
+      m_Sprite: {fileID: -1011187736, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1011187736, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
+    - m_Name: sprite_sheet_16
+      m_Hash: 136823179
+      m_Sprite: {fileID: 1217146901, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1217146901, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
+    - m_Name: sprite_sheet_17
+      m_Hash: 1059123485
+      m_Sprite: {fileID: 1803341630, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1803341630, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
+    - m_Name: sprite_sheet_18
+      m_Hash: 799009932
+      m_Sprite: {fileID: 200105314, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 200105314, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
+    - m_Name: sprite_sheet_19
+      m_Hash: 412671002
+      m_Sprite: {fileID: -1231360014, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1231360014, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
+    - m_Name: sprite_sheet_20
+      m_Hash: 174667645
+      m_Sprite: {fileID: -1540684136, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1540684136, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
+    - m_Name: sprite_sheet_21
+      m_Hash: 1030621163
+      m_Sprite: {fileID: 1367769075, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1367769075, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
+    - m_Name: sprite_sheet_22
+      m_Hash: 610752081
+      m_Sprite: {fileID: -1627934220, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1627934220, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
+    - m_Name: sprite_sheet_23
+      m_Hash: 325084871
+      m_Sprite: {fileID: -1714721081, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1714721081, guid: cc745751a6d67b741a365c7067e5f031, type: 3}
     m_FromMain: 0
-    m_EntryOverrideCount: 12
+    m_EntryOverrideCount: 24
   - m_Name: Attack
     m_Hash: 7088141
     m_CategoryList: []
@@ -136,5 +196,5 @@ MonoBehaviour:
     m_FromMain: 0
     m_EntryOverrideCount: 10
   m_PrimaryLibraryGUID: 
-  m_ModificationHash: 639293879271107462
+  m_ModificationHash: 639298328203329885
   m_Version: 1

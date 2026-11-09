@@ -78,7 +78,6 @@ public class HostileMobBehavior : MonoBehaviour
     private float firstAttackTimer;
 
     // STATE
-    private bool isAttackAnimationPlaying;
     private bool isChasing;
     private bool isAttacking;
     private bool isKnockedBack;
@@ -94,11 +93,6 @@ public class HostileMobBehavior : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         mobAttackAnimator = GetComponentInChildren<MobAttackAnimator>(true);
-
-        if (mobAttackAnimator != null)
-        {
-            mobAttackAnimator.AttackFinished += OnAttackAnimationFinished;
-        }
     }
 
     private void Start()
@@ -338,19 +332,14 @@ public class HostileMobBehavior : MonoBehaviour
         if (attackTimer > 0f)
             return;
 
-        // PREVENT REPEATED ATTACKS
-        if (isAttackAnimationPlaying)
-            return;
+        // START ATTACK COOLDOWN
+        attackTimer = attackCooldown;
 
-        if (mobAttackAnimator == null)
-            return;
+        // PLAY ATTACK ANIMATION
+        mobAttackAnimator?.PlayAttack();
 
-        // START ATTACK
-        if (mobAttackAnimator.PlayAttack())
-        {
-            isAttackAnimationPlaying = true;
-            StartCoroutine(ApplyDelayedAttackDamage());
-        }
+        // APPLY DAMAGE INDEPENDENTLY
+        StartCoroutine(ApplyDelayedAttackDamage());
     }
 
     // APPLY DELAYED ATTACK DAMAGE
@@ -405,14 +394,6 @@ public class HostileMobBehavior : MonoBehaviour
                 playerKnockbackDuration
             );
         }
-    }
-
-    // ATTACK ANIMATION FINISHED
-
-    private void OnAttackAnimationFinished()
-    {
-        isAttackAnimationPlaying = false;
-        attackTimer = attackCooldown;
     }
 
     // HEALTH
@@ -637,7 +618,5 @@ public class HostileMobBehavior : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (mobAttackAnimator != null)
-            mobAttackAnimator.AttackFinished -= OnAttackAnimationFinished;
     }
 }

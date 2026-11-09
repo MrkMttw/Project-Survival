@@ -176,7 +176,7 @@ PrefabInstance:
     - target: {fileID: 1379614877581253849, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_SpriteLibraryAsset
       value: 
-      objectReference: {fileID: 7108339969198208228, guid: d782faebdddeab946a449036661d7180, type: 3}
+      objectReference: {fileID: 7108339969198208228, guid: 2b880202f536a15498a360f806a8f6c7, type: 3}
     - target: {fileID: 2935146238334533188, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Name
       value: PinkMushroom
@@ -191,7 +191,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3655246650299843580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.y
-      value: 0.27
+      value: 0.18
       objectReference: {fileID: 0}
     - target: {fileID: 3655246650299843580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
@@ -199,7 +199,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3655246650299843580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 0.27
+      value: 0.18
       objectReference: {fileID: 0}
     - target: {fileID: 3918481013470358601, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
@@ -235,12 +235,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4417746939183367772, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Size.y
-      value: 0.27
+      value: 0.18
       objectReference: {fileID: 0}
     - target: {fileID: 4417746939183367772, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -785353006664498546, guid: 66802c59b088232428fb59aafdc36224, type: 3}
+      objectReference: {fileID: -287013459, guid: 0b89c3c5913d1e0418122b64b3acab41, type: 3}
     - target: {fileID: 4440019151895969526, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Color.b
       value: 0.7960785
