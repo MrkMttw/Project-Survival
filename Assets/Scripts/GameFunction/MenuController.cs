@@ -5,6 +5,7 @@ public class MenuController : MonoBehaviour
 {
     public GameObject menuCanvas;
     public GameObject[] pages;
+    public TabController tabController;
     public GameObject Hotbar;
 
     public CraftingController craftingController;
@@ -30,46 +31,11 @@ public class MenuController : MonoBehaviour
     {
         UpdateMenuPrompt();
 
+        // OPEN INVENTORY USING B
         if (Keyboard.current != null &&
             Keyboard.current.bKey.wasPressedThisFrame)
         {
-            // FURNACE OPEN
-            if (furnaceController != null &&
-                furnaceController.IsOpen)
-            {
-                furnaceController.CloseForMenu();
-                menuCanvas.SetActive(true);
-            }
-            // CONTAINER OPEN
-            else if (containerController != null &&
-                     containerController.IsOpen)
-            {
-                containerController.CloseForMenu();
-                OpenInventoryPage();
-            }
-            // CRAFTING PAGE OPEN
-            else if (menuCanvas.activeSelf &&
-                     pages[2].activeSelf)
-            {
-                if (craftingController != null)
-                {
-                    craftingController.CloseForMenu();
-                    craftingController.ResetCraftingPanel();
-                }
-
-                menuCanvas.SetActive(false);
-            }
-            // CRAFTING CONTROLLER OPEN
-            else if (craftingController != null &&
-                     craftingController.IsOpen)
-            {
-                craftingController.CloseForMenu();
-                menuCanvas.SetActive(false);
-            }
-            else
-            {
-                menuCanvas.SetActive(!menuCanvas.activeSelf);
-            }
+            OpenInventoryPage();
         }
 
         // HOTBAR POSITION
@@ -114,17 +80,49 @@ public class MenuController : MonoBehaviour
     }
 
     // OPEN INVENTORY PAGE
-    private void OpenInventoryPage()
+    public void OpenInventoryPage()
     {
-        menuCanvas.SetActive(true);
-
-        foreach (GameObject page in pages)
+        // CLOSE FURNACE
+        if (furnaceController != null &&
+            furnaceController.IsOpen)
         {
-            page.SetActive(false);
+            furnaceController.CloseForMenu();
         }
 
-        // PAGE 1 = INVENTORY
-        pages[1].SetActive(true);
+        // CLOSE CONTAINER
+        if (containerController != null &&
+            containerController.IsOpen)
+        {
+            containerController.CloseForMenu();
+        }
+
+        // CLOSE CRAFTING
+        if (craftingController != null &&
+            craftingController.IsOpen)
+        {
+            craftingController.CloseForMenu();
+            craftingController.ResetCraftingPanel();
+        }
+
+        menuCanvas.SetActive(true);
+
+        // SELECT INVENTORY TAB
+        if (tabController != null)
+        {
+            tabController.ActiveTab(1);
+        }
+    }
+
+    // MOBILE INVENTORY BUTTON
+    public void OnInventoryButtonPressed()
+    {
+        OpenInventoryPage();
+    }
+
+    // EXIT INVENTORY TAB
+    public void ExitTab()
+    {
+        menuCanvas.SetActive(false);
     }
 
     // UPDATE MENU PROMPT

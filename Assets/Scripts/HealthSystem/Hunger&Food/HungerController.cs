@@ -31,9 +31,13 @@ public class HungerController : MonoBehaviour
     [Header("Health")]
     public HealthController healthController;
 
-    [Header("Hunger UI")]
+    [Header("PC Hunger UI")]
     public GameObject hungerBar;
     public GameObject hungerText;
+
+    [Header("Mobile Hunger UI")]
+    public GameObject mobileHungerBar;
+    public GameObject mobileHungerText;
 
     private float drainTimer;
     private float starvationTimer;
@@ -42,13 +46,32 @@ public class HungerController : MonoBehaviour
     private Image hungerBarImage;
     private TMP_Text hungerTextComponent;
 
+    private Image mobileHungerBarImage;
+    private TMP_Text mobileHungerTextComponent;
+
     private void Awake()
     {
-        hungerBarImage = hungerBar.GetComponent<Image>();
-        hungerTextComponent = hungerText.GetComponent<TMP_Text>();
+        // PC UI
+        if (hungerBar != null)
+            hungerBarImage = hungerBar.GetComponent<Image>();
 
-        hungerTextComponent.horizontalAlignment =
-            HorizontalAlignmentOptions.Center;
+        if (hungerText != null)
+            hungerTextComponent = hungerText.GetComponent<TMP_Text>();
+
+        // MOBILE UI
+        if (mobileHungerBar != null)
+            mobileHungerBarImage = mobileHungerBar.GetComponent<Image>();
+
+        if (mobileHungerText != null)
+            mobileHungerTextComponent = mobileHungerText.GetComponent<TMP_Text>();
+
+        if (hungerTextComponent != null)
+            hungerTextComponent.horizontalAlignment =
+                HorizontalAlignmentOptions.Center;
+
+        if (mobileHungerTextComponent != null)
+            mobileHungerTextComponent.horizontalAlignment =
+                HorizontalAlignmentOptions.Center;
 
         UpdateHungerUI();
     }
@@ -184,15 +207,27 @@ public class HungerController : MonoBehaviour
 
     private void UpdateHungerUI()
     {
+        float hungerPercentage = currentHunger / maxHunger;
+
+        // PC UI
         if (hungerBarImage != null)
-        {
-            hungerBarImage.fillAmount =
-                currentHunger / maxHunger;
-        }
+            hungerBarImage.fillAmount = hungerPercentage;
 
         if (hungerTextComponent != null)
         {
             hungerTextComponent.text =
+                Mathf.CeilToInt(currentHunger) +
+                " / " +
+                Mathf.CeilToInt(maxHunger);
+        }
+
+        // MOBILE UI
+        if (mobileHungerBarImage != null)
+            mobileHungerBarImage.fillAmount = hungerPercentage;
+
+        if (mobileHungerTextComponent != null)
+        {
+            mobileHungerTextComponent.text =
                 Mathf.CeilToInt(currentHunger) +
                 " / " +
                 Mathf.CeilToInt(maxHunger);

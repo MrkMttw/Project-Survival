@@ -7,9 +7,15 @@ public class HotbarController : MonoBehaviour
     public GameObject hotbarPanel;
     public GameObject slotPrefab;
     public int slotCount = 7;
-
+    
     [Header("Player")]
     public Transform player;
+
+    [Header("Platform Settings")]
+    public bool isMobile;
+
+    private RectTransform hotbarRect;
+    private Vector2 originalPosition;
 
     public PlayerHeldItem playerHeldItem;
 
@@ -24,6 +30,20 @@ public class HotbarController : MonoBehaviour
 
     private void Awake()
     {
+        hotbarRect = hotbarPanel.GetComponent<RectTransform>();
+
+        // SAVE ORIGINAL HOTBAR POSITION
+        originalPosition = hotbarRect.anchoredPosition;
+
+        // CENTER HOTBAR ON MOBILE
+        if (isMobile)
+        {
+            hotbarRect.anchoredPosition = new Vector2(
+                0f,
+                -450f
+            );
+        }
+
         InitializeHotbarSlots();
 
         hotbarKeys = new Key[slotCount];
@@ -84,6 +104,18 @@ public class HotbarController : MonoBehaviour
             DropSelectedStack();
         else
             DropSelectedItem();
+    }
+
+    // MOBILE: DROP ONE ITEM
+    public void OnMobileDropItemPressed()
+    {
+        DropSelectedItem();
+    }
+
+    // MOBILE: DROP ENTIRE STACK
+    public void OnMobileDropStackPressed()
+    {
+        DropSelectedStack();
     }
 
     // UPDATE DROP PROMPTS

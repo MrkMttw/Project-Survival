@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerInteractionController : MonoBehaviour
 {
@@ -16,38 +17,92 @@ public class PlayerInteractionController : MonoBehaviour
     public SleepTransitionController sleepTransitionController;
     public SleepingBagHitbox sleepingBagHitbox;
 
+    [Header("Mobile Interaction Button")]
+    public Image mobileInteractionButton;
+    public Color highlightColor = Color.yellow;
+    public float blinkSpeed = 0.6f;
+
+    private Color defaultButtonColor;
+
+    private void Start()
+    {
+        if (mobileInteractionButton != null)
+        {
+            defaultButtonColor =
+                mobileInteractionButton.color;
+        }
+    }
+
     private void Update()
     {
-        if (Keyboard.current == null)
-            return;
-
         UpdateFoodPrompt();
+        UpdateInteractionButtonHighlight();
 
-        if (Keyboard.current.eKey.wasPressedThisFrame)
+        if (Keyboard.current != null &&
+            Keyboard.current.eKey.wasPressedThisFrame)
         {
             HandleInteraction();
         }
     }
 
     // UPDATE FOOD PROMPT
-
     private void UpdateFoodPrompt()
     {
-        if (PromptController.Instance == null || foodController == null)
+        if (PromptController.Instance == null ||
+            foodController == null)
             return;
 
         if (foodController.CanEatHeldItem())
         {
-            PromptController.Instance.RequestPrompt(PromptType.E, this);
+            PromptController.Instance.RequestPrompt(
+                PromptType.E, this);
         }
         else
         {
-            PromptController.Instance.ReleasePrompt(PromptType.E, this);
+            PromptController.Instance.ReleasePrompt(
+                PromptType.E, this);
         }
     }
 
-    // HANDLE INTERACTION
+    // UPDATE MOBILE BUTTON HIGHLIGHT
+    private void UpdateInteractionButtonHighlight()
+    {
+        if (mobileInteractionButton == null)
+            return;
 
+        bool canInteract =
+            PromptController.Instance != null &&
+            PromptController.Instance.IsPromptActive(
+                PromptType.E);
+
+        if (!canInteract)
+        {
+            mobileInteractionButton.color =
+                defaultButtonColor;
+
+            return;
+        }
+
+        float pulse = Mathf.PingPong(
+            Time.unscaledTime * blinkSpeed,
+            1f
+        );
+
+        mobileInteractionButton.color =
+            Color.Lerp(
+                defaultButtonColor,
+                highlightColor,
+                pulse
+            );
+    }
+
+    // MOBILE INTERACTION BUTTON
+    public void OnMobileInteractionPressed()
+    {
+        HandleInteraction();
+    }
+
+    // HANDLE INTERACTION
     private void HandleInteraction()
     {
         if (craftingController != null &&
@@ -91,6 +146,12 @@ public class PlayerInteractionController : MonoBehaviour
                 PromptType.E,
                 this
             );
+        }
+
+        if (mobileInteractionButton != null)
+        {
+            mobileInteractionButton.color =
+                defaultButtonColor;
         }
     }
 }

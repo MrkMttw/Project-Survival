@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 public class PlacementController : MonoBehaviour
 {
@@ -26,6 +28,12 @@ public class PlacementController : MonoBehaviour
 
     [Header("Hotbar")]
     public HotbarController hotbarController;
+    
+    [Header("Mobile Controls")]
+    public GameObject mobileCycleButton;
+    
+    [Header("UI Ignore List")]
+    public GameObject[] ignoreUIPanels;
 
     public event Action<bool> RelocationFinished;
 
@@ -50,6 +58,8 @@ public class PlacementController : MonoBehaviour
     private void Update()
     {
         UpdateRotationPrompt();
+
+        UpdateMobileCycleButton();
 
         if (ghostObject == null)
             return;
@@ -76,7 +86,8 @@ public class PlacementController : MonoBehaviour
         CheckPlacement();
 
         if (Mouse.current.leftButton.wasPressedThisFrame &&
-            canPlace)
+            canPlace &&
+            !IsPointerOverIgnoredUI())
         {
             if (isRelocating)
                 PlaceRelocatedBuilding();
@@ -84,7 +95,95 @@ public class PlacementController : MonoBehaviour
                 PlaceBuilding();
         }
     }
-        
+    
+    // UPDATE MOBILE CYCLE BUTTON
+    private void UpdateMobileCycleButton()
+    {
+        if (mobileCycleButton == null)
+            return;
+
+        bool shouldShow =
+            ghostObject != null &&
+            currentItem != null &&
+            currentItem.useDirectionalPrefabs;
+
+        if (mobileCycleButton.activeSelf != shouldShow)
+        {
+            mobileCycleButton.SetActive(shouldShow);
+        }
+    }
+
+    // CHECK IF POINTER IS OVER UI
+    private bool IsPointerOverUI()
+    {
+        if (EventSystem.current == null)
+            return false;
+
+        if (Touchscreen.current != null &&
+            Touchscreen.current.primaryTouch.press.isPressed)
+        {
+            int touchId =
+                Touchscreen.current.primaryTouch.touchId.ReadValue();
+
+            return EventSystem.current.IsPointerOverGameObject(touchId);
+        }
+
+        return EventSystem.current.IsPointerOverGameObject();
+    }
+
+    // CHECK IF POINTER IS OVER IGNORED UI
+    private bool IsPointerOverIgnoredUI()
+    {
+        if (EventSystem.current == null)
+            return false;
+
+        PointerEventData pointerData =
+            new PointerEventData(EventSystem.current);
+
+        Vector2 pointerPosition;
+
+        if (Touchscreen.current != null &&
+            Touchscreen.current.primaryTouch.press.isPressed)
+        {
+            pointerPosition =
+                Touchscreen.current.primaryTouch.position.ReadValue();
+        }
+        else if (Mouse.current != null)
+        {
+            pointerPosition =
+                Mouse.current.position.ReadValue();
+        }
+        else
+        {
+            return false;
+        }
+
+        pointerData.position = pointerPosition;
+
+        List<RaycastResult> results =
+            new List<RaycastResult>();
+
+        EventSystem.current.RaycastAll(
+            pointerData,
+            results
+        );
+
+        foreach (RaycastResult result in results)
+        {
+            foreach (GameObject ignoredPanel in ignoreUIPanels)
+            {
+                if (ignoredPanel != null &&
+                    result.gameObject.transform.IsChildOf(
+                        ignoredPanel.transform))
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     private BuildingPreset GetCurrentPreset()
     {
         if (currentItem == null ||
@@ -124,6 +223,17 @@ public class PlacementController : MonoBehaviour
         Destroy(ghostObject);
 
         ApplyDirectionalPreset(position, rotation);
+    }
+
+    // MOBILE DIRECTION CYCLE BUTTON
+    public void OnMobileCyclePressed()
+    {
+        if (ghostObject == null ||
+            currentItem == null ||
+            !currentItem.useDirectionalPrefabs)
+            return;
+
+        CycleDirectionalPreset();
     }
 
     // UPDATE ROTATION PROMPT

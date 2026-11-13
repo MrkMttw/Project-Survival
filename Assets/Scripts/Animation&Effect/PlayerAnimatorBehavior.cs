@@ -8,6 +8,9 @@ public class PlayerAnimationBehavior : MonoBehaviour
     [Header("Movement Detection")]
     [SerializeField] private float movementThreshold = 0.02f;
 
+    [Header("Direction Detection")]
+    [SerializeField] private float verticalDirectionBias = 1.2f;
+
     [Header("Animation Speed")]
     [SerializeField] private float walkAnimationSpeed = 1f;
     [SerializeField] private float sprintAnimationSpeed = 1.6f;
@@ -47,18 +50,22 @@ public class PlayerAnimationBehavior : MonoBehaviour
 
         if (isMoving)
         {
-            // HORIZONTAL DIRECTION HAS PRIORITY
-            if (movementInput.x > movementThreshold)
-                facingDirection = Vector2.right;
+            float horizontal = Mathf.Abs(movementInput.x);
+            float vertical = Mathf.Abs(movementInput.y);
 
-            else if (movementInput.x < -movementThreshold)
-                facingDirection = Vector2.left;
-
-            else if (movementInput.y > movementThreshold)
-                facingDirection = Vector2.up;
-
-            else if (movementInput.y < -movementThreshold)
-                facingDirection = Vector2.down;
+            // DETERMINE DOMINANT DIRECTION
+            if (vertical >= horizontal * verticalDirectionBias)
+            {
+                facingDirection = movementInput.y > 0
+                    ? Vector2.up
+                    : Vector2.down;
+            }
+            else
+            {
+                facingDirection = movementInput.x > 0
+                    ? Vector2.right
+                    : Vector2.left;
+            }
         }
 
         UpdateAnimatorParameters();

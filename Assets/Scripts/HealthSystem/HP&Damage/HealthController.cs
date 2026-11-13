@@ -10,13 +10,22 @@ public class HealthController : MonoBehaviour
     public float maxHealth = 100f;
     public float currentHealth = 100f;
 
-    [Header("Health UI")]
+    [Header("PC Health UI")]
     public GameObject healthBar;
     public GameObject healthText;
+
+    [Header("Mobile Health UI")]
+    public GameObject mobileHealthBar;
+    public GameObject mobileHealthText;
+
     public event Action OnDeath;
 
     private Image healthBarImage;
     private TMP_Text healthTextComponent;
+
+    private Image mobileHealthBarImage;
+    private TMP_Text mobileHealthTextComponent;
+
     private bool deathTriggered;
     private HitFlashBehavior hitFlash;
 
@@ -24,11 +33,27 @@ public class HealthController : MonoBehaviour
     {
         hitFlash = GetComponentInParent<HitFlashBehavior>();
 
-        healthBarImage = healthBar.GetComponent<Image>();
-        healthTextComponent = healthText.GetComponent<TMP_Text>();
+        // PC UI
+        if (healthBar != null)
+            healthBarImage = healthBar.GetComponent<Image>();
 
-        healthTextComponent.horizontalAlignment =
-            HorizontalAlignmentOptions.Center;
+        if (healthText != null)
+            healthTextComponent = healthText.GetComponent<TMP_Text>();
+
+        // MOBILE UI
+        if (mobileHealthBar != null)
+            mobileHealthBarImage = mobileHealthBar.GetComponent<Image>();
+
+        if (mobileHealthText != null)
+            mobileHealthTextComponent = mobileHealthText.GetComponent<TMP_Text>();
+
+        if (healthTextComponent != null)
+            healthTextComponent.horizontalAlignment =
+                HorizontalAlignmentOptions.Center;
+
+        if (mobileHealthTextComponent != null)
+            mobileHealthTextComponent.horizontalAlignment =
+                HorizontalAlignmentOptions.Center;
 
         maxHealth = baseMaxHealth;
         currentHealth = maxHealth;
@@ -88,12 +113,26 @@ public class HealthController : MonoBehaviour
 
     private void UpdateHealthUI()
     {
+        float healthPercentage = currentHealth / maxHealth;
+
+        // PC UI
         if (healthBarImage != null)
-            healthBarImage.fillAmount = currentHealth / maxHealth;
+            healthBarImage.fillAmount = healthPercentage;
 
         if (healthTextComponent != null)
         {
             healthTextComponent.text =
+                Mathf.CeilToInt(currentHealth) + " / " +
+                Mathf.CeilToInt(maxHealth);
+        }
+
+        // MOBILE UI
+        if (mobileHealthBarImage != null)
+            mobileHealthBarImage.fillAmount = healthPercentage;
+
+        if (mobileHealthTextComponent != null)
+        {
+            mobileHealthTextComponent.text =
                 Mathf.CeilToInt(currentHealth) + " / " +
                 Mathf.CeilToInt(maxHealth);
         }

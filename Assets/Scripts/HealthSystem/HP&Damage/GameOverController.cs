@@ -17,8 +17,9 @@ public class GameOverController : MonoBehaviour
 
     [Header("Respawn Notification")]
     public TMP_Text respawnNotificationText;
+    public TMP_Text mobileRespawnNotificationText;
     public float notificationDuration = 2.5f;
-    
+
     private bool isGameOver;
     private Vector3 respawnPosition;
     private Rigidbody2D playerRigidbody;
@@ -31,10 +32,18 @@ public class GameOverController : MonoBehaviour
         if (gameOverPanel != null)
             gameOverPanel.SetActive(false);
 
+        // PC NOTIFICATION
         if (respawnNotificationText != null)
         {
             respawnNotificationText.text = "";
             respawnNotificationText.gameObject.SetActive(false);
+        }
+
+        // MOBILE NOTIFICATION
+        if (mobileRespawnNotificationText != null)
+        {
+            mobileRespawnNotificationText.text = "";
+            mobileRespawnNotificationText.gameObject.SetActive(false);
         }
     }
 
@@ -106,7 +115,8 @@ public class GameOverController : MonoBehaviour
     // DISPLAY RESPAWN NOTIFICATION
     public void ShowRespawnNotification(string message)
     {
-        if (respawnNotificationText == null)
+        if (respawnNotificationText == null &&
+            mobileRespawnNotificationText == null)
             return;
 
         if (notificationCoroutine != null)
@@ -119,13 +129,35 @@ public class GameOverController : MonoBehaviour
 
     private IEnumerator RespawnNotificationRoutine(string message)
     {
-        respawnNotificationText.text = message;
-        respawnNotificationText.gameObject.SetActive(true);
+        // PC NOTIFICATION
+        if (respawnNotificationText != null)
+        {
+            respawnNotificationText.text = message;
+            respawnNotificationText.gameObject.SetActive(true);
+        }
+
+        // MOBILE NOTIFICATION
+        if (mobileRespawnNotificationText != null)
+        {
+            mobileRespawnNotificationText.text = message;
+            mobileRespawnNotificationText.gameObject.SetActive(true);
+        }
 
         yield return new WaitForSecondsRealtime(notificationDuration);
 
-        respawnNotificationText.text = "";
-        respawnNotificationText.gameObject.SetActive(false);
+        // HIDE PC NOTIFICATION
+        if (respawnNotificationText != null)
+        {
+            respawnNotificationText.text = "";
+            respawnNotificationText.gameObject.SetActive(false);
+        }
+
+        // HIDE MOBILE NOTIFICATION
+        if (mobileRespawnNotificationText != null)
+        {
+            mobileRespawnNotificationText.text = "";
+            mobileRespawnNotificationText.gameObject.SetActive(false);
+        }
 
         notificationCoroutine = null;
     }

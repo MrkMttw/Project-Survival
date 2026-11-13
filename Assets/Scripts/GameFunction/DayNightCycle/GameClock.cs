@@ -25,9 +25,13 @@ public class GameClock : MonoBehaviour
     [Tooltip("ON = show actual minutes, OFF = show only :00 or :30.")]
     public bool showExactMinutes = true;
 
-    [Header("UI")]
+    [Header("PC UI")]
     public TMP_Text clockText;
     public TMP_Text dayText;
+
+    [Header("Mobile UI")]
+    public TMP_Text mobileClockText;
+    public TMP_Text mobileDayText;
 
     private float gameMinutes;
     private int day;
@@ -39,7 +43,7 @@ public class GameClock : MonoBehaviour
 
         UpdateUI();
     }
- 
+
     void Update()
     {
         // Convert real-time seconds into game minutes
@@ -76,41 +80,48 @@ public class GameClock : MonoBehaviour
             minutes = minutes < 30 ? 0 : 30;
         }
 
+        string clockDisplay = "";
+
+        if (use12HourFormat)
+        {
+            // 12-hour format
+            string period = hours >= 12 ? "PM" : "AM";
+
+            int displayHour = hours % 12;
+
+            if (displayHour == 0)
+                displayHour = 12;
+
+            clockDisplay = string.Format(
+                "{0}:{1:00} {2}",
+                displayHour,
+                minutes,
+                period
+            );
+        }
+        else
+        {
+            // 24-hour format
+            clockDisplay = string.Format(
+                "{0:00}:{1:00}",
+                hours,
+                minutes
+            );
+        }
+
+        // PC UI
         if (clockText != null)
-        {
-            if (use12HourFormat)
-            {
-                // 12-hour format
-                string period = hours >= 12 ? "PM" : "AM";
+            clockText.text = clockDisplay;
 
-                int displayHour = hours % 12;
-
-                if (displayHour == 0)
-                    displayHour = 12;
-
-                clockText.text = string.Format(
-                    "{0}:{1:00} {2}",
-                    displayHour,
-                    minutes,
-                    period
-                );
-            }
-            else
-            {
-                // 24-hour format
-                clockText.text = string.Format(
-                    "{0:00}:{1:00}",
-                    hours,
-                    minutes
-                );
-            }
-        }
-
-        // Day display
         if (dayText != null)
-        {
             dayText.text = "Day " + day;
-        }
+
+        // MOBILE UI
+        if (mobileClockText != null)
+            mobileClockText.text = clockDisplay;
+
+        if (mobileDayText != null)
+            mobileDayText.text = "Day " + day;
     }
 
     public int GetHour()
@@ -139,7 +150,6 @@ public class GameClock : MonoBehaviour
         Debug.Log("Advanced " + numberOfDays + " days. Current Day: " + day);
     }
 
-    
     public void AdvanceToMorning(int numberOfDays)
     {
         if (numberOfDays <= 0)

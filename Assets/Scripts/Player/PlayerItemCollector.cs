@@ -153,6 +153,15 @@ public class PlayerItemCollector : MonoBehaviour
         );
     }
 
+    // MOBILE PICKUP BUTTON
+    public void OnMobilePickupPressed()
+    {
+        if (nearbyItem != null)
+        {
+            PickupItem();
+        }
+    }
+
     private void OnDisable()
     {
         if (PromptController.Instance != null)

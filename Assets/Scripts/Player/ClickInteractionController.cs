@@ -3,7 +3,6 @@ using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
 
-
 public class ClickInteractionController : MonoBehaviour
 {
     [Header("Interaction Controllers")]
@@ -15,51 +14,52 @@ public class ClickInteractionController : MonoBehaviour
     public MenuController menuController;
     public GameOverController gameOverController;
     public GameObject hotbarPanel;
-    
+
+    // MOBILE BASIC ATTACK
+    public void OnMobileAttackPressed()
+    {
+        HandleMeleeAndBreaking();
+    }
+
     private void Update()
     {
+        // PROJECTILE SHOOTING ONLY
         if (Mouse.current != null &&
             Mouse.current.leftButton.wasPressedThisFrame)
         {
-            HandleInteraction(true);
+            HandleProjectileShooting();
         }
 
+        // MELEE ATTACK / BREAKING
         if (Keyboard.current != null &&
             Keyboard.current.spaceKey.wasPressedThisFrame)
         {
-            HandleInteraction(false);
+            HandleMeleeAndBreaking();
         }
     }
-        
-    private void HandleInteraction(bool isMouseClick)
+
+    // PROJECTILE SHOOTING
+    private void HandleProjectileShooting()
     {
+        if (IsInputBlocked())
+            return;
+
         // IGNORE CLICKS OVER HOTBAR
-        if (isMouseClick && IsPointerOverHotbar())
+        if (IsPointerOverHotbar())
             return;
 
-        // IGNORE NORMAL MENU
-        if (menuController != null &&
-            menuController.menuCanvas != null &&
-            menuController.menuCanvas.activeSelf)
-        {
-            return;
-        }
-
-        // IGNORE GAME OVER
-        if (gameOverController != null &&
-            gameOverController.IsGameOver())
-        {
-            return;
-        }
-
-        // PROJECTILE WEAPON
-        if (isMouseClick &&
-            projectileWeaponController != null &&
+        if (projectileWeaponController != null &&
             projectileWeaponController.HasProjectileWeaponEquipped())
         {
             projectileWeaponController.TryShoot();
-            return;
         }
+    }
+
+    // MELEE ATTACK / BREAKING
+    private void HandleMeleeAndBreaking()
+    {
+        if (IsInputBlocked())
+            return;
 
         // MELEE WEAPON
         if (meleeWeaponController != null &&
@@ -90,6 +90,28 @@ public class ClickInteractionController : MonoBehaviour
         }
     }
 
+    // INPUT RESTRICTIONS
+    private bool IsInputBlocked()
+    {
+        // IGNORE NORMAL MENU
+        if (menuController != null &&
+            menuController.menuCanvas != null &&
+            menuController.menuCanvas.activeSelf)
+        {
+            return true;
+        }
+
+        // IGNORE GAME OVER
+        if (gameOverController != null &&
+            gameOverController.IsGameOver())
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    // HOTBAR CLICK DETECTION
     private bool IsPointerOverHotbar()
     {
         if (hotbarPanel == null)

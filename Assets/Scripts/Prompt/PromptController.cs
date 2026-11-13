@@ -49,11 +49,15 @@ public class PromptController : MonoBehaviour
         // REGISTER PROMPTS
         foreach (PromptEntry prompt in prompts)
         {
-            if (prompt == null || prompt.promptObject == null)
+            if (prompt == null)
                 continue;
 
-            promptDictionary[prompt.promptType] = prompt.promptObject;
-            prompt.promptObject.SetActive(false);
+            // ALLOW INVISIBLE PROMPTS
+            promptDictionary[prompt.promptType] =
+                prompt.promptObject;
+
+            if (prompt.promptObject != null)
+                prompt.promptObject.SetActive(false);
         }
 
         if (promptContainer != null)
@@ -66,16 +70,8 @@ public class PromptController : MonoBehaviour
         if (requester == null)
             return;
 
-        if (!promptDictionary.TryGetValue(type, out GameObject prompt))
+        if (!promptDictionary.ContainsKey(type))
             return;
-
-        if (prompt == null)
-        {
-            promptDictionary.Remove(type);
-            promptRequests.Remove(type);
-            CheckEmptyPrompts();
-            return;
-        }
 
         if (!promptRequests.ContainsKey(type))
             promptRequests[type] = new HashSet<Object>();
@@ -88,7 +84,8 @@ public class PromptController : MonoBehaviour
     // RELEASE PROMPT
     public void ReleasePrompt(PromptType type, Object requester)
     {
-        if (requester == null || !promptRequests.ContainsKey(type))
+        if (requester == null ||
+            !promptRequests.ContainsKey(type))
             return;
 
         promptRequests[type].Remove(requester);
@@ -96,37 +93,44 @@ public class PromptController : MonoBehaviour
         UpdatePrompt(type);
     }
 
+    // CHECK IF PROMPT IS ACTIVE
+    public bool IsPromptActive(PromptType type)
+    {
+        if (!promptRequests.TryGetValue(
+            type, out HashSet<Object> requesters))
+            return false;
+
+        requesters.RemoveWhere(requester => requester == null);
+
+        return requesters.Count > 0;
+    }
+
     // UPDATE PROMPT
     private void UpdatePrompt(PromptType type)
     {
-        if (!promptDictionary.TryGetValue(type, out GameObject prompt))
+        if (!promptDictionary.TryGetValue(
+            type, out GameObject prompt))
         {
-            promptRequests.Remove(type);
-            CheckEmptyPrompts();
-            return;
-        }
-
-        if (prompt == null)
-        {
-            promptDictionary.Remove(type);
             promptRequests.Remove(type);
             CheckEmptyPrompts();
             return;
         }
 
         // CLEAN DESTROYED REQUESTERS
-        if (promptRequests.TryGetValue(type, out HashSet<Object> requesters))
+        if (promptRequests.TryGetValue(
+            type, out HashSet<Object> requesters))
         {
             requesters.RemoveWhere(requester => requester == null);
         }
 
-        bool shouldShow =
-            promptRequests.ContainsKey(type) &&
-            promptRequests[type].Count > 0;
+        bool shouldShow = IsPromptActive(type);
 
-        prompt.SetActive(shouldShow);
+        // UPDATE VISUAL PROMPT IF AVAILABLE
+        if (prompt != null)
+            prompt.SetActive(shouldShow);
 
-        if (shouldShow)
+        // INVISIBLE PROMPTS DON'T OPEN THE PROMPT CONTAINER
+        if (shouldShow && prompt != null)
         {
             if (promptContainer != null)
                 promptContainer.SetActive(true);

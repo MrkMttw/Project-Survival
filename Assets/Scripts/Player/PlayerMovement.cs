@@ -11,13 +11,20 @@ public class PlayerMovement : MonoBehaviour
     [Header("Sprint")]
     [SerializeField] private float sprintDuration = 3f;
     [SerializeField] private float sprintRegeneration = 0.3f;
+
+    [Header("PC Sprint UI")]
     [SerializeField] private Image sprintBar;
+
+    [Header("Mobile Sprint UI")]
+    [SerializeField] private Image mobileSprintBar;
 
     [Header("Knockback")]
     [SerializeField] private float knockbackDamping = 15f;
 
     private float sprintTimer;
     private bool isExhausted;
+
+    private bool mobileSprintHeld;
 
     private Rigidbody2D rb;
     private Vector2 moveInput;
@@ -36,6 +43,9 @@ public class PlayerMovement : MonoBehaviour
         if (sprintBar != null)
             sprintBar.gameObject.SetActive(false);
 
+        if (mobileSprintBar != null)
+            mobileSprintBar.gameObject.SetActive(false);
+
         sprintTimer = sprintDuration;
     }
 
@@ -44,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
         float currentSpeed = moveSpeed;
 
         bool isSprinting =
-            Input.GetKey(KeyCode.LeftShift) &&
+            (Input.GetKey(KeyCode.LeftShift) || mobileSprintHeld) &&
             !isExhausted &&
             sprintTimer > 0 &&
             moveInput != Vector2.zero;
@@ -75,10 +85,18 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        // UPDATE PC SPRINT UI
         if (sprintBar != null)
         {
             sprintBar.fillAmount = sprintTimer / sprintDuration;
             sprintBar.gameObject.SetActive(sprintTimer < sprintDuration);
+        }
+
+        // UPDATE MOBILE SPRINT UI
+        if (mobileSprintBar != null)
+        {
+            mobileSprintBar.fillAmount = sprintTimer / sprintDuration;
+            mobileSprintBar.gameObject.SetActive(sprintTimer < sprintDuration);
         }
 
         // NORMAL MOVEMENT
@@ -139,5 +157,16 @@ public class PlayerMovement : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
+    }
+
+    // MOBILE SPRINT
+    public void OnMobileSprintPressed()
+    {
+        mobileSprintHeld = true;
+    }
+
+    public void OnMobileSprintReleased()
+    {
+        mobileSprintHeld = false;
     }
 }
