@@ -30,12 +30,19 @@ public class MenuController : MonoBehaviour
     void Update()
     {
         UpdateMenuPrompt();
-
-        // OPEN INVENTORY USING B
+        
+        // TOGGLE INVENTORY USING B
         if (Keyboard.current != null &&
             Keyboard.current.bKey.wasPressedThisFrame)
         {
-            OpenInventoryPage();
+            if (menuCanvas.activeSelf)
+            {
+                ExitTab();
+            }
+            else
+            {
+                OpenInventoryPage();
+            }
         }
 
         // HOTBAR POSITION
