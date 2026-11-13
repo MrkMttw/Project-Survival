@@ -140,7 +140,7 @@ public class ExplodingMobBehavior : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (rb == null || isDead || hasExploded)
+        if (rb == null || isDead || hasExploded || isWaitingForAttack)
             return;
 
         if (isKnockedBack)
@@ -386,10 +386,33 @@ public class ExplodingMobBehavior : MonoBehaviour
 
     private void BeginDetonation()
     {
-        if (hasExploded || isDead)
+        if (hasExploded || isDead || isWaitingForAttack)
             return;
 
-        Detonate();
+        // STOP MOVEMENT
+        isWaitingForAttack = true;
+        isChasing = false;
+
+        rb.linearVelocity = Vector2.zero;
+        HideFuseTimerText();
+
+        // NO ANIMATOR: DETONATE IMMEDIATELY
+        if (mobAttackAnimator == null)
+        {
+            isWaitingForAttack = false;
+            Detonate();
+            return;
+        }
+
+        // PLAY DETONATION ANIMATION
+        bool animationStarted = mobAttackAnimator.PlayAttack();
+
+        // FALLBACK IF ANIMATION CANNOT START
+        if (!animationStarted && !mobAttackAnimator.IsPlaying)
+        {
+            isWaitingForAttack = false;
+            Detonate();
+        }
     }
 
     private void Detonate()
@@ -398,6 +421,7 @@ public class ExplodingMobBehavior : MonoBehaviour
             return;
 
         hasExploded = true;
+        isWaitingForAttack = false;
 
         HideFuseTimerText();
 
@@ -420,12 +444,13 @@ public class ExplodingMobBehavior : MonoBehaviour
 
     private void OnAttackFinished()
     {
-        if (!isWaitingForAttack || isDead)
+        if (!isWaitingForAttack || isDead || hasExploded)
             return;
 
         isWaitingForAttack = false;
 
-        Die();
+        // COMPLETE DETONATION
+        Detonate();
     }
 
     // EXPLOSION DAMAGE
@@ -472,7 +497,7 @@ public class ExplodingMobBehavior : MonoBehaviour
         float knockbackStrength
     )
     {
-        if (isDead || hasExploded)
+        if (isDead || hasExploded || isWaitingForAttack)
             return;
 
         float actualDamage = Mathf.Max(
@@ -524,15 +549,14 @@ public class ExplodingMobBehavior : MonoBehaviour
         float strength
     )
     {
-        float actualKnockback = Mathf.Max(
-            strength - knockbackResistance,
-            0f
-        );
+        // DON'T INTERRUPT FINAL DETONATION
+            if (isWaitingForAttack)
+                return;
 
-        if (
-            actualKnockback <= 0f ||
-            direction.sqrMagnitude <= 0.001f
-        )
+            float actualKnockback = Mathf.Max(
+                strength - knockbackResistance,
+                0f
+            );
             return;
 
         direction.Normalize();

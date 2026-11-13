@@ -483,8 +483,8 @@ MonoBehaviour:
   playerKnockbackStrength: 5
   playerKnockbackDuration: 0.2
   attackDamageDelay: 0.3
-  attackCooldown: 1
-  firstAttackDelay: 0.5
+  attackCooldown: 1.5
+  firstAttackDelay: 1
   stoppingDistance: 1.2
   obstacleLayer:
     serializedVersion: 2

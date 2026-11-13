@@ -9,8 +9,11 @@ public class NPCAnimationBehavior : MonoBehaviour
     [Header("Movement Detection")]
     [SerializeField] private float movementThreshold = 0.02f;
 
+    private HostileMobBehavior hostileMobBehavior;
+
     private Vector2 lastPosition;
     private Vector2 facingDirection = Vector2.down;
+
     private bool isMoving;
     private string currentState;
 
@@ -21,6 +24,9 @@ public class NPCAnimationBehavior : MonoBehaviour
 
         if (animator == null)
             animator = GetComponentInChildren<Animator>();
+
+        hostileMobBehavior =
+            GetComponentInParent<HostileMobBehavior>();
 
         if (rb == null)
             Debug.LogError("NPCAnimationBehavior: Rigidbody2D is missing!", this);
@@ -45,6 +51,14 @@ public class NPCAnimationBehavior : MonoBehaviour
         if (rb == null || animator == null)
             return;
 
+        // LOCK MOVEMENT ANIMATION DURING ATTACK
+        if (hostileMobBehavior != null &&
+            hostileMobBehavior.IsAttackAnimationLocked)
+        {
+            lastPosition = rb.position;
+            return;
+        }
+
         Vector2 currentPosition = rb.position;
         Vector2 movement = currentPosition - lastPosition;
 
@@ -53,6 +67,7 @@ public class NPCAnimationBehavior : MonoBehaviour
         isMoving = movement.sqrMagnitude >
                    movementThreshold * movementThreshold;
 
+        // UPDATE FACING DIRECTION
         if (isMoving)
         {
             if (Mathf.Abs(movement.x) > Mathf.Abs(movement.y))
@@ -77,12 +92,16 @@ public class NPCAnimationBehavior : MonoBehaviour
             PlayState(stateName);
     }
 
+    // ANIMATOR PARAMETERS
+
     private void UpdateAnimatorParameters()
     {
         animator.SetBool("IsMoving", isMoving);
         animator.SetFloat("MoveX", facingDirection.x);
         animator.SetFloat("MoveY", facingDirection.y);
     }
+
+    // STATE SELECTION
 
     private string GetStateName()
     {
@@ -101,6 +120,8 @@ public class NPCAnimationBehavior : MonoBehaviour
             ? "NPCWalk" + direction
             : "NPCIdle" + direction;
     }
+
+    // PLAY ANIMATION
 
     private void PlayState(string stateName)
     {

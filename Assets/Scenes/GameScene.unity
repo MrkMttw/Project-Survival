@@ -2765,6 +2765,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 294074252}
   m_CullTransparentMesh: 1
+--- !u!1001 &310365349
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2990379320580592999, guid: cdda6e79c23ac8b4d80ed4b4bd3f76e4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.3852797
+      objectReference: {fileID: 0}
+    - target: {fileID: 2990379320580592999, guid: cdda6e79c23ac8b4d80ed4b4bd3f76e4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.2631896
+      objectReference: {fileID: 0}
+    - target: {fileID: 2990379320580592999, guid: cdda6e79c23ac8b4d80ed4b4bd3f76e4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2990379320580592999, guid: cdda6e79c23ac8b4d80ed4b4bd3f76e4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2990379320580592999, guid: cdda6e79c23ac8b4d80ed4b4bd3f76e4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2990379320580592999, guid: cdda6e79c23ac8b4d80ed4b4bd3f76e4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2990379320580592999, guid: cdda6e79c23ac8b4d80ed4b4bd3f76e4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2990379320580592999, guid: cdda6e79c23ac8b4d80ed4b4bd3f76e4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2990379320580592999, guid: cdda6e79c23ac8b4d80ed4b4bd3f76e4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2990379320580592999, guid: cdda6e79c23ac8b4d80ed4b4bd3f76e4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603050365449017479, guid: cdda6e79c23ac8b4d80ed4b4bd3f76e4, type: 3}
+      propertyPath: m_Name
+      value: PinkMushroom
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cdda6e79c23ac8b4d80ed4b4bd3f76e4, type: 3}
 --- !u!1 &314433863
 GameObject:
   m_ObjectHideFlags: 0
@@ -7010,9 +7067,14 @@ MonoBehaviour:
     spawnFromDay: 5
     spawnStartTime: 21
     spawnEndTime: 5
-  - enemyPrefab: {fileID: 7031878355868238338, guid: cd765f65cad360f438033baabd653a43, type: 3}
+  - enemyPrefab: {fileID: 3487566225509943420, guid: 2df693f9c6f48ee4c8a69827af1cd62b, type: 3}
     spawnPercentage: 20
-    spawnFromDay: 10
+    spawnFromDay: 5
+    spawnStartTime: 21
+    spawnEndTime: 5
+  - enemyPrefab: {fileID: 3487566225509943420, guid: 8a5ff736c56969d4a9721b0a3b399d8f, type: 3}
+    spawnPercentage: 20
+    spawnFromDay: 5
     spawnStartTime: 21
     spawnEndTime: 5
   hostileSpawnInterval: 2
@@ -20137,3 +20199,4 @@ SceneRoots:
   - {fileID: 379042723}
   - {fileID: 422850234}
   - {fileID: 1249827463}
+  - {fileID: 310365349}

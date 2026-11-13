@@ -60,6 +60,9 @@ public class HostileMobBehavior : MonoBehaviour
 
     // ATTACK
     private MobAttackAnimator mobAttackAnimator;
+    private bool isAttackAnimationLocked;
+
+    public bool IsAttackAnimationLocked => isAttackAnimationLocked;
 
     // COMPONENTS
     private Rigidbody2D rb;
@@ -93,6 +96,12 @@ public class HostileMobBehavior : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         mobAttackAnimator = GetComponentInChildren<MobAttackAnimator>(true);
+
+        if (mobAttackAnimator != null)
+        {
+            mobAttackAnimator.AttackStarted += OnAttackStarted;
+            mobAttackAnimator.AttackFinished += OnAttackFinished;
+        }
     }
 
     private void Start()
@@ -190,6 +199,10 @@ public class HostileMobBehavior : MonoBehaviour
         {
             isChasing = false;
             isAttacking = false;
+
+            // CANCEL INTERRUPTED ATTACK
+            mobAttackAnimator?.CancelAttack();
+
             return;
         }
 
@@ -315,7 +328,6 @@ public class HostileMobBehavior : MonoBehaviour
     }
 
     // ATTACK
-
     private void AttackPlayer()
     {
         if (isKnockedBack || isDead)
@@ -332,14 +344,28 @@ public class HostileMobBehavior : MonoBehaviour
         if (attackTimer > 0f)
             return;
 
+        // CHECK IF ANIMATION CAN PLAY
+        if (mobAttackAnimator != null)
+        {
+            if (!mobAttackAnimator.PlayAttack())
+                return;
+        }
+
         // START ATTACK COOLDOWN
         attackTimer = attackCooldown;
 
-        // PLAY ATTACK ANIMATION
-        mobAttackAnimator?.PlayAttack();
-
-        // APPLY DAMAGE INDEPENDENTLY
+        // APPLY DELAYED DAMAGE
         StartCoroutine(ApplyDelayedAttackDamage());
+    }
+
+    private void OnAttackStarted()
+    {
+        isAttackAnimationLocked = true;
+    }
+
+    private void OnAttackFinished()
+    {
+        isAttackAnimationLocked = false;
     }
 
     // APPLY DELAYED ATTACK DAMAGE
@@ -467,6 +493,9 @@ public class HostileMobBehavior : MonoBehaviour
         knockbackVelocity = direction * actualKnockback;
         knockbackTimer = knockbackDuration;
         isKnockedBack = true;
+
+        // CANCEL CURRENT ATTACK
+        mobAttackAnimator?.CancelAttack();
     }
 
     private void HandleKnockback()
@@ -618,5 +647,10 @@ public class HostileMobBehavior : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (mobAttackAnimator != null)
+        {
+            mobAttackAnimator.AttackStarted -= OnAttackStarted;
+            mobAttackAnimator.AttackFinished -= OnAttackFinished;
+        }
     }
 }

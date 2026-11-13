@@ -80,7 +80,7 @@ public class ProjectileMobBehavior : MonoBehaviour
     private float attackTimer;
     private float firstAttackTimer;
     private float projectileSpawnTimer;
-    private float attackAnimationTimer;
+  
 
     private bool isAttackAnimationPlaying;
     private bool hasFiredProjectile;
@@ -100,6 +100,12 @@ public class ProjectileMobBehavior : MonoBehaviour
         {
             mobAttackAnimator =
                 GetComponentInChildren<MobAttackAnimator>(true);
+        }
+
+        // SUBSCRIBE TO ATTACK ANIMATION
+        if (mobAttackAnimator != null)
+        {
+            mobAttackAnimator.AttackFinished += OnAttackFinished;
         }
 
         // FIND SMOKE EFFECT
@@ -206,6 +212,9 @@ public class ProjectileMobBehavior : MonoBehaviour
         if (isPlayerDetected && distance > chaseRange)
         {
             isPlayerDetected = false;
+
+            // CANCEL CURRENT ATTACK
+            mobAttackAnimator?.CancelAttack();
         }
     }
 
@@ -220,7 +229,7 @@ public class ProjectileMobBehavior : MonoBehaviour
             firstAttackTimer -= Time.deltaTime;
     }
 
-    private void HandleAttackSequence()
+   private void HandleAttackSequence()
     {
         if (!isAttackAnimationPlaying)
             return;
@@ -235,19 +244,6 @@ public class ProjectileMobBehavior : MonoBehaviour
                 FireProjectile();
                 hasFiredProjectile = true;
             }
-        }
-
-        // ATTACK ANIMATION DURATION
-        attackAnimationTimer -= Time.deltaTime;
-
-        // FINISH ATTACK SEQUENCE
-        if (
-            attackAnimationTimer <= 0f &&
-            hasFiredProjectile
-        )
-        {
-            isAttackAnimationPlaying = false;
-            attackTimer = attackCooldown;
         }
     }
 
@@ -268,7 +264,7 @@ public class ProjectileMobBehavior : MonoBehaviour
         if (distance > attackRange)
             return;
 
-        // WAIT UNTIL PREFERRED DISTANCE IS REACHED
+        // WAIT UNTIL PREFERRED DISTANCE
         if (distance > preferredDistance)
             return;
 
@@ -284,14 +280,13 @@ public class ProjectileMobBehavior : MonoBehaviour
             return;
 
         // START ATTACK ANIMATION
-        if (mobAttackAnimator.PlayAttack())
-        {
-            isAttackAnimationPlaying = true;
-            hasFiredProjectile = false;
+        if (!mobAttackAnimator.PlayAttack())
+            return;
 
-            projectileSpawnTimer = projectileSpawnDelay;
-            attackAnimationTimer = attackAnimationDuration;
-        }
+        isAttackAnimationPlaying = true;
+        hasFiredProjectile = false;
+
+        projectileSpawnTimer = projectileSpawnDelay;
     }
 
     // PROJECTILE ATTACK
@@ -577,6 +572,15 @@ public class ProjectileMobBehavior : MonoBehaviour
         knockbackVelocity = direction * actualKnockback;
         knockbackTimer = knockbackDuration;
         isKnockedBack = true;
+
+        direction.Normalize();
+
+        knockbackVelocity = direction * actualKnockback;
+        knockbackTimer = knockbackDuration;
+        isKnockedBack = true;
+
+        // CANCEL CURRENT ATTACK
+        mobAttackAnimator?.CancelAttack();
     }
 
     private void HandleKnockback()
@@ -741,5 +745,28 @@ public class ProjectileMobBehavior : MonoBehaviour
             transform.position,
             preferredDistance
         );
+    }
+
+    private void OnAttackFinished()
+    {
+        if (!isAttackAnimationPlaying)
+            return;
+
+        // FINISH ATTACK
+        isAttackAnimationPlaying = false;
+
+        // START ATTACK COOLDOWN
+        attackTimer = attackCooldown;
+
+        // RESET PROJECTILE STATE
+        hasFiredProjectile = false;
+    }
+
+    private void OnDestroy()
+    {
+        if (mobAttackAnimator != null)
+        {
+            mobAttackAnimator.AttackFinished -= OnAttackFinished;
+        }
     }
 }

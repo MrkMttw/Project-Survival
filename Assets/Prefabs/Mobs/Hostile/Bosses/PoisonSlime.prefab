@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: attackTrigger
       value: BossAttack
       objectReference: {fileID: 0}
+    - target: {fileID: 1330580274994532926, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: maxAttackDuration
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1331486460801449365, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Color.b
       value: 0.1254902
@@ -71,7 +75,7 @@ PrefabInstance:
     - target: {fileID: 1379614877581253849, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_SpriteLibraryAsset
       value: 
-      objectReference: {fileID: 7108339969198208228, guid: 308b820b97b576442beadc6a8e47e6cd, type: 3}
+      objectReference: {fileID: 7108339969198208228, guid: 9fc8f4e2565429d45adaa577c155ec0d, type: 3}
     - target: {fileID: 1598090675273675913, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_SizeDelta.x
       value: 1
@@ -122,19 +126,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3655246650299843580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x
-      value: 0.29
+      value: 0.28
       objectReference: {fileID: 0}
     - target: {fileID: 3655246650299843580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.y
-      value: 0.27
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 3655246650299843580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 0.23
+      value: 0.28
       objectReference: {fileID: 0}
     - target: {fileID: 3655246650299843580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 0.25
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 3718453016522833402, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -142,16 +146,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4417746939183367772, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Size.x
-      value: 0.29
+      value: 0.28
       objectReference: {fileID: 0}
     - target: {fileID: 4417746939183367772, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Size.y
-      value: 0.27
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 4417746939183367772, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 146733825, guid: 91cd93a442bf2f54abd9b9d1e015fe08, type: 3}
+      objectReference: {fileID: 291293068, guid: 1c7c8d1878912894ebe1881e0b9594b0, type: 3}
     - target: {fileID: 5171307332401372853, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -256,6 +260,10 @@ PrefabInstance:
       propertyPath: mobDropPreset
       value: 
       objectReference: {fileID: 11400000, guid: 174f96a79378f8746b43b43aeda87830, type: 2}
+    - target: {fileID: 8631369034572204580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: attackCooldown
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8631369034572204580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: detectionRange
       value: 4

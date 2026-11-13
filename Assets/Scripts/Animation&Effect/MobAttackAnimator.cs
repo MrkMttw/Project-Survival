@@ -9,19 +9,46 @@ public class MobAttackAnimator : MonoBehaviour
     [Header("Attack Animation Settings")]
     [SerializeField] private string attackTrigger = "Attack";
 
-    [Header("Attack Failsafe")]
+    [Tooltip("Force-finish the attack if the animation event fails.")]
     [SerializeField] private float maxAttackDuration = 1.5f;
 
+    public event Action AttackStarted;
     public event Action AttackHit;
     public event Action AttackFinished;
 
+    public bool IsPlaying => isPlaying;
+
     private bool isPlaying;
-    private float playStartTime;
+    private bool hasStarted;
+    private float playTimer;
 
     private void Awake()
     {
         if (mobAnimator == null)
             mobAnimator = GetComponent<Animator>();
+
+        // CHECK ANIMATOR LOCATION
+        if (mobAnimator != null && mobAnimator.gameObject != gameObject)
+        {
+            Debug.LogWarning(
+                $"{name}: MobAttackAnimator must be on the same GameObject as the Animator!"
+            );
+        }
+    }
+
+    private void Update()
+    {
+        if (!isPlaying)
+            return;
+
+        playTimer += Time.deltaTime;
+
+        // SAFETY TIMEOUT
+        if (playTimer >= maxAttackDuration)
+        {
+            Debug.LogWarning($"{name}: Attack animation timed out. Force finishing.");
+            ForceFinish();
+        }
     }
 
     public bool PlayAttack()
@@ -30,10 +57,14 @@ public class MobAttackAnimator : MonoBehaviour
             return false;
 
         if (isPlaying)
+        {
+            Debug.Log($"{name}: Attack blocked. Animation is still playing.");
             return false;
+        }
 
         isPlaying = true;
-        playStartTime = Time.time;
+        hasStarted = false;
+        playTimer = 0f;
 
         mobAnimator.ResetTrigger(attackTrigger);
         mobAnimator.SetTrigger(attackTrigger);
@@ -41,15 +72,14 @@ public class MobAttackAnimator : MonoBehaviour
         return true;
     }
 
-    private void Update()
+    // ANIMATION EVENT: ATTACK START
+    public void OnAttackStarted()
     {
-        if (!isPlaying)
+        if (!isPlaying || hasStarted)
             return;
 
-        if (Time.time - playStartTime >= maxAttackDuration)
-        {
-            ForceFinish();
-        }
+        hasStarted = true;
+        AttackStarted?.Invoke();
     }
 
     // ANIMATION EVENT: HIT FRAME
@@ -61,27 +91,36 @@ public class MobAttackAnimator : MonoBehaviour
         AttackHit?.Invoke();
     }
 
-    // ANIMATION EVENT: FINISH FRAME
+    // ANIMATION EVENT: ATTACK FINISHED
     public void OnAttackFinished()
     {
-        if (!isPlaying)
-            return;
+        ForceFinish();
+    }
+
+    // CANCEL ATTACK
+    public void CancelAttack()
+    {
+        if (mobAnimator != null)
+            mobAnimator.ResetTrigger(attackTrigger);
 
         ForceFinish();
     }
 
+    // FORCE FINISH
     private void ForceFinish()
     {
         if (!isPlaying)
             return;
 
         isPlaying = false;
+        hasStarted = false;
+        playTimer = 0f;
 
         AttackFinished?.Invoke();
     }
 
     private void OnDisable()
     {
-        isPlaying = false;
+        ForceFinish();
     }
 }

@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: attackTrigger
       value: BossAttack
       objectReference: {fileID: 0}
+    - target: {fileID: 1330580274994532926, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: maxAttackDuration
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1331486460801449365, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: m_Color.b
       value: 0.1254902
@@ -252,6 +256,10 @@ PrefabInstance:
       propertyPath: mobDropPreset
       value: 
       objectReference: {fileID: 11400000, guid: 9311a1e244c216642824045ecf456323, type: 2}
+    - target: {fileID: 8631369034572204580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
+      propertyPath: attackCooldown
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8631369034572204580, guid: 1e2b94f242e35fc4f9074e2ce59203e9, type: 3}
       propertyPath: detectionRange
       value: 4
