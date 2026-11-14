@@ -10,6 +10,12 @@ public class ItemDragHandler : MonoBehaviour,
     IEndDragHandler,
     IPointerEnterHandler
 {
+
+    [SerializeField] private float swipeThreshold = 80f;
+    private Vector2 dragStartPosition;
+    private bool passedSwipeThreshold;
+    
+    private Vector3 originalLocalScale;
     public static ItemDragHandler ActiveHandler { get; private set; }
 
     private Slot sourceSlot;
@@ -25,6 +31,8 @@ public class ItemDragHandler : MonoBehaviour,
 
     private void Awake()
     {
+        originalLocalScale = transform.localScale;
+
         canvasGroup = GetComponent<CanvasGroup>();
 
         if (canvasGroup == null)
@@ -37,25 +45,19 @@ public class ItemDragHandler : MonoBehaviour,
     }
 
     // PICK UP ITEM
-
     public void OnPointerDown(PointerEventData eventData)
     {
         if (eventData.button != PointerEventData.InputButton.Left)
             return;
 
-        // Another item is currently selected.
+        // PLACE SELECTED ITEM ON OCCUPIED SLOT
         if (ActiveHandler != null && ActiveHandler != this)
         {
             Slot targetSlot = GetComponentInParent<Slot>();
 
             if (targetSlot != null)
                 ActiveHandler.TryPlaceOnSlot(targetSlot);
-
-            return;
         }
-
-        if (ActiveHandler == null)
-            PickUpItem();
     }
 
     private void PickUpItem()
@@ -97,9 +99,15 @@ public class ItemDragHandler : MonoBehaviour,
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (!isSelected)
+            PickUpItem();
+
+        if (!isSelected)
             return;
 
         isDragging = true;
+        dragStartPosition = eventData.position;
+        passedSwipeThreshold = false;
+
         visitedSlots.Clear();
     }
 
@@ -110,7 +118,15 @@ public class ItemDragHandler : MonoBehaviour,
 
         transform.position = eventData.position;
 
-        // Detect the slot currently under the pointer.
+        if (Vector2.Distance(dragStartPosition, eventData.position)
+            >= swipeThreshold)
+        {
+            passedSwipeThreshold = true;
+        }
+
+        if (!passedSwipeThreshold)
+            return;
+
         if (eventData.pointerEnter != null)
         {
             Slot slot =
@@ -134,7 +150,10 @@ public class ItemDragHandler : MonoBehaviour,
 
     public void RecordSwipeSlot(Slot slot)
     {
-        if (!isSelected || !isDragging || slot == null)
+        if (!isSelected ||
+            !isDragging ||
+            !passedSwipeThreshold ||
+            slot == null)
             return;
 
         if (slot == sourceSlot)
@@ -151,29 +170,38 @@ public class ItemDragHandler : MonoBehaviour,
 
         isDragging = false;
 
-        // Include the final destination.
+        Slot finalSlot = null;
+
         if (eventData.pointerEnter != null)
         {
-            Slot finalSlot =
+            finalSlot =
                 eventData.pointerEnter.GetComponentInParent<Slot>();
-
-            if (finalSlot != null)
-                RecordFinalSlot(finalSlot);
         }
 
-        if (visitedSlots.Count == 1)
+        // DROP INTO ANOTHER CONTAINER.
+        if (finalSlot != null &&
+            finalSlot != sourceSlot &&
+            finalSlot.transform.parent != sourceSlot.transform.parent)
         {
-            HandleSlotDrop(visitedSlots[0]);
+            HandleSlotDrop(finalSlot);
             return;
         }
 
-        if (visitedSlots.Count > 1)
+        // DISTRIBUTE ONLY AFTER A DELIBERATE SWIPE.
+        if (passedSwipeThreshold && visitedSlots.Count > 1)
         {
             DistributeStack();
             return;
         }
 
-        // No destination was visited.
+        // NORMAL SINGLE-SLOT DROP.
+        if (finalSlot != null && finalSlot != sourceSlot)
+        {
+            HandleSlotDrop(finalSlot);
+            return;
+        }
+
+        // DROP OUTSIDE THE SOURCE CONTAINER.
         if (!IsWithinSourceContainer(eventData.position))
         {
             DropItem();
@@ -476,26 +504,30 @@ public class ItemDragHandler : MonoBehaviour,
         if (newItem == null)
             return 0;
 
-        newItem.transform.SetParent(targetSlot.transform);
+        PlaceCloneInSlot(newItem, targetSlot);
 
-        RectTransform rect =
-            newItem.GetComponent<RectTransform>();
+        return amountToCreate;
+    }
+
+    private void PlaceCloneInSlot(GameObject newItem, Slot slot)
+    {
+        newItem.transform.SetParent(slot.transform, false);
+        newItem.transform.localScale = originalLocalScale;
+
+        RectTransform rect = newItem.GetComponent<RectTransform>();
 
         if (rect != null)
             rect.anchoredPosition = Vector2.zero;
 
-        CanvasGroup newCanvasGroup =
-            newItem.GetComponent<CanvasGroup>();
+        CanvasGroup cg = newItem.GetComponent<CanvasGroup>();
 
-        if (newCanvasGroup != null)
+        if (cg != null)
         {
-            newCanvasGroup.alpha = 1f;
-            newCanvasGroup.blocksRaycasts = true;
+            cg.alpha = 1f;
+            cg.blocksRaycasts = true;
         }
 
-        targetSlot.currentItem = newItem;
-
-        return amountToCreate;
+        slot.currentItem = newItem;
     }
 
     // RETURN ITEM
@@ -527,6 +559,13 @@ public class ItemDragHandler : MonoBehaviour,
 
         if (rect != null)
             rect.anchoredPosition = Vector2.zero;
+
+        transform.localScale = originalLocalScale;
+
+        Slot currentSlot = GetComponentInParent<Slot>();
+
+        if (currentSlot != null)
+            sourceSlot = currentSlot;
 
         FinishSelection();
     }
@@ -619,9 +658,7 @@ public class ItemDragHandler : MonoBehaviour,
 
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            Slot slot = sourceSlot != null
-                ? sourceSlot
-                : GetComponentInParent<Slot>();
+            Slot slot = GetComponentInParent<Slot>();
 
             if (slot == null)
                 return;
