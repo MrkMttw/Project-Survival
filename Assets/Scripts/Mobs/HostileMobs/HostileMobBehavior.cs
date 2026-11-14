@@ -75,6 +75,9 @@ public class HostileMobBehavior : MonoBehaviour
     // HEALTH
     private float currentHP;
     private HitFlashBehavior hitFlash;
+    private bool hasRestoredHealth;
+
+    public float CurrentHP => currentHP;
 
     // COMBAT TIMERS
     private float attackTimer;
@@ -106,7 +109,12 @@ public class HostileMobBehavior : MonoBehaviour
 
     private void Start()
     {
-        currentHP = maxHP;
+        // INITIALIZE OR PRESERVE HEALTH
+        if (!hasRestoredHealth)
+        {
+            currentHP = maxHP;
+        }
+
         UpdateHealthBar();
 
         // FIND PLAYER
@@ -328,6 +336,7 @@ public class HostileMobBehavior : MonoBehaviour
     }
 
     // ATTACK
+
     private void AttackPlayer()
     {
         if (isKnockedBack || isDead)
@@ -423,6 +432,14 @@ public class HostileMobBehavior : MonoBehaviour
     }
 
     // HEALTH
+
+    public void RestoreHealth(float savedHP)
+    {
+        currentHP = Mathf.Clamp(savedHP, 0f, maxHP);
+        hasRestoredHealth = true;
+
+        UpdateHealthBar();
+    }
 
     private void UpdateHealthBar()
     {

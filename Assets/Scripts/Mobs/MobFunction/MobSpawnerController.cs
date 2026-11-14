@@ -8,6 +8,7 @@ public class MobSpawnerController : MonoBehaviour
     public class HostileSpawnData
     {
         public GameObject enemyPrefab;
+        public string prefabID;
 
         [Range(0, 100)]
         public int spawnPercentage = 50;
@@ -25,6 +26,7 @@ public class MobSpawnerController : MonoBehaviour
     public class PassiveSpawnData
     {
         public GameObject mobPrefab;
+        public string prefabID;
 
         [Range(0, 100)]
         public int spawnPercentage = 50;
@@ -154,7 +156,9 @@ public class MobSpawnerController : MonoBehaviour
             if (!CanSpawnMob(MobType.Hostile))
                 continue;
 
-            if (!TryChooseHostilePrefab(out GameObject prefab))
+            if (!TryChooseHostilePrefab(
+                out GameObject prefab,
+                out string prefabID))
                 continue;
 
             if (!TryGetLoadedSpawnPosition(
@@ -165,7 +169,13 @@ public class MobSpawnerController : MonoBehaviour
                 true))
                 continue;
 
-            SpawnMob(prefab, MobType.Hostile, position, originChunk);
+            SpawnMob(
+                prefab,
+                prefabID,
+                MobType.Hostile,
+                position,
+                originChunk
+            );
         }
     }
 
@@ -180,7 +190,9 @@ public class MobSpawnerController : MonoBehaviour
             if (!CanSpawnMob(MobType.Passive))
                 continue;
 
-            if (!TryChoosePassivePrefab(out GameObject prefab))
+            if (!TryChoosePassivePrefab(
+                out GameObject prefab,
+                out string prefabID))
                 continue;
 
             if (!TryGetLoadedSpawnPosition(
@@ -190,7 +202,13 @@ public class MobSpawnerController : MonoBehaviour
                 out Vector2Int originChunk))
                 continue;
 
-            SpawnMob(prefab, MobType.Passive, position, originChunk);
+            SpawnMob(
+                prefab,
+                prefabID,
+                MobType.Passive,
+                position,
+                originChunk
+            );
         }
     }
 
@@ -537,10 +555,94 @@ public class MobSpawnerController : MonoBehaviour
         passiveMobs.Remove(mob);
     }
 
+    // RESTORED MOB REGISTRATION
+
+    public bool RegisterRestoredMob(MobIdentity mob)
+    {
+        if (mob == null || activeMobsParent == null)
+            return false;
+
+        if (string.IsNullOrEmpty(mob.mobID) ||
+            string.IsNullOrEmpty(mob.prefabID))
+        {
+            Debug.LogWarning(
+                "Cannot register restored mob with missing identity: " +
+                mob.name
+            );
+
+            return false;
+        }
+
+        StructureObjectIdentity structureIdentity =
+            mob.GetComponentInChildren<StructureObjectIdentity>(true);
+
+        // BOSSES ARE MANAGED SEPARATELY.
+        if (structureIdentity != null && structureIdentity.isBoss)
+            return false;
+
+        HashSet<MobIdentity> targetCollection =
+            GetMobCollection(mob.mobType);
+
+        if (targetCollection == null)
+            return false;
+
+        CleanNullMobs(targetCollection);
+
+        // PREVENT DUPLICATE REGISTRATION.
+        foreach (MobIdentity existingMob in targetCollection)
+        {
+            if (existingMob == mob)
+                return true;
+
+            if (existingMob.mobID == mob.mobID)
+                return false;
+        }
+
+        mob.transform.SetParent(activeMobsParent, true);
+
+        targetCollection.Add(mob);
+
+        return true;
+    }
+
+
+    // SAVE ALL ACTIVE MOBS
+
+    public void SaveAllActiveMobs()
+    {
+        if (worldGenerator == null)
+            return;
+
+        SaveMobCollection(hostileMobs);
+        SaveMobCollection(passiveMobs);
+
+        Debug.Log(
+            "Active mobs saved | Hostile: " +
+            hostileMobs.Count +
+            " | Passive: " +
+            passiveMobs.Count
+        );
+    }
+
+    private void SaveMobCollection(
+        HashSet<MobIdentity> collection)
+    {
+        CleanNullMobs(collection);
+
+        foreach (MobIdentity mob in collection)
+        {
+            if (mob == null)
+                continue;
+
+            worldGenerator.SaveMobState(mob);
+        }
+    }
+
     // GLOBAL MOB CREATION
 
     private void SpawnMob(
         GameObject prefab,
+        string prefabID,
         MobType mobType,
         Vector3 position,
         Vector2Int originChunk)
@@ -562,8 +664,11 @@ public class MobSpawnerController : MonoBehaviour
             identity = spawnedMob.AddComponent<MobIdentity>();
         }
 
-        identity.mobType = mobType;
-        identity.originalChunkCoordinate = originChunk;
+        identity.Initialize(
+            mobType,
+            prefabID,
+            originChunk
+        );
 
         if (!RegisterMob(identity))
         {
@@ -575,7 +680,18 @@ public class MobSpawnerController : MonoBehaviour
 
     public bool TryChooseHostilePrefab(out GameObject selectedPrefab)
     {
+        return TryChooseHostilePrefab(
+            out selectedPrefab,
+            out _
+        );
+    }
+
+    private bool TryChooseHostilePrefab(
+        out GameObject selectedPrefab,
+        out string selectedPrefabID)
+    {
         selectedPrefab = null;
+        selectedPrefabID = null;
 
         if (gameClock == null || hostileSpawnData == null)
             return false;
@@ -608,6 +724,8 @@ public class MobSpawnerController : MonoBehaviour
             if (randomValue < 0)
             {
                 selectedPrefab = data.enemyPrefab;
+                selectedPrefabID = data.prefabID;
+
                 return true;
             }
         }
@@ -620,7 +738,9 @@ public class MobSpawnerController : MonoBehaviour
         int currentDay,
         int currentHour)
     {
-        if (data == null || data.enemyPrefab == null)
+        if (data == null ||
+            data.enemyPrefab == null ||
+            string.IsNullOrWhiteSpace(data.prefabID))
             return false;
 
         if (data.spawnPercentage <= 0)
@@ -664,7 +784,18 @@ public class MobSpawnerController : MonoBehaviour
 
     public bool TryChoosePassivePrefab(out GameObject selectedPrefab)
     {
+        return TryChoosePassivePrefab(
+            out selectedPrefab,
+            out _
+        );
+    }
+
+    private bool TryChoosePassivePrefab(
+        out GameObject selectedPrefab,
+        out string selectedPrefabID)
+    {
         selectedPrefab = null;
+        selectedPrefabID = null;
 
         if (passiveSpawnData == null)
             return false;
@@ -694,6 +825,8 @@ public class MobSpawnerController : MonoBehaviour
             if (randomValue < 0)
             {
                 selectedPrefab = data.mobPrefab;
+                selectedPrefabID = data.prefabID;
+
                 return true;
             }
         }
@@ -701,9 +834,56 @@ public class MobSpawnerController : MonoBehaviour
         return false;
     }
 
+    // PREFAB LOOKUP
+
+    public GameObject GetMobPrefab(
+        string prefabID,
+        MobType mobType)
+    {
+        if (string.IsNullOrWhiteSpace(prefabID))
+            return null;
+
+        if (mobType == MobType.Hostile)
+        {
+            if (hostileSpawnData == null)
+                return null;
+
+            foreach (HostileSpawnData data in hostileSpawnData)
+            {
+                if (data == null)
+                    continue;
+
+                if (data.prefabID == prefabID)
+                    return data.enemyPrefab;
+            }
+        }
+        else if (mobType == MobType.Passive)
+        {
+            if (passiveSpawnData == null)
+                return null;
+
+            foreach (PassiveSpawnData data in passiveSpawnData)
+            {
+                if (data == null)
+                    continue;
+
+                if (data.prefabID == prefabID)
+                    return data.mobPrefab;
+            }
+        }
+
+        Debug.LogWarning(
+            "Mob prefab not found: " + prefabID
+        );
+
+        return null;
+    }
+
     private bool CanPassiveMobSpawn(PassiveSpawnData data)
     {
-        if (data == null || data.mobPrefab == null)
+        if (data == null ||
+            data.mobPrefab == null ||
+            string.IsNullOrWhiteSpace(data.prefabID))
             return false;
 
         if (data.spawnPercentage <= 0)
@@ -822,12 +1002,21 @@ public class MobSpawnerController : MonoBehaviour
 
         foreach (MobIdentity mob in mobsToDespawn)
         {
+            if (mob == null)
+                continue;
+
+            // SAVE MOB BEFORE DESPAWNING.
+            if (worldGenerator != null)
+            {
+                worldGenerator.SaveMobState(mob);
+            }
+
             UnregisterMob(mob);
 
             Destroy(mob.gameObject);
 
             Debug.Log(
-                "Mob despawned outside loaded chunks: " +
+                "Mob saved and despawned outside loaded chunks: " +
                 mob.name
             );
         }

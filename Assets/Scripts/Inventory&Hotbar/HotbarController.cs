@@ -40,7 +40,7 @@ public class HotbarController : MonoBehaviour
         {
             hotbarRect.anchoredPosition = new Vector2(
                 0f,
-                -450f
+                100f
             );
         }
 

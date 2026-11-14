@@ -66,6 +66,9 @@ public class ExplodingMobBehavior : MonoBehaviour
     // HEALTH
     private float currentHP;
     private bool isDead;
+    private bool hasRestoredHealth;
+
+    public float CurrentHP => currentHP;
 
     // MOVEMENT
     private bool isChasing;
@@ -119,7 +122,12 @@ public class ExplodingMobBehavior : MonoBehaviour
 
     private void Start()
     {
-        currentHP = maxHP;
+        // INITIALIZE OR PRESERVE HEALTH
+        if (!hasRestoredHealth)
+        {
+            currentHP = maxHP;
+        }
+
         UpdateHealthBar();
 
         FindPlayer();
@@ -540,6 +548,14 @@ public class ExplodingMobBehavior : MonoBehaviour
         hpBar.fillAmount = Mathf.Clamp01(
             currentHP / maxHP
         );
+    }
+    
+    public void RestoreHealth(float savedHP)
+    {
+        currentHP = Mathf.Clamp(savedHP, 0f, maxHP);
+        hasRestoredHealth = true;
+
+        UpdateHealthBar();
     }
 
     // KNOCKBACK

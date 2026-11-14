@@ -352,7 +352,8 @@ public static class WorldSaveManager
                 worldID = worldID,
                 destroyedObjects = new List<DestroyedObjectSaveData>(),
                 droppedLoot = new List<DroppedLootSaveData>(),
-                buildings = new List<BuildingSaveData>()
+                buildings = new List<BuildingSaveData>(),
+                mobs = new List<MobSaveData>()
             };
         }
 
@@ -399,6 +400,9 @@ public static class WorldSaveManager
         if (stateData.buildings == null)
             stateData.buildings = new List<BuildingSaveData>();
 
+        if (stateData.mobs == null)
+            stateData.mobs = new List<MobSaveData>();
+
         Debug.Log("World state loaded: " + worldID);
 
         return stateData;
@@ -431,6 +435,9 @@ public static class WorldSaveManager
 
         if (stateData.buildings == null)
             stateData.buildings = new List<BuildingSaveData>();
+
+        if (stateData.mobs == null)
+            stateData.mobs = new List<MobSaveData>();
 
         string filePath = GetWorldStateFilePath(stateData.worldID);
 

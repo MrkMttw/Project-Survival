@@ -60,6 +60,9 @@ public class PassiveMobBehavior : MonoBehaviour
     private bool isFleeing;
     private bool isWaiting;
     private bool hasWanderTarget;
+    private bool hasRestoredHealth;
+
+    public float CurrentHP => currentHP;
 
     private void Awake()
     {
@@ -84,7 +87,12 @@ public class PassiveMobBehavior : MonoBehaviour
         startingPosition = rb.position;
         lastStuckCheckPosition = rb.position;
 
-        currentHP = maxHP;
+        // INITIALIZE OR PRESERVE HEALTH
+        if (!hasRestoredHealth)
+        {
+            currentHP = maxHP;
+        }
+
         UpdateHealthBar();
 
         GameObject playerObject =
@@ -146,7 +154,7 @@ public class PassiveMobBehavior : MonoBehaviour
         if (rb == null || currentHP <= 0f)
             return;
 
-        // Knockback temporarily takes priority over AI movement.
+        // KNOCKBACK
         if (isKnockedBack)
         {
             rb.MovePosition(
@@ -180,6 +188,14 @@ public class PassiveMobBehavior : MonoBehaviour
 
     // HEALTH
 
+    public void RestoreHealth(float savedHP)
+    {
+        currentHP = Mathf.Clamp(savedHP, 0f, maxHP);
+        hasRestoredHealth = true;
+
+        UpdateHealthBar();
+    }
+
     public void TakeDamage(float damage)
     {
         if (currentHP <= 0f)
@@ -190,7 +206,7 @@ public class PassiveMobBehavior : MonoBehaviour
             0f,
             maxHP
         );
-        
+
         // PLAY HIT FLASH
         if (damage > 0f)
             hitFlash?.PlayHitFlash();

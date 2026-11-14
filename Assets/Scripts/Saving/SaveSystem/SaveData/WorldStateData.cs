@@ -15,6 +15,9 @@ public class WorldStateData
 
     public List<BuildingSaveData> buildings =
         new List<BuildingSaveData>();
+
+    public List<MobSaveData> mobs =
+        new List<MobSaveData>();
 }
 
 // DESTROYED OBJECT DATA
@@ -44,4 +47,30 @@ public class DroppedLootSaveData
 
     public int chunkX;
     public int chunkY;
+}
+
+// MOB SAVE DATA
+[Serializable]
+public class MobSaveData
+{
+    public string mobID;
+    public string prefabID;
+
+    public MobType mobType;
+
+    // CURRENT WORLD POSITION
+    public float positionX;
+    public float positionY;
+    public float positionZ;
+
+    // ORIGINAL SPAWN CHUNK
+    public int originalChunkX;
+    public int originalChunkY;
+
+    // CURRENT POSITION CHUNK
+    public int chunkX;
+    public int chunkY;
+
+    // CURRENT HEALTH
+    public float currentHP;
 }

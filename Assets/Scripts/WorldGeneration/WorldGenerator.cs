@@ -319,7 +319,7 @@ public class WorldGenerator : MonoBehaviour
             structureSpawner.ProcessChunk(chunkCoordinate);
         }
 
-        // Initialize the regular mob spawner for this chunk.
+        // INITIALIZE AND RESTORE CHUNK MOBS
         if (mobSpawnerController != null)
         {
             ChunkMobSpawner chunkSpawner =
@@ -331,6 +331,8 @@ public class WorldGenerator : MonoBehaviour
                 chunkSize,
                 player
             );
+
+            RestoreMobsInChunk(chunkCoordinate);
         }
     }
 
@@ -1155,6 +1157,25 @@ public class WorldGenerator : MonoBehaviour
         if (worldStateData == null)
             return false;
 
+        // SAVE ALL ACTIVE MOBS
+        if (mobSpawnerController == null)
+        {
+            mobSpawnerController =
+                FindFirstObjectByType<MobSpawnerController>();
+        }
+
+        if (mobSpawnerController != null)
+        {
+            mobSpawnerController.SaveAllActiveMobs();
+        }
+        else
+        {
+            Debug.LogWarning(
+                "WorldGenerator: MobSpawnerController missing. " +
+                "Active mobs were not saved."
+            );
+        }
+
         worldStateData.buildings.Clear();
 
         foreach (var chunk in savedBuildings)
@@ -1470,5 +1491,251 @@ public class WorldGenerator : MonoBehaviour
         data.hasGrown = true;
         data.grownPrefab = treePrefab;
         data.growthDeadline = 0f;
+    }
+
+    // MOB PERSISTENCE
+
+    public void SaveMobState(MobIdentity mob)
+    {
+        if (mob == null ||
+            worldStateData == null ||
+            string.IsNullOrEmpty(mob.mobID))
+        {
+            return;
+        }
+
+        float currentHP = -1f;
+
+        // GET CURRENT HEALTH
+        if (mob.mobType == MobType.Hostile)
+        {
+            HostileMobBehavior behavior =
+                mob.GetComponentInChildren<HostileMobBehavior>(true);
+
+            if (behavior != null)
+                currentHP = behavior.CurrentHP;
+        }
+        else if (mob.mobType == MobType.Passive)
+        {
+            PassiveMobBehavior behavior =
+                mob.GetComponentInChildren<PassiveMobBehavior>(true);
+
+            if (behavior != null)
+                currentHP = behavior.CurrentHP;
+        }
+
+        // EXPLODING MOB FALLBACK
+        if (currentHP < 0f)
+        {
+            ExplodingMobBehavior explodingMob =
+                mob.GetComponentInChildren<ExplodingMobBehavior>(true);
+
+            if (explodingMob != null)
+                currentHP = explodingMob.CurrentHP;
+        }
+
+        if (currentHP < 0f)
+        {
+            Debug.LogWarning(
+                "Could not save mob health: " + mob.name
+            );
+
+            return;
+        }
+
+        Vector3 position = mob.transform.position;
+
+        Vector2Int currentChunk =
+            GetChunkCoordinate(position);
+
+        MobSaveData data = worldStateData.mobs.Find(
+            saved => saved.mobID == mob.mobID
+        );
+
+        if (data == null)
+        {
+            data = new MobSaveData();
+            worldStateData.mobs.Add(data);
+        }
+
+        data.mobID = mob.mobID;
+        data.prefabID = mob.prefabID;
+        data.mobType = mob.mobType;
+
+        data.positionX = position.x;
+        data.positionY = position.y;
+        data.positionZ = position.z;
+
+        data.originalChunkX = mob.originalChunkCoordinate.x;
+        data.originalChunkY = mob.originalChunkCoordinate.y;
+
+        data.chunkX = currentChunk.x;
+        data.chunkY = currentChunk.y;
+
+        data.currentHP = currentHP;
+    }
+
+
+    // RESTORE MOBS IN CHUNK
+
+    private void RestoreMobsInChunk(Vector2Int chunkCoordinate)
+    {
+        if (mobSpawnerController == null || worldStateData == null)
+            return;
+
+        List<MobSaveData> savedMobs =
+            GetSavedMobsForChunk(chunkCoordinate);
+
+        foreach (MobSaveData data in savedMobs)
+        {
+            if (data == null)
+                continue;
+
+            GameObject prefab = mobSpawnerController.GetMobPrefab(
+                data.prefabID,
+                data.mobType
+            );
+
+            if (prefab == null)
+                continue;
+
+            Vector3 position = new Vector3(
+                data.positionX,
+                data.positionY,
+                data.positionZ
+            );
+
+            GameObject restoredMob = Instantiate(
+                prefab,
+                position,
+                Quaternion.identity
+            );
+
+            MobIdentity identity =
+                restoredMob.GetComponent<MobIdentity>();
+
+            if (identity == null)
+                identity = restoredMob.AddComponent<MobIdentity>();
+
+            // RESTORE ORIGINAL IDENTITY
+            identity.mobID = data.mobID;
+            identity.prefabID = data.prefabID;
+            identity.mobType = data.mobType;
+
+            identity.originalChunkCoordinate = new Vector2Int(
+                data.originalChunkX,
+                data.originalChunkY
+            );
+
+            // RESTORE HEALTH BEFORE START()
+            bool healthRestored = false;
+
+            if (data.mobType == MobType.Hostile)
+            {
+                HostileMobBehavior hostile =
+                    restoredMob.GetComponentInChildren<HostileMobBehavior>(true);
+
+                if (hostile != null)
+                {
+                    hostile.RestoreHealth(data.currentHP);
+                    healthRestored = true;
+                }
+            }
+            else if (data.mobType == MobType.Passive)
+            {
+                PassiveMobBehavior passive =
+                    restoredMob.GetComponentInChildren<PassiveMobBehavior>(true);
+
+                if (passive != null)
+                {
+                    passive.RestoreHealth(data.currentHP);
+                    healthRestored = true;
+                }
+            }
+
+            // SUPPORT EXPLODING MOBS
+            if (!healthRestored)
+            {
+                ExplodingMobBehavior exploding =
+                    restoredMob.GetComponentInChildren<ExplodingMobBehavior>(true);
+
+                if (exploding != null)
+                {
+                    exploding.RestoreHealth(data.currentHP);
+                    healthRestored = true;
+                }
+            }
+
+            if (!healthRestored)
+            {
+                Debug.LogError(
+                    "Could not restore mob health: " + data.mobID
+                );
+
+                Destroy(restoredMob);
+                continue;
+            }
+
+            // REGISTER WITHOUT NORMAL POPULATION LIMITS
+            if (!mobSpawnerController.RegisterRestoredMob(identity))
+            {
+                Debug.LogWarning(
+                    "Could not register restored mob: " + data.mobID
+                );
+
+                Destroy(restoredMob);
+                continue;
+            }
+
+            // REMOVE RECORD ONLY AFTER SUCCESSFUL RESTORATION
+            RemoveSavedMobRecord(data.mobID);
+
+            Debug.Log(
+                "Restored mob: " + data.prefabID +
+                " | ID: " + data.mobID +
+                " | Chunk: " + chunkCoordinate
+            );
+        }
+    }
+
+    public void RemoveSavedMobRecord(string mobID)
+    {
+        if (worldStateData == null ||
+            string.IsNullOrEmpty(mobID) ||
+            worldStateData.mobs == null)
+        {
+            return;
+        }
+
+        worldStateData.mobs.RemoveAll(
+            saved => saved != null && saved.mobID == mobID
+        );
+    }
+
+    public List<MobSaveData> GetSavedMobsForChunk(
+        Vector2Int chunkCoordinate)
+    {
+        List<MobSaveData> result =
+            new List<MobSaveData>();
+
+        if (worldStateData == null ||
+            worldStateData.mobs == null)
+        {
+            return result;
+        }
+
+        foreach (MobSaveData data in worldStateData.mobs)
+        {
+            if (data == null)
+                continue;
+
+            if (data.chunkX == chunkCoordinate.x &&
+                data.chunkY == chunkCoordinate.y)
+            {
+                result.Add(data);
+            }
+        }
+
+        return result;
     }
 }

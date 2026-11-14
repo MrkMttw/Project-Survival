@@ -12,7 +12,7 @@ public class ItemDragHandler : MonoBehaviour,
 {
 
     [SerializeField] private float swipeThreshold = 80f;
-    private Vector2 dragStartPosition;
+    private Vector2 dragStartPosition;  
     private bool passedSwipeThreshold;
     
     private Vector3 originalLocalScale;
