@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,12 +7,14 @@ public class StartMenuController : MonoBehaviour
     public GameObject MainMenu; 
     public GameObject PlayScreen;
     public GameObject CreateWorld;
+    public GameObject WorldSettings;
 
     void Start()
     {
         MainMenu.SetActive(true);
         PlayScreen.SetActive(false);
         CreateWorld.SetActive(false);
+        WorldSettings.SetActive(false);
     }
 
     void Update()
@@ -21,6 +24,7 @@ public class StartMenuController : MonoBehaviour
             MainMenu.SetActive(true);
             PlayScreen.SetActive(false);
             CreateWorld.SetActive(false);
+            WorldSettings.SetActive(false);
         }
     }
 
@@ -35,6 +39,7 @@ public class StartMenuController : MonoBehaviour
         PlayScreen.SetActive(true);
         MainMenu.SetActive(false);
         CreateWorld.SetActive(false);
+        WorldSettings.SetActive(false);
     }
 
     public void OnClickBack()
@@ -42,6 +47,7 @@ public class StartMenuController : MonoBehaviour
         MainMenu.SetActive(true);
         PlayScreen.SetActive(false);
         CreateWorld.SetActive(false);
+        WorldSettings.SetActive(false);
     }
 
     public void OnClickCreateWorldBack()
@@ -49,6 +55,15 @@ public class StartMenuController : MonoBehaviour
         MainMenu.SetActive(false);
         PlayScreen.SetActive(true);
         CreateWorld.SetActive(false);
+        WorldSettings.SetActive(false);
+    }
+
+    public void OnClickWorldSettingBack()
+    {
+        CreateWorld.SetActive(true);
+        MainMenu.SetActive(false);
+        PlayScreen.SetActive(false);
+        WorldSettings.SetActive(false);
     }
 
     public void OnExitClick()
@@ -69,5 +84,14 @@ public class StartMenuController : MonoBehaviour
         CreateWorld.SetActive(true);
         MainMenu.SetActive(false);
         PlayScreen.SetActive(false);
+        WorldSettings.SetActive(false);
+    }
+
+    public void OnClickWorldSetting()
+    {
+        CreateWorld.SetActive(false);
+        MainMenu.SetActive(false);
+        PlayScreen.SetActive(false);
+        WorldSettings.SetActive(true);
     }
 }
